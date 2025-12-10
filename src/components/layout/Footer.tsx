@@ -1,4 +1,5 @@
 import { Facebook, Instagram, Linkedin, ArrowUp, Phone, Mail, MapPin } from "lucide-react";
+import relaxolLogo from "@/assets/relaxol-logo.png";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -32,9 +33,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo & Description */}
           <div className="lg:col-span-1">
-            <div className="flex flex-col mb-6">
-              <span className="text-primary font-serif text-2xl font-bold leading-tight">KHANNA</span>
-              <span className="text-background/80 text-xs tracking-wider">PSYCHIATRIC & KETAMINE</span>
+            <div className="mb-6">
+              <img src={relaxolLogo} alt="Relaxol Clinic" className="h-12 w-auto" />
             </div>
             <p className="text-background/70 text-sm leading-relaxed">
               New York's premier destination for ketamine and SPRAVATO® therapy. We provide compassionate, clinician-led care for patients seeking relief from depression, anxiety, PTSD, and OCD.
@@ -85,11 +85,11 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:info@khannapsych.com"
+                  href="mailto:info@relaxolclinic.com"
                   className="flex items-center gap-3 text-background/70 hover:text-primary transition-colors"
                 >
                   <Mail className="w-5 h-5" />
-                  <span>info@khannapsych.com</span>
+                  <span>info@relaxolclinic.com</span>
                 </a>
               </li>
               <li>
@@ -131,7 +131,7 @@ export function Footer() {
       <div className="border-t border-background/10">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-background/60">
-            <p>© 2025 Khanna Psychiatric & Ketamine. All rights reserved.</p>
+            <p>© 2025 Relaxol Clinic. All rights reserved.</p>
             <div className="flex items-center gap-6">
               <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
