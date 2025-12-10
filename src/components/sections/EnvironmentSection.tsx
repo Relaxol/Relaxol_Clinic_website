@@ -11,13 +11,13 @@ export function EnvironmentSection() {
               YOUR COMFORT MATTERS
             </span>
             <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-6">
-              Calm Treatment Environment
+              A Calm, Private Treatment Environment
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              We know that seeking mental health treatment can feel vulnerable. That's why we've designed our clinic to feel more like a spa than a sterile medical office. From soft lighting to comfortable recliners, every detail is intended to help you relax during your session.
             </p>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Each treatment room is private, ensuring confidentiality and peace of mind. Our staff is trained not only in clinical care but in creating a welcoming, judgment-free atmosphere where you can focus entirely on your healing.
             </p>
           </div>
 
@@ -26,7 +26,7 @@ export function EnvironmentSection() {
             <div className="image-card aspect-[4/3]">
               <img
                 src={treatmentRoom}
-                alt="Treatment room interior"
+                alt="Comfortable treatment room with calming atmosphere"
                 className="w-full h-full object-cover"
               />
             </div>

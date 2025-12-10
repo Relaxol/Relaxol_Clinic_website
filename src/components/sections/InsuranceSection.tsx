@@ -1,22 +1,21 @@
 import { Shield, CreditCard } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const cards = [
   {
     icon: Shield,
-    title: "Now Accepting Insurance",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    highlight: "Covered treatments available with qualifying insurance plans.",
-    linkText: "More financing options",
-    linkHref: "#",
+    title: "Insurance Coverage for SPRAVATO®",
+    description: "SPRAVATO® is FDA-approved and covered by many insurance plans, including Medicare and Medicaid in some states. Our team will verify your benefits and handle prior authorizations so you know what to expect before your first appointment.",
+    highlight: "We work with most major insurance providers.",
+    linkText: "Verify your coverage",
+    linkHref: "#contact",
   },
   {
     icon: CreditCard,
-    title: "HSAs and FSAs Accepted",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. We accept health saving accounts, flexible spending accounts, and more.",
+    title: "Flexible Payment Options",
+    description: "For ketamine infusions and other out-of-pocket services, we offer transparent pricing and flexible payment plans. We also accept HSAs, FSAs, and major credit cards to make treatment accessible.",
     highlight: null,
-    linkText: "More financing options",
-    linkHref: "#",
+    linkText: "Discuss financing options",
+    linkHref: "#contact",
   },
 ];
 
@@ -24,7 +23,20 @@ export function InsuranceSection() {
   return (
     <section id="financing" className="py-16 bg-cream-dark">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 gap-8">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
+            INSURANCE & FINANCING
+          </p>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
+            Navigating Coverage & Costs
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            We believe cost shouldn't be a barrier to mental health care. Our team is here to help you understand your options.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {cards.map((card, index) => (
             <div
               key={index}
