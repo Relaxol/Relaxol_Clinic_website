@@ -19,11 +19,11 @@ export function Header() {
       {/* Top Bar */}
       <div className="bg-foreground text-background py-2 px-4">
         <div className="container mx-auto flex flex-wrap items-center justify-between gap-2 text-sm">
-          <span className="font-medium">New York's Premier Ketamine & SPRAVATO® Clinic</span>
+          <span className="font-medium">New Jersey's Premier Ketamine & SPRAVATO® Clinic</span>
           <div className="flex items-center gap-4">
-            <a href="tel:555-123-4567" className="flex items-center gap-1.5 hover:text-primary transition-colors">
+            <a href="tel:201-781-2101" className="flex items-center gap-1.5 hover:text-primary transition-colors">
               <Phone className="w-4 h-4" />
-              <span className="hidden sm:inline">Call: 555-123-4567</span>
+              <span className="hidden sm:inline">Call: 201-781-2101</span>
             </a>
           </div>
         </div>
@@ -34,7 +34,7 @@ export function Header() {
         <div className="container mx-auto flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center">
-            <img src={relaxolLogo} alt="Relaxol Clinic" className="h-10 md:h-12 w-auto" />
+            <img src={relaxolLogo} alt="Relaxol Clinic" className="h-14 md:h-16 w-auto" />
           </a>
 
           {/* Desktop Nav */}

@@ -34,10 +34,10 @@ export function Footer() {
           {/* Logo & Description */}
           <div className="lg:col-span-1">
             <div className="mb-6">
-              <img src={relaxolLogo} alt="Relaxol Clinic" className="h-12 w-auto" />
+              <img src={relaxolLogo} alt="Relaxol Clinic" className="h-16 w-auto" />
             </div>
             <p className="text-background/70 text-sm leading-relaxed">
-              New York's premier destination for ketamine and SPRAVATO® therapy. We provide compassionate, clinician-led care for patients seeking relief from depression, anxiety, PTSD, and OCD.
+              New Jersey's premier destination for ketamine and SPRAVATO® therapy. We provide compassionate, clinician-led care for patients seeking relief from depression, anxiety, PTSD, and OCD.
             </p>
           </div>
 
@@ -76,11 +76,11 @@ export function Footer() {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="tel:555-123-4567"
+                  href="tel:201-781-2101"
                   className="flex items-center gap-3 text-background/70 hover:text-primary transition-colors"
                 >
                   <Phone className="w-5 h-5" />
-                  <span>555-123-4567</span>
+                  <span>201-781-2101</span>
                 </a>
               </li>
               <li>
@@ -94,11 +94,13 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="#contact"
+                  href="https://maps.google.com/?q=560+Sylvan+Avenue+Suite+2115+Englewood+Cliffs+NJ+07632"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-start gap-3 text-background/70 hover:text-primary transition-colors"
                 >
-                  <MapPin className="w-5 h-5 mt-0.5" />
-                  <span>New York, NY</span>
+                  <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                  <span>560 Sylvan Avenue, Suite 2115<br />Englewood Cliffs, NJ 07632</span>
                 </a>
               </li>
             </ul>
