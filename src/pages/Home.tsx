@@ -23,6 +23,7 @@ const Home = () => {
         <HeroSection />
         <AboutSection />
         <ConditionsSection />
+        <EnvironmentSection />
         <TreatmentsSection />
         <InsuranceSection />
         <WhyChooseSection />
@@ -30,7 +31,6 @@ const Home = () => {
         <TestimonialsSection />
         <VideoTestimonialsSection />
         <TimelineSection />
-        <EnvironmentSection />
         <DoctorSection />
         <FAQSection />
         <ContactSection />
