@@ -35,10 +35,10 @@ export function ContactSection() {
           {/* Header */}
           <div className="text-center mb-10">
             <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
-              SCHEDULE A FREE CONSULTATION
+              Ready to Talk?
             </h2>
             <p className="text-muted-foreground text-lg">
-              Please submit your request below for more information about our innovative treatment options and a member from our staff will contact you during regular business hours.
+              Submit a short form and our team will contact you within one business day to discuss your options and answer any questions.
             </p>
           </div>
 
@@ -99,28 +99,30 @@ export function ContactSection() {
             </div>
 
             <div className="mb-6">
-              <label htmlFor="location" className="block text-sm font-medium text-foreground mb-2">
-                Location *
+              <label htmlFor="interest" className="block text-sm font-medium text-foreground mb-2">
+                I'm interested in *
               </label>
               <Select>
                 <SelectTrigger className="h-12 rounded-xl border-border">
-                  <SelectValue placeholder="Select a location" />
+                  <SelectValue placeholder="Select a treatment" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="location-a">Location A</SelectItem>
-                  <SelectItem value="location-b">Location B</SelectItem>
+                  <SelectItem value="spravato">SPRAVATO® Treatment</SelectItem>
+                  <SelectItem value="ketamine">Ketamine Infusion Therapy</SelectItem>
+                  <SelectItem value="consultation">General Consultation</SelectItem>
+                  <SelectItem value="other">Other / Not Sure</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="mb-6">
               <label htmlFor="comments" className="block text-sm font-medium text-foreground mb-2">
-                Comments
+                Tell us about your situation
               </label>
               <Textarea
                 id="comments"
                 className="min-h-[120px] rounded-xl border-border focus:border-primary resize-none"
-                placeholder="Tell us about your situation..."
+                placeholder="Share anything you'd like us to know..."
               />
             </div>
 
@@ -131,7 +133,7 @@ export function ContactSection() {
                   className="w-5 h-5 rounded border-border text-primary mt-0.5"
                 />
                 <span className="text-sm text-muted-foreground">
-                  I consent to receive notifications and alerts. Message frequency varies. Message & data rates may apply. You can reply STOP to unsubscribe at any time.
+                  I consent to receive communications from Khanna Psychiatric & Ketamine. Message frequency varies. Reply STOP to unsubscribe.
                 </span>
               </label>
             </div>
@@ -141,7 +143,7 @@ export function ContactSection() {
               disabled={isSubmitting}
               className="w-full h-14 btn-primary text-lg"
             >
-              {isSubmitting ? "Submitting..." : "Request More Information"}
+              {isSubmitting ? "Submitting..." : "Request a Call Back"}
             </Button>
 
             <p className="text-center text-sm text-muted-foreground mt-6">

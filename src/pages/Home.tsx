@@ -2,8 +2,10 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { AboutSection } from "@/components/sections/AboutSection";
+import { ConditionsSection } from "@/components/sections/ConditionsSection";
 import { InsuranceSection } from "@/components/sections/InsuranceSection";
 import { TreatmentsSection } from "@/components/sections/TreatmentsSection";
+import { WhyChooseSection } from "@/components/sections/WhyChooseSection";
 import { VideoSection } from "@/components/sections/VideoSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { VideoTestimonialsSection } from "@/components/sections/VideoTestimonialsSection";
@@ -20,8 +22,10 @@ const Home = () => {
       <main>
         <HeroSection />
         <AboutSection />
-        <InsuranceSection />
+        <ConditionsSection />
         <TreatmentsSection />
+        <InsuranceSection />
+        <WhyChooseSection />
         <VideoSection />
         <TestimonialsSection />
         <VideoTestimonialsSection />

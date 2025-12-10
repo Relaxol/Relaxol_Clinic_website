@@ -7,20 +7,24 @@ import {
 
 const faqs = [
   {
-    question: "What conditions can be treated with these therapies?",
-    answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    question: "What is the difference between ketamine and SPRAVATO®?",
+    answer: "Ketamine is administered intravenously (IV) and is used off-label for depression and other conditions. SPRAVATO® (esketamine) is a nasal spray that's FDA-approved specifically for treatment-resistant depression. Both work on similar brain pathways but have different administration methods, coverage options, and regulatory statuses.",
   },
   {
-    question: "How long does each treatment session last?",
-    answer: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    question: "How quickly will I feel results?",
+    answer: "Many patients notice improvement within hours to days of their first treatment—a stark contrast to traditional antidepressants, which can take weeks. However, results vary by individual, and a full treatment course is often needed to achieve lasting benefits.",
   },
   {
-    question: "Is treatment covered by insurance?",
-    answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Many insurance plans now provide reimbursement to their members for a portion of the treatment costs. Our dedicated insurance specialist can help negotiate your estimated reimbursement.",
+    question: "Is ketamine therapy safe?",
+    answer: "When administered by trained medical professionals in a clinical setting, ketamine and SPRAVATO® are considered safe. Side effects are typically mild and short-lived (e.g., dizziness, nausea, dissociation). Our team monitors you throughout every session.",
+  },
+  {
+    question: "Will my insurance cover treatment?",
+    answer: "SPRAVATO® is covered by many insurance plans, including some Medicare and Medicaid programs. Ketamine infusions are typically out-of-pocket, though we offer flexible payment options. Contact us to verify your specific coverage.",
   },
   {
     question: "What should I expect during my first visit?",
-    answer: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. During your initial consultation, our team will review your medical history, discuss your symptoms and treatment goals, and create a personalized care plan tailored to your needs.",
+    answer: "Your first visit will include a comprehensive psychiatric evaluation to determine whether ketamine or SPRAVATO® therapy is appropriate for you. We'll review your medical history, discuss your treatment goals, and answer any questions. If you're a good candidate, we can often schedule your first treatment session shortly after.",
   },
 ];
 
@@ -35,7 +39,7 @@ export function FAQSection() {
               Frequently Asked Questions
             </h2>
             <p className="text-muted-foreground text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Find answers to common questions about our treatments.
+              Get answers to common questions about our treatments and process.
             </p>
           </div>
 
@@ -59,11 +63,12 @@ export function FAQSection() {
 
           {/* CTA */}
           <div className="text-center mt-10">
+            <p className="text-muted-foreground mb-4">Still have questions?</p>
             <a
-              href="#"
-              className="btn-outline"
+              href="#contact"
+              className="btn-primary"
             >
-              View All FAQs
+              Contact Our Team
             </a>
           </div>
         </div>

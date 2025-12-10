@@ -2,27 +2,27 @@ const steps = [
   {
     number: 1,
     title: "Consultation",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Initial evaluation.",
+    description: "During your initial consultation, we'll review your medical history, discuss your symptoms, and determine whether ketamine or SPRAVATO® therapy is right for you.",
   },
   {
     number: 2,
     title: "Insurance Check",
-    description: "Sed do eiusmod tempor incididunt ut labore. Verify coverage options.",
+    description: "Our team will verify your insurance coverage for SPRAVATO® (which is often covered) and explain any out-of-pocket costs for ketamine infusions.",
   },
   {
     number: 3,
     title: "Treatment",
-    description: "Duis aute irure dolor in reprehenderit. Begin personalized care plan.",
+    description: "You'll receive your treatment in a private, comfortable room under the supervision of our clinical staff. Sessions typically last 1–2 hours depending on the therapy.",
   },
   {
     number: 4,
     title: "Follow-Up",
-    description: "Excepteur sint occaecat cupidatat non proident. Monitor progress.",
+    description: "After your session, we'll check in to monitor your response and adjust your care plan as needed. Follow-up appointments can often be done via telehealth.",
   },
   {
     number: 5,
     title: "Long-Term Care",
-    description: "Sunt in culpa qui officia deserunt mollit. Ongoing support and wellness.",
+    description: "Mental health is a journey. We offer ongoing support, including maintenance treatments and psychiatric follow-ups, to help you sustain your progress over time.",
   },
 ];
 
@@ -36,7 +36,7 @@ export function TimelineSection() {
             What to Expect
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Our streamlined process makes getting started simple.
+            From your first consultation to long-term wellness, here's how we guide you through treatment.
           </p>
         </div>
 

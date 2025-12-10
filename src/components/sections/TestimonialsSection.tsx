@@ -2,21 +2,21 @@ import { Star, Quote } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Jane D.",
-    treatment: "Treatment Option A",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...",
+    name: "M.R.",
+    treatment: "SPRAVATO® Patient",
+    text: "After years of trying different medications, I was skeptical that anything would work. Within a few weeks of starting SPRAVATO®, I noticed a shift. The fog lifted. I'm not 'cured,' but I finally feel like myself again.",
     rating: 5,
   },
   {
-    name: "John S.",
-    treatment: "Treatment Option B",
-    text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident...",
+    name: "J.L.",
+    treatment: "Ketamine Infusion Patient",
+    text: "The staff made me feel safe from the moment I walked in. The treatment itself was surprisingly calm, and the relief I felt afterward was unlike anything I'd experienced before. I wish I'd found this clinic sooner.",
     rating: 5,
   },
   {
-    name: "Sarah M.",
-    treatment: "Treatment Option C",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. An outstanding team awaits you here. Every member of the staff is genuinely caring...",
+    name: "S.T.",
+    treatment: "PTSD Treatment Patient",
+    text: "I came here after a trauma that left me unable to function. Dr. Khanna and the team were incredibly compassionate. The ketamine treatments helped me process things I'd been avoiding for years. I'm grateful beyond words.",
     rating: 5,
   },
 ];
@@ -28,11 +28,14 @@ export function TestimonialsSection() {
         {/* Header */}
         <div className="text-center mb-12">
           <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
-            REAL PATIENT STORIES
+            PATIENT EXPERIENCES
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground font-bold">
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
             What Our Patients Are Saying
           </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Real stories from patients who found relief through our treatments.
+          </p>
         </div>
 
         {/* Testimonial Cards */}
@@ -79,7 +82,7 @@ export function TestimonialsSection() {
             href="#contact"
             className="btn-primary"
           >
-            Book Your Free Consultation Today!
+            Start Your Journey Today
           </a>
         </div>
       </div>

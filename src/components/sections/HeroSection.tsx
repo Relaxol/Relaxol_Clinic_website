@@ -1,4 +1,11 @@
+import { Shield, Award, CreditCard } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
+
+const trustPills = [
+  { icon: Award, label: "Board-Certified Psychiatric Care" },
+  { icon: Shield, label: "FDA-Approved SPRAVATO® Clinic" },
+  { icon: CreditCard, label: "Insurance & Benefits Support" },
+];
 
 export function HeroSection() {
   return (
@@ -9,7 +16,7 @@ export function HeroSection() {
         style={{ backgroundImage: `url(${heroBackground})` }}
       >
         {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 via-foreground/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/60 to-foreground/40" />
       </div>
 
       {/* Content */}
@@ -22,17 +29,41 @@ export function HeroSection() {
 
           {/* Main Heading */}
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-background font-bold leading-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-            City's Premier Ketamine & SPRAVATO® Provider
+            New York's Premier Ketamine & SPRAVATO® Clinic
           </h1>
 
-          {/* CTA Button */}
-          <div className="flex flex-wrap gap-4 animate-fade-up" style={{ animationDelay: "0.2s" }}>
+          {/* Subtitle Text */}
+          <p className="text-background/90 text-lg md:text-xl leading-relaxed mb-8 animate-fade-up" style={{ animationDelay: "0.15s" }}>
+            Advanced, clinician-led treatments for depression, anxiety, PTSD and OCD in a safe, monitored medical setting.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap gap-4 mb-10 animate-fade-up" style={{ animationDelay: "0.2s" }}>
             <a
               href="#contact"
               className="btn-primary text-lg"
             >
-              Book Your Free Consultation Today!
+              Schedule a Consultation
             </a>
+            <a
+              href="#treatments"
+              className="btn-outline border-background/50 text-background hover:bg-background hover:text-foreground text-lg"
+            >
+              Learn About Our Treatments
+            </a>
+          </div>
+
+          {/* Trust Pills */}
+          <div className="flex flex-wrap gap-3 animate-fade-up" style={{ animationDelay: "0.3s" }}>
+            {trustPills.map((pill) => (
+              <div
+                key={pill.label}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background/10 backdrop-blur-sm border border-background/20 text-background text-sm font-medium"
+              >
+                <pill.icon className="w-4 h-4 text-primary" />
+                <span>{pill.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
