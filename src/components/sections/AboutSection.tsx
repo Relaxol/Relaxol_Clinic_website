@@ -1,4 +1,4 @@
-import treatmentRoom from "@/assets/treatment-room.jpg";
+import aboutClinic from "@/assets/about-clinic.jpg";
 
 export function AboutSection() {
   return (
@@ -19,7 +19,7 @@ export function AboutSection() {
           <div className="relative order-2 lg:order-1">
             <div className="image-card aspect-[4/3]">
               <img
-                src={treatmentRoom}
+                src={aboutClinic}
                 alt="Modern treatment facility interior"
                 className="w-full h-full object-cover"
               />
