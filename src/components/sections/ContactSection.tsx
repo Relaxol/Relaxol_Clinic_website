@@ -133,7 +133,7 @@ export function ContactSection() {
                   className="w-5 h-5 rounded border-border text-primary mt-0.5"
                 />
                 <span className="text-sm text-muted-foreground">
-                  I consent to receive communications from Khanna Psychiatric & Ketamine. Message frequency varies. Reply STOP to unsubscribe.
+                  I consent to receive communications from Relaxol Clinic. Message frequency varies. Reply STOP to unsubscribe.
                 </span>
               </label>
             </div>

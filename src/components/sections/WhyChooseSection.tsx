@@ -30,7 +30,7 @@ export function WhyChooseSection() {
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
-            Why Choose Khanna Psychiatric & Ketamine
+            Why Choose Relaxol Clinic
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Compassionate care backed by expertise and evidence.

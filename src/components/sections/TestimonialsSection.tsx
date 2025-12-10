@@ -16,7 +16,7 @@ const testimonials = [
   {
     name: "S.T.",
     treatment: "PTSD Treatment Patient",
-    text: "I came here after a trauma that left me unable to function. Dr. Khanna and the team were incredibly compassionate. The ketamine treatments helped me process things I'd been avoiding for years. I'm grateful beyond words.",
+    text: "I came here after a trauma that left me unable to function. The doctor and the team were incredibly compassionate. The ketamine treatments helped me process things I'd been avoiding for years. I'm grateful beyond words.",
     rating: 5,
   },
 ];

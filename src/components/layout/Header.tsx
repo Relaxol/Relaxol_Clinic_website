@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import relaxolLogo from "@/assets/relaxol-logo.png";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -33,10 +34,7 @@ export function Header() {
         <div className="container mx-auto flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center">
-            <div className="flex flex-col">
-              <span className="text-primary font-serif text-xl md:text-2xl font-bold leading-tight">KHANNA</span>
-              <span className="text-background/80 text-xs tracking-wider">PSYCHIATRIC & KETAMINE</span>
-            </div>
+            <img src={relaxolLogo} alt="Relaxol Clinic" className="h-10 md:h-12 w-auto" />
           </a>
 
           {/* Desktop Nav */}

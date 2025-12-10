@@ -20,7 +20,7 @@ export function DoctorSection() {
               <div className="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-8 border-white shadow-hero">
                 <img
                   src={doctorPortrait}
-                  alt="Dr. Khanna - Board-Certified Psychiatrist"
+                  alt="Board-Certified Psychiatrist"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -33,13 +33,13 @@ export function DoctorSection() {
               BOARD-CERTIFIED PSYCHIATRIST
             </p>
             <h2 className="font-serif text-3xl md:text-4xl text-foreground font-bold mb-6">
-              Meet Dr. Khanna
+              Meet Our Doctor
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Dr. Khanna is a board-certified psychiatrist with over 15 years of experience treating mood disorders, anxiety, trauma, and OCD. After completing advanced training in ketamine-assisted therapies, Dr. Khanna founded this clinic to bring cutting-edge treatments to patients who had lost hope in traditional approaches.
+              Our lead psychiatrist is board-certified with over 15 years of experience treating mood disorders, anxiety, trauma, and OCD. After completing advanced training in ketamine-assisted therapies, they founded this clinic to bring cutting-edge treatments to patients who had lost hope in traditional approaches.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              "I've seen firsthand how transformative these treatments can be," Dr. Khanna says. "My goal is to provide every patient with the same level of care and attention I would want for my own family."
+              "I've seen firsthand how transformative these treatments can be. My goal is to provide every patient with the same level of care and attention I would want for my own family."
             </p>
 
             {/* Credentials */}

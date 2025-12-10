@@ -7,7 +7,7 @@ export function AboutSection() {
         {/* Header */}
         <div className="text-center mb-12">
           <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
-            WHY KHANNA PSYCHIATRIC & KETAMINE
+            WHY RELAXOL CLINIC
           </p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground font-bold">
             Rethinking <span className="text-primary">Mental Health</span>
@@ -29,7 +29,7 @@ export function AboutSection() {
           {/* Content */}
           <div className="order-1 lg:order-2">
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              At Khanna Psychiatric & Ketamine, we combine advanced psychiatric expertise with FDA-approved treatments like SPRAVATO® and ketamine infusion therapy. Our approach is grounded in evidence-based medicine while remaining attentive to each patient's unique journey. Whether you're struggling with treatment-resistant depression, chronic anxiety, PTSD, or OCD, our team is here to provide compassionate, clinician-led care.
+              At Relaxol Clinic, we combine advanced psychiatric expertise with FDA-approved treatments like SPRAVATO® and ketamine infusion therapy. Our approach is grounded in evidence-based medicine while remaining attentive to each patient's unique journey. Whether you're struggling with treatment-resistant depression, chronic anxiety, PTSD, or OCD, our team is here to provide compassionate, clinician-led care.
             </p>
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
               We believe mental health care should be accessible, personalized, and delivered in an environment that feels safe. That's why our clinic offers private treatment rooms, flexible scheduling, and support navigating insurance and financing—because healing shouldn't feel like a hurdle.
