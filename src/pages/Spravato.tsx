@@ -171,7 +171,7 @@ export default function Spravato() {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative min-h-[50vh] flex items-center overflow-hidden">
+      <section className="relative py-16 md:py-20 flex items-center overflow-hidden">
         {/* Background with gradient */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#3D2E24] via-foreground to-foreground" />
         
