@@ -171,82 +171,26 @@ export default function Spravato() {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        {/* Background with gradient - lighter espresso left, deep espresso right */}
+      <section className="relative min-h-[50vh] flex items-center overflow-hidden">
+        {/* Background with gradient */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#3D2E24] via-foreground to-foreground" />
         
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left Column - Text Content */}
-            <div className="text-background space-y-8">
-              <p className="text-primary font-medium tracking-widest uppercase text-xs sm:text-sm">
-                FIND HOPE AND RELIEF TODAY
-              </p>
-              
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                New York's Premier<br />
-                <span className="text-primary">SPRAVATO®</span> & Ketamine Clinic
-              </h1>
-              
-              <p className="text-base sm:text-lg md:text-xl text-background/80 leading-relaxed max-w-xl">
-                FDA-approved SPRAVATO® and ketamine treatments for adults with treatment-resistant 
-                depression. Clinician-led care in a safe, monitored setting designed for your 
-                comfort and wellbeing.
-              </p>
-              
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button 
-                  variant="hero" 
-                  size="xl"
-                  className="group"
-                  asChild
-                >
-                  <a href="/contact">
-                    Schedule a SPRAVATO® Consultation
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </a>
-                </Button>
-                <Button 
-                  variant="hero-outline" 
-                  size="xl"
-                  className="border-background text-background hover:bg-background hover:text-foreground"
-                  asChild
-                >
-                  <a href="#spravato-eligibility">See If I Qualify</a>
-                </Button>
-              </div>
-              
-              {/* Trust Badges */}
-              <div className="flex flex-wrap gap-3 pt-6">
-                {trustBadges.map((badge, index) => (
-                  <div 
-                    key={index}
-                    className="trust-badge"
-                  >
-                    <badge.icon className="w-5 h-5 text-primary" />
-                    <span className="text-sm">{badge.text}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16 md:py-20">
+          <div className="max-w-3xl mx-auto text-center text-background space-y-6">
+            <p className="text-primary font-medium tracking-widest uppercase text-xs sm:text-sm">
+              FIND HOPE AND RELIEF TODAY
+            </p>
             
-            {/* Right Column - Image Card */}
-            <div className="relative order-first lg:order-last">
-              <div className="bg-card rounded-3xl shadow-hero aspect-[4/3] flex items-center justify-center overflow-hidden">
-                <div className="text-center p-8">
-                  <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-primary/10 flex items-center justify-center">
-                    <Sofa className="w-10 h-10 text-primary" />
-                  </div>
-                  <p className="text-muted-foreground text-sm font-medium">
-                    Treatment Room Image
-                  </p>
-                </div>
-              </div>
-              {/* Decorative glow */}
-              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-primary/20 rounded-full blur-3xl" />
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl" />
-            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
+              New York's Premier<br />
+              <span className="text-primary">SPRAVATO®</span> & Ketamine Clinic
+            </h1>
+            
+            <p className="text-base sm:text-lg md:text-xl text-background/80 leading-relaxed max-w-2xl mx-auto">
+              FDA-approved SPRAVATO® and ketamine treatments for adults with treatment-resistant 
+              depression. Clinician-led care in a safe, monitored setting designed for your 
+              comfort and wellbeing.
+            </p>
           </div>
         </div>
       </section>
