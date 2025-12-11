@@ -48,7 +48,7 @@ export function ConditionsSection() {
         </div>
 
         {/* Conditions Grid - 2x2 on desktop, single column on mobile */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-10 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {conditions.map((condition, index) => (
             <div
               key={index}
