@@ -30,7 +30,7 @@ export function TreatmentsSection() {
           <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
             OUR TREATMENTS
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
             Treatment Options
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -53,7 +53,7 @@ export function TreatmentsSection() {
               <div className="icon-container mb-6 group-hover:bg-primary/20 transition-colors">
                 <treatment.icon className="w-7 h-7" />
               </div>
-              <h3 className="font-serif text-xl font-bold text-foreground mb-4">
+              <h3 className="text-xl font-bold text-foreground mb-4">
                 {treatment.title}
               </h3>
               <p className="text-muted-foreground leading-relaxed">

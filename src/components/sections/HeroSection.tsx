@@ -28,7 +28,7 @@ export function HeroSection() {
           </p>
 
           {/* Main Heading */}
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-background font-bold leading-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl text-background font-bold leading-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
             New Jersey's Premier Ketamine & SPRAVATO® Clinic
           </h1>
 

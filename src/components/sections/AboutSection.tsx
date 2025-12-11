@@ -9,7 +9,7 @@ export function AboutSection() {
           <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
             WHY RELAXOL CLINIC
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground font-bold">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold">
             Rethinking <span className="text-primary">Mental Health</span>
           </h2>
         </div>

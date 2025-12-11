@@ -29,7 +29,7 @@ export function WhyChooseSection() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
             Why Choose Relaxol Clinic
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -47,7 +47,7 @@ export function WhyChooseSection() {
               <div className="icon-container mb-6">
                 <reason.icon className="w-7 h-7" />
               </div>
-              <h3 className="font-serif text-lg font-bold text-foreground mb-3">
+              <h3 className="text-lg font-bold text-foreground mb-3">
                 {reason.title}
               </h3>
               <p className="text-muted-foreground leading-relaxed text-sm">
