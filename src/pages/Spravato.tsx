@@ -172,27 +172,26 @@ export default function Spravato() {
       
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        {/* Background with overlay */}
-        <div className="absolute inset-0 bg-foreground">
-          <div className="absolute inset-0 bg-gradient-to-r from-foreground/95 via-foreground/80 to-foreground/60" />
-        </div>
+        {/* Background with gradient - lighter espresso left, deep espresso right */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#3D2E24] via-foreground to-foreground" />
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Column - Text Content */}
             <div className="text-background space-y-8">
-              <p className="text-primary font-medium tracking-wide uppercase text-sm">
-                Find hope and relief today
+              <p className="text-primary font-medium tracking-widest uppercase text-xs sm:text-sm">
+                FIND HOPE AND RELIEF TODAY
               </p>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                New York's Premier Ketamine & SPRAVATO® Clinic
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                New York's Premier<br />
+                <span className="text-primary">SPRAVATO®</span> & Ketamine Clinic
               </h1>
               
-              <p className="text-lg md:text-xl text-background/80 leading-relaxed max-w-xl">
-                Advanced, clinician-led treatments for treatment-resistant depression. 
-                Experience compassionate care in a safe, monitored medical setting designed 
-                for your comfort and wellbeing.
+              <p className="text-base sm:text-lg md:text-xl text-background/80 leading-relaxed max-w-xl">
+                FDA-approved SPRAVATO® and ketamine treatments for adults with treatment-resistant 
+                depression. Clinician-led care in a safe, monitored setting designed for your 
+                comfort and wellbeing.
               </p>
               
               {/* CTA Buttons */}
@@ -214,7 +213,7 @@ export default function Spravato() {
                   className="border-background text-background hover:bg-background hover:text-foreground"
                   asChild
                 >
-                  <a href="#eligibility">Am I a Candidate?</a>
+                  <a href="#spravato-eligibility">See If I Qualify</a>
                 </Button>
               </div>
               
@@ -233,19 +232,20 @@ export default function Spravato() {
             </div>
             
             {/* Right Column - Image Card */}
-            <div className="relative">
-              <div className="image-card aspect-[4/3] bg-gradient-to-br from-card via-secondary to-muted flex items-center justify-center">
+            <div className="relative order-first lg:order-last">
+              <div className="bg-card rounded-3xl shadow-hero aspect-[4/3] flex items-center justify-center overflow-hidden">
                 <div className="text-center p-8">
-                  <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
-                    <Brain className="w-12 h-12 text-primary" />
+                  <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    <Sofa className="w-10 h-10 text-primary" />
                   </div>
-                  <p className="text-muted-foreground text-sm">
-                    Patient experiencing renewed hope
+                  <p className="text-muted-foreground text-sm font-medium">
+                    Treatment Room Image
                   </p>
                 </div>
               </div>
-              {/* Decorative element */}
+              {/* Decorative glow */}
               <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-primary/20 rounded-full blur-3xl" />
+              <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl" />
             </div>
           </div>
         </div>
@@ -337,7 +337,7 @@ export default function Spravato() {
       </section>
 
       {/* Eligibility Section */}
-      <section id="eligibility" className="py-20 lg:py-28 bg-card scroll-mt-24">
+      <section id="spravato-eligibility" className="py-20 lg:py-28 bg-card scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="section-label">Eligibility</span>
