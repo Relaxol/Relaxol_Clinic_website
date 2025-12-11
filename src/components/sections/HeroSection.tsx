@@ -12,11 +12,11 @@ export function HeroSection() {
     <section className="relative min-h-[80vh] flex items-center overflow-hidden">
       {/* Background Image with Parallax */}
       <div 
-        className="absolute inset-0 bg-cover bg-no-repeat bg-fixed"
+        className="absolute inset-0 bg-cover bg-no-repeat bg-fixed grayscale"
         style={{ backgroundImage: `url(${heroBackground})`, backgroundPosition: '70% 65%' }}
       >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/85 via-foreground/65 to-foreground/40" />
+        {/* Gray Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[hsl(0,0%,30%)]/85 via-[hsl(0,0%,50%)]/65 to-[hsl(0,0%,80%)]/40" />
       </div>
 
       {/* Content */}
