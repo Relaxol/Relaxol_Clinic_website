@@ -34,7 +34,7 @@ export function HeroSection() {
 
           {/* Subtitle Text */}
           <p className="text-background/90 text-lg md:text-xl leading-relaxed mb-8 animate-fade-up" style={{ animationDelay: "0.15s" }}>
-            Advanced, clinician-led treatments for depression, anxiety, PTSD and OCD in a safe, monitored medical setting.
+            Advanced, clinician-led treatments for depression, anxiety,<br className="hidden md:block" /> PTSD and OCD in a safe, monitored medical setting.
           </p>
 
           {/* CTA Buttons */}
