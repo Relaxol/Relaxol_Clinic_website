@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import relaxolLogo from "@/assets/relaxol-logo.png";
@@ -11,17 +12,41 @@ const conditionItems = [
 ];
 
 const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Treatments", href: "#treatments", hasDropdown: true },
-  { label: "SPRAVATO®", href: "/spravato-Englewood" },
-  { label: "Financing", href: "#financing" },
-  { label: "FAQ", href: "#faq" },
+  { label: "About", href: "#about", isExternal: false },
+  { label: "Treatments", href: "#treatments", hasDropdown: true, isExternal: false },
+  { label: "SPRAVATO®", href: "/spravato-Englewood", isExternal: false },
+  { label: "Financing", href: "#financing", isExternal: false },
+  { label: "FAQ", href: "#faq", isExternal: false },
 ];
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isConditionsOpen, setIsConditionsOpen] = useState(false);
   const [mobileConditionsOpen, setMobileConditionsOpen] = useState(false);
+
+  const renderNavLink = (item: { label: string; href: string; hasDropdown?: boolean; isExternal?: boolean }) => {
+    const isHashLink = item.href.startsWith("#");
+    
+    if (isHashLink) {
+      return (
+        <a
+          href={item.href}
+          className="px-4 py-2 text-background hover:text-primary transition-colors font-medium"
+        >
+          {item.label}
+        </a>
+      );
+    }
+    
+    return (
+      <Link
+        to={item.href}
+        className="px-4 py-2 text-background hover:text-primary transition-colors font-medium"
+      >
+        {item.label}
+      </Link>
+    );
+  };
 
   return (
     <header className="w-full">
@@ -42,9 +67,9 @@ export function Header() {
       <nav className="bg-foreground/95 border-t border-background/10 py-2 px-4">
         <div className="container mx-auto flex items-center justify-between">
           {/* Logo */}
-          <a href="/" className="flex items-center">
+          <Link to="/" className="flex items-center">
             <img src={relaxolLogo} alt="Relaxol Clinic" className="h-16 md:h-[72px] w-auto max-w-[260px] md:max-w-[360px] object-contain" />
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-1">
@@ -66,25 +91,21 @@ export function Header() {
                   {isConditionsOpen && (
                     <div className="absolute top-full left-0 mt-1 bg-card rounded-lg shadow-xl border border-border py-2 min-w-[200px] animate-fade-in z-50">
                       {conditionItems.map((condition) => (
-                        <a
+                        <Link
                           key={condition.label}
-                          href={condition.href}
+                          to={condition.href}
                           className="block px-4 py-2 text-foreground hover:bg-cream-dark hover:text-primary transition-colors"
                         >
                           {condition.label}
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   )}
                 </div>
               ) : (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="px-4 py-2 text-background hover:text-primary transition-colors font-medium"
-                >
-                  {item.label}
-                </a>
+                <span key={item.label}>
+                  {renderNavLink(item)}
+                </span>
               )
             ))}
           </div>
@@ -125,27 +146,38 @@ export function Header() {
                     {mobileConditionsOpen && (
                       <div className="pl-4 mt-1 space-y-1">
                         {conditionItems.map((condition) => (
-                          <a
+                          <Link
                             key={condition.label}
-                            href={condition.href}
+                            to={condition.href}
                             className="block px-4 py-2 text-background/80 hover:text-primary transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                           >
                             {condition.label}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     )}
                   </div>
                 ) : (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="px-4 py-3 text-background hover:bg-background/10 rounded-lg transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.label}
-                  </a>
+                  item.href.startsWith("#") ? (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className="px-4 py-3 text-background hover:bg-background/10 rounded-lg transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={item.label}
+                      to={item.href}
+                      className="px-4 py-3 text-background hover:bg-background/10 rounded-lg transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  )
                 )
               ))}
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-background/10">

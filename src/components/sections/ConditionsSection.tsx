@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import conditionDepression from "@/assets/condition-depression.jpg";
 import conditionAnxiety from "@/assets/condition-anxiety.jpg";
 import conditionPtsd from "@/assets/condition-ptsd.jpg";
@@ -75,13 +76,13 @@ export function ConditionsSection() {
                 <p className="text-muted-foreground leading-relaxed mb-5">
                   {condition.description}
                 </p>
-                <a
-                  href={condition.href}
+                <Link
+                  to={condition.href}
                   className="text-primary font-semibold hover:text-accent transition-colors inline-flex items-center gap-2 text-base group/link"
                 >
                   Learn more 
                   <span className="group-hover/link:translate-x-1 transition-transform">→</span>
-                </a>
+                </Link>
               </div>
             </div>
           ))}
