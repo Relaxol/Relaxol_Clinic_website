@@ -12,11 +12,11 @@ export function HeroSection() {
     <section className="relative min-h-[90vh] flex items-center">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBackground})` }}
+        className="absolute inset-0 bg-cover bg-no-repeat"
+        style={{ backgroundImage: `url(${heroBackground})`, backgroundPosition: '70% center' }}
       >
         {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/60 to-foreground/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-foreground/85 via-foreground/65 to-foreground/40" />
       </div>
 
       {/* Content */}
@@ -29,7 +29,7 @@ export function HeroSection() {
 
           {/* Main Heading */}
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-background font-bold leading-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-            New York's Premier Ketamine & SPRAVATO® Clinic
+            New Jersey's Premier Ketamine & SPRAVATO® Clinic
           </h1>
 
           {/* Subtitle Text */}
