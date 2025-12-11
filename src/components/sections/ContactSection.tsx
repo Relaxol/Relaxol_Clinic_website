@@ -35,7 +35,7 @@ export function ContactSection() {
           {/* Header */}
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
-              Ready to Talk?
+              Start Your Healing Journey
             </h2>
             <p className="text-muted-foreground text-lg">
               Submit a short form and our team will contact you within one business day to discuss your options and answer any questions.
