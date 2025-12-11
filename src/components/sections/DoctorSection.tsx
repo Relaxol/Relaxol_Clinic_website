@@ -12,15 +12,15 @@ export function DoctorSection() {
     <section className="py-20 bg-cream-band">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Image */}
+          {/* Image - Much larger */}
           <div className="flex justify-center lg:justify-end">
             <div className="relative">
               {/* Decorative ring */}
               <div className="absolute inset-0 rounded-full border-4 border-primary/20 transform scale-110" />
-              <div className="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-8 border-white shadow-hero">
+              <div className="w-80 h-80 md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] rounded-full overflow-hidden border-8 border-white shadow-hero">
                 <img
                   src={doctorPortrait}
-                  alt="Board-Certified Psychiatrist"
+                  alt="Dr. Khanna, Clinical Psychiatrist"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -30,16 +30,16 @@ export function DoctorSection() {
           {/* Content Card */}
           <div className="bg-white rounded-3xl shadow-card p-8 md:p-12">
             <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
-              BOARD-CERTIFIED PSYCHIATRIST
+              CLINICAL PSYCHIATRIST
             </p>
             <h2 className="text-3xl md:text-4xl text-foreground font-bold mb-6">
-              Meet Our Doctor
+              Dr. Khanna
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Our lead psychiatrist is board-certified with over 15 years of experience treating mood disorders, anxiety, trauma, and OCD. After completing advanced training in ketamine-assisted therapies, they founded this clinic to bring cutting-edge treatments to patients who had lost hope in traditional approaches.
+              Relaxol is founded by the esteemed Dr. Khanna, a leading specialist in Ketamine Therapy. Dr. Khanna and his compassionate team are dedicated to guiding you on your journey to optimal health.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              "I've seen firsthand how transformative these treatments can be. My goal is to provide every patient with the same level of care and attention I would want for my own family."
+              Dr. Khanna is not just a psychiatrist; he's a guide for those navigating the complex landscape of mental health. With years of experience and a deep commitment to patient care, Dr. Khanna brings expertise and empathy to every consultation.
             </p>
 
             {/* Credentials */}
