@@ -1,22 +1,31 @@
+import conditionDepression from "@/assets/condition-depression.jpg";
+import conditionAnxiety from "@/assets/condition-anxiety.jpg";
+import conditionPtsd from "@/assets/condition-ptsd.jpg";
+import conditionOcd from "@/assets/condition-ocd.jpg";
+
 const conditions = [
   {
     title: "Depression",
-    imagePlaceholder: "Image: person finding relief",
+    image: conditionDepression,
+    imageAlt: "Person finding relief, sitting peacefully by a sunlit window",
     description: "When traditional antidepressants fall short, ketamine and SPRAVATO® offer rapid relief—often within hours, not weeks.",
   },
   {
     title: "Anxiety",
-    imagePlaceholder: "Image: calm breathing",
+    image: conditionAnxiety,
+    imageAlt: "Woman practicing calm breathing meditation in a serene setting",
     description: "For persistent anxiety that hasn't responded to conventional therapies, our treatments target the glutamate system for faster relief.",
   },
   {
     title: "PTSD",
-    imagePlaceholder: "Image: gentle support",
+    image: conditionPtsd,
+    imageAlt: "Compassionate healthcare provider offering gentle support",
     description: "Ketamine therapy helps process traumatic memories and reduce PTSD symptoms in a safe, supportive environment.",
   },
   {
     title: "OCD",
-    imagePlaceholder: "Image: quiet focus",
+    image: conditionOcd,
+    imageAlt: "Person in quiet focused contemplation with mental clarity",
     description: "For medication-resistant OCD, ketamine-based therapies may help interrupt intrusive thoughts and compulsive behaviors.",
   },
 ];
@@ -45,11 +54,13 @@ export function ConditionsSection() {
               key={index}
               className="group bg-card rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
             >
-              {/* Image Placeholder */}
-              <div className="aspect-video bg-gradient-to-br from-cream to-primary/20 group-hover:from-cream group-hover:to-primary/30 transition-all duration-300 flex items-center justify-center">
-                <span className="text-muted-foreground/60 text-sm font-medium italic">
-                  {condition.imagePlaceholder}
-                </span>
+              {/* Image */}
+              <div className="aspect-video overflow-hidden">
+                <img
+                  src={condition.image}
+                  alt={condition.imageAlt}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
               </div>
               
               {/* Card Body */}
