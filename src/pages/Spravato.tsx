@@ -1,5 +1,6 @@
 import { Header } from "@/components/layout/Header";
 import spravatoNasalSpray from "@/assets/spravato-nasal-spray.png";
+import spravatoBrainMechanism from "@/assets/spravato-brain-mechanism.jpg";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -331,6 +332,53 @@ export default function Spravato() {
                   administer SPRAVATO® safely and effectively—helping patients experience relief 
                   even from the most severe forms of treatment-resistant depression.
                 </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How Is SPRAVATO Different Section */}
+      <section className="py-20 lg:py-28 bg-[#F5F1EA]">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left Column - Content */}
+            <div className="space-y-6">
+              <h2 className="text-3xl md:text-4xl lg:text-[42px] font-bold text-[#23160E] leading-tight">
+                How Is SPRAVATO® Different?
+              </h2>
+              
+              <div className="text-[#5A4A3A] text-base md:text-lg leading-relaxed space-y-4">
+                <p>
+                  For decades, the most widely prescribed antidepressants have worked by adjusting 
+                  serotonin, norepinephrine, or dopamine levels in the brain. While effective for 
+                  many, these medications leave a significant number of patients without relief—even 
+                  after trying multiple options.
+                </p>
+                <p>
+                  SPRAVATO® takes a fundamentally different approach. Rather than targeting the 
+                  same neurotransmitter pathways, it acts on the NMDA receptor—a key component 
+                  of the glutamate system. This mechanism is believed to help restore neural 
+                  connections that depression may have weakened, potentially addressing the 
+                  underlying condition rather than just managing symptoms.
+                </p>
+              </div>
+            </div>
+            
+            {/* Right Column - Image */}
+            <div className="flex items-center justify-center">
+              <div className="relative rounded-2xl overflow-hidden shadow-xl bg-white p-4">
+                <img 
+                  src={spravatoBrainMechanism} 
+                  alt="SPRAVATO® brain mechanism illustration showing NMDA receptor pathway"
+                  className="w-full max-w-[480px] rounded-xl"
+                />
+                <div className="absolute bottom-6 left-6 right-6 bg-[#8A6E3A]/95 text-white text-xs md:text-sm p-3 rounded-lg">
+                  <p className="font-medium">
+                    SPRAVATO® is an NMDA receptor antagonist, targeting a different pathway 
+                    than traditional antidepressants.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
