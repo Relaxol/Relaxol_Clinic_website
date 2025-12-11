@@ -16,7 +16,7 @@ const navItems = [
   { label: "Treatments", href: "#treatments", hasDropdown: true, isExternal: false },
   { label: "SPRAVATO®", href: "/spravato-Englewood", isExternal: false },
   { label: "Financing", href: "#financing", isExternal: false },
-  { label: "FAQ", href: "#faq", isExternal: false },
+  { label: "FAQ", href: "/faq", isExternal: false },
 ];
 
 export function Header() {
