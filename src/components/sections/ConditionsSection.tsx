@@ -19,7 +19,7 @@ const conditions = [
   {
     title: "PTSD",
     image: conditionPtsd,
-    imageAlt: "Compassionate healthcare provider offering gentle support",
+    imageAlt: "Person relaxing peacefully in a comfortable therapy room with warm lighting",
     description: "Ketamine therapy helps process traumatic memories and reduce PTSD symptoms in a safe, supportive environment.",
   },
   {
