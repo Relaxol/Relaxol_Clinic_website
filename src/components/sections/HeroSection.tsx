@@ -23,8 +23,8 @@ export function HeroSection() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Dynamic split position - starts at 50% and moves left as you scroll
-  const splitPosition = 50 - (scrollProgress * 35);
+  // Dynamic split position - starts at 75% and moves left as you scroll
+  const splitPosition = 75 - (scrollProgress * 50);
   // Dynamic saturation for right side - gets more vibrant as you scroll
   const rightSaturation = 100 + (scrollProgress * 50);
 
@@ -43,7 +43,7 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-r from-[hsl(0,0%,20%)]/90 via-[hsl(0,0%,35%)]/70 to-transparent" />
       </div>
       
-      {/* Right half - Vibrant Caribbean (After treatment - vibrant) */}
+      {/* Right half - Vibrant (After treatment) */}
       <div 
         className="absolute inset-y-0 right-0 bg-cover bg-no-repeat bg-fixed"
         style={{ 
@@ -54,14 +54,14 @@ export function HeroSection() {
           transition: 'width 0.1s ease-out, filter 0.1s ease-out'
         }}
       >
-        {/* Caribbean teal/blue overlay */}
+        {/* Warm overlay */}
         <div 
           className="absolute inset-0"
           style={{
             background: `linear-gradient(to left, 
-              hsla(185, 70%, 45%, ${0.35 + scrollProgress * 0.15}) 0%,
-              hsla(195, 80%, 50%, ${0.25 + scrollProgress * 0.15}) 30%,
-              hsla(200, 75%, 55%, ${0.15 + scrollProgress * 0.1}) 60%,
+              hsla(40, 61%, 53%, ${0.35 + scrollProgress * 0.15}) 0%,
+              hsla(35, 55%, 50%, ${0.25 + scrollProgress * 0.15}) 30%,
+              hsla(30, 50%, 45%, ${0.15 + scrollProgress * 0.1}) 60%,
               transparent 100%
             )`
           }}
@@ -81,7 +81,7 @@ export function HeroSection() {
       <div className="relative container mx-auto px-4 pt-10 pb-20">
         <div className="max-w-3xl">
           {/* Subtitle */}
-          <p className="text-[hsl(185,70%,55%)] drop-shadow-md text-sm md:text-base font-semibold uppercase tracking-widest mb-4 animate-fade-up">
+          <p className="text-primary drop-shadow-md text-sm md:text-base font-semibold uppercase tracking-widest mb-4 animate-fade-up">
             FIND HOPE AND RELIEF TODAY
           </p>
 
@@ -99,7 +99,7 @@ export function HeroSection() {
           <div className="flex flex-wrap gap-4 mb-10 animate-fade-up" style={{ animationDelay: "0.2s" }}>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-[hsl(185,70%,45%)] text-white font-semibold shadow-lg hover:bg-[hsl(185,70%,40%)] transition-all duration-300 text-lg"
+              className="btn-primary text-lg shadow-lg"
             >
               Schedule a Consultation
             </a>
@@ -118,7 +118,7 @@ export function HeroSection() {
                 key={pill.label}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-sm font-medium shadow-sm"
               >
-                <pill.icon className="w-4 h-4 text-[hsl(185,70%,55%)] drop-shadow-sm" />
+                <pill.icon className="w-4 h-4 text-primary drop-shadow-sm" />
                 <span>{pill.label}</span>
               </div>
             ))}
