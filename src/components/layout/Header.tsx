@@ -6,7 +6,7 @@ import relaxolLogo from "@/assets/relaxol-logo.png";
 const navItems = [
   { label: "About", href: "#about" },
   { label: "Treatments", href: "#treatments" },
-  { label: "SPRAVATO®", href: "/spravato" },
+  { label: "SPRAVATO®", href: "/spravato-Englewood" },
   { label: "Conditions", href: "#conditions" },
   { label: "Financing", href: "#financing" },
   { label: "FAQ", href: "#faq" },
