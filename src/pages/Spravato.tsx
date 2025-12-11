@@ -315,6 +315,19 @@ export default function Spravato() {
                 />
               </div>
               
+              {/* CTA Button */}
+              <Button 
+                variant="default" 
+                size="lg"
+                className="w-full group"
+                asChild
+              >
+                <a href="/contact">
+                  Schedule a SPRAVATO® Consultation
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </Button>
+              
               {/* Contact Info */}
               <div className="bg-card rounded-2xl p-6 shadow-sm">
                 <p className="text-foreground font-semibold mb-3">Have questions about SPRAVATO®?</p>
