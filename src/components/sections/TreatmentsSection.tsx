@@ -1,29 +1,32 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
+import treatmentSpravato from "@/assets/treatment-spravato.jpg";
+import treatmentKetamine from "@/assets/treatment-ketamine.jpg";
+import treatmentTelehealth from "@/assets/treatment-telehealth.jpg";
 
 const treatments = [
   {
     title: "SPRAVATO® (Esketamine Nasal Spray)",
     tag: "FDA-Approved",
-    description: "A breakthrough nasal spray for treatment-resistant depression. Experience noticeable improvements within hours in our certified, medically-supervised environment.",
-    image: "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=800&auto=format&fit=crop&q=80",
-    cta: "Explore SPRAVATO®",
+    description: "FDA-approved nasal spray for treatment-resistant depression. Provides clinically proven relief when traditional antidepressants haven't worked. Administered under medical supervision for safety and comfort.",
+    image: treatmentSpravato,
+    cta: "Learn More",
     href: "/spravato",
   },
   {
     title: "Ketamine Infusion Therapy",
     tag: null,
-    description: "Precisely controlled IV therapy that offers hope for depression, anxiety, PTSD, and OCD—especially when other treatments haven't worked.",
-    image: "https://images.unsplash.com/photo-1666214280391-8ff5bd3c0bf0?w=800&auto=format&fit=crop&q=80",
-    cta: "Learn About Infusions",
+    description: "Precisely controlled IV ketamine therapy offering rapid relief for depression, anxiety, PTSD, and OCD. Ideal for patients who haven't responded to standard treatments.",
+    image: treatmentKetamine,
+    cta: "Learn More",
     href: "#contact",
   },
   {
     title: "Ongoing Care & Telehealth",
     tag: null,
-    description: "Comprehensive follow-up support including medication management and telehealth appointments—healing that continues beyond your treatment sessions.",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80",
-    cta: "View Care Options",
+    description: "Comprehensive follow-up support including psychiatric consultations, medication management, and telehealth check-ins to ensure long-term wellness.",
+    image: treatmentTelehealth,
+    cta: "Learn More",
     href: "#contact",
   },
 ];
@@ -31,8 +34,24 @@ const treatments = [
 export function TreatmentsSection() {
   const [visibleCards, setVisibleCards] = useState<boolean[]>(new Array(treatments.length).fill(false));
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [headerVisible, setHeaderVisible] = useState(false);
 
   useEffect(() => {
+    // Header observer
+    if (headerRef.current) {
+      const headerObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setHeaderVisible(true);
+          }
+        },
+        { threshold: 0.2 }
+      );
+      headerObserver.observe(headerRef.current);
+    }
+
+    // Cards observer
     const observers = cardsRef.current.map((card, index) => {
       if (!card) return null;
       
@@ -45,10 +64,10 @@ export function TreatmentsSection() {
                 newState[index] = true;
                 return newState;
               });
-            }, index * 150); // Staggered animation
+            }, index * 200);
           }
         },
-        { threshold: 0.2 }
+        { threshold: 0.15 }
       );
       
       observer.observe(card);
@@ -61,91 +80,106 @@ export function TreatmentsSection() {
   }, []);
 
   return (
-    <section id="treatments" className="relative py-24 md:py-32 overflow-hidden">
-      {/* Warm gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cream via-cream-dark/50 to-primary/10" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
+    <section id="treatments" className="relative py-28 md:py-36 overflow-hidden">
+      {/* Premium warm gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-cream via-cream-dark/40 to-cream" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
       
       <div className="container mx-auto px-4 relative z-10">
-        {/* Elegant Header */}
-        <div className="text-center mb-16 md:mb-20">
-          <p className="text-primary text-sm font-semibold uppercase tracking-[0.25em] mb-4">
-            Advanced Therapies
+        {/* Elegant Centered Header */}
+        <div 
+          ref={headerRef}
+          className={`text-center mb-20 md:mb-24 transition-all duration-1000 ${
+            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-5">
+            Our Treatments
           </p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl text-foreground font-bold mb-6 leading-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl text-foreground font-bold mb-8 leading-[1.1]">
             Treatment Options
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 mx-auto rounded-full mb-6" />
+          <div className="w-20 h-0.5 bg-primary/60 mx-auto mb-8" />
           <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            Evidence-based, FDA-approved therapies designed to restore hope and transform lives.
+            Evidence-based therapies designed to provide lasting relief and restore your quality of life.
           </p>
         </div>
 
-        {/* Premium Treatment Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+        {/* Premium Treatment Cards */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 max-w-7xl mx-auto">
           {treatments.map((treatment, index) => (
             <div
               key={index}
               ref={(el) => (cardsRef.current[index] = el)}
-              className={`group relative bg-card rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.08)] hover:shadow-[0_30px_80px_rgba(0,0,0,0.12)] transition-all duration-500 transform ${
+              className={`group relative bg-card rounded-2xl overflow-hidden transition-all duration-700 ease-out ${
                 visibleCards[index] 
                   ? 'opacity-100 translate-y-0' 
-                  : 'opacity-0 translate-y-12'
+                  : 'opacity-0 translate-y-16'
               }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              style={{ 
+                boxShadow: '0 4px 40px rgba(0, 0, 0, 0.06)',
+              }}
             >
+              {/* Hover shadow overlay */}
+              <div className="absolute inset-0 rounded-2xl transition-shadow duration-500 group-hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)]" />
+              
               {/* Image Container */}
-              <div className="relative h-56 md:h-64 overflow-hidden">
+              <div className="relative h-64 md:h-72 overflow-hidden">
                 <img
                   src={treatment.image}
                   alt={treatment.title}
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/20 to-transparent" />
+                
+                {/* Subtle gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-60" />
                 
                 {/* Tag Badge */}
                 {treatment.tag && (
-                  <span className="absolute top-5 right-5 px-4 py-1.5 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider rounded-full shadow-lg">
+                  <span className="absolute top-6 left-6 px-4 py-2 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider rounded-full shadow-md">
                     {treatment.tag}
                   </span>
                 )}
               </div>
 
-              {/* Content */}
-              <div className="p-8 md:p-10">
-                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4 leading-tight group-hover:text-primary transition-colors duration-300">
+              {/* Content Area */}
+              <div className="relative p-8 md:p-10 bg-card">
+                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-5 leading-tight">
                   {treatment.title}
                 </h3>
-                <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6">
+                
+                <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8">
                   {treatment.description}
                 </p>
                 
                 {/* CTA Link */}
                 <a
                   href={treatment.href}
-                  className="inline-flex items-center gap-2 text-primary font-semibold text-base md:text-lg group/link hover:gap-3 transition-all duration-300"
+                  className="inline-flex items-center gap-2 text-primary font-semibold text-base hover:gap-3 transition-all duration-300 group/link"
                 >
-                  {treatment.cta}
+                  <span>{treatment.cta}</span>
                   <ArrowRight className="w-5 h-5 transform group-hover/link:translate-x-1 transition-transform duration-300" />
                 </a>
               </div>
 
-              {/* Decorative accent line */}
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* Hover lift effect */}
+              <div className="absolute inset-0 rounded-2xl transition-transform duration-500 group-hover:-translate-y-2" style={{ pointerEvents: 'none' }} />
             </div>
           ))}
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16 md:mt-20">
-          <p className="text-muted-foreground mb-6 text-lg">
-            Not sure which treatment is right for you?
+        <div className={`text-center mt-20 md:mt-24 transition-all duration-1000 delay-500 ${
+          headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <p className="text-muted-foreground mb-8 text-lg">
+            Ready to explore your treatment options?
           </p>
           <a
             href="#contact"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-foreground text-background rounded-full font-semibold text-lg hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
+            className="inline-flex items-center gap-3 px-10 py-5 bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
           >
-            Schedule a Consultation
+            Schedule Your Consultation
             <ArrowRight className="w-5 h-5" />
           </a>
         </div>
