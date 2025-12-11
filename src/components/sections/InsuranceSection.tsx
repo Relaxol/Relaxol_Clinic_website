@@ -21,7 +21,7 @@ const cards = [
 
 export function InsuranceSection() {
   return (
-    <section id="financing" className="py-16 bg-cream-dark">
+    <section id="financing" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
@@ -40,7 +40,7 @@ export function InsuranceSection() {
           {cards.map((card, index) => (
             <div
               key={index}
-              className="treatment-card flex flex-col"
+              className="bg-card rounded-3xl p-8 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hero)] transition-all duration-300 flex flex-col"
             >
               <div className="icon-container mb-6">
                 <card.icon className="w-7 h-7" />
