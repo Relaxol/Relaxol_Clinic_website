@@ -32,7 +32,7 @@ export function DoctorSection() {
             <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
               BOARD-CERTIFIED PSYCHIATRIST
             </p>
-            <h2 className="font-serif text-3xl md:text-4xl text-foreground font-bold mb-6">
+            <h2 className="text-3xl md:text-4xl text-foreground font-bold mb-6">
               Meet Our Doctor
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">

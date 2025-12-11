@@ -30,7 +30,7 @@ export function TestimonialsSection() {
           <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
             PATIENT EXPERIENCES
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
             What Our Patients Are Saying
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">

@@ -28,7 +28,7 @@ export function InsuranceSection() {
           <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
             INSURANCE & FINANCING
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
             Navigating Coverage & Costs
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -45,7 +45,7 @@ export function InsuranceSection() {
               <div className="icon-container mb-6">
                 <card.icon className="w-7 h-7" />
               </div>
-              <h3 className="font-serif text-2xl font-bold text-foreground mb-4">
+              <h3 className="text-2xl font-bold text-foreground mb-4">
                 {card.title}
               </h3>
               <p className="text-muted-foreground leading-relaxed mb-4">

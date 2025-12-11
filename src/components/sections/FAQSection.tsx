@@ -35,7 +35,7 @@ export function FAQSection() {
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
               Frequently Asked Questions
             </h2>
             <p className="text-muted-foreground text-lg">
@@ -51,7 +51,7 @@ export function FAQSection() {
                 value={`item-${index}`}
                 className="bg-white rounded-2xl shadow-soft border-none px-6"
               >
-                <AccordionTrigger className="text-left font-serif text-lg font-semibold text-foreground hover:text-primary py-6 hover:no-underline">
+                <AccordionTrigger className="text-left text-lg font-semibold text-foreground hover:text-primary py-6 hover:no-underline">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed pb-6">
