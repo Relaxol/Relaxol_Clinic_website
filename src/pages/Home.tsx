@@ -25,6 +25,7 @@ const Home = () => {
         <VideoSection />
         <TreatmentsSection />
         <DoctorSection />
+        <ContactSection />
         <ConditionsSection />
         <EnvironmentSection />
         <InsuranceSection />
@@ -33,7 +34,6 @@ const Home = () => {
         <VideoTestimonialsSection />
         <TimelineSection />
         <FAQSection />
-        <ContactSection />
       </main>
       <Footer />
     </div>
