@@ -1,4 +1,5 @@
 import { Header } from "@/components/layout/Header";
+import spravatoNasalSpray from "@/assets/spravato-nasal-spray.png";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -287,6 +288,49 @@ export default function Spravato() {
                     Schedule your consultation at Relaxol Clinic in New York
                   </p>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Treatment-Resistant Depression Section */}
+      <section className="py-20 lg:py-28 bg-[#8A6E3A]">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+            {/* Left Column - Image (40%) */}
+            <div className="lg:col-span-2 flex items-center justify-center">
+              <div className="relative">
+                <img 
+                  src={spravatoNasalSpray} 
+                  alt="SPRAVATO® Nasal Spray Device"
+                  className="w-full max-w-[280px] lg:max-w-[320px] drop-shadow-2xl"
+                />
+              </div>
+            </div>
+            
+            {/* Right Column - Content (60%) */}
+            <div className="lg:col-span-3 space-y-6">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+                Treatment-Resistant Depression
+              </h2>
+              
+              <div className="space-y-5 text-white/90 text-base md:text-lg leading-relaxed">
+                <p>
+                  Depression is far more complex than occasional sadness. While sadness naturally 
+                  comes and goes, clinical depression affects nearly 300 million people worldwide 
+                  and often persists despite multiple treatment attempts. Even with a wide range 
+                  of available antidepressants, many individuals continue to struggle without 
+                  meaningful relief.
+                </p>
+                <p>
+                  SPRAVATO® (esketamine) is an FDA-approved nasal spray offering a new path forward 
+                  for treatment-resistant depression. For patients who have not improved with 
+                  traditional medications, SPRAVATO® has shown significant and rapid symptom 
+                  reduction. As a fully REMS-certified provider, our clinical team is trained to 
+                  administer SPRAVATO® safely and effectively—helping patients experience relief 
+                  even from the most severe forms of treatment-resistant depression.
+                </p>
               </div>
             </div>
           </div>
