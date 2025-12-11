@@ -22,12 +22,12 @@ const Home = () => {
       <main>
         <HeroSection />
         <AboutSection />
+        <VideoSection />
         <ConditionsSection />
         <TreatmentsSection />
         <EnvironmentSection />
         <InsuranceSection />
         <WhyChooseSection />
-        <VideoSection />
         <TestimonialsSection />
         <VideoTestimonialsSection />
         <TimelineSection />
