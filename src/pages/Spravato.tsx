@@ -1,6 +1,6 @@
 import { Header } from "@/components/layout/Header";
 import spravatoNasalSpray from "@/assets/spravato-nasal-spray.png";
-import spravatoBrainMechanism from "@/assets/spravato-brain-mechanism.jpg";
+import spravatoBrainMechanism from "@/assets/spravato-brain-mechanism.png";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -367,18 +367,12 @@ export default function Spravato() {
             
             {/* Right Column - Image */}
             <div className="flex items-center justify-center">
-              <div className="relative rounded-2xl overflow-hidden shadow-xl bg-white p-4">
+              <div className="relative rounded-2xl overflow-hidden shadow-xl">
                 <img 
                   src={spravatoBrainMechanism} 
                   alt="SPRAVATO® brain mechanism illustration showing NMDA receptor pathway"
-                  className="w-full max-w-[480px] rounded-xl"
+                  className="w-full max-w-[520px] rounded-xl"
                 />
-                <div className="absolute bottom-6 left-6 right-6 bg-[#8A6E3A]/95 text-white text-xs md:text-sm p-3 rounded-lg">
-                  <p className="font-medium">
-                    SPRAVATO® is an NMDA receptor antagonist, targeting a different pathway 
-                    than traditional antidepressants.
-                  </p>
-                </div>
               </div>
             </div>
           </div>
