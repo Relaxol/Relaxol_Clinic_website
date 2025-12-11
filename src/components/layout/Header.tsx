@@ -3,17 +3,25 @@ import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import relaxolLogo from "@/assets/relaxol-logo.png";
 
+const conditionItems = [
+  { label: "Depression", href: "/conditions/depression" },
+  { label: "Anxiety", href: "/conditions/anxiety" },
+  { label: "PTSD", href: "/conditions/ptsd" },
+  { label: "OCD", href: "/conditions/ocd" },
+];
+
 const navItems = [
   { label: "About", href: "#about" },
-  { label: "Treatments", href: "#treatments" },
+  { label: "Treatments", href: "#treatments", hasDropdown: true },
   { label: "SPRAVATO®", href: "/spravato-Englewood" },
-  { label: "Conditions", href: "#conditions" },
   { label: "Financing", href: "#financing" },
   { label: "FAQ", href: "#faq" },
 ];
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isConditionsOpen, setIsConditionsOpen] = useState(false);
+  const [mobileConditionsOpen, setMobileConditionsOpen] = useState(false);
 
   return (
     <header className="w-full">
@@ -41,13 +49,43 @@ export function Header() {
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="px-4 py-2 text-background hover:text-primary transition-colors font-medium"
-              >
-                {item.label}
-              </a>
+              item.hasDropdown ? (
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={() => setIsConditionsOpen(true)}
+                  onMouseLeave={() => setIsConditionsOpen(false)}
+                >
+                  <a
+                    href={item.href}
+                    className="px-4 py-2 text-background hover:text-primary transition-colors font-medium inline-flex items-center gap-1"
+                  >
+                    {item.label}
+                    <ChevronDown className={`w-4 h-4 transition-transform ${isConditionsOpen ? 'rotate-180' : ''}`} />
+                  </a>
+                  {isConditionsOpen && (
+                    <div className="absolute top-full left-0 mt-1 bg-card rounded-lg shadow-xl border border-border py-2 min-w-[200px] animate-fade-in z-50">
+                      {conditionItems.map((condition) => (
+                        <a
+                          key={condition.label}
+                          href={condition.href}
+                          className="block px-4 py-2 text-foreground hover:bg-cream-dark hover:text-primary transition-colors"
+                        >
+                          {condition.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="px-4 py-2 text-background hover:text-primary transition-colors font-medium"
+                >
+                  {item.label}
+                </a>
+              )
             ))}
           </div>
 
@@ -75,14 +113,40 @@ export function Header() {
           <div className="lg:hidden bg-foreground border-t border-background/10 mt-4 py-4 px-4 animate-fade-in">
             <div className="flex flex-col gap-2">
               {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="px-4 py-3 text-background hover:bg-background/10 rounded-lg transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
+                item.hasDropdown ? (
+                  <div key={item.label}>
+                    <button
+                      onClick={() => setMobileConditionsOpen(!mobileConditionsOpen)}
+                      className="w-full px-4 py-3 text-background hover:bg-background/10 rounded-lg transition-colors flex items-center justify-between"
+                    >
+                      {item.label}
+                      <ChevronDown className={`w-4 h-4 transition-transform ${mobileConditionsOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    {mobileConditionsOpen && (
+                      <div className="pl-4 mt-1 space-y-1">
+                        {conditionItems.map((condition) => (
+                          <a
+                            key={condition.label}
+                            href={condition.href}
+                            className="block px-4 py-2 text-background/80 hover:text-primary transition-colors"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            {condition.label}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="px-4 py-3 text-background hover:bg-background/10 rounded-lg transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                )
               ))}
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-background/10">
                 <Button variant="outline" className="w-full bg-transparent border-primary text-primary">
