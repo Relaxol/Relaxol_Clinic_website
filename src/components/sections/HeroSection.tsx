@@ -54,14 +54,14 @@ export function HeroSection() {
           transition: 'width 0.1s ease-out, filter 0.1s ease-out'
         }}
       >
-        {/* Warm overlay */}
+        {/* Caribbean blue-green overlay */}
         <div 
           className="absolute inset-0"
           style={{
             background: `linear-gradient(to left, 
-              hsla(40, 61%, 53%, ${0.35 + scrollProgress * 0.15}) 0%,
-              hsla(35, 55%, 50%, ${0.25 + scrollProgress * 0.15}) 30%,
-              hsla(30, 50%, 45%, ${0.15 + scrollProgress * 0.1}) 60%,
+              hsla(175, 70%, 45%, ${0.4 + scrollProgress * 0.2}) 0%,
+              hsla(185, 65%, 50%, ${0.3 + scrollProgress * 0.15}) 30%,
+              hsla(160, 60%, 40%, ${0.2 + scrollProgress * 0.1}) 60%,
               transparent 100%
             )`
           }}
