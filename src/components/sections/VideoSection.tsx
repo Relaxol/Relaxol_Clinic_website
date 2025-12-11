@@ -1,19 +1,17 @@
-import { Play } from "lucide-react";
-
 export function VideoSection() {
   return (
     <section className="py-20 bg-cream-dark">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Video Placeholder */}
-          <div className="relative image-card aspect-video bg-foreground/10 flex items-center justify-center cursor-pointer group overflow-hidden">
-            <div className="absolute inset-0 bg-foreground/30 group-hover:bg-foreground/40 transition-colors" />
-            <div className="relative w-20 h-20 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-glow group-hover:scale-110 transition-transform">
-              <Play className="w-8 h-8 ml-1" />
-            </div>
-            <span className="absolute bottom-6 left-6 text-background font-medium">
-              Watch: Understanding Ketamine Therapy
-            </span>
+          {/* YouTube Video */}
+          <div className="image-card aspect-video overflow-hidden">
+            <iframe
+              src="https://www.youtube.com/embed/e0mdOODbGNU"
+              className="w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="Understanding Ketamine Therapy"
+            />
           </div>
 
           {/* Content */}
