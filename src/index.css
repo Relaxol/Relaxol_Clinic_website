@@ -12,7 +12,7 @@
     --foreground: 20 41% 10%; /* Espresso #23160E */
     
     /* Surface colors */
-    --card: 36 35% 92%; /* Darker cream #F2E5D3 */
+    --card: 0 0% 80%; /* Light gray */
     --card-foreground: 20 41% 10%;
     
     --popover: 36 43% 97%;
@@ -23,7 +23,7 @@
     --primary-foreground: 0 0% 100%;
     
     /* Secondary - Light Taupe */
-    --secondary: 30 25% 90%; /* Light taupe for bands */
+    --secondary: 0 0% 80%; /* Light gray for bands */
     --secondary-foreground: 20 41% 10%;
     
     /* Muted - Soft Brown */
@@ -40,8 +40,8 @@
     
     /* Cream variants */
     --cream: 36 43% 97%;
-    --cream-dark: 36 35% 92%;
-    --cream-band: 33 40% 94%; /* #FCF6EB for bands */
+    --cream-dark: 0 0% 80%;
+    --cream-band: 0 0% 80%; /* Light gray for bands */
     
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
