@@ -9,10 +9,10 @@ const trustPills = [
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[80vh] flex items-center">
-      {/* Background Image */}
+    <section className="relative min-h-[80vh] flex items-center overflow-hidden">
+      {/* Background Image with Parallax */}
       <div 
-        className="absolute inset-0 bg-cover bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-no-repeat bg-fixed"
         style={{ backgroundImage: `url(${heroBackground})`, backgroundPosition: '70% 65%' }}
       >
         {/* Overlay */}
