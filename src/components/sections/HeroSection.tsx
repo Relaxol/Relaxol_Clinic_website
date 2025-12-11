@@ -20,7 +20,7 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative container mx-auto px-4 py-20">
+      <div className="relative container mx-auto px-4 pt-10 pb-20">
         <div className="max-w-3xl">
           {/* Subtitle */}
           <p className="text-primary text-sm md:text-base font-semibold uppercase tracking-widest mb-4 animate-fade-up">
