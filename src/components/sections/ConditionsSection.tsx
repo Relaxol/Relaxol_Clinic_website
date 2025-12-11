@@ -1,67 +1,73 @@
-import { Brain, Heart, Shield, Layers } from "lucide-react";
-
 const conditions = [
   {
-    icon: Brain,
     title: "Depression",
-    description: "When traditional antidepressants fall short, ketamine and SPRAVATO® offer a new path forward. These treatments work differently—often producing relief within hours or days rather than weeks. If you've tried multiple medications without success, you may be a candidate for these breakthrough options.",
+    imagePlaceholder: "Image: person finding relief",
+    description: "When traditional antidepressants fall short, ketamine and SPRAVATO® offer rapid relief—often within hours, not weeks.",
   },
   {
-    icon: Heart,
     title: "Anxiety",
-    description: "Persistent anxiety can feel all-consuming, affecting your ability to work, sleep, and enjoy life. Our clinic offers treatments that target the brain's glutamate system, potentially offering rapid relief for those who haven't responded to conventional therapies.",
+    imagePlaceholder: "Image: calm breathing",
+    description: "For persistent anxiety that hasn't responded to conventional therapies, our treatments target the glutamate system for faster relief.",
   },
   {
-    icon: Shield,
     title: "PTSD",
-    description: "Trauma can leave lasting imprints on the mind and body. Ketamine therapy has shown promise in helping patients process traumatic memories and reduce the intensity of PTSD symptoms. Our clinicians create a safe, supportive environment for your healing journey.",
+    imagePlaceholder: "Image: gentle support",
+    description: "Ketamine therapy helps process traumatic memories and reduce PTSD symptoms in a safe, supportive environment.",
   },
   {
-    icon: Layers,
     title: "OCD",
-    description: "Obsessive-compulsive disorder can be exhausting and isolating. For patients who haven't found relief through traditional treatments, ketamine-based therapies may help interrupt the cycle of intrusive thoughts and compulsive behaviors.",
+    imagePlaceholder: "Image: quiet focus",
+    description: "For medication-resistant OCD, ketamine-based therapies may help interrupt intrusive thoughts and compulsive behaviors.",
   },
 ];
 
 export function ConditionsSection() {
   return (
-    <section id="conditions" className="py-20 bg-cream-dark">
+    <section id="conditions" className="py-24 md:py-32 bg-cream-dark">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-16 max-w-3xl mx-auto">
           <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
             CONDITIONS WE TREAT
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-5">
             Specialized Mental Health Care
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg">
             Our treatments are designed for patients who haven't found relief through traditional approaches.
           </p>
         </div>
 
-        {/* Conditions Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Conditions Grid - 2x2 on desktop, single column on mobile */}
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-10 max-w-5xl mx-auto">
           {conditions.map((condition, index) => (
             <div
               key={index}
-              className="treatment-card group"
+              className="group bg-card rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
             >
-              <div className="icon-container mb-6 group-hover:bg-primary/20 transition-colors">
-                <condition.icon className="w-7 h-7" />
+              {/* Image Placeholder */}
+              <div className="aspect-video bg-gradient-to-br from-cream to-primary/20 group-hover:from-cream group-hover:to-primary/30 transition-all duration-300 flex items-center justify-center">
+                <span className="text-muted-foreground/60 text-sm font-medium italic">
+                  {condition.imagePlaceholder}
+                </span>
               </div>
-              <h3 className="font-serif text-xl font-bold text-foreground mb-3">
-                {condition.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed text-sm">
-                {condition.description}
-              </p>
-              <a
-                href="#contact"
-                className="text-primary font-semibold hover:text-accent transition-colors mt-4 inline-flex items-center gap-2 text-sm"
-              >
-                Learn more →
-              </a>
+              
+              {/* Card Body */}
+              <div className="p-6 md:p-8">
+                <h3 className="font-serif text-xl md:text-2xl font-semibold text-foreground mb-3">
+                  {condition.title}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed mb-5">
+                  {condition.description}
+                </p>
+                <a
+                  href="#contact"
+                  className="text-primary font-semibold hover:text-accent transition-colors inline-flex items-center gap-2 text-base group/link"
+                >
+                  Learn more 
+                  <span className="group-hover/link:translate-x-1 transition-transform">→</span>
+                </a>
+              </div>
             </div>
           ))}
         </div>
