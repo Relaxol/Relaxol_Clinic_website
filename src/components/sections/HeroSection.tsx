@@ -13,7 +13,7 @@ export function HeroSection() {
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBackground})`, backgroundPosition: '70% 20%' }}
+        style={{ backgroundImage: `url(${heroBackground})`, backgroundPosition: '70% 80%' }}
       >
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-foreground/85 via-foreground/65 to-foreground/40" />
