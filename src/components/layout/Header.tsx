@@ -30,7 +30,7 @@ export function Header() {
       </div>
 
       {/* Main Navigation */}
-      <nav className="bg-foreground/95 border-t border-background/10 py-4 px-4">
+      <nav className="bg-foreground/95 border-t border-background/10 py-2 px-4">
         <div className="container mx-auto flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center">
