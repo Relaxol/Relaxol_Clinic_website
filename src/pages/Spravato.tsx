@@ -379,6 +379,153 @@ export default function Spravato() {
         </div>
       </section>
 
+      {/* Insurance Coverage Check Form */}
+      <section className="py-20 lg:py-28 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mx-auto">
+            {/* Header */}
+            <div className="text-center mb-10">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-4">
+                Fill Out The Form Below to See If Your Insurance Covers Our Services
+              </h2>
+              <p className="text-muted-foreground">
+                If you do not have an insurance provider, there are financing options available.
+              </p>
+            </div>
+
+            {/* Form */}
+            <form className="space-y-6">
+              {/* Name Fields */}
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Name<span className="text-red-500">*</span>
+                </label>
+                <div className="grid grid-cols-2 gap-4">
+                  <input
+                    type="text"
+                    placeholder="First"
+                    className="w-full px-4 py-3 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    required
+                  />
+                  <input
+                    type="text"
+                    placeholder="Last"
+                    className="w-full px-4 py-3 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Email and Phone */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Email<span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    className="w-full px-4 py-3 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Best Contact Phone #<span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    placeholder="### ### ####"
+                    className="w-full px-4 py-3 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Member ID and DOB */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Member ID on Card<span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-3 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Date of Birth<span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="date"
+                    className="w-full px-4 py-3 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Insurance Company */}
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Insurance Company<span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-3 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  required
+                />
+              </div>
+
+              {/* Upload Front of Insurance Card */}
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Upload Front of Insurance Card<span className="text-red-500">*</span>
+                </label>
+                <div className="border-2 border-dashed border-border rounded-md p-8 text-center hover:border-primary/50 transition-colors cursor-pointer">
+                  <input type="file" className="hidden" id="insurance-front" accept="image/*,.pdf" />
+                  <label htmlFor="insurance-front" className="cursor-pointer text-muted-foreground">
+                    Choose files or drag here
+                  </label>
+                </div>
+              </div>
+
+              {/* Upload Back of Insurance Card */}
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Upload Back of Insurance Card<span className="text-red-500">*</span>
+                </label>
+                <div className="border-2 border-dashed border-border rounded-md p-8 text-center hover:border-primary/50 transition-colors cursor-pointer">
+                  <input type="file" className="hidden" id="insurance-back" accept="image/*,.pdf" />
+                  <label htmlFor="insurance-back" className="cursor-pointer text-muted-foreground">
+                    Choose files or drag here
+                  </label>
+                </div>
+              </div>
+
+              {/* Additional Notes */}
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Do you have anything you would like us to know regarding your insurance?
+                </label>
+                <textarea
+                  rows={4}
+                  className="w-full px-4 py-3 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
+                />
+              </div>
+
+              {/* Submit Button */}
+              <Button 
+                type="submit" 
+                className="w-full py-6 text-lg font-semibold"
+              >
+                Get Benefits
+              </Button>
+            </form>
+          </div>
+        </div>
+      </section>
+
       {/* Eligibility Section */}
       <section id="spravato-eligibility" className="py-20 lg:py-28 bg-card scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
