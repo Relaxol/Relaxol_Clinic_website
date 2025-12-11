@@ -27,15 +27,17 @@ export function HeroSection() {
   const splitPosition = 75 - (scrollProgress * 50);
   // Dynamic saturation for right side - gets more vibrant as you scroll
   const rightSaturation = 100 + (scrollProgress * 50);
+  // Vertical parallax - image moves up as you scroll
+  const verticalOffset = scrollProgress * 150;
 
   return (
     <section className="relative min-h-[80vh] flex items-center overflow-hidden">
       {/* Left half - Grayscale (Before treatment - dull) */}
       <div 
-        className="absolute inset-y-0 left-0 bg-cover bg-no-repeat bg-fixed grayscale brightness-75"
+        className="absolute inset-y-0 left-0 bg-cover bg-no-repeat grayscale brightness-75"
         style={{ 
           backgroundImage: `url(${heroBackground})`, 
-          backgroundPosition: '70% 65%',
+          backgroundPosition: `70% calc(65% - ${verticalOffset}px)`,
           width: `${splitPosition}%`,
           transition: 'width 0.1s ease-out'
         }}
@@ -43,25 +45,25 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-r from-[hsl(0,0%,20%)]/90 via-[hsl(0,0%,35%)]/70 to-transparent" />
       </div>
       
-      {/* Right half - Vibrant (After treatment) */}
+      {/* Right half - Vibrant Caribbean (After treatment) */}
       <div 
-        className="absolute inset-y-0 right-0 bg-cover bg-no-repeat bg-fixed"
+        className="absolute inset-y-0 right-0 bg-cover bg-no-repeat"
         style={{ 
           backgroundImage: `url(${heroBackground})`, 
-          backgroundPosition: '70% 65%',
+          backgroundPosition: `70% calc(65% - ${verticalOffset}px)`,
           width: `${100 - splitPosition}%`,
-          filter: `saturate(${rightSaturation}%) brightness(1.1)`,
+          filter: `saturate(${rightSaturation}%) brightness(1.15)`,
           transition: 'width 0.1s ease-out, filter 0.1s ease-out'
         }}
       >
-        {/* Warm overlay */}
+        {/* Caribbean blue/teal overlay */}
         <div 
           className="absolute inset-0"
           style={{
             background: `linear-gradient(to left, 
-              hsla(40, 61%, 53%, ${0.35 + scrollProgress * 0.15}) 0%,
-              hsla(35, 55%, 50%, ${0.25 + scrollProgress * 0.15}) 30%,
-              hsla(30, 50%, 45%, ${0.15 + scrollProgress * 0.1}) 60%,
+              hsla(190, 85%, 45%, ${0.4 + scrollProgress * 0.2}) 0%,
+              hsla(200, 80%, 50%, ${0.3 + scrollProgress * 0.15}) 30%,
+              hsla(195, 75%, 55%, ${0.2 + scrollProgress * 0.1}) 60%,
               transparent 100%
             )`
           }}
