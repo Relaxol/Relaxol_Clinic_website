@@ -34,7 +34,7 @@ export function Header() {
         <div className="container mx-auto flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center">
-            <img src={relaxolLogo} alt="Relaxol Clinic" className="h-12 md:h-14 w-auto max-w-[200px] md:max-w-[280px] object-contain" />
+            <img src={relaxolLogo} alt="Relaxol Clinic" className="h-16 md:h-[72px] w-auto max-w-[260px] md:max-w-[360px] object-contain" />
           </a>
 
           {/* Desktop Nav */}
