@@ -46,7 +46,7 @@ export function Header() {
       return (
         <a
           href={item.href}
-          className="px-4 py-2 text-background hover:text-primary transition-colors font-medium"
+          className="px-4 py-2 text-foreground hover:text-primary transition-colors font-medium"
         >
           {item.label}
         </a>
@@ -56,7 +56,7 @@ export function Header() {
     return (
       <Link
         to={item.href}
-        className="px-4 py-2 text-background hover:text-primary transition-colors font-medium"
+        className="px-4 py-2 text-foreground hover:text-primary transition-colors font-medium"
       >
         {item.label}
       </Link>
@@ -79,7 +79,7 @@ export function Header() {
       </div>
 
       {/* Main Navigation */}
-      <nav className="bg-foreground/95 border-t border-background/10 py-2 px-4">
+      <nav className="bg-white border-t border-border py-2 px-4 shadow-sm">
         <div className="container mx-auto flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
@@ -98,7 +98,7 @@ export function Header() {
                 >
                   <a
                     href={item.href}
-                    className="px-4 py-4 text-background hover:text-primary transition-colors font-medium inline-flex items-center gap-1"
+                    className="px-4 py-4 text-foreground hover:text-primary transition-colors font-medium inline-flex items-center gap-1"
                   >
                     {item.label}
                     <ChevronDown className={`w-4 h-4 transition-transform ${isConditionsOpen ? 'rotate-180' : ''}`} />
@@ -129,17 +129,17 @@ export function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <Button variant="outline" className="btn-nav bg-transparent border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+            <Button variant="outline" className="btn-nav bg-transparent border-[#D09B3C] text-[#D09B3C] hover:bg-[#D09B3C] hover:text-white">
               Existing Patients
             </Button>
-            <Button className="btn-nav bg-primary text-primary-foreground hover:bg-accent">
+            <Button className="btn-nav bg-[#D09B3C] text-white hover:bg-[#C48A25]">
               Schedule Consultation
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden text-background p-2"
+            className="lg:hidden text-foreground p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -148,14 +148,14 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden bg-foreground border-t border-background/10 mt-4 py-4 px-4 animate-fade-in">
+          <div className="lg:hidden bg-white border-t border-border mt-4 py-4 px-4 animate-fade-in">
             <div className="flex flex-col gap-2">
               {navItems.map((item) => (
                 item.hasDropdown ? (
                   <div key={item.label}>
                     <button
                       onClick={() => setMobileConditionsOpen(!mobileConditionsOpen)}
-                      className="w-full px-4 py-3 text-background hover:bg-background/10 rounded-lg transition-colors flex items-center justify-between"
+                      className="w-full px-4 py-3 text-foreground hover:bg-muted rounded-lg transition-colors flex items-center justify-between"
                     >
                       {item.label}
                       <ChevronDown className={`w-4 h-4 transition-transform ${mobileConditionsOpen ? 'rotate-180' : ''}`} />
@@ -166,7 +166,7 @@ export function Header() {
                           <Link
                             key={condition.label}
                             to={condition.href}
-                            className="block px-4 py-2 text-background/80 hover:text-primary transition-colors"
+                            className="block px-4 py-2 text-foreground/80 hover:text-primary transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                           >
                             {condition.label}
@@ -180,7 +180,7 @@ export function Header() {
                     <a
                       key={item.label}
                       href={item.href}
-                      className="px-4 py-3 text-background hover:bg-background/10 rounded-lg transition-colors"
+                      className="px-4 py-3 text-foreground hover:bg-muted rounded-lg transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.label}
@@ -189,7 +189,7 @@ export function Header() {
                     <Link
                       key={item.label}
                       to={item.href}
-                      className="px-4 py-3 text-background hover:bg-background/10 rounded-lg transition-colors"
+                      className="px-4 py-3 text-foreground hover:bg-muted rounded-lg transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.label}
@@ -197,11 +197,11 @@ export function Header() {
                   )
                 )
               ))}
-              <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-background/10">
-                <Button variant="outline" className="w-full bg-transparent border-primary text-primary">
+              <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
+                <Button variant="outline" className="w-full bg-transparent border-[#D09B3C] text-[#D09B3C] hover:bg-[#D09B3C] hover:text-white">
                   Existing Patients
                 </Button>
-                <Button className="w-full bg-primary text-primary-foreground hover:bg-accent">
+                <Button className="w-full bg-[#D09B3C] text-white hover:bg-[#C48A25]">
                   Schedule Consultation
                 </Button>
               </div>
