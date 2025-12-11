@@ -1,5 +1,5 @@
 import { Award, Clock, GraduationCap } from "lucide-react";
-import doctorPortrait from "@/assets/doctor-portrait.jpg";
+import doctorPortrait from "@/assets/dr-sangeet-khanna.jpg";
 
 const credentials = [
   { icon: Award, label: "Board Certified" },
