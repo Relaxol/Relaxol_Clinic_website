@@ -24,8 +24,8 @@ const Home = () => {
         <AboutSection />
         <VideoSection />
         <ConditionsSection />
-        <TreatmentsSection />
         <EnvironmentSection />
+        <TreatmentsSection />
         <InsuranceSection />
         <WhyChooseSection />
         <TestimonialsSection />
