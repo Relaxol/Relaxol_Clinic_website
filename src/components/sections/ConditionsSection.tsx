@@ -37,7 +37,7 @@ const conditions = [
 
 export function ConditionsSection() {
   return (
-    <section id="conditions" className="py-24 md:py-32 bg-cream-dark">
+    <section id="conditions" className="py-24 md:py-32 bg-white">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
