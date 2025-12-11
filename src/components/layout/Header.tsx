@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,21 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isConditionsOpen, setIsConditionsOpen] = useState(false);
   const [mobileConditionsOpen, setMobileConditionsOpen] = useState(false);
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setIsConditionsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    closeTimeoutRef.current = setTimeout(() => {
+      setIsConditionsOpen(false);
+    }, 150);
+  };
 
   const renderNavLink = (item: { label: string; href: string; hasDropdown?: boolean; isExternal?: boolean }) => {
     const isHashLink = item.href.startsWith("#");
@@ -78,27 +93,29 @@ export function Header() {
                 <div
                   key={item.label}
                   className="relative"
-                  onMouseEnter={() => setIsConditionsOpen(true)}
-                  onMouseLeave={() => setIsConditionsOpen(false)}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <a
                     href={item.href}
-                    className="px-4 py-2 text-background hover:text-primary transition-colors font-medium inline-flex items-center gap-1"
+                    className="px-4 py-4 text-background hover:text-primary transition-colors font-medium inline-flex items-center gap-1"
                   >
                     {item.label}
                     <ChevronDown className={`w-4 h-4 transition-transform ${isConditionsOpen ? 'rotate-180' : ''}`} />
                   </a>
                   {isConditionsOpen && (
-                    <div className="absolute top-full left-0 mt-1 bg-card rounded-lg shadow-xl border border-border py-2 min-w-[200px] animate-fade-in z-50">
-                      {conditionItems.map((condition) => (
-                        <Link
-                          key={condition.label}
-                          to={condition.href}
-                          className="block px-4 py-2 text-foreground hover:bg-cream-dark hover:text-primary transition-colors"
-                        >
-                          {condition.label}
-                        </Link>
-                      ))}
+                    <div className="absolute top-full left-0 pt-1 z-50">
+                      <div className="bg-card rounded-lg shadow-xl border border-border py-2 min-w-[200px]">
+                        {conditionItems.map((condition) => (
+                          <Link
+                            key={condition.label}
+                            to={condition.href}
+                            className="block px-4 py-2 text-foreground hover:bg-cream-dark hover:text-primary transition-colors"
+                          >
+                            {condition.label}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
