@@ -303,15 +303,31 @@ export default function Spravato() {
               </ul>
             </div>
             
-            {/* Right Column - Image */}
-            <div className="relative">
-              <div className="image-card aspect-square bg-gradient-to-br from-secondary via-card to-muted flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-primary/20 flex items-center justify-center">
-                    <Pill className="w-10 h-10 text-primary" />
-                  </div>
-                  <p className="text-muted-foreground text-sm">
-                    SPRAVATO® treatment illustration
+            {/* Right Column - Video */}
+            <div className="space-y-6">
+              <div className="image-card aspect-video overflow-hidden">
+                <iframe
+                  src="https://player.vimeo.com/video/332355023?h=0&title=0&byline=0&portrait=0"
+                  className="w-full h-full"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowFullScreen
+                  title="What is SPRAVATO®?"
+                />
+              </div>
+              
+              {/* Contact Info */}
+              <div className="bg-card rounded-2xl p-6 shadow-sm">
+                <p className="text-foreground font-semibold mb-3">Have questions about SPRAVATO®?</p>
+                <div className="space-y-2 text-muted-foreground">
+                  <a 
+                    href="tel:201-781-2101" 
+                    className="flex items-center gap-2 hover:text-primary transition-colors"
+                  >
+                    <Phone className="w-4 h-4" />
+                    <span>201-781-2101</span>
+                  </a>
+                  <p className="text-sm">
+                    Schedule your consultation at Relaxol Clinic in New York
                   </p>
                 </div>
               </div>
