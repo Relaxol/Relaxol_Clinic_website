@@ -10,6 +10,7 @@ import abstractMedical from "@/assets/spravato-abstract-medical.jpg";
 import spravatoBrainMechanism from "@/assets/spravato-brain-mechanism.png";
 import spravatoMechanism from "@/assets/spravato-mechanism.png";
 import spravatoNasalSpray from "@/assets/spravato-nasal-spray.png";
+import spravatoDeviceOfficial from "@/assets/spravato-device-official.png";
 import { 
   ShieldCheck, 
   Stethoscope, 
@@ -423,17 +424,13 @@ export default function Spravato() {
               </p>
             </div>
             
-            {/* Right: Image placeholder */}
-            <div className="relative">
+            {/* Right: Official SPRAVATO Device Image */}
+            <div className="flex justify-center items-center">
               <img 
-                src={abstractMedical} 
-                alt="SPRAVATO nasal spray treatment"
-                className="w-full rounded-2xl shadow-xl"
+                src={spravatoDeviceOfficial} 
+                alt="SPRAVATO nasal spray device"
+                className="max-w-full h-auto"
               />
-              {/* Placeholder label for CMS */}
-              <div className="absolute bottom-4 right-4 bg-foreground/80 text-background text-xs px-3 py-1 rounded-full">
-                explainer_image
-              </div>
             </div>
           </div>
         </div>
