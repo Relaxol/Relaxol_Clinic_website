@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
-import treatmentSpravato from "@/assets/treatment-spravato.jpg";
+import treatmentSpravato from "@/assets/treatment-spravato.png";
 import treatmentKetamine from "@/assets/treatment-ketamine.jpg";
 import treatmentTelehealth from "@/assets/treatment-telehealth.jpg";
 
