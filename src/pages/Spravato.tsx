@@ -233,8 +233,12 @@ export default function Spravato() {
       <Header />
       
       {/* 1. HERO - Text Left, Video Right */}
-      <section className="relative py-16 lg:py-24 bg-gradient-to-br from-foreground via-foreground/95 to-foreground/90 overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative py-16 lg:py-24 overflow-hidden">
+        {/* Warm brown background matching homepage branding */}
+        <div className="absolute inset-0 bg-[#5C4A3A]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#4A3C32]/60 via-[#6B5A4A]/40 to-[#5C4A3A]/80" />
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* Left: Text Content */}
             <div className="space-y-6">
