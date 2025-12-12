@@ -329,20 +329,20 @@ export default function Spravato() {
         </div>
       </section>
 
-      {/* TREATMENT-RESISTANT DEPRESSION - Two Column with Gold Background */}
+      {/* TREATMENT-RESISTANT DEPRESSION - Centered Layout */}
       <section className="py-16 lg:py-20 bg-[#5C4A3A]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left: SPRAVATO Nasal Spray Image */}
-            <div className="flex justify-center lg:justify-end">
+          <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+            {/* Centered Image */}
+            <div className="mb-8">
               <img 
-                src={spravatoNasalSpray}
-                alt="SPRAVATO nasal spray device"
-                className="max-w-[280px] md:max-w-[320px] h-auto drop-shadow-2xl"
+                src={spravatoBrainMechanism}
+                alt="SPRAVATO brain mechanism - NMDA receptor antagonist"
+                className="max-w-[400px] md:max-w-[500px] w-full h-auto"
               />
             </div>
             
-            {/* Right: Text Content */}
+            {/* Centered Text Content */}
             <div className="space-y-5 text-white">
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
                 Treatment-Resistant Depression
