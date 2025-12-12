@@ -8,65 +8,65 @@
 @layer base {
   :root {
     /* Main backgrounds */
-    --background: 36 43% 97%; /* Warm cream #FBF4E8 */
-    --foreground: 20 41% 10%; /* Espresso #23160E */
+    --background: 0 0% 100%; /* Pure white for premium feel */
+    --foreground: 0 0% 8%; /* Near black for sharp contrast */
     
-    /* Surface colors */
-    --card: 0 0% 80%; /* Light gray */
-    --card-foreground: 20 41% 10%;
+    /* Surface colors - sharper grey */
+    --card: 0 0% 88.2%; /* Sharper light gray as requested */
+    --card-foreground: 0 0% 8%;
     
-    --popover: 36 43% 97%;
-    --popover-foreground: 20 41% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
     
     /* Primary - Warm Gold */
-    --primary: 40 61% 53%; /* Gold #D09B3C */
+    --primary: 40 61% 50%; /* Slightly deeper gold for contrast */
     --primary-foreground: 0 0% 100%;
     
-    /* Secondary - Light Taupe */
-    --secondary: 0 0% 80%; /* Light gray for bands */
-    --secondary-foreground: 20 41% 10%;
+    /* Secondary - Sharper light gray */
+    --secondary: 0 0% 88.2%; /* Sharper gray for bands */
+    --secondary-foreground: 0 0% 8%;
     
-    /* Muted - Soft Brown */
-    --muted: 30 18% 85%;
-    --muted-foreground: 25 22% 43%; /* Soft brown #7A6450 */
+    /* Muted - Subtle gray */
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 35%; /* Darker muted text for contrast */
     
     /* Accent - Darker Gold */
-    --accent: 40 65% 46%; /* Deeper gold #C48A25 */
+    --accent: 40 65% 42%; /* Deeper gold for better contrast */
     --accent-foreground: 0 0% 100%;
     
-    /* Espresso Dark */
-    --espresso: 20 41% 10%; /* #23160E */
-    --espresso-light: 25 22% 43%; /* #7A6450 */
+    /* Espresso Dark - Now pure black tones */
+    --espresso: 0 0% 8%;
+    --espresso-light: 0 0% 35%;
     
-    /* Cream variants */
-    --cream: 36 43% 97%;
-    --cream-dark: 0 0% 80%;
-    --cream-band: 0 0% 80%; /* Light gray for bands */
+    /* Cream variants - Now sharper grays */
+    --cream: 0 0% 100%;
+    --cream-dark: 0 0% 88.2%;
+    --cream-band: 0 0% 88.2%; /* Sharper gray for bands */
     
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
     
-    --border: 30 25% 85%;
-    --input: 30 25% 85%;
-    --ring: 40 61% 53%;
+    --border: 0 0% 85%;
+    --input: 0 0% 92%;
+    --ring: 40 61% 50%;
     
-    --radius: 1.5rem;
+    --radius: 0.75rem; /* Tighter radius for sharper look */
     
-    /* Shadows */
-    --shadow-soft: 0 18px 40px rgba(35, 22, 14, 0.08);
-    --shadow-card: 0 10px 30px rgba(35, 22, 14, 0.1);
-    --shadow-hero: 0 26px 60px rgba(35, 22, 14, 0.25);
-    --shadow-glow: 0 4px 20px rgba(208, 155, 60, 0.3);
+    /* Shadows - More defined for premium feel */
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 8px 32px rgba(0, 0, 0, 0.08);
+    --shadow-hero: 0 2px 4px rgba(0, 0, 0, 0.1), 0 24px 64px rgba(0, 0, 0, 0.12);
+    --shadow-glow: 0 0 0 1px rgba(208, 155, 60, 0.1), 0 4px 16px rgba(208, 155, 60, 0.2);
     
     /* Sidebar */
-    --sidebar-background: 36 43% 97%;
-    --sidebar-foreground: 20 41% 10%;
-    --sidebar-primary: 40 61% 53%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 8%;
+    --sidebar-primary: 40 61% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 36 35% 92%;
-    --sidebar-accent-foreground: 20 41% 10%;
-    --sidebar-border: 30 25% 85%;
-    --sidebar-ring: 40 61% 53%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 8%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 40 61% 50%;
   }
 
   .dark {
