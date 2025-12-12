@@ -486,46 +486,6 @@ export default function Spravato() {
         </div>
       </section>
 
-      {/* 6. VISUAL REASSURANCE SECTION */}
-      <section className="relative py-20 lg:py-28 overflow-hidden">
-        {/* Background image placeholder */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/20 to-primary/5" />
-        <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-cover bg-center opacity-10" />
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <Sparkles className="w-12 h-12 text-primary mx-auto mb-6" />
-            <p className="text-xl md:text-2xl text-foreground font-medium leading-relaxed">
-              "SPRAVATO® is administered only in certified medical settings under professional 
-              supervision—ensuring your safety and comfort throughout treatment."
-            </p>
-            
-            <div className="flex flex-wrap justify-center gap-6 mt-10">
-              <div className="flex items-center gap-2 bg-background/80 rounded-full px-4 py-2">
-                <Sofa className="w-5 h-5 text-primary" />
-                <span className="text-foreground text-sm">Calm environment</span>
-              </div>
-              <div className="flex items-center gap-2 bg-background/80 rounded-full px-4 py-2">
-                <Eye className="w-5 h-5 text-primary" />
-                <span className="text-foreground text-sm">Clinician monitoring</span>
-              </div>
-              <div className="flex items-center gap-2 bg-background/80 rounded-full px-4 py-2">
-                <Timer className="w-5 h-5 text-primary" />
-                <span className="text-foreground text-sm">Same-day observation</span>
-              </div>
-              <div className="flex items-center gap-2 bg-background/80 rounded-full px-4 py-2">
-                <Car className="w-5 h-5 text-primary" />
-                <span className="text-foreground text-sm">No driving post-treatment</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Placeholder label for CMS */}
-        <div className="absolute bottom-4 right-4 bg-foreground/80 text-background text-xs px-3 py-1 rounded-full">
-          visual_reassurance_section
-        </div>
-      </section>
 
       {/* 7. SAFETY & SIDE EFFECTS - Accordion */}
       <section className="py-16 lg:py-24 bg-card">
