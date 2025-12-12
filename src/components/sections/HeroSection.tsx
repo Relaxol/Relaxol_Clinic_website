@@ -10,33 +10,34 @@ const trustPills = [
 export function HeroSection() {
   return (
     <section className="relative min-h-[80vh] flex items-center overflow-hidden">
-      {/* Background image - bright white aesthetic */}
+      {/* Background image with warm golden-brown filter */}
       <div 
         className="absolute inset-0 bg-cover bg-no-repeat bg-fixed"
         style={{ 
           backgroundImage: `url(${heroBackground})`, 
-          backgroundPosition: '50% 50%',
+          backgroundPosition: '50% 40%',
         }}
       >
-        {/* Subtle overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-white/30 to-transparent" />
+        {/* Warm golden-brown overlay like reference */}
+        <div className="absolute inset-0 bg-[#8B6914]/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#6B5A1E]/60 via-[#8B6914]/40 to-[#8B6914]/30" />
       </div>
 
       {/* Content */}
       <div className="relative container mx-auto px-4 pt-10 pb-20">
         <div className="max-w-3xl">
           {/* Subtitle */}
-          <p className="text-primary text-sm md:text-base font-semibold uppercase tracking-widest mb-4 animate-fade-up">
+          <p className="text-white/90 text-sm md:text-base font-semibold uppercase tracking-widest mb-4 animate-fade-up">
             FIND HOPE AND RELIEF TODAY
           </p>
 
           {/* Main Heading */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl text-foreground font-bold leading-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl text-white font-bold leading-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
             New Jersey's Premier Ketamine & SPRAVATO® Clinic
           </h1>
 
           {/* Subtitle Text */}
-          <p className="text-muted-foreground text-lg md:text-xl leading-relaxed mb-8 animate-fade-up" style={{ animationDelay: "0.15s" }}>
+          <p className="text-white/90 text-lg md:text-xl leading-relaxed mb-8 animate-fade-up" style={{ animationDelay: "0.15s" }}>
             Advanced, clinician-led treatments for depression, anxiety,<br className="hidden md:block" /> PTSD and OCD in a safe, monitored medical setting.
           </p>
 
@@ -44,15 +45,9 @@ export function HeroSection() {
           <div className="flex flex-wrap gap-4 mb-10 animate-fade-up" style={{ animationDelay: "0.2s" }}>
             <a
               href="#contact"
-              className="btn-primary text-lg shadow-lg"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-md bg-[#2C2C2C] text-white font-semibold text-lg hover:bg-[#1a1a1a] transition-all duration-300 shadow-lg"
             >
-              Schedule a Consultation
-            </a>
-            <a
-              href="#treatments"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-full border-2 border-foreground/30 text-foreground font-semibold hover:bg-foreground hover:text-background text-lg transition-all duration-300"
-            >
-              Learn About Our Treatments
+              Book Your Free Consultation Today!
             </a>
           </div>
 
@@ -61,9 +56,9 @@ export function HeroSection() {
             {trustPills.map((pill) => (
               <div
                 key={pill.label}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-foreground/10 backdrop-blur-sm border border-foreground/20 text-foreground text-sm font-medium shadow-sm"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 backdrop-blur-sm border border-white/25 text-white text-sm font-medium shadow-sm"
               >
-                <pill.icon className="w-4 h-4 text-primary" />
+                <pill.icon className="w-4 h-4 text-white/90" />
                 <span>{pill.label}</span>
               </div>
             ))}
