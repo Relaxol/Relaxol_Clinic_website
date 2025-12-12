@@ -1,16 +1,20 @@
+import { useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import abstractMedical from "@/assets/spravato-abstract-medical.jpg";
+import spravatoBrainMechanism from "@/assets/spravato-brain-mechanism.png";
 import { 
   ShieldCheck, 
   Stethoscope, 
   FileCheck, 
   Brain, 
   HeartPulse, 
-  Pill, 
+  Zap, 
   UserCheck,
   ClipboardCheck,
   Activity,
@@ -22,24 +26,46 @@ import {
   AlertCircle,
   ArrowRight,
   CheckCircle2,
-  Building2
+  Building2,
+  Sparkles,
+  ShieldPlus,
+  Timer
 } from "lucide-react";
 
 // Credibility strip items
 const credibilityItems = [
   { icon: ShieldCheck, text: "FDA-Approved" },
-  { icon: Building2, text: "In-Clinic Administration" },
-  { icon: Stethoscope, text: "Medically Supervised" },
+  { icon: Eye, text: "In-Clinic Monitoring" },
   { icon: FileCheck, text: "Insurance Accepted" },
 ];
 
-// Qualifying bullets
-const qualifyingPoints = [
-  "You've tried two or more antidepressants without lasting relief",
-  "Your depression symptoms persist despite ongoing treatment",
-  "You're looking for an FDA-approved option beyond traditional medications",
-  "You want clinician-supervised care in a medical setting",
-  "You're ready to explore a different approach to treatment",
+// Benefits cards
+const benefitsCards = [
+  {
+    icon: Zap,
+    title: "Faster Relief",
+    description: "May improve symptoms within hours to days, unlike weeks with traditional antidepressants."
+  },
+  {
+    icon: Brain,
+    title: "Works Differently",
+    description: "Targets NMDA receptors and glutamate—a different brain pathway than standard medications."
+  },
+  {
+    icon: HeartPulse,
+    title: "Treatment-Resistant Option",
+    description: "Specifically designed for patients who haven't responded to other antidepressants."
+  },
+  {
+    icon: Stethoscope,
+    title: "Medical Supervision",
+    description: "Every session is administered and monitored by trained clinical staff."
+  },
+  {
+    icon: ShieldPlus,
+    title: "FDA-Approved",
+    description: "Rigorously tested and approved for treatment-resistant depression and MDD with suicidal ideation."
+  },
 ];
 
 // Timeline steps
@@ -61,40 +87,8 @@ const treatmentSteps = [
   },
   {
     icon: CalendarCheck,
-    title: "Follow-Up Care",
+    title: "Ongoing Care",
     description: "Continue with personalized maintenance and support."
-  },
-];
-
-// Reassurance points
-const reassurancePoints = [
-  { icon: Sofa, text: "Calm, comfortable environment" },
-  { icon: Eye, text: "Continuous clinician monitoring" },
-  { icon: Clock, text: "Same-day observation included" },
-  { icon: Car, text: "No driving required post-treatment" },
-];
-
-// Who may benefit cards
-const benefitCards = [
-  {
-    icon: Brain,
-    title: "Treatment-Resistant Depression",
-    description: "Depression that hasn't responded to standard antidepressants."
-  },
-  {
-    icon: Pill,
-    title: "Inadequate Medication Response",
-    description: "Tried two or more antidepressants without adequate relief."
-  },
-  {
-    icon: HeartPulse,
-    title: "Major Depressive Disorder with Suicidal Ideation",
-    description: "Adults with MDD experiencing acute suicidal thoughts."
-  },
-  {
-    icon: UserCheck,
-    title: "Clinician-Evaluated Eligibility",
-    description: "Final candidacy determined through professional evaluation."
   },
 ];
 
@@ -117,281 +111,232 @@ const safetyAccordionItems = [
   },
 ];
 
+// Eligibility form component
+function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark" }) {
+  const [formData, setFormData] = useState({
+    triedAntidepressants: "",
+    diagnosedDepression: "",
+    zipCode: "",
+    email: "",
+    phone: ""
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Form submission logic would go here
+    console.log("Form submitted:", formData);
+  };
+
+  const isDark = variant === "dark";
+  const labelClass = isDark ? "text-background/90" : "text-foreground";
+  const inputClass = isDark 
+    ? "bg-background/10 border-background/30 text-background placeholder:text-background/50 focus:border-background/60" 
+    : "";
+  const radioContainerClass = isDark 
+    ? "bg-background/10 border-background/30 hover:bg-background/20" 
+    : "bg-card border-border hover:bg-secondary/50";
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-5">
+      {/* Question 1 */}
+      <div className="space-y-2">
+        <Label className={labelClass}>Have you tried 2+ antidepressants without lasting relief?</Label>
+        <div className="flex gap-3">
+          {["Yes", "No"].map((option) => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => setFormData(prev => ({ ...prev, triedAntidepressants: option }))}
+              className={`flex-1 py-3 px-4 rounded-lg border transition-all ${radioContainerClass} ${
+                formData.triedAntidepressants === option 
+                  ? "ring-2 ring-primary border-primary" 
+                  : ""
+              }`}
+            >
+              <span className={isDark ? "text-background" : "text-foreground"}>{option}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Question 2 */}
+      <div className="space-y-2">
+        <Label className={labelClass}>Are you currently diagnosed with depression?</Label>
+        <div className="flex gap-3">
+          {["Yes", "No"].map((option) => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => setFormData(prev => ({ ...prev, diagnosedDepression: option }))}
+              className={`flex-1 py-3 px-4 rounded-lg border transition-all ${radioContainerClass} ${
+                formData.diagnosedDepression === option 
+                  ? "ring-2 ring-primary border-primary" 
+                  : ""
+              }`}
+            >
+              <span className={isDark ? "text-background" : "text-foreground"}>{option}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ZIP Code */}
+      <div className="space-y-2">
+        <Label htmlFor="zipCode" className={labelClass}>ZIP Code</Label>
+        <Input 
+          id="zipCode"
+          type="text"
+          placeholder="Enter your ZIP code"
+          value={formData.zipCode}
+          onChange={(e) => setFormData(prev => ({ ...prev, zipCode: e.target.value }))}
+          className={inputClass}
+        />
+      </div>
+
+      {/* Contact fields */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label htmlFor="email" className={labelClass}>Email</Label>
+          <Input 
+            id="email"
+            type="email"
+            placeholder="your@email.com"
+            value={formData.email}
+            onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+            className={inputClass}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="phone" className={labelClass}>Phone</Label>
+          <Input 
+            id="phone"
+            type="tel"
+            placeholder="(555) 123-4567"
+            value={formData.phone}
+            onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+            className={inputClass}
+          />
+        </div>
+      </div>
+
+      <Button type="submit" size="lg" className="w-full group">
+        See If I Qualify
+        <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+      </Button>
+    </form>
+  );
+}
+
 export default function Spravato() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* 1. HERO SECTION - Pain-Forward */}
-      <section className="relative py-20 lg:py-28 bg-background overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left: Text Content */}
-            <div className="space-y-6">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
-                When Antidepressants Haven't Worked, There's Another Option
-              </h1>
-              <h2 className="text-xl md:text-2xl text-muted-foreground">
-                SPRAVATO® is an FDA-approved treatment for treatment-resistant depression—administered by board-certified psychiatrists at our New Jersey clinic.
-              </h2>
-              
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button size="lg" className="group" asChild>
-                  <a href="#contact">
-                    Check Your Eligibility
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </a>
-                </Button>
-                <Button variant="ghost" size="lg" asChild>
-                  <a href="#how-it-works" className="text-primary hover:text-primary/80">
-                    See How It Works
-                  </a>
-                </Button>
-              </div>
-            </div>
-            
-            {/* Right: Video */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-xl">
-              <iframe
-                src="https://player.vimeo.com/video/332355023?h=0&title=0&byline=0&portrait=0"
-                className="w-full h-full"
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowFullScreen
-                title="SPRAVATO® Treatment Overview"
-              />
-            </div>
-          </div>
+      {/* 1. HERO - Video with Overlay */}
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <iframe
+            src="https://player.vimeo.com/video/332355023?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0"
+            className="w-full h-full object-cover scale-150"
+            allow="autoplay; fullscreen"
+            title="SPRAVATO® Treatment Overview"
+            style={{ pointerEvents: 'none' }}
+          />
+          {/* Dark gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-foreground/95 via-foreground/80 to-foreground/60" />
         </div>
-      </section>
-
-      {/* 2. CREDIBILITY STRIP */}
-      <section className="py-8 bg-card border-y border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {credibilityItems.map((item, index) => (
-              <div 
-                key={index} 
-                className="flex items-center gap-3 justify-center lg:justify-start"
-              >
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <item.icon className="w-5 h-5 text-primary" />
-                </div>
-                <span className="text-sm font-semibold text-foreground">
-                  {item.text}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. QUALIFYING SECTION - "This treatment may be right for you if..." */}
-      <section className="py-16 lg:py-20 bg-secondary/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-10">
-              This treatment may be right for you if...
+        
+        {/* Content */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
+          <div className="max-w-2xl">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-background leading-tight mb-6">
+              SPRAVATO® Treatment for Depression That Hasn't Responded to Medication
+            </h1>
+            <h2 className="text-xl md:text-2xl text-background/80 mb-8">
+              FDA-approved esketamine therapy administered in a medically supervised clinic
             </h2>
             
-            <ul className="space-y-4">
-              {qualifyingPoints.map((point, index) => (
-                <li 
-                  key={index}
-                  className="flex items-start gap-4 bg-background rounded-xl p-4 shadow-sm"
-                >
-                  <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-foreground text-lg">
-                    {point}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. HOW TREATMENT WORKS - Timeline Style (MOVED UP) */}
-      <section id="how-it-works" className="py-20 lg:py-28 bg-card scroll-mt-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-primary font-semibold text-sm uppercase tracking-widest">
-              The Process
-            </span>
-            <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4">
-              How the Treatment Works
-            </h2>
-          </div>
-          
-          {/* Desktop: Horizontal Timeline */}
-          <div className="hidden lg:block">
-            <div className="grid grid-cols-4 gap-6">
-              {treatmentSteps.map((step, index) => (
-                <div key={index} className="relative">
-                  {/* Connector Line */}
-                  {index < treatmentSteps.length - 1 && (
-                    <div className="absolute top-8 left-1/2 w-full h-0.5 bg-border z-0" />
-                  )}
-                  
-                  <div className="relative z-10 flex flex-col items-center text-center">
-                    <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center mb-4 shadow-lg">
-                      <step.icon className="w-7 h-7" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
-                      {step.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Mobile: Vertical Timeline */}
-          <div className="lg:hidden space-y-8">
-            {treatmentSteps.map((step, index) => (
-              <div key={index} className="flex gap-4">
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                    <step.icon className="w-5 h-5" />
-                  </div>
-                  {index < treatmentSteps.length - 1 && (
-                    <div className="w-0.5 h-full bg-border mt-2" />
-                  )}
-                </div>
-                <div className="pb-4">
-                  <h3 className="text-lg font-semibold text-foreground mb-1">
-                    {step.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5. MID-PAGE CTA */}
-      <section className="py-12 lg:py-16 bg-primary">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <h3 className="text-xl md:text-2xl font-semibold text-primary-foreground">
-                Ready to find out if SPRAVATO® is right for you?
-              </h3>
-              <p className="text-primary-foreground/80 mt-1">
-                Our team can assess your eligibility within 48 hours.
-              </p>
-            </div>
-            <Button 
-              size="lg" 
-              variant="secondary"
-              className="flex-shrink-0 group"
-              asChild
-            >
-              <a href="#contact">
-                Request an Eligibility Review
+            <Button size="lg" className="group mb-8" asChild>
+              <a href="#eligibility-form">
+                Check Eligibility
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </a>
             </Button>
+            
+            <a 
+              href="#who-benefits" 
+              className="text-background/70 hover:text-background underline underline-offset-4 block"
+            >
+              Is SPRAVATO® Right for Me?
+            </a>
+            
+            {/* Micro-trust row */}
+            <div className="flex flex-wrap gap-6 mt-10">
+              {credibilityItems.map((item, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <item.icon className="w-5 h-5 text-primary" />
+                  <span className="text-background/90 text-sm font-medium">{item.text}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 6. WHAT IS SPRAVATO - Condensed (~50% shorter) */}
-      <section className="py-20 lg:py-28 bg-background">
+      {/* 2. ELIGIBILITY / CONTACT FORM */}
+      <section id="eligibility-form" className="py-16 lg:py-24 bg-secondary/30 scroll-mt-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Left: Text */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            {/* Left: Reassurance copy */}
             <div className="space-y-6">
-              <span className="text-primary font-semibold text-sm uppercase tracking-widest">
-                About the Treatment
-              </span>
-              <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-                What Makes SPRAVATO® Different
+              <h2 className="text-2xl md:text-3xl font-semibold text-foreground">
+                Find Out If You're a Candidate
               </h2>
-              
-              <p className="text-muted-foreground leading-relaxed">
-                Traditional antidepressants target serotonin or norepinephrine. SPRAVATO® (esketamine) 
-                works on the glutamate system—a different brain pathway that may help restore neural 
-                connections weakened by depression when other treatments haven't worked.
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                SPRAVATO® is specifically designed for adults with treatment-resistant depression 
+                who haven't found relief from traditional antidepressants. Complete this brief 
+                form to see if you may qualify.
               </p>
               
-              <ul className="space-y-3">
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground">FDA-approved nasal spray for treatment-resistant depression</span>
+              <ul className="space-y-4 pt-4">
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="text-foreground">No obligation—we simply assess eligibility</span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground">Administered only at certified REMS clinics</span>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="text-foreground">Response within 48 hours from our care team</span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground">Used alongside your current oral antidepressant</span>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="text-foreground">Insurance verification included</span>
                 </li>
               </ul>
             </div>
             
-            {/* Right: Abstract Medical Visual */}
-            <div className="relative">
-              <img 
-                src={abstractMedical} 
-                alt="Neural pathway illustration representing SPRAVATO mechanism"
-                className="w-full rounded-2xl shadow-xl"
-              />
+            {/* Right: Form */}
+            <div className="bg-background rounded-2xl p-6 md:p-8 shadow-lg border border-border">
+              <EligibilityForm />
             </div>
           </div>
         </div>
       </section>
 
-      {/* 7. WHAT TO EXPECT - Reassurance Block */}
-      <section className="py-16 lg:py-20 bg-secondary/30">
+      {/* 3. BENEFITS OF SPRAVATO - Card Based */}
+      <section className="py-16 lg:py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-10">
-              What to Expect During Your Visit
-            </h2>
-            
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {reassurancePoints.map((point, index) => (
-                <div 
-                  key={index}
-                  className="flex items-center gap-3 bg-background rounded-xl p-4 shadow-sm"
-                >
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <point.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <span className="text-foreground font-medium text-sm">
-                    {point.text}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 8. WHO MAY BENEFIT - Card Based */}
-      <section id="eligibility" className="py-20 lg:py-28 bg-background scroll-mt-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-primary font-semibold text-sm uppercase tracking-widest">
-              Eligibility
+              Why SPRAVATO®
             </span>
-            <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4 mb-4">
-              Who May Benefit from SPRAVATO®
+            <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4">
+              Benefits of SPRAVATO® Treatment
             </h2>
-            <p className="text-muted-foreground">
-              Candidates typically include adults who meet specific clinical criteria.
-            </p>
           </div>
           
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefitCards.map((card, index) => (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {benefitsCards.map((card, index) => (
               <Card key={index} className="border-border/50 shadow-sm hover:shadow-md transition-shadow">
                 <CardContent className="p-6">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
@@ -407,19 +352,144 @@ export default function Spravato() {
               </Card>
             ))}
           </div>
-          
-          <p className="text-center text-muted-foreground text-sm mt-10 flex items-center justify-center gap-2">
-            <AlertCircle className="w-4 h-4" />
-            Final eligibility determined by a licensed clinician after thorough evaluation.
-          </p>
         </div>
       </section>
 
-      {/* 9. SAFETY & SIDE EFFECTS - Accordion */}
-      <section className="py-20 lg:py-28 bg-card">
+      {/* 4. WHAT IS SPRAVATO - Explanation + Image */}
+      <section className="py-16 lg:py-24 bg-card">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left: Text */}
+            <div className="space-y-6">
+              <span className="text-primary font-semibold text-sm uppercase tracking-widest">
+                About the Treatment
+              </span>
+              <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
+                What Is SPRAVATO®?
+              </h2>
+              
+              <p className="text-muted-foreground leading-relaxed">
+                SPRAVATO® is a prescription nasal spray derived from esketamine and approved 
+                by the FDA for treatment-resistant depression. It's used alongside an oral 
+                antidepressant for adults who haven't found relief from standard medications.
+              </p>
+              
+              <p className="text-muted-foreground leading-relaxed">
+                Unlike traditional antidepressants that target serotonin or norepinephrine, 
+                SPRAVATO® works on the glutamate system—potentially restoring neural connections 
+                weakened by chronic depression.
+              </p>
+            </div>
+            
+            {/* Right: Image placeholder */}
+            <div className="relative">
+              <img 
+                src={abstractMedical} 
+                alt="SPRAVATO nasal spray treatment"
+                className="w-full rounded-2xl shadow-xl"
+              />
+              {/* Placeholder label for CMS */}
+              <div className="absolute bottom-4 right-4 bg-foreground/80 text-background text-xs px-3 py-1 rounded-full">
+                explainer_image
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. HOW SPRAVATO WORKS - Process Timeline + Mechanism */}
+      <section id="how-it-works" className="py-16 lg:py-24 bg-background scroll-mt-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="text-primary font-semibold text-sm uppercase tracking-widest">
+              The Process
+            </span>
+            <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4">
+              How the Treatment Works
+            </h2>
+          </div>
+          
+          {/* Timeline */}
+          <div className="grid md:grid-cols-4 gap-6 mb-16">
+            {treatmentSteps.map((step, index) => (
+              <div key={index} className="relative">
+                {/* Connector Line (desktop) */}
+                {index < treatmentSteps.length - 1 && (
+                  <div className="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-border z-0" />
+                )}
+                
+                <div className="relative z-10 flex flex-col items-center text-center">
+                  <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center mb-4 shadow-lg">
+                    <step.icon className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    {step.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Mechanism explanation */}
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-muted-foreground leading-relaxed">
+              SPRAVATO® targets NMDA receptors in the brain, increasing glutamate release which 
+              helps restore synaptic connections affected by depression. This mechanism differs 
+              from traditional antidepressants and may provide relief when other treatments haven't worked.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. VISUAL REASSURANCE SECTION */}
+      <section className="relative py-20 lg:py-28 overflow-hidden">
+        {/* Background image placeholder */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/20 to-primary/5" />
+        <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-cover bg-center opacity-10" />
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-3xl mx-auto text-center">
+            <Sparkles className="w-12 h-12 text-primary mx-auto mb-6" />
+            <p className="text-xl md:text-2xl text-foreground font-medium leading-relaxed">
+              "SPRAVATO® is administered only in certified medical settings under professional 
+              supervision—ensuring your safety and comfort throughout treatment."
+            </p>
+            
+            <div className="flex flex-wrap justify-center gap-6 mt-10">
+              <div className="flex items-center gap-2 bg-background/80 rounded-full px-4 py-2">
+                <Sofa className="w-5 h-5 text-primary" />
+                <span className="text-foreground text-sm">Calm environment</span>
+              </div>
+              <div className="flex items-center gap-2 bg-background/80 rounded-full px-4 py-2">
+                <Eye className="w-5 h-5 text-primary" />
+                <span className="text-foreground text-sm">Clinician monitoring</span>
+              </div>
+              <div className="flex items-center gap-2 bg-background/80 rounded-full px-4 py-2">
+                <Timer className="w-5 h-5 text-primary" />
+                <span className="text-foreground text-sm">Same-day observation</span>
+              </div>
+              <div className="flex items-center gap-2 bg-background/80 rounded-full px-4 py-2">
+                <Car className="w-5 h-5 text-primary" />
+                <span className="text-foreground text-sm">No driving post-treatment</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Placeholder label for CMS */}
+        <div className="absolute bottom-4 right-4 bg-foreground/80 text-background text-xs px-3 py-1 rounded-full">
+          visual_reassurance_section
+        </div>
+      </section>
+
+      {/* 7. SAFETY & SIDE EFFECTS - Accordion */}
+      <section className="py-16 lg:py-24 bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-12">
+            <div className="text-center mb-8">
               <span className="text-primary font-semibold text-sm uppercase tracking-widest">
                 Safety Information
               </span>
@@ -427,6 +497,10 @@ export default function Spravato() {
                 Safety & Side Effects
               </h2>
             </div>
+            
+            <p className="text-center text-muted-foreground mb-8">
+              As with any medical treatment, it's important to understand safety considerations.
+            </p>
             
             <Accordion type="single" collapsible className="space-y-4">
               {safetyAccordionItems.map((item) => (
@@ -452,8 +526,8 @@ export default function Spravato() {
         </div>
       </section>
 
-      {/* 10. INSURANCE & ACCESS */}
-      <section className="py-20 lg:py-28 bg-background">
+      {/* 8. INSURANCE & ACCESS */}
+      <section className="py-16 lg:py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <span className="text-primary font-semibold text-sm uppercase tracking-widest">
@@ -468,7 +542,7 @@ export default function Spravato() {
             </p>
             
             <Button size="lg" variant="outline" className="group" asChild>
-              <a href="#contact">
+              <a href="#final-form">
                 Verify Coverage
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </a>
@@ -477,32 +551,31 @@ export default function Spravato() {
         </div>
       </section>
 
-      {/* 11. FINAL CTA - Decision-Oriented */}
-      <section id="contact" className="py-20 lg:py-28 bg-foreground text-background scroll-mt-24">
+      {/* 9. FINAL CTA - Repeat Eligibility Form */}
+      <section id="final-form" className="py-16 lg:py-24 bg-foreground scroll-mt-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-semibold mb-4">
-              You've Tried Everything Else. Now Try Something Different.
-            </h2>
-            <p className="text-background/80 text-lg mb-8">
-              Find out if SPRAVATO® could be the breakthrough you've been looking for. 
-              Our team is ready to review your eligibility.
-            </p>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            {/* Left: Headline */}
+            <div className="space-y-6">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-background">
+                Find Out If SPRAVATO® Is Right for You
+              </h2>
+              <p className="text-background/70 text-lg leading-relaxed">
+                If you've been struggling with depression and traditional treatments haven't 
+                provided relief, SPRAVATO® may be an option worth exploring. Complete this 
+                form and our team will assess your eligibility.
+              </p>
+              
+              <div className="flex items-center gap-3 text-background/60 text-sm">
+                <AlertCircle className="w-5 h-5" />
+                <span>This is a lead qualifier, not a medical intake.</span>
+              </div>
+            </div>
             
-            <Button 
-              size="lg" 
-              className="bg-primary text-primary-foreground hover:bg-primary/90 group"
-              asChild
-            >
-              <a href="/contact">
-                Start Your Eligibility Review
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </Button>
-            
-            <p className="text-background/60 text-sm mt-6">
-              No commitment required. We'll review your case and let you know if you're a candidate.
-            </p>
+            {/* Right: Form */}
+            <div className="bg-background/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-background/20">
+              <EligibilityForm variant="dark" />
+            </div>
           </div>
         </div>
       </section>
