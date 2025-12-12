@@ -27,7 +27,7 @@ export function HeroSection() {
       <div className="relative container mx-auto px-4 pt-10 pb-20">
         <div className="max-w-3xl">
           {/* Subtitle */}
-          <p className="text-white/90 text-sm md:text-base font-semibold uppercase tracking-widest mb-4 animate-fade-up">
+          <p className="text-[#D09B3C] text-sm md:text-base font-semibold uppercase tracking-widest mb-4 animate-fade-up">
             FIND HOPE AND RELIEF TODAY
           </p>
 
