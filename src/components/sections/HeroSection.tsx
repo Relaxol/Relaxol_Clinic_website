@@ -10,7 +10,7 @@ const trustPills = [
 export function HeroSection() {
   return (
     <section className="relative min-h-[80vh] flex items-center overflow-hidden">
-      {/* Background image with warm golden-brown filter */}
+      {/* Background image with warm brownish overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-no-repeat bg-fixed"
         style={{ 
@@ -18,9 +18,9 @@ export function HeroSection() {
           backgroundPosition: '50% 40%',
         }}
       >
-        {/* Warm golden-brown overlay like reference */}
-        <div className="absolute inset-0 bg-[#8B6914]/50" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#6B5A1E]/60 via-[#8B6914]/40 to-[#8B6914]/30" />
+        {/* Warm brown overlay with subtle red tint */}
+        <div className="absolute inset-0 bg-[#5C4A3A]/55" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#4A3C32]/50 via-[#6B5A4A]/35 to-transparent" />
       </div>
 
       {/* Content */}
