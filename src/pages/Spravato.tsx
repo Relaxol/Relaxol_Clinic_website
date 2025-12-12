@@ -3,7 +3,6 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent } from "@/components/ui/card";
-import clinicInterior from "@/assets/spravato-clinic-interior.jpg";
 import abstractMedical from "@/assets/spravato-abstract-medical.jpg";
 import { 
   ShieldCheck, 
@@ -151,12 +150,14 @@ export default function Spravato() {
               </div>
             </div>
             
-            {/* Right: Image */}
-            <div className="relative">
-              <img 
-                src={clinicInterior} 
-                alt="Modern SPRAVATO treatment room at Relaxol Clinic"
-                className="w-full rounded-2xl shadow-xl"
+            {/* Right: Video */}
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-xl">
+              <iframe
+                src="https://player.vimeo.com/video/332355023?h=0&title=0&byline=0&portrait=0"
+                className="w-full h-full"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+                title="SPRAVATO® Treatment Overview"
               />
             </div>
           </div>
