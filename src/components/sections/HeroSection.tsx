@@ -45,7 +45,7 @@ export function HeroSection() {
           <div className="flex flex-wrap gap-4 mb-10 animate-fade-up" style={{ animationDelay: "0.2s" }}>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-md bg-[#2C2C2C] text-white font-semibold text-lg hover:bg-[#1a1a1a] transition-all duration-300 shadow-lg"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-md bg-[#D09B3C] text-white font-semibold text-lg hover:bg-[#B8862F] transition-all duration-300 shadow-lg"
             >
               Book Your Free Consultation Today!
             </a>
