@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import abstractMedical from "@/assets/spravato-abstract-medical.jpg";
 import spravatoBrainMechanism from "@/assets/spravato-brain-mechanism.png";
+import spravatoMechanism from "@/assets/spravato-mechanism.png";
 import spravatoNasalSpray from "@/assets/spravato-nasal-spray.png";
 import { 
   ShieldCheck, 
@@ -329,20 +330,20 @@ export default function Spravato() {
         </div>
       </section>
 
-      {/* TREATMENT-RESISTANT DEPRESSION - Centered Layout */}
+      {/* TREATMENT-RESISTANT DEPRESSION - Two Column Layout */}
       <section className="py-16 lg:py-20 bg-[#5C4A3A]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-            {/* Centered Image */}
-            <div className="mb-8">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left: Image */}
+            <div className="flex justify-center">
               <img 
-                src={spravatoBrainMechanism}
+                src={spravatoMechanism}
                 alt="SPRAVATO brain mechanism - NMDA receptor antagonist"
-                className="max-w-[400px] md:max-w-[500px] w-full h-auto"
+                className="max-w-[450px] w-full h-auto"
               />
             </div>
             
-            {/* Centered Text Content */}
+            {/* Right: Text Content */}
             <div className="space-y-5 text-white">
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
                 Treatment-Resistant Depression
