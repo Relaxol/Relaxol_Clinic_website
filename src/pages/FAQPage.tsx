@@ -163,7 +163,7 @@ const FAQPage = () => {
         <section className="py-8 bg-background border-b border-border">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <p className="text-sm font-semibold text-muted-foreground mb-4 uppercase tracking-wider">
+              <p className="text-sm font-semibold text-primary mb-4 uppercase tracking-wider">
                 On this page:
               </p>
               <div className="flex flex-wrap gap-3">
