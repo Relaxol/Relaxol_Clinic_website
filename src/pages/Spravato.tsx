@@ -34,27 +34,36 @@ const credibilityItems = [
   { icon: FileCheck, text: "Insurance Accepted" },
 ];
 
+// Qualifying bullets
+const qualifyingPoints = [
+  "You've tried two or more antidepressants without lasting relief",
+  "Your depression symptoms persist despite ongoing treatment",
+  "You're looking for an FDA-approved option beyond traditional medications",
+  "You want clinician-supervised care in a medical setting",
+  "You're ready to explore a different approach to treatment",
+];
+
 // Timeline steps
 const treatmentSteps = [
   {
     icon: ClipboardCheck,
     title: "Evaluation & Eligibility",
-    description: "Comprehensive psychiatric assessment to determine if SPRAVATO® is right for you."
+    description: "Comprehensive psychiatric assessment to determine candidacy."
   },
   {
     icon: Activity,
     title: "In-Clinic Administration",
-    description: "Self-administer the nasal spray under direct clinical supervision."
+    description: "Self-administer the nasal spray under clinical supervision."
   },
   {
     icon: Clock,
     title: "Observation Period",
-    description: "Rest comfortably while our team monitors your response for ~2 hours."
+    description: "Rest while our team monitors your response for ~2 hours."
   },
   {
     icon: CalendarCheck,
     title: "Follow-Up Care",
-    description: "Continue with personalized maintenance and ongoing psychiatric support."
+    description: "Continue with personalized maintenance and support."
   },
 ];
 
@@ -114,29 +123,29 @@ export default function Spravato() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* 1. HERO SECTION - Two Column */}
+      {/* 1. HERO SECTION - Pain-Forward */}
       <section className="relative py-20 lg:py-28 bg-background overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Text Content */}
             <div className="space-y-6">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
-                SPRAVATO® Treatment for Treatment-Resistant Depression
+                When Antidepressants Haven't Worked, There's Another Option
               </h1>
-              <h2 className="text-xl md:text-2xl text-muted-foreground font-medium">
-                FDA-approved care delivered in a medically supervised setting
+              <h2 className="text-xl md:text-2xl text-muted-foreground">
+                SPRAVATO® is an FDA-approved treatment for treatment-resistant depression—administered by board-certified psychiatrists at our New Jersey clinic.
               </h2>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Button size="lg" className="group" asChild>
                   <a href="#contact">
-                    Request a Consultation
+                    Check Your Eligibility
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </a>
                 </Button>
                 <Button variant="ghost" size="lg" asChild>
-                  <a href="#eligibility" className="text-primary hover:text-primary/80">
-                    Is SPRAVATO® Right for Me?
+                  <a href="#how-it-works" className="text-primary hover:text-primary/80">
+                    See How It Works
                   </a>
                 </Button>
               </div>
@@ -175,62 +184,33 @@ export default function Spravato() {
         </div>
       </section>
 
-      {/* 3. WHAT IS SPRAVATO - Condensed */}
-      <section className="py-20 lg:py-28 bg-background">
+      {/* 3. QUALIFYING SECTION - "This treatment may be right for you if..." */}
+      <section className="py-16 lg:py-20 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Left: Text */}
-            <div className="space-y-6">
-              <span className="text-primary font-semibold text-sm uppercase tracking-widest">
-                About the Treatment
-              </span>
-              <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-                What is SPRAVATO®?
-              </h2>
-              
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
-                <p>
-                  SPRAVATO® (esketamine) is an FDA-approved nasal spray for adults with 
-                  treatment-resistant depression or major depressive disorder with suicidal 
-                  thoughts.
-                </p>
-                <p>
-                  Unlike traditional antidepressants, SPRAVATO® works on the glutamate 
-                  system—a different brain pathway that may help restore neural connections 
-                  weakened by depression.
-                </p>
-              </div>
-              
-              <ul className="space-y-3 pt-2">
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground">Nasal spray administered in-clinic</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground">Available only at certified REMS settings</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground">Used alongside an oral antidepressant</span>
-                </li>
-              </ul>
-            </div>
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-10">
+              This treatment may be right for you if...
+            </h2>
             
-            {/* Right: Abstract Medical Visual */}
-            <div className="relative">
-              <img 
-                src={abstractMedical} 
-                alt="Neural pathway illustration representing SPRAVATO mechanism"
-                className="w-full rounded-2xl shadow-xl"
-              />
-            </div>
+            <ul className="space-y-4">
+              {qualifyingPoints.map((point, index) => (
+                <li 
+                  key={index}
+                  className="flex items-start gap-4 bg-background rounded-xl p-4 shadow-sm"
+                >
+                  <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="text-foreground text-lg">
+                    {point}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* 4. HOW TREATMENT WORKS - Timeline Style */}
-      <section className="py-20 lg:py-28 bg-card">
+      {/* 4. HOW TREATMENT WORKS - Timeline Style (MOVED UP) */}
+      <section id="how-it-works" className="py-20 lg:py-28 bg-card scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-primary font-semibold text-sm uppercase tracking-widest">
@@ -293,7 +273,81 @@ export default function Spravato() {
         </div>
       </section>
 
-      {/* 5. WHAT TO EXPECT - Reassurance Block */}
+      {/* 5. MID-PAGE CTA */}
+      <section className="py-12 lg:py-16 bg-primary">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 className="text-xl md:text-2xl font-semibold text-primary-foreground">
+                Ready to find out if SPRAVATO® is right for you?
+              </h3>
+              <p className="text-primary-foreground/80 mt-1">
+                Our team can assess your eligibility within 48 hours.
+              </p>
+            </div>
+            <Button 
+              size="lg" 
+              variant="secondary"
+              className="flex-shrink-0 group"
+              asChild
+            >
+              <a href="#contact">
+                Request an Eligibility Review
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. WHAT IS SPRAVATO - Condensed (~50% shorter) */}
+      <section className="py-20 lg:py-28 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left: Text */}
+            <div className="space-y-6">
+              <span className="text-primary font-semibold text-sm uppercase tracking-widest">
+                About the Treatment
+              </span>
+              <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
+                What Makes SPRAVATO® Different
+              </h2>
+              
+              <p className="text-muted-foreground leading-relaxed">
+                Traditional antidepressants target serotonin or norepinephrine. SPRAVATO® (esketamine) 
+                works on the glutamate system—a different brain pathway that may help restore neural 
+                connections weakened by depression when other treatments haven't worked.
+              </p>
+              
+              <ul className="space-y-3">
+                <li className="flex items-center gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                  <span className="text-foreground">FDA-approved nasal spray for treatment-resistant depression</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                  <span className="text-foreground">Administered only at certified REMS clinics</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                  <span className="text-foreground">Used alongside your current oral antidepressant</span>
+                </li>
+              </ul>
+            </div>
+            
+            {/* Right: Abstract Medical Visual */}
+            <div className="relative">
+              <img 
+                src={abstractMedical} 
+                alt="Neural pathway illustration representing SPRAVATO mechanism"
+                className="w-full rounded-2xl shadow-xl"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. WHAT TO EXPECT - Reassurance Block */}
       <section className="py-16 lg:py-20 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
@@ -320,7 +374,7 @@ export default function Spravato() {
         </div>
       </section>
 
-      {/* 6. WHO MAY BENEFIT - Card Based */}
+      {/* 8. WHO MAY BENEFIT - Card Based */}
       <section id="eligibility" className="py-20 lg:py-28 bg-background scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -360,7 +414,7 @@ export default function Spravato() {
         </div>
       </section>
 
-      {/* 7. SAFETY & SIDE EFFECTS - Accordion */}
+      {/* 9. SAFETY & SIDE EFFECTS - Accordion */}
       <section className="py-20 lg:py-28 bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
@@ -397,7 +451,7 @@ export default function Spravato() {
         </div>
       </section>
 
-      {/* 8. INSURANCE & ACCESS */}
+      {/* 10. INSURANCE & ACCESS */}
       <section className="py-20 lg:py-28 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
@@ -422,15 +476,16 @@ export default function Spravato() {
         </div>
       </section>
 
-      {/* 9. FINAL CTA */}
+      {/* 11. FINAL CTA - Decision-Oriented */}
       <section id="contact" className="py-20 lg:py-28 bg-foreground text-background scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-semibold mb-6">
-              Take the Next Step
+            <h2 className="text-3xl md:text-4xl font-semibold mb-4">
+              You've Tried Everything Else. Now Try Something Different.
             </h2>
             <p className="text-background/80 text-lg mb-8">
-              Speak with our care team to determine whether SPRAVATO® is appropriate for you.
+              Find out if SPRAVATO® could be the breakthrough you've been looking for. 
+              Our team is ready to review your eligibility.
             </p>
             
             <Button 
@@ -439,10 +494,14 @@ export default function Spravato() {
               asChild
             >
               <a href="/contact">
-                Schedule a Consultation
+                Start Your Eligibility Review
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </a>
             </Button>
+            
+            <p className="text-background/60 text-sm mt-6">
+              No commitment required. We'll review your case and let you know if you're a candidate.
+            </p>
           </div>
         </div>
       </section>
