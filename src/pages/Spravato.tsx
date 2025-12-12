@@ -232,53 +232,54 @@ export default function Spravato() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* 1. HERO - Video with Overlay */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
-        {/* Video Background */}
-        <div className="absolute inset-0 z-0">
-          <iframe
-            src="https://player.vimeo.com/video/332355023?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0"
-            className="w-full h-full object-cover scale-150"
-            allow="autoplay; fullscreen"
-            title="SPRAVATO® Treatment Overview"
-            style={{ pointerEvents: 'none' }}
-          />
-          {/* Dark gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-foreground/95 via-foreground/80 to-foreground/60" />
-        </div>
-        
-        {/* Content */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
-          <div className="max-w-2xl">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-background leading-tight mb-6">
-              SPRAVATO® Treatment for Depression That Hasn't Responded to Medication
-            </h1>
-            <h2 className="text-xl md:text-2xl text-background/80 mb-8">
-              FDA-approved esketamine therapy administered in a medically supervised clinic
-            </h2>
+      {/* 1. HERO - Text Left, Video Right */}
+      <section className="relative py-16 lg:py-24 bg-gradient-to-br from-foreground via-foreground/95 to-foreground/90 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* Left: Text Content */}
+            <div className="space-y-6">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-background leading-tight">
+                SPRAVATO® Treatment for Depression That Hasn't Responded to Medication
+              </h1>
+              <h2 className="text-xl md:text-2xl text-background/80">
+                FDA-approved esketamine therapy administered in a medically supervised clinic
+              </h2>
+              
+              <div className="flex flex-wrap gap-4 pt-2">
+                <Button size="lg" className="group" asChild>
+                  <a href="#eligibility-form">
+                    Check Eligibility
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </Button>
+                
+                <a 
+                  href="#who-benefits" 
+                  className="inline-flex items-center text-background/70 hover:text-background underline underline-offset-4"
+                >
+                  Is SPRAVATO® Right for Me?
+                </a>
+              </div>
+              
+              {/* Micro-trust row */}
+              <div className="flex flex-wrap gap-6 pt-6">
+                {credibilityItems.map((item, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <item.icon className="w-5 h-5 text-primary" />
+                    <span className="text-background/90 text-sm font-medium">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
             
-            <Button size="lg" className="group mb-8" asChild>
-              <a href="#eligibility-form">
-                Check Eligibility
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </Button>
-            
-            <a 
-              href="#who-benefits" 
-              className="text-background/70 hover:text-background underline underline-offset-4 block"
-            >
-              Is SPRAVATO® Right for Me?
-            </a>
-            
-            {/* Micro-trust row */}
-            <div className="flex flex-wrap gap-6 mt-10">
-              {credibilityItems.map((item, index) => (
-                <div key={index} className="flex items-center gap-2">
-                  <item.icon className="w-5 h-5 text-primary" />
-                  <span className="text-background/90 text-sm font-medium">{item.text}</span>
-                </div>
-              ))}
+            {/* Right: Video */}
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl">
+              <iframe
+                src="https://player.vimeo.com/video/332355023?title=0&byline=0&portrait=0"
+                className="w-full h-full"
+                allow="autoplay; fullscreen"
+                title="SPRAVATO® Treatment Overview"
+              />
             </div>
           </div>
         </div>
