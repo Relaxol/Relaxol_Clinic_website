@@ -184,7 +184,7 @@ export default function Spravato() {
             </p>
             
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
-              New York's Premier<br />
+              New Jersey's Premier<br />
               <span className="text-primary">SPRAVATO®</span> & Ketamine Clinic
             </h1>
             
@@ -286,7 +286,7 @@ export default function Spravato() {
                     <span>201-781-2101</span>
                   </a>
                   <p className="text-sm">
-                    Schedule your consultation at Relaxol Clinic in New York
+                    Schedule your consultation at Relaxol Clinic in New Jersey
                   </p>
                 </div>
               </div>
