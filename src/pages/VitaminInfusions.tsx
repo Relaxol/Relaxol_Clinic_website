@@ -6,48 +6,51 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { 
-  Zap, 
-  Heart, 
-  Shield, 
-  Brain, 
-  Sun, 
-  Droplets,
   Sparkles,
   Phone,
   Mail,
-  MapPin
+  MapPin,
+  Droplets
 } from "lucide-react";
+
+// Import infusion images
+import infusionQuench from "@/assets/infusion-quench.jpg";
+import infusionEnergy from "@/assets/infusion-energy.jpg";
+import infusionRecovery from "@/assets/infusion-recovery.jpg";
+import infusionImmunity from "@/assets/infusion-immunity.jpg";
+import infusionAlleviate from "@/assets/infusion-alleviate.jpg";
+import infusionBeauty from "@/assets/infusion-beauty.jpg";
 
 const infusionTypes = [
   {
-    icon: Zap,
-    title: "Energy Boost",
-    description: "Combat fatigue and restore your natural energy levels with our B-vitamin complex infusion.",
+    image: infusionQuench,
+    title: "Quench",
+    description: "Rehydrate and restore essential vitamins with our Quench Infusion.",
   },
   {
-    icon: Shield,
-    title: "Immune Support",
-    description: "Strengthen your immune system with high-dose Vitamin C and essential minerals.",
+    image: infusionEnergy,
+    title: "Get Up & Go",
+    description: "Our Get Up & Go infusion helps burn fat and boost metabolism.",
   },
   {
-    icon: Brain,
-    title: "Cognitive Enhancement",
-    description: "Improve mental clarity and focus with our brain-boosting nutrient blend.",
+    image: infusionRecovery,
+    title: "Recovery & Performance",
+    description: "Replenish essential nutrients with our Recovery & Performance infusion.",
   },
   {
-    icon: Heart,
-    title: "Heart Health",
-    description: "Support cardiovascular wellness with magnesium and antioxidant-rich formulations.",
+    image: infusionImmunity,
+    title: "Immunity",
+    description: "Boost your immunity and protect against infection.",
   },
   {
-    icon: Sun,
-    title: "Skin Radiance",
-    description: "Achieve glowing skin with glutathione and biotin-enriched IV therapy.",
+    image: infusionAlleviate,
+    title: "Alleviate",
+    description: "Reduce abdominal discomfort and relieve bloating.",
   },
   {
-    icon: Droplets,
-    title: "Hydration Therapy",
-    description: "Rapid rehydration with electrolytes for recovery and overall wellness.",
+    image: infusionBeauty,
+    title: "Inner Beauty",
+    description: "Reduce the appearance of wrinkles and quench tired skin.",
   },
 ];
 
@@ -150,35 +153,35 @@ const VitaminInfusions = () => {
           </div>
         </section>
 
-        {/* Infusion Types */}
+        {/* Vitamin Infusions We Offer */}
         <section className="py-16 lg:py-24 bg-card">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-12">
-              <span className="text-primary font-semibold text-sm uppercase tracking-widest">
-                Our Treatments
-              </span>
-              <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4">
-                Vitamin Infusion Options
+              <h2 className="text-3xl md:text-4xl font-semibold text-[#8B7355] italic">
+                Vitamin Infusions We Offer
               </h2>
-              <p className="text-muted-foreground mt-4">
-                Choose from our range of customized IV vitamin infusions designed to meet your 
-                specific health and wellness needs.
-              </p>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {infusionTypes.map((infusion, index) => (
-                <Card key={index} className="bg-background border-none shadow-lg hover:shadow-xl transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                      <infusion.icon className="w-7 h-7 text-primary" />
-                    </div>
+                <Card key={index} className="bg-background border-none shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 overflow-hidden">
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img 
+                      src={infusion.image} 
+                      alt={infusion.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <CardContent className="p-6 text-center">
                     <h3 className="text-xl font-semibold text-foreground mb-3">
                       {infusion.title}
                     </h3>
-                    <p className="text-muted-foreground leading-relaxed">
+                    <p className="text-muted-foreground leading-relaxed mb-4">
                       {infusion.description}
                     </p>
+                    <Button className="bg-[#8B7355] hover:bg-[#7A6548] text-white">
+                      Learn more
+                    </Button>
                   </CardContent>
                 </Card>
               ))}
