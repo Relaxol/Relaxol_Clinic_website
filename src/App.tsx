@@ -11,6 +11,7 @@ import Depression from "./pages/conditions/Depression";
 import Anxiety from "./pages/conditions/Anxiety";
 import PTSD from "./pages/conditions/PTSD";
 import OCD from "./pages/conditions/OCD";
+import PainManagement from "./pages/conditions/PainManagement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/conditions/anxiety" element={<Anxiety />} />
           <Route path="/conditions/ptsd" element={<PTSD />} />
           <Route path="/conditions/ocd" element={<OCD />} />
+          <Route path="/conditions/pain-management" element={<PainManagement />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

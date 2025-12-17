@@ -9,6 +9,7 @@ const conditionItems = [
   { label: "Anxiety", href: "/conditions/anxiety" },
   { label: "PTSD", href: "/conditions/ptsd" },
   { label: "OCD", href: "/conditions/ocd" },
+  { label: "Pain Management", href: "/conditions/pain-management" },
 ];
 
 const navItems = [
