@@ -66,7 +66,7 @@ export function Header() {
   };
 
   return (
-    <header className="w-full">
+    <header className="w-full sticky top-0 z-50">
       {/* Top Bar */}
       <div className="bg-foreground text-background py-2 px-4">
         <div className="container mx-auto flex flex-wrap items-center justify-between gap-2 text-sm">
