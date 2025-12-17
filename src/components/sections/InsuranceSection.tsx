@@ -32,7 +32,7 @@ export function InsuranceSection() {
               We work with most major insurance providers.
             </p>
             <a
-              href="#contact"
+              href="/contact"
               className="text-primary font-semibold hover:text-accent transition-colors mt-auto inline-flex items-center gap-2"
             >
               Verify your coverage →

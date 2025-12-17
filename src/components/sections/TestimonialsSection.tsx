@@ -79,7 +79,7 @@ export function TestimonialsSection() {
         {/* CTA */}
         <div className="text-center mt-12">
           <a
-            href="#contact"
+            href="/contact"
             className="btn-primary"
           >
             Start Your Journey Today
