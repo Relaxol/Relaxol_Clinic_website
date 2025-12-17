@@ -36,7 +36,7 @@ const treatments = [
     description: "Comprehensive follow-up support including psychiatric consultations, medication management, and telehealth check-ins to ensure long-term wellness.",
     image: treatmentTelehealth,
     cta: "Learn More",
-    href: "#contact",
+    href: "/contact",
   },
 ];
 

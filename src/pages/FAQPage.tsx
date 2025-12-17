@@ -227,7 +227,7 @@ const FAQPage = () => {
                 className="bg-primary text-primary-foreground hover:bg-accent rounded-full px-8"
                 asChild
               >
-                <Link to="/#contact">Schedule a Consultation</Link>
+                <Link to="/contact">Schedule a Consultation</Link>
               </Button>
               <Button 
                 size="lg" 

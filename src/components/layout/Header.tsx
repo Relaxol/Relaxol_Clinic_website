@@ -19,6 +19,7 @@ const navItems = [
   { label: "SPRAVATO®", href: "/spravato-Englewood", isExternal: false },
   { label: "Vitamin Infusions", href: "/vitamin-infusion-englewood", isExternal: false },
   { label: "FAQ", href: "/faq", isExternal: false },
+  { label: "Contact", href: "/contact", isExternal: false },
 ];
 
 export function Header() {
