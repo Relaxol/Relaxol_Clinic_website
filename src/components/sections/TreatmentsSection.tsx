@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import treatmentSpravato from "@/assets/treatment-spravato.jpg";
 import treatmentKetamine from "@/assets/treatment-ketamine.jpg";
 import treatmentTelehealth from "@/assets/treatment-telehealth.jpg";
+import treatmentPainManagement from "@/assets/treatment-pain-management.jpg";
 
 const treatments = [
   {
@@ -20,6 +21,14 @@ const treatments = [
     image: treatmentKetamine,
     cta: "Learn More",
     href: "#contact",
+  },
+  {
+    title: "Pain Management",
+    tag: null,
+    description: "Comprehensive pain management solutions including ketamine infusions for chronic pain conditions. Our approach targets pain at its source for lasting relief.",
+    image: treatmentPainManagement,
+    cta: "Learn More",
+    href: "/conditions/pain-management",
   },
   {
     title: "Ongoing Care & Telehealth",
