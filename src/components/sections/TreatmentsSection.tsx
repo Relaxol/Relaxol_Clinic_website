@@ -15,7 +15,7 @@ const treatments = [
     href: "/spravato",
   },
   {
-    title: "Ketamine Infusion Therapy",
+    title: "Ketamine Infusion Therapy for Depression",
     tag: null,
     description: "Precisely controlled IV ketamine therapy offering rapid relief for depression, anxiety, PTSD, and OCD. Ideal for patients who haven't responded to standard treatments.",
     image: treatmentKetamine,
@@ -23,7 +23,7 @@ const treatments = [
     href: "#contact",
   },
   {
-    title: "Pain Management",
+    title: "Chronic Pain Management Solutions",
     tag: null,
     description: "Comprehensive pain management solutions including ketamine infusions for chronic pain conditions. Our approach targets pain at its source for lasting relief.",
     image: treatmentPainManagement,
@@ -31,7 +31,7 @@ const treatments = [
     href: "/conditions/pain-management",
   },
   {
-    title: "Ongoing Care & Telehealth",
+    title: "Ongoing Care & Telehealth Support",
     tag: null,
     description: "Comprehensive follow-up support including psychiatric consultations, medication management, and telehealth check-ins to ensure long-term wellness.",
     image: treatmentTelehealth,
