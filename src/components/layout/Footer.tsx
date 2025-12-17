@@ -7,7 +7,7 @@ const navLinks = [
   { label: "Treatments", href: "#treatments" },
   { label: "Conditions", href: "#conditions" },
   { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "/contact" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const hours = [

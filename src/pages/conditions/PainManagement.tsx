@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -71,8 +70,8 @@ const PainManagement = () => {
               </ul>
             </div>
             <div className="mt-12">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent" asChild>
-                <Link to="/contact">Contact Us to Learn More</Link>
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
+                Contact Us to Learn More
               </Button>
             </div>
           </div>

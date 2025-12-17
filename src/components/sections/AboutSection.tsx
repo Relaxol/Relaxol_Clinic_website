@@ -35,7 +35,7 @@ export function AboutSection() {
               We believe mental health care should be accessible, personalized, and delivered in an environment that feels safe. That's why our clinic offers private treatment rooms, flexible scheduling, and support navigating insurance—because healing shouldn't feel like a hurdle.
             </p>
             <a 
-              href="/contact" 
+              href="#contact" 
               className="btn-primary"
             >
               Schedule Your Consultation
