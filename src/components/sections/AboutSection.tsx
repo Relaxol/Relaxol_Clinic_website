@@ -10,7 +10,7 @@ export function AboutSection() {
             WHY RELAXOL CLINIC
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold">
-            Rethinking <span className="text-primary">Mental Health</span>
+            A New Standard in <span className="text-primary">Mental Health Care</span>
           </h2>
         </div>
 
