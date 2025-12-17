@@ -153,7 +153,7 @@ export function TreatmentsSection() {
 
               {/* Content Area */}
               <div className="relative p-8 md:p-10 bg-card flex flex-col h-full min-h-[280px]">
-                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-5 leading-tight min-h-[3.5rem] md:min-h-[4rem]">
+                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-5 leading-tight min-h-[4.5rem] md:min-h-[5rem]">
                   {treatment.title}
                 </h3>
                 
