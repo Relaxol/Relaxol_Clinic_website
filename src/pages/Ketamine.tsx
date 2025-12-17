@@ -530,46 +530,46 @@ const Ketamine = () => {
         </section>
 
         {/* SECTION 9 — FINAL CTA + ELIGIBILITY FORM */}
-        <section id="eligibility" className="py-24 bg-primary text-primary-foreground scroll-mt-20">
+        <section id="eligibility" className="py-24 bg-[#3A3A3A] text-white scroll-mt-20">
           <div className="mx-auto max-w-6xl px-6">
             <div className="grid md:grid-cols-2 gap-12 items-start">
               {/* Left: CTA copy + trust bullets */}
               <div className="space-y-8">
-                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">
+                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-white">
                   Take the Next Step Toward Relief
                 </h2>
-                <p className="text-primary-foreground/70 text-lg leading-relaxed">
+                <p className="text-white/70 text-lg leading-relaxed">
                   If traditional treatments haven't worked, our care team can help you understand whether ketamine therapy may be appropriate.
                 </p>
                 
                 <ul className="space-y-4 pt-4">
                   <li className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-primary-foreground/70 flex-shrink-0 mt-0.5" />
-                    <span className="text-primary-foreground/70">No obligation assessment</span>
+                    <Check className="w-5 h-5 text-white/70 flex-shrink-0 mt-0.5" />
+                    <span className="text-white/70">No obligation assessment</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-primary-foreground/70 flex-shrink-0 mt-0.5" />
-                    <span className="text-primary-foreground/70">Response within 48 hours</span>
+                    <Check className="w-5 h-5 text-white/70 flex-shrink-0 mt-0.5" />
+                    <span className="text-white/70">Response within 48 hours</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-primary-foreground/70 flex-shrink-0 mt-0.5" />
-                    <span className="text-primary-foreground/70">Confidential submission</span>
+                    <Check className="w-5 h-5 text-white/70 flex-shrink-0 mt-0.5" />
+                    <span className="text-white/70">Confidential submission</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-primary-foreground/70 flex-shrink-0 mt-0.5" />
-                    <span className="text-primary-foreground/70">Insurance verification available</span>
+                    <Check className="w-5 h-5 text-white/70 flex-shrink-0 mt-0.5" />
+                    <span className="text-white/70">Insurance verification available</span>
                   </li>
                 </ul>
                 
                 <div className="pt-4">
-                  <p className="text-primary-foreground/50 text-sm">
-                    Or call us directly: <a href="tel:201-781-2101" className="underline hover:text-primary-foreground">201-781-2101</a>
+                  <p className="text-white/50 text-sm">
+                    Or call us directly: <a href="tel:201-781-2101" className="underline hover:text-white">201-781-2101</a>
                   </p>
                 </div>
               </div>
               
               {/* Right: Form */}
-              <div className="rounded-2xl bg-primary-foreground/10 backdrop-blur p-8">
+              <div className="rounded-2xl bg-white/10 backdrop-blur p-8">
                 <EligibilityForm variant="dark" />
               </div>
             </div>
