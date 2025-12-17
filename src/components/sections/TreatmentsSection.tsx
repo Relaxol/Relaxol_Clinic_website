@@ -15,7 +15,7 @@ const treatments = [
     href: "/spravato",
   },
   {
-    title: "Ketamine Infusion Therapy for Depression",
+    title: "Ketamine Infusion Therapy for Relief",
     tag: null,
     description: "Precisely controlled IV ketamine therapy offering rapid relief for depression, anxiety, PTSD, and OCD. Ideal for patients who haven't responded to standard treatments.",
     image: treatmentKetamine,
