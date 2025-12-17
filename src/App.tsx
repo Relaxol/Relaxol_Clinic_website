@@ -8,6 +8,7 @@ import Spravato from "./pages/Spravato";
 import Ketamine from "./pages/Ketamine";
 import VitaminInfusions from "./pages/VitaminInfusions";
 import FAQPage from "./pages/FAQPage";
+import Contact from "./pages/Contact";
 import Depression from "./pages/conditions/Depression";
 import Anxiety from "./pages/conditions/Anxiety";
 import PTSD from "./pages/conditions/PTSD";
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/ketamine" element={<Ketamine />} />
           <Route path="/vitamin-infusion-englewood" element={<VitaminInfusions />} />
           <Route path="/faq" element={<FAQPage />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/conditions/depression" element={<Depression />} />
           <Route path="/conditions/anxiety" element={<Anxiety />} />
           <Route path="/conditions/ptsd" element={<PTSD />} />
