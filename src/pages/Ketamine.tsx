@@ -8,6 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import treatmentKetamine from "@/assets/treatment-ketamine.jpg";
 import treatmentRoom from "@/assets/treatment-room.jpg";
+import ketamineRapidRelief from "@/assets/ketamine-rapid-relief.jpg";
+import ketamineMechanism from "@/assets/ketamine-mechanism.jpg";
+import ketamineSupervised from "@/assets/ketamine-supervised.jpg";
+import ketaminePersonalized from "@/assets/ketamine-personalized.jpg";
 import { 
   ShieldCheck, 
   Stethoscope, 
@@ -21,11 +25,11 @@ import {
   CalendarCheck,
   ArrowRight,
   CheckCircle2,
-  Sparkles,
   ShieldPlus,
   Timer,
   Eye,
-  AlertCircle
+  AlertCircle,
+  Phone
 } from "lucide-react";
 
 // Credibility strip items
@@ -35,32 +39,51 @@ const credibilityItems = [
   { icon: FileCheck, text: "Evidence-Based" },
 ];
 
-// Benefits cards
-const benefitsCards = [
+// What Ketamine Helps With cards
+const conditionsCards = [
   {
-    icon: Zap,
-    title: "Rapid Symptom Relief",
-    description: "Some patients experience improvement within hours to days, not the weeks typically required by traditional antidepressants."
+    icon: HeartPulse,
+    title: "Treatment-Resistant Depression",
+    description: "Persistent symptoms despite trying multiple antidepressants."
   },
   {
     icon: Brain,
-    title: "Works Differently",
-    description: "Targets the glutamate system and NMDA receptors—a fundamentally different pathway than standard medications."
+    title: "Ongoing Depressive Symptoms",
+    description: "Depression that continues to affect daily functioning and quality of life."
   },
   {
-    icon: HeartPulse,
-    title: "Treatment-Resistant Option",
-    description: "Designed for patients who haven't found adequate relief from multiple traditional antidepressant trials."
+    icon: Zap,
+    title: "Limited Response to Medication",
+    description: "Inadequate relief from standard oral antidepressants."
   },
   {
     icon: Stethoscope,
-    title: "Medically Supervised",
-    description: "Every infusion is administered and monitored by trained clinical staff in a controlled environment."
+    title: "Need for an Alternative Approach",
+    description: "Interest in evidence-based options that work differently in the brain."
+  },
+];
+
+// Benefits cards with images
+const benefitsCards = [
+  {
+    image: ketamineRapidRelief,
+    title: "Rapid Relief for Some Patients",
+    description: "Some individuals experience improvement sooner than with traditional medications."
   },
   {
-    icon: Sparkles,
-    title: "Evidence-Supported",
-    description: "Backed by decades of research and clinical studies demonstrating efficacy for depression and related conditions."
+    image: ketamineMechanism,
+    title: "Different Mechanism of Action",
+    description: "Ketamine works on glutamate pathways rather than traditional serotonin pathways."
+  },
+  {
+    image: ketamineSupervised,
+    title: "Medically Supervised Care",
+    description: "Treatment is delivered in-clinic with monitoring before, during, and after each session."
+  },
+  {
+    image: ketaminePersonalized,
+    title: "Personalized Treatment Planning",
+    description: "Therapy is tailored based on individual history, response, and clinical needs."
   },
 ];
 
@@ -68,34 +91,32 @@ const benefitsCards = [
 const treatmentSteps = [
   {
     icon: ClipboardCheck,
-    title: "Evaluation",
-    description: "Comprehensive assessment to determine if ketamine therapy is appropriate for your condition."
+    title: "Clinical Evaluation",
+    description: "A thorough review of symptoms, medical history, and treatment background."
   },
   {
     icon: Activity,
-    title: "Administration",
-    description: "Relaxing 40-60 minute IV infusion in our comfortable, private treatment rooms."
+    title: "In-Clinic Administration",
+    description: "Ketamine is administered in a controlled medical setting."
   },
   {
     icon: Clock,
-    title: "Monitoring",
-    description: "Continuous vital sign monitoring and clinical observation throughout your session."
+    title: "Monitoring & Observation",
+    description: "Patients are monitored throughout the session by trained medical staff."
   },
   {
     icon: CalendarCheck,
-    title: "Follow-Up",
-    description: "Personalized aftercare and maintenance treatment planning with our clinical team."
+    title: "Ongoing Care & Follow-Up",
+    description: "Treatment plans are adjusted based on response and clinical guidance."
   },
 ];
 
-// Candidate qualifications
-const candidateQualifications = [
-  "Diagnosed with depression, anxiety, PTSD, or OCD",
-  "Tried multiple antidepressants without lasting relief",
-  "Seeking faster-acting treatment options",
-  "Looking for alternatives to traditional medications",
-  "Experiencing chronic pain alongside mood symptoms",
-  "Open to innovative, evidence-based approaches"
+// Experience features
+const experienceFeatures = [
+  "Calm, private clinical environment",
+  "Continuous medical monitoring",
+  "Dedicated care team present throughout treatment",
+  "Structured follow-up and support"
 ];
 
 // Safety accordion items
@@ -107,7 +128,7 @@ const safetyAccordionItems = [
   },
   {
     id: "monitoring",
-    title: "Monitoring Protocols",
+    title: "Monitoring Procedures",
     content: "Your vital signs (blood pressure, heart rate, oxygen saturation) are checked before, during, and after each infusion. You'll remain in our clinic until effects have subsided and you're cleared to leave with a driver."
   },
   {
@@ -237,9 +258,8 @@ const Ketamine = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <main>
-        {/* 1. HERO SECTION */}
+        {/* 1. HERO SECTION - Service-First, Calm, Premium */}
         <section className="relative py-16 lg:py-24 overflow-hidden">
-          {/* Warm brown background matching homepage branding */}
           <div className="absolute inset-0 bg-[#5C4A3A]" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#4A3C32]/60 via-[#6B5A4A]/40 to-[#5C4A3A]/80" />
           
@@ -251,26 +271,22 @@ const Ketamine = () => {
                   KETAMINE INFUSION THERAPY
                 </span>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-background leading-tight">
-                  When Traditional Antidepressants Haven't Worked
+                  Ketamine Therapy in a Medically Supervised Setting
                 </h1>
-                <h2 className="text-xl md:text-2xl text-background/80">
-                  Medically supervised IV ketamine therapy for treatment-resistant depression, anxiety, and PTSD
-                </h2>
+                <p className="text-xl text-background/80 leading-relaxed">
+                  Personalized care for individuals who have not found relief with traditional depression treatments.
+                </p>
+                <p className="text-background/70 leading-relaxed">
+                  Ketamine therapy is an evidence-supported option delivered in a calm clinical environment, with continuous medical oversight and individualized care.
+                </p>
                 
                 <div className="flex flex-wrap gap-4 pt-2">
                   <Button size="lg" className="group" asChild>
                     <a href="#eligibility-form">
-                      Check Eligibility
+                      Learn if Ketamine Therapy Is Right for You
                       <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                     </a>
                   </Button>
-                  
-                  <a 
-                    href="#who-candidate" 
-                    className="inline-flex items-center text-background/70 hover:text-background underline underline-offset-4"
-                  >
-                    Am I a Candidate?
-                  </a>
                 </div>
                 
                 {/* Micro-trust row */}
@@ -303,7 +319,7 @@ const Ketamine = () => {
               {/* Left: Reassurance copy */}
               <div className="space-y-6">
                 <h2 className="text-2xl md:text-3xl font-semibold text-foreground">
-                  Find Out If You're a Candidate
+                  Find Out If You May Be a Candidate
                 </h2>
                 <p className="text-muted-foreground text-lg leading-relaxed">
                   Ketamine infusion therapy is designed for adults who haven't found adequate 
@@ -335,26 +351,68 @@ const Ketamine = () => {
           </div>
         </section>
 
-        {/* 3. BENEFITS OF KETAMINE THERAPY */}
+        {/* 3. WHAT KETAMINE THERAPY HELPS WITH */}
         <section className="py-16 lg:py-24 bg-background">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <span className="text-primary font-semibold text-sm uppercase tracking-widest">
+                Conditions
+              </span>
+              <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4">
+                What Ketamine Therapy Helps With
+              </h2>
+              <p className="text-muted-foreground mt-4">
+                Ketamine therapy may be considered for individuals experiencing:
+              </p>
+            </div>
+            
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {conditionsCards.map((card, index) => (
+                <Card key={index} className="border-border/50 shadow-sm hover:shadow-md transition-shadow text-center">
+                  <CardContent className="p-6">
+                    <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                      <card.icon className="w-7 h-7 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                      {card.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {card.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 4. BENEFITS OF KETAMINE THERAPY - Visual Cards with Images */}
+        <section className="py-16 lg:py-24 bg-card">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <span className="text-primary font-semibold text-sm uppercase tracking-widest">
                 Why Ketamine Therapy
               </span>
               <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4">
-                Benefits of Ketamine Infusion
+                Benefits of Ketamine Therapy
               </h2>
+              <p className="text-muted-foreground mt-4">
+                Why patients explore ketamine therapy:
+              </p>
             </div>
             
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {benefitsCards.map((card, index) => (
-                <Card key={index} className="border-border/50 shadow-sm hover:shadow-md transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                      <card.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                <Card key={index} className="bg-background border-none shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 overflow-hidden">
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img 
+                      src={card.image} 
+                      alt={card.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <CardContent className="p-6 text-center">
+                    <h3 className="text-lg font-semibold text-foreground mb-3">
                       {card.title}
                     </h3>
                     <p className="text-muted-foreground text-sm leading-relaxed">
@@ -377,8 +435,8 @@ const Ketamine = () => {
           </div>
         </section>
 
-        {/* 4. WHAT IS KETAMINE THERAPY? */}
-        <section className="py-16 lg:py-24 bg-card">
+        {/* 5. WHAT IS KETAMINE THERAPY? */}
+        <section className="py-16 lg:py-24 bg-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Left: Text */}
@@ -391,26 +449,23 @@ const Ketamine = () => {
                 </h2>
                 
                 <p className="text-muted-foreground leading-relaxed">
-                  Ketamine is a medication that has been used safely in medical settings for 
-                  decades. In recent years, research has shown that low-dose ketamine infusions 
-                  can provide rapid relief for treatment-resistant depression, anxiety, PTSD, 
-                  and certain chronic pain conditions.
+                  Ketamine therapy uses a medication that has been studied for decades and is now used 
+                  in controlled medical settings to help address certain mental health conditions, 
+                  including depression.
                 </p>
                 
                 <p className="text-muted-foreground leading-relaxed">
-                  Unlike traditional antidepressants that can take weeks to work, ketamine 
-                  targets the brain's glutamate system—potentially restoring neural connections 
-                  and providing relief for some patients within hours to days.
+                  Unlike traditional antidepressants, ketamine works on different neural pathways 
+                  in the brain that are associated with mood regulation, cognition, and emotional processing.
                 </p>
                 
                 <p className="text-muted-foreground leading-relaxed">
-                  At Relaxol Clinic, ketamine is administered intravenously (IV) in a comfortable, 
-                  medically supervised setting. Each infusion lasts approximately 40-60 minutes, 
-                  with continuous monitoring by our clinical team.
+                  When administered in a clinical environment, ketamine therapy follows strict medical 
+                  protocols to ensure safety, monitoring, and appropriate patient support.
                 </p>
               </div>
               
-              {/* Right: Image placeholder */}
+              {/* Right: Image */}
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl bg-secondary/50">
                 <img 
                   src={treatmentRoom}
@@ -423,8 +478,8 @@ const Ketamine = () => {
           </div>
         </section>
 
-        {/* 5. HOW KETAMINE WORKS - Process Timeline */}
-        <section id="how-it-works" className="py-16 lg:py-24 bg-background scroll-mt-24">
+        {/* 6. HOW KETAMINE THERAPY WORKS - Process Timeline */}
+        <section id="how-it-works" className="py-16 lg:py-24 bg-card scroll-mt-24">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-16">
               <span className="text-primary font-semibold text-sm uppercase tracking-widest">
@@ -434,7 +489,7 @@ const Ketamine = () => {
                 How Ketamine Therapy Works
               </h2>
               <p className="text-muted-foreground mt-4">
-                From your first consultation to ongoing care, here's what to expect.
+                Your care typically follows a structured process:
               </p>
             </div>
             
@@ -459,92 +514,69 @@ const Ketamine = () => {
             </div>
             
             {/* Mechanism explanation */}
-            <div className="bg-card rounded-2xl p-8 md:p-10 max-w-3xl mx-auto text-center">
+            <div className="bg-background rounded-2xl p-8 md:p-10 max-w-3xl mx-auto text-center">
               <Brain className="w-12 h-12 text-primary mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-foreground mb-4">
-                The Science Behind Ketamine
+                How Ketamine Works in the Brain
               </h3>
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                Ketamine affects glutamate signaling in the brain, which plays a key role in mood, 
+                learning, and neural connectivity.
+              </p>
               <p className="text-muted-foreground leading-relaxed">
-                Ketamine works by blocking NMDA receptors and triggering a cascade of changes 
-                in the brain. This promotes synaptogenesis—the formation of new neural connections—and 
-                may rapidly reverse some of the changes caused by chronic stress and depression. 
-                Research suggests these effects can provide relief even when other treatments have failed.
+                This mechanism is different from most traditional antidepressants and may help explain 
+                why ketamine can be effective for individuals who have not responded to other treatments.
               </p>
             </div>
           </div>
         </section>
 
-        {/* 6. VISUAL REASSURANCE SECTION */}
+        {/* 7. YOUR KETAMINE THERAPY EXPERIENCE */}
         <section className="relative py-20 lg:py-28 overflow-hidden">
           <div className="absolute inset-0 bg-[#5C4A3A]" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#4A3C32]/80 to-[#5C4A3A]/60" />
           
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div className="max-w-3xl mx-auto space-y-6">
-              <Eye className="w-14 h-14 text-primary mx-auto" />
-              <h2 className="text-3xl md:text-4xl font-bold text-background leading-tight">
-                Ketamine therapy is delivered in a calm, medically supervised environment
-              </h2>
-              <p className="text-background/80 text-lg">
-                Our private treatment rooms are designed for comfort and relaxation. 
-                Our clinical team monitors you throughout every session, ensuring your 
-                safety and well-being.
-              </p>
-              <Button size="lg" className="mt-4 group" asChild>
-                <a href="#eligibility-form">
-                  Start Your Evaluation
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        {/* 7. WHO MAY BE A GOOD CANDIDATE? */}
-        <section id="who-candidate" className="py-16 lg:py-24 bg-background scroll-mt-20">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
                 <span className="text-primary font-semibold text-sm uppercase tracking-widest">
-                  Is This Right For You?
+                  Your Experience
                 </span>
-                <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-                  Who May Be a Good Candidate?
+                <h2 className="text-3xl md:text-4xl font-bold text-background leading-tight">
+                  Your Ketamine Therapy Experience
                 </h2>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  Ketamine therapy may be appropriate if you identify with any of the following:
+                <p className="text-background/80 text-lg">
+                  What patients can expect:
                 </p>
-              </div>
-              
-              <div className="bg-card rounded-2xl p-8 shadow-lg">
+                
                 <ul className="space-y-4">
-                  {candidateQualifications.map((item, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-foreground">{item}</span>
+                  {experienceFeatures.map((feature, index) => (
+                    <li key={index} className="flex items-center gap-3">
+                      <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0" />
+                      <span className="text-background/90 text-lg">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 
-                <div className="mt-8 pt-6 border-t border-border">
-                  <p className="text-muted-foreground text-sm mb-4">
-                    Not sure if you qualify? Our team can help determine if ketamine therapy 
-                    is appropriate for your situation.
-                  </p>
-                  <Button asChild>
-                    <a href="#eligibility-form">
-                      Check Eligibility
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </a>
-                  </Button>
-                </div>
+                <p className="text-background/70 text-lg pt-4">
+                  Our focus is on patient safety, comfort, and personalized care at every step.
+                </p>
+              </div>
+              
+              <div className="flex justify-center">
+                <Button size="lg" className="group" asChild>
+                  <a href="#eligibility-form">
+                    Start Your Evaluation
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </Button>
               </div>
             </div>
           </div>
         </section>
 
         {/* 8. SAFETY & SIDE EFFECTS - Accordion */}
-        <section className="py-16 lg:py-24 bg-card">
+        <section className="py-16 lg:py-24 bg-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
               <div className="text-center mb-12">
@@ -552,10 +584,11 @@ const Ketamine = () => {
                   Your Safety Matters
                 </span>
                 <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4">
-                  Safety & Side Effects
+                  Safety, Side Effects & Monitoring
                 </h2>
-                <p className="text-muted-foreground mt-4">
-                  Understanding what to expect ensures a comfortable treatment experience.
+                <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+                  Your safety is our priority. Ketamine therapy is provided under strict medical protocols, 
+                  with careful screening and ongoing monitoring.
                 </p>
               </div>
               
@@ -564,7 +597,7 @@ const Ketamine = () => {
                   <AccordionItem 
                     key={item.id} 
                     value={item.id}
-                    className="bg-background rounded-xl border border-border px-6"
+                    className="bg-card rounded-xl border border-border px-6"
                   >
                     <AccordionTrigger className="text-foreground hover:no-underline py-5">
                       <div className="flex items-center gap-3">
@@ -583,7 +616,7 @@ const Ketamine = () => {
         </section>
 
         {/* 9. INSURANCE & ACCESS */}
-        <section className="py-16 lg:py-24 bg-background">
+        <section className="py-16 lg:py-24 bg-card">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto text-center">
               <span className="text-primary font-semibold text-sm uppercase tracking-widest">
@@ -593,8 +626,8 @@ const Ketamine = () => {
                 Insurance & Access
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
-                While ketamine infusions are not typically covered by insurance, our team 
-                can help you understand your options and work with you on payment arrangements.
+                Ketamine therapy may be eligible for coverage depending on individual plans and clinical circumstances. 
+                Our team can help review options and discuss next steps.
               </p>
               
               <div className="grid sm:grid-cols-3 gap-6 mb-10">
@@ -623,7 +656,8 @@ const Ketamine = () => {
               
               <Button size="lg" asChild>
                 <a href="tel:201-781-2101">
-                  Call to Discuss Options: 201-781-2101
+                  <Phone className="w-5 h-5 mr-2" />
+                  Verify Coverage: 201-781-2101
                 </a>
               </Button>
             </div>
@@ -637,17 +671,11 @@ const Ketamine = () => {
               {/* Left: CTA copy */}
               <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold text-background leading-tight">
-                  Ready to Take the Next Step?
+                  Take the Next Step Toward Relief
                 </h2>
                 <p className="text-background/80 text-lg leading-relaxed">
-                  If you've been struggling with depression, anxiety, or PTSD and haven't 
-                  found relief from traditional treatments, ketamine therapy may offer a 
-                  new path forward.
-                </p>
-                <p className="text-background/80 text-lg leading-relaxed">
-                  Complete our brief eligibility form to connect with our care team. 
-                  There's no obligation—just a conversation about whether this treatment 
-                  is right for you.
+                  If you are exploring alternatives after traditional treatments have not worked, 
+                  our care team is here to help you understand whether ketamine therapy may be appropriate.
                 </p>
                 
                 <div className="flex flex-wrap gap-6 pt-4">
@@ -662,7 +690,7 @@ const Ketamine = () => {
               
               {/* Right: Form */}
               <div className="bg-background rounded-2xl p-6 md:p-8 shadow-lg">
-                <h3 className="text-xl font-semibold text-foreground mb-6">Check Your Eligibility</h3>
+                <h3 className="text-xl font-semibold text-foreground mb-6">Speak With Our Care Team</h3>
                 <EligibilityForm />
               </div>
             </div>
