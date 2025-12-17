@@ -18,7 +18,6 @@ const navItems = [
   { label: "Ketamine", href: "/ketamine", isExternal: false },
   { label: "SPRAVATO®", href: "/spravato-Englewood", isExternal: false },
   { label: "Vitamin Infusions", href: "/vitamin-infusion-englewood", isExternal: false },
-  { label: "Financing", href: "#financing", isExternal: false },
   { label: "FAQ", href: "/faq", isExternal: false },
 ];
 
@@ -130,11 +129,8 @@ export function Header() {
             ))}
           </div>
 
-          {/* CTA Buttons */}
+          {/* CTA Button */}
           <div className="hidden lg:flex items-center gap-3">
-            <Button variant="outline" className="btn-nav bg-transparent border-[#D09B3C] text-[#D09B3C] hover:bg-[#D09B3C] hover:text-white">
-              Existing Patients
-            </Button>
             <Button className="btn-nav bg-[#D09B3C] text-white hover:bg-[#C48A25]">
               Schedule Consultation
             </Button>
@@ -201,9 +197,6 @@ export function Header() {
                 )
               ))}
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
-                <Button variant="outline" className="w-full bg-transparent border-[#D09B3C] text-[#D09B3C] hover:bg-[#D09B3C] hover:text-white">
-                  Existing Patients
-                </Button>
                 <Button className="w-full bg-[#D09B3C] text-white hover:bg-[#C48A25]">
                   Schedule Consultation
                 </Button>

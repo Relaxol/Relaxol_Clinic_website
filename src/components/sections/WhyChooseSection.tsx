@@ -14,7 +14,7 @@ const reasons = [
   {
     icon: CreditCard,
     title: "Insurance & Billing Support",
-    description: "Navigating insurance for mental health treatment can be confusing. Our team helps verify your benefits, submit claims, and explore financing options so you can focus on getting better.",
+    description: "Navigating insurance for mental health treatment can be confusing. Our team helps verify your benefits and submit claims so you can focus on getting better.",
   },
   {
     icon: Lock,
