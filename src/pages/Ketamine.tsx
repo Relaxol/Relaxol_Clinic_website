@@ -18,8 +18,7 @@ import servicePain from "@/assets/service-pain.jpg";
 import serviceMaintenance from "@/assets/service-maintenance.jpg";
 import { 
   ArrowRight,
-  Check,
-  Users
+  Check
 } from "lucide-react";
 
 // Scroll helper
@@ -347,90 +346,60 @@ const Ketamine = () => {
           </div>
         </section>
 
-        {/* SECTION 4 — TESTIMONIAL STRIP */}
-        <section className="py-20 md:py-28">
-          <div className="mx-auto max-w-3xl px-6">
-            <div className="rounded-3xl bg-muted/40 p-10 text-center shadow-sm">
-              <div className="mb-4 text-lg text-primary">★★★★★</div>
-              <p className="text-lg leading-relaxed text-foreground">
-                "After years of trying different medications without success, ketamine therapy at Relaxol Clinic gave me hope again. The staff was incredibly supportive and professional throughout the entire process."
-              </p>
-              <div className="mt-6 text-sm text-muted-foreground">Sarah M. • Verified Patient (placeholder)</div>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 5 — HOW IT WORKS (2x2 grid) */}
-        <section id="how-it-works" className="py-20 md:py-28 bg-muted/30 scroll-mt-20">
+        {/* SECTION — CTA + ELIGIBILITY FORM */}
+        <section id="eligibility" className="py-24 md:py-32 bg-[hsl(0,0%,92%)] scroll-mt-20">
           <div className="mx-auto max-w-6xl px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-                How It Works
-              </h2>
-              <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Your journey to wellness begins with a simple consultation.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              {processSteps.map((step) => (
-                <div key={step.step} className="rounded-2xl bg-background p-7">
-                  <div className="text-xs uppercase tracking-widest text-muted-foreground">Step {step.step}</div>
-                  <h3 className="mt-2 text-xl font-semibold text-foreground">{step.title}</h3>
-                  <p className="mt-3 text-muted-foreground">{step.description}</p>
+            <div className="grid md:grid-cols-2 gap-16 items-start">
+              {/* Left: CTA copy + trust bullets */}
+              <div className="space-y-8">
+                <div className="space-y-4">
+                  <p className="text-sm font-medium uppercase tracking-widest text-primary">Start Your Journey</p>
+                  <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground leading-tight">
+                    Take the Next Step Toward Relief
+                  </h2>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 6 — "Choose Your Physician" credibility block */}
-        <section className="py-20 md:py-28">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-                Meet Your Care Team
-              </h2>
-              <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Board-certified physicians dedicated to your mental health journey.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto">
-              {/* Dr. Khanna */}
-              <div className="rounded-3xl bg-muted/40 overflow-hidden">
-                <div className="aspect-[4/3] bg-muted">
-                  <img 
-                    src={drSangeetKhanna} 
-                    alt="Dr. Sangeet Khanna"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-8 space-y-3">
-                  <h3 className="text-xl font-semibold text-foreground">Dr. Sangeet Khanna</h3>
-                  <p className="text-muted-foreground">
-                    Founder of Relaxol Clinic with 15+ years of experience in psychiatry and ketamine therapy. Board-certified physician dedicated to helping patients find relief.
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  If traditional treatments haven't worked, our care team can help you understand whether ketamine therapy may be appropriate for you.
+                </p>
+                
+                <ul className="space-y-5 pt-4">
+                  <li className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Check className="w-3.5 h-3.5 text-primary" />
+                    </div>
+                    <span className="text-foreground">No obligation assessment</span>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Check className="w-3.5 h-3.5 text-primary" />
+                    </div>
+                    <span className="text-foreground">Response within 48 hours</span>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Check className="w-3.5 h-3.5 text-primary" />
+                    </div>
+                    <span className="text-foreground">Confidential submission</span>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Check className="w-3.5 h-3.5 text-primary" />
+                    </div>
+                    <span className="text-foreground">Insurance verification available</span>
+                  </li>
+                </ul>
+                
+                <div className="pt-6 border-t border-border/30">
+                  <p className="text-muted-foreground text-sm">
+                    Prefer to speak with someone? Call us directly at{" "}
+                    <a href="tel:201-781-2101" className="font-medium text-foreground hover:text-primary transition-colors">201-781-2101</a>
                   </p>
-                  <Button variant="outline" onClick={() => scrollToId("eligibility")}>
-                    Book with Dr. Khanna
-                  </Button>
                 </div>
               </div>
               
-              {/* Expandable placeholder */}
-              <div className="rounded-3xl bg-muted/40 overflow-hidden flex flex-col">
-                <div className="aspect-[4/3] bg-muted flex items-center justify-center">
-                  <Users className="h-16 w-16 text-muted-foreground/30" />
-                </div>
-                <div className="p-8 space-y-3 flex-1 flex flex-col">
-                  <h3 className="text-xl font-semibold text-foreground">Growing Team</h3>
-                  <p className="text-muted-foreground flex-1">
-                    Our clinic is expanding to serve more patients. Additional providers coming soon to ensure personalized, accessible care.
-                  </p>
-                  <Button variant="outline" onClick={() => scrollToId("eligibility")}>
-                    Join Waitlist
-                  </Button>
-                </div>
+              {/* Right: Form */}
+              <div className="rounded-3xl bg-background shadow-xl p-8 md:p-10">
+                <EligibilityForm variant="default" />
               </div>
             </div>
           </div>
@@ -535,53 +504,6 @@ const Ketamine = () => {
                   </AccordionItem>
                 ))}
               </Accordion>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 9 — FINAL CTA + ELIGIBILITY FORM */}
-        <section id="eligibility" className="py-24 bg-[#3A3A3A] text-white scroll-mt-20">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="grid md:grid-cols-2 gap-12 items-start">
-              {/* Left: CTA copy + trust bullets */}
-              <div className="space-y-8">
-                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-white">
-                  Take the Next Step Toward Relief
-                </h2>
-                <p className="text-white/70 text-lg leading-relaxed">
-                  If traditional treatments haven't worked, our care team can help you understand whether ketamine therapy may be appropriate.
-                </p>
-                
-                <ul className="space-y-4 pt-4">
-                  <li className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-white/70 flex-shrink-0 mt-0.5" />
-                    <span className="text-white/70">No obligation assessment</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-white/70 flex-shrink-0 mt-0.5" />
-                    <span className="text-white/70">Response within 48 hours</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-white/70 flex-shrink-0 mt-0.5" />
-                    <span className="text-white/70">Confidential submission</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-white/70 flex-shrink-0 mt-0.5" />
-                    <span className="text-white/70">Insurance verification available</span>
-                  </li>
-                </ul>
-                
-                <div className="pt-4">
-                  <p className="text-white/50 text-sm">
-                    Or call us directly: <a href="tel:201-781-2101" className="underline hover:text-white">201-781-2101</a>
-                  </p>
-                </div>
-              </div>
-              
-              {/* Right: Form */}
-              <div className="rounded-2xl bg-white/10 backdrop-blur p-8">
-                <EligibilityForm variant="dark" />
-              </div>
             </div>
           </div>
         </section>
