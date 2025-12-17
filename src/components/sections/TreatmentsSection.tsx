@@ -120,7 +120,7 @@ export function TreatmentsSection() {
             <div
               key={index}
               ref={(el) => (cardsRef.current[index] = el)}
-              className={`group relative bg-card rounded-2xl overflow-hidden transition-all duration-700 ease-out ${
+              className={`group relative bg-card rounded-2xl overflow-hidden transition-all duration-700 ease-out flex flex-col ${
                 visibleCards[index] 
                   ? 'opacity-100 translate-y-0' 
                   : 'opacity-0 translate-y-16'
