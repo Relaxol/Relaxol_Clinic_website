@@ -287,16 +287,28 @@ const Ketamine = () => {
           </div>
         </section>
 
-        {/* SECTION 2 — "Rapid Solutions" benefit headline */}
-        <section className="py-20 md:py-28">
-          <div className="mx-auto max-w-4xl px-6 text-center space-y-6">
-            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+        {/* SECTION 2 — "Rapid Solutions" parallax banner */}
+        <section className="relative py-28 md:py-40 overflow-hidden">
+          {/* Parallax background image - replace src later */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-fixed"
+            style={{ backgroundImage: `url(${treatmentKetamine})` }}
+          />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-black/60" />
+          
+          <div className="relative z-10 mx-auto max-w-4xl px-6 text-center space-y-6">
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white">
               Rapid Relief When Traditional Treatments Haven't Worked
             </h2>
-            <p className="text-base md:text-lg leading-relaxed text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base md:text-lg leading-relaxed text-white/80 max-w-2xl mx-auto">
               Ketamine therapy offers a different mechanism of action that can help patients who haven't responded to conventional antidepressants experience meaningful improvement.
             </p>
-            <Button variant="outline" onClick={() => scrollToId("eligibility")}>
+            <Button 
+              variant="outline" 
+              onClick={() => scrollToId("eligibility")}
+              className="border-white text-white hover:bg-white hover:text-foreground"
+            >
               Learn More
             </Button>
           </div>
