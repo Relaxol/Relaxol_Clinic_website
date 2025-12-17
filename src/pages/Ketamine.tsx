@@ -10,24 +10,16 @@ import treatmentKetamine from "@/assets/treatment-ketamine.jpg";
 import treatmentRoom from "@/assets/treatment-room.jpg";
 import drSangeetKhanna from "@/assets/dr-sangeet-khanna.jpg";
 import spravato from "@/assets/treatment-spravato.jpg";
+import serviceKetamineInfusion from "@/assets/service-ketamine-infusion.jpg";
+import serviceDepression from "@/assets/service-depression.jpg";
+import serviceAnxiety from "@/assets/service-anxiety.jpg";
+import servicePtsd from "@/assets/service-ptsd.jpg";
+import servicePain from "@/assets/service-pain.jpg";
+import serviceMaintenance from "@/assets/service-maintenance.jpg";
 import { 
-  ShieldCheck, 
-  Stethoscope, 
-  FileCheck, 
-  Brain, 
-  HeartPulse, 
-  Zap, 
   ArrowRight,
   Check,
-  Eye,
-  Phone,
-  Users,
-  Clock,
-  Award,
-  Star,
-  Syringe,
-  Activity,
-  Sparkles
+  Users
 } from "lucide-react";
 
 // Scroll helper
@@ -66,35 +58,35 @@ const processSteps = [
   },
 ];
 
-// Services grid
+// Services grid with images
 const servicesItems = [
   {
-    icon: Syringe,
+    image: serviceKetamineInfusion,
     title: "Ketamine Infusions",
     description: "IV ketamine therapy administered in a comfortable, medically supervised setting."
   },
   {
-    icon: Brain,
+    image: serviceDepression,
     title: "Treatment-Resistant Depression",
     description: "Specialized protocols for patients who haven't responded to traditional antidepressants."
   },
   {
-    icon: HeartPulse,
+    image: serviceAnxiety,
     title: "Anxiety Treatment",
     description: "Evidence-based ketamine protocols for chronic anxiety and related conditions."
   },
   {
-    icon: ShieldCheck,
+    image: servicePtsd,
     title: "PTSD Therapy",
     description: "Trauma-focused treatment combining ketamine with supportive care."
   },
   {
-    icon: Activity,
+    image: servicePain,
     title: "Chronic Pain Management",
     description: "Ketamine infusions for neuropathic pain and chronic pain conditions."
   },
   {
-    icon: Sparkles,
+    image: serviceMaintenance,
     title: "Maintenance Programs",
     description: "Ongoing treatment plans to sustain improvement and prevent relapse."
   },
@@ -314,44 +306,7 @@ const Ketamine = () => {
           </div>
         </section>
 
-        {/* SECTION 3 — TESTIMONIAL STRIP */}
-        <section className="py-20 md:py-28 bg-muted/30">
-          <div className="mx-auto max-w-3xl px-6">
-            <div className="rounded-3xl bg-muted/40 p-10 text-center shadow-sm">
-              <div className="mb-4 text-lg text-primary">★★★★★</div>
-              <p className="text-lg leading-relaxed text-foreground">
-                "After years of trying different medications without success, ketamine therapy at Relaxol Clinic gave me hope again. The staff was incredibly supportive and professional throughout the entire process."
-              </p>
-              <div className="mt-6 text-sm text-muted-foreground">Sarah M. • Verified Patient (placeholder)</div>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 4 — HOW IT WORKS (2x2 grid) */}
-        <section id="how-it-works" className="py-20 md:py-28 scroll-mt-20">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-                How It Works
-              </h2>
-              <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Your journey to wellness begins with a simple consultation.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              {processSteps.map((step) => (
-                <div key={step.step} className="rounded-2xl bg-muted/40 p-7">
-                  <div className="text-xs uppercase tracking-widest text-muted-foreground">Step {step.step}</div>
-                  <h3 className="mt-2 text-xl font-semibold text-foreground">{step.title}</h3>
-                  <p className="mt-3 text-muted-foreground">{step.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 5 — SERVICES GRID */}
+        {/* SECTION 3 — SERVICES GRID (moved under parallax) */}
         <section className="py-20 md:py-28 bg-muted/30">
           <div className="mx-auto max-w-6xl px-6">
             <div className="text-center mb-16">
@@ -367,19 +322,62 @@ const Ketamine = () => {
               {servicesItems.map((service, index) => (
                 <div 
                   key={index} 
-                  className="rounded-2xl bg-background p-7 hover:bg-muted/20 transition"
+                  className="rounded-2xl bg-background overflow-hidden hover:shadow-lg transition group"
                 >
-                  <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                    <service.icon className="h-5 w-5 text-primary" />
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img 
+                      src={service.image} 
+                      alt={service.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground">{service.title}</h3>
-                  <p className="mt-3 text-muted-foreground">{service.description}</p>
-                  <button 
-                    className="mt-5 text-sm font-medium underline underline-offset-4 text-foreground hover:text-primary transition-colors"
-                    onClick={() => scrollToId("eligibility")}
-                  >
-                    Book Consultation
-                  </button>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-foreground">{service.title}</h3>
+                    <p className="mt-2 text-muted-foreground text-sm">{service.description}</p>
+                    <button 
+                      className="mt-4 text-sm font-medium underline underline-offset-4 text-foreground hover:text-primary transition-colors"
+                      onClick={() => scrollToId("eligibility")}
+                    >
+                      Book Consultation
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 4 — TESTIMONIAL STRIP */}
+        <section className="py-20 md:py-28">
+          <div className="mx-auto max-w-3xl px-6">
+            <div className="rounded-3xl bg-muted/40 p-10 text-center shadow-sm">
+              <div className="mb-4 text-lg text-primary">★★★★★</div>
+              <p className="text-lg leading-relaxed text-foreground">
+                "After years of trying different medications without success, ketamine therapy at Relaxol Clinic gave me hope again. The staff was incredibly supportive and professional throughout the entire process."
+              </p>
+              <div className="mt-6 text-sm text-muted-foreground">Sarah M. • Verified Patient (placeholder)</div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 5 — HOW IT WORKS (2x2 grid) */}
+        <section id="how-it-works" className="py-20 md:py-28 bg-muted/30 scroll-mt-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+                How It Works
+              </h2>
+              <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+                Your journey to wellness begins with a simple consultation.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              {processSteps.map((step) => (
+                <div key={step.step} className="rounded-2xl bg-background p-7">
+                  <div className="text-xs uppercase tracking-widest text-muted-foreground">Step {step.step}</div>
+                  <h3 className="mt-2 text-xl font-semibold text-foreground">{step.title}</h3>
+                  <p className="mt-3 text-muted-foreground">{step.description}</p>
                 </div>
               ))}
             </div>
