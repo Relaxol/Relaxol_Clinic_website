@@ -115,7 +115,7 @@ export function TreatmentsSection() {
         </div>
 
         {/* Premium Treatment Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8 md:gap-10 max-w-7xl mx-auto">
           {treatments.map((treatment, index) => (
             <div
               key={index}
