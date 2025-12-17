@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -7,9 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import treatmentKetamine from "@/assets/treatment-ketamine.jpg";
 import treatmentRoom from "@/assets/treatment-room.jpg";
-import ketamineRapidRelief from "@/assets/ketamine-rapid-relief.jpg";
-import ketamineMechanism from "@/assets/ketamine-mechanism.jpg";
-import ketamineSupervised from "@/assets/ketamine-supervised.jpg";
+import drSangeetKhanna from "@/assets/dr-sangeet-khanna.jpg";
+import spravato from "@/assets/treatment-spravato.jpg";
 import { 
   ShieldCheck, 
   Stethoscope, 
@@ -20,85 +20,84 @@ import {
   ArrowRight,
   Check,
   Eye,
-  Phone
+  Phone,
+  Users,
+  Clock,
+  Award,
+  Star,
+  Syringe,
+  Activity,
+  Sparkles
 } from "lucide-react";
 
-// Credibility strip items
-const credibilityItems = [
-  { icon: ShieldCheck, text: "Medical Supervision" },
-  { icon: Eye, text: "In-Clinic Monitoring" },
-  { icon: FileCheck, text: "Evidence-Based" },
+// Scroll helper
+const scrollToId = (id: string) =>
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+// Stats for hero
+const statsItems = [
+  { value: "470+", label: "Patients helped" },
+  { value: "98%", label: "Patient satisfaction" },
+  { value: "15+", label: "Years experience" },
+  { value: "1000+", label: "Treatments delivered" },
 ];
 
-// What Ketamine Helps With
-const conditionsItems = [
+// How it works steps
+const processSteps = [
   {
-    title: "Treatment-Resistant Depression",
-    description: "Persistent symptoms despite trying multiple antidepressants."
+    step: 1,
+    title: "Book Consultation",
+    description: "Schedule a confidential evaluation with our care team to discuss your treatment history."
   },
   {
-    title: "Ongoing Depressive Symptoms",
-    description: "Depression that continues to affect daily functioning."
-  },
-  {
-    title: "Limited Response to Medication",
-    description: "Inadequate relief from standard oral antidepressants."
-  },
-  {
-    title: "Need for an Alternative Approach",
-    description: "Interest in evidence-based options that work differently."
-  },
-];
-
-// Benefits - editorial style
-const benefitsItems = [
-  {
-    image: ketamineRapidRelief,
-    title: "Rapid Relief for Some Patients",
-    description: "Some individuals experience improvement sooner than with traditional medications."
-  },
-  {
-    image: ketamineMechanism,
-    title: "Different Mechanism of Action",
-    description: "Ketamine works on glutamate pathways rather than traditional serotonin pathways."
-  },
-  {
-    image: ketamineSupervised,
-    title: "Medically Supervised Care",
-    description: "Treatment is delivered in-clinic with monitoring before, during, and after each session."
-  },
-];
-
-// Timeline steps
-const treatmentSteps = [
-  {
-    step: "01",
+    step: 2,
     title: "Clinical Evaluation",
-    description: "Review of symptoms and treatment history."
+    description: "A thorough review of symptoms, medical history, and treatment background."
   },
   {
-    step: "02",
-    title: "In-Clinic Administration",
-    description: "Administered in a controlled medical setting."
+    step: 3,
+    title: "Personalized Treatment",
+    description: "Ketamine is administered in a controlled medical setting tailored to your needs."
   },
   {
-    step: "03",
-    title: "Monitoring & Observation",
-    description: "Continuous monitoring by trained staff."
-  },
-  {
-    step: "04",
-    title: "Ongoing Care",
-    description: "Plans adjusted based on response."
+    step: 4,
+    title: "Ongoing Support",
+    description: "Continuous monitoring and follow-up care to optimize your treatment outcomes."
   },
 ];
 
-// Candidate qualifiers
-const candidateItems = [
-  "You have tried two or more antidepressants without lasting relief",
-  "You are currently diagnosed with depression, anxiety, or PTSD",
-  "You are looking for an evidence-based alternative approach",
-  "You are able to attend in-clinic sessions with medical supervision"
+// Services grid
+const servicesItems = [
+  {
+    icon: Syringe,
+    title: "Ketamine Infusions",
+    description: "IV ketamine therapy administered in a comfortable, medically supervised setting."
+  },
+  {
+    icon: Brain,
+    title: "Treatment-Resistant Depression",
+    description: "Specialized protocols for patients who haven't responded to traditional antidepressants."
+  },
+  {
+    icon: HeartPulse,
+    title: "Anxiety Treatment",
+    description: "Evidence-based ketamine protocols for chronic anxiety and related conditions."
+  },
+  {
+    icon: ShieldCheck,
+    title: "PTSD Therapy",
+    description: "Trauma-focused treatment combining ketamine with supportive care."
+  },
+  {
+    icon: Activity,
+    title: "Chronic Pain Management",
+    description: "Ketamine infusions for neuropathic pain and chronic pain conditions."
+  },
+  {
+    icon: Sparkles,
+    title: "Maintenance Programs",
+    description: "Ongoing treatment plans to sustain improvement and prevent relapse."
+  },
 ];
 
 // Safety accordion items
@@ -120,7 +119,7 @@ const safetyAccordionItems = [
   },
 ];
 
-// Eligibility form component - premium, inviting feel
+// Eligibility form component
 function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark" }) {
   const [formData, setFormData] = useState({
     triedAntidepressants: "",
@@ -136,20 +135,20 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
   };
 
   const isDark = variant === "dark";
-  const labelClass = isDark ? "text-background/70 text-sm font-normal" : "text-muted-foreground text-sm font-normal";
+  const labelClass = isDark ? "text-primary-foreground/70 text-sm font-normal" : "text-muted-foreground text-sm font-normal";
   const inputClass = isDark 
-    ? "bg-background/5 border-background/10 text-background placeholder:text-background/40 focus:border-background/30 h-12 rounded-lg" 
-    : "bg-background border-border/20 h-12 rounded-lg focus:border-primary/30";
+    ? "bg-primary-foreground/5 border-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/40 focus:border-primary-foreground/30 h-12 rounded-lg" 
+    : "bg-background border-border/30 h-12 rounded-lg focus:border-primary/30";
   const radioContainerClass = isDark 
-    ? "bg-background/5 border-background/10 hover:bg-background/10" 
-    : "bg-background border-border/20 hover:border-border/30";
+    ? "bg-primary-foreground/5 border-primary-foreground/10 hover:bg-primary-foreground/10" 
+    : "bg-background border-border/30 hover:border-border/50";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-6">
       {/* Question 1 */}
       <div className="space-y-3">
         <Label className={labelClass}>Have you tried 2+ antidepressants without lasting relief?</Label>
-        <div className="flex gap-4">
+        <div className="flex gap-3">
           {["Yes", "No"].map((option) => (
             <button
               key={option}
@@ -161,7 +160,7 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
                   : ""
               }`}
             >
-              <span className={isDark ? "text-background/90 text-sm" : "text-foreground text-sm"}>{option}</span>
+              <span className={isDark ? "text-primary-foreground/90 text-sm" : "text-foreground text-sm"}>{option}</span>
             </button>
           ))}
         </div>
@@ -170,7 +169,7 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
       {/* Question 2 */}
       <div className="space-y-3">
         <Label className={labelClass}>Are you currently diagnosed with depression, anxiety, or PTSD?</Label>
-        <div className="flex gap-4">
+        <div className="flex gap-3">
           {["Yes", "No"].map((option) => (
             <button
               key={option}
@@ -182,7 +181,7 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
                   : ""
               }`}
             >
-              <span className={isDark ? "text-background/90 text-sm" : "text-foreground text-sm"}>{option}</span>
+              <span className={isDark ? "text-primary-foreground/90 text-sm" : "text-foreground text-sm"}>{option}</span>
             </button>
           ))}
         </div>
@@ -202,7 +201,7 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
       </div>
 
       {/* Contact fields */}
-      <div className="grid sm:grid-cols-2 gap-6">
+      <div className="grid sm:grid-cols-2 gap-4">
         <div className="space-y-3">
           <Label htmlFor="email" className={labelClass}>Email</Label>
           <Input 
@@ -227,7 +226,7 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
         </div>
       </div>
 
-      <Button type="submit" size="lg" className="w-full h-12 mt-4">
+      <Button type="submit" size="lg" className={`w-full h-12 ${isDark ? 'bg-primary-foreground text-primary hover:bg-primary-foreground/90' : ''}`}>
         See If I Qualify
         <ArrowRight className="w-4 h-4 ml-2" />
       </Button>
@@ -240,271 +239,272 @@ const Ketamine = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <main>
-        {/* 1. HERO SECTION - Restrained, Authoritative */}
-        <section className="relative py-32 lg:py-40 overflow-hidden">
-          <div className="absolute inset-0 bg-[#4A3C32]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
-          
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-background leading-[1.1] tracking-tight">
-                Ketamine Therapy in a Medically Supervised Setting
+        {/* SECTION 1 — HERO (Split layout + image + stats) */}
+        <section className="pt-16 md:pt-24 pb-10">
+          <div className="mx-auto max-w-6xl px-6 grid md:grid-cols-2 gap-12 items-center">
+            {/* Left column */}
+            <div className="space-y-6">
+              <h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-foreground">
+                Ketamine Therapy for Treatment-Resistant Depression
               </h1>
-              <p className="text-xl md:text-2xl text-background/60 leading-relaxed mt-8 max-w-2xl">
-                Personalized care for those who haven't found relief with traditional treatments.
+              <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
+                Personalized care for individuals who haven't found relief with traditional treatments.
               </p>
               
-              <Button size="lg" className="mt-10 px-10 py-6 text-lg h-auto" asChild>
-                <a href="#eligibility-form">
-                  Learn if Ketamine Therapy Is Right for You
-                </a>
-              </Button>
-              
-              {/* Micro-trust row - subtle */}
-              <div className="flex flex-wrap gap-8 mt-16 pt-8 border-t border-background/10">
-                {credibilityItems.map((item, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <item.icon className="w-4 h-4 text-background/40" />
-                    <span className="text-background/50 text-sm">{item.text}</span>
-                  </div>
-                ))}
+              <div className="flex flex-wrap gap-4 pt-4">
+                <Button size="lg" onClick={() => scrollToId("eligibility")} className="px-10">
+                  Book Consultation
+                </Button>
+                <button 
+                  onClick={() => scrollToId("how-it-works")}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
+                >
+                  Learn how it works
+                </button>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 2. ELIGIBILITY / CONTACT FORM - Open, inviting */}
-        <section id="eligibility-form" className="py-24 lg:py-32 bg-background scroll-mt-20">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 gap-16 lg:gap-20 items-start max-w-6xl mx-auto">
-              {/* Left: Reassurance copy */}
-              <div className="space-y-8">
-                <div className="space-y-6">
-                  <h2 className="text-4xl md:text-5xl font-light text-foreground leading-tight">
-                    Find Out If You May Be a Candidate
-                  </h2>
-                  <p className="text-muted-foreground text-xl leading-relaxed">
-                    Complete this brief form to see if you may qualify for ketamine therapy.
-                  </p>
-                </div>
-                
-                <ul className="space-y-5 pt-4">
-                  <li className="flex items-start gap-4">
-                    <Check className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-muted-foreground">No obligation assessment</span>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <Check className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-muted-foreground">Response within 48 hours</span>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <Check className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-muted-foreground">Confidential submission</span>
-                  </li>
-                </ul>
-              </div>
-              
-              {/* Right: Form - softened container */}
-              <div className="space-y-6 rounded-2xl bg-white/70 backdrop-blur p-10">
-                <EligibilityForm />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 3. WHAT KETAMINE THERAPY HELPS WITH - Editorial grid */}
-        <section className="py-24 lg:py-32 bg-muted/30">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-20">
-                <p className="text-primary text-sm font-medium tracking-widest uppercase mb-4">
-                  Conditions
-                </p>
-                <h2 className="text-4xl md:text-5xl font-light text-foreground">
-                  What Ketamine Therapy Helps With
-                </h2>
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
-                {conditionsItems.map((item, index) => (
-                  <div key={index} className="space-y-3">
-                    <h3 className="text-2xl font-medium text-foreground">
-                      {item.title}
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 4. BENEFITS OF KETAMINE THERAPY - Editorial, open layout */}
-        <section className="py-24 lg:py-32 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-20">
-              <p className="text-primary text-sm font-medium tracking-widest uppercase mb-4">
-                Why Ketamine Therapy
-              </p>
-              <h2 className="text-4xl md:text-5xl font-light text-foreground">
-                Benefits of Ketamine Therapy
-              </h2>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto">
-              {benefitsItems.map((item, index) => (
-                <div key={index} className="space-y-5">
-                  <div className="aspect-[4/3] rounded-2xl overflow-hidden">
-                    <img 
-                      src={item.image} 
-                      alt={item.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <h3 className="text-2xl font-medium text-foreground">
-                    {item.title}
-                  </h3>
-                  <p className="text-muted-foreground text-base leading-relaxed">
-                    {item.description}
-                  </p>
+            {/* Right column - Hero image */}
+            <div className="rounded-3xl overflow-hidden bg-muted aspect-[4/3]">
+              <img 
+                src={treatmentRoom} 
+                alt="Comfortable ketamine treatment room"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          
+          {/* Stats row */}
+          <div className="mx-auto max-w-6xl px-6 mt-10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {statsItems.map((stat, index) => (
+                <div key={index} className="rounded-2xl bg-muted/40 p-5">
+                  <div className="text-2xl font-semibold text-foreground">{stat.value}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* 5. WHAT IS KETAMINE THERAPY? - Typography-led */}
-        <section className="py-24 lg:py-32 bg-muted/30">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 gap-20 items-center max-w-6xl mx-auto">
+        {/* SECTION 2 — "Rapid Solutions" benefit headline */}
+        <section className="py-20 md:py-28">
+          <div className="mx-auto max-w-4xl px-6 text-center space-y-6">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+              Rapid Relief When Traditional Treatments Haven't Worked
+            </h2>
+            <p className="text-base md:text-lg leading-relaxed text-muted-foreground max-w-2xl mx-auto">
+              Ketamine therapy offers a different mechanism of action that can help patients who haven't responded to conventional antidepressants experience meaningful improvement.
+            </p>
+            <Button variant="outline" onClick={() => scrollToId("eligibility")}>
+              Learn More
+            </Button>
+          </div>
+        </section>
+
+        {/* SECTION 3 — TESTIMONIAL STRIP */}
+        <section className="py-20 md:py-28 bg-muted/30">
+          <div className="mx-auto max-w-3xl px-6">
+            <div className="rounded-3xl bg-muted/40 p-10 text-center shadow-sm">
+              <div className="mb-4 text-lg text-primary">★★★★★</div>
+              <p className="text-lg leading-relaxed text-foreground">
+                "After years of trying different medications without success, ketamine therapy at Relaxol Clinic gave me hope again. The staff was incredibly supportive and professional throughout the entire process."
+              </p>
+              <div className="mt-6 text-sm text-muted-foreground">Sarah M. • Verified Patient (placeholder)</div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 4 — HOW IT WORKS (2x2 grid) */}
+        <section id="how-it-works" className="py-20 md:py-28 scroll-mt-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+                How It Works
+              </h2>
+              <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+                Your journey to wellness begins with a simple consultation.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              {processSteps.map((step) => (
+                <div key={step.step} className="rounded-2xl bg-muted/40 p-7">
+                  <div className="text-xs uppercase tracking-widest text-muted-foreground">Step {step.step}</div>
+                  <h3 className="mt-2 text-xl font-semibold text-foreground">{step.title}</h3>
+                  <p className="mt-3 text-muted-foreground">{step.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 5 — SERVICES GRID */}
+        <section className="py-20 md:py-28 bg-muted/30">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+                Our Services
+              </h2>
+              <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+                Comprehensive ketamine therapy programs tailored to your needs.
+              </p>
+            </div>
+            
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {servicesItems.map((service, index) => (
+                <div 
+                  key={index} 
+                  className="rounded-2xl bg-background p-7 hover:bg-muted/20 transition"
+                >
+                  <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                    <service.icon className="h-5 w-5 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">{service.title}</h3>
+                  <p className="mt-3 text-muted-foreground">{service.description}</p>
+                  <button 
+                    className="mt-5 text-sm font-medium underline underline-offset-4 text-foreground hover:text-primary transition-colors"
+                    onClick={() => scrollToId("eligibility")}
+                  >
+                    Book Consultation
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 6 — "Choose Your Physician" credibility block */}
+        <section className="py-20 md:py-28">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+                Meet Your Care Team
+              </h2>
+              <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+                Board-certified physicians dedicated to your mental health journey.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto">
+              {/* Dr. Khanna */}
+              <div className="rounded-3xl bg-muted/40 overflow-hidden">
+                <div className="aspect-[4/3] bg-muted">
+                  <img 
+                    src={drSangeetKhanna} 
+                    alt="Dr. Sangeet Khanna"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-8 space-y-3">
+                  <h3 className="text-xl font-semibold text-foreground">Dr. Sangeet Khanna</h3>
+                  <p className="text-muted-foreground">
+                    Founder of Relaxol Clinic with 15+ years of experience in psychiatry and ketamine therapy. Board-certified physician dedicated to helping patients find relief.
+                  </p>
+                  <Button variant="outline" onClick={() => scrollToId("eligibility")}>
+                    Book with Dr. Khanna
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Expandable placeholder */}
+              <div className="rounded-3xl bg-muted/40 overflow-hidden flex flex-col">
+                <div className="aspect-[4/3] bg-muted flex items-center justify-center">
+                  <Users className="h-16 w-16 text-muted-foreground/30" />
+                </div>
+                <div className="p-8 space-y-3 flex-1 flex flex-col">
+                  <h3 className="text-xl font-semibold text-foreground">Growing Team</h3>
+                  <p className="text-muted-foreground flex-1">
+                    Our clinic is expanding to serve more patients. Additional providers coming soon to ensure personalized, accessible care.
+                  </p>
+                  <Button variant="outline" onClick={() => scrollToId("eligibility")}>
+                    Join Waitlist
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 7 — SPRAVATO CROSS-SELL MODULE */}
+        <section className="py-20 md:py-28 bg-muted/30">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="grid md:grid-cols-2 gap-12 items-center rounded-3xl bg-muted/40 p-10">
               {/* Left: Text */}
-              <div className="space-y-6 max-w-xl">
-                <p className="text-primary text-sm font-medium tracking-widest uppercase">
-                  About the Treatment
-                </p>
-                <h2 className="text-4xl md:text-5xl font-light text-foreground leading-tight">
-                  What Is Ketamine Therapy?
+              <div className="space-y-6">
+                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+                  Also Offering SPRAVATO® Treatment
                 </h2>
-                
-                <div className="space-y-6 pt-4">
-                  <p className="text-muted-foreground text-base leading-loose">
-                    Ketamine therapy uses a medication studied for decades, now administered 
-                    in controlled medical settings to help address certain mental health conditions.
-                  </p>
-                  
-                  <p className="text-muted-foreground text-base leading-loose">
-                    Unlike traditional antidepressants, ketamine works on different neural 
-                    pathways associated with mood regulation and emotional processing.
-                  </p>
-                  
-                  <p className="text-muted-foreground text-base leading-loose">
-                    When administered in a clinical environment, ketamine therapy follows 
-                    strict medical protocols to ensure safety and appropriate patient support.
-                  </p>
+                <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
+                  SPRAVATO® (esketamine) is an FDA-approved nasal spray for treatment-resistant depression. It's administered in our clinic under medical supervision and may be covered by insurance.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <Button asChild>
+                    <Link to="/spravato-Englewood">Learn About SPRAVATO®</Link>
+                  </Button>
+                  <Button variant="outline" onClick={() => scrollToId("eligibility")}>
+                    Check Eligibility
+                  </Button>
                 </div>
               </div>
               
               {/* Right: Image */}
-              <div className="relative rounded-3xl overflow-hidden">
+              <div className="rounded-2xl overflow-hidden bg-muted aspect-[4/3]">
                 <img 
-                  src={treatmentRoom}
-                  alt="Comfortable ketamine treatment room"
-                  className="w-full h-full object-cover aspect-[4/3]"
+                  src={spravato} 
+                  alt="SPRAVATO treatment"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </div>
           </div>
         </section>
 
-        {/* 6. HOW KETAMINE THERAPY WORKS - Spacious timeline */}
-        <section id="how-it-works" className="py-24 lg:py-32 bg-background scroll-mt-24">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-20">
-              <p className="text-primary text-sm font-medium tracking-widest uppercase mb-4">
-                The Process
-              </p>
-              <h2 className="text-4xl md:text-5xl font-light text-foreground">
-                How Ketamine Therapy Works
+        {/* SECTION 8 — BLOG PREVIEW */}
+        <section className="py-20 md:py-28">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+                Stay Up to Date
               </h2>
-            </div>
-            
-            {/* Timeline - open layout */}
-            <div className="grid md:grid-cols-4 gap-12 max-w-5xl mx-auto mb-20">
-              {treatmentSteps.map((step, index) => (
-                <div key={index} className="space-y-4">
-                  <span className="text-sm uppercase tracking-widest text-muted-foreground">
-                    Step {step.step}
-                  </span>
-                  <h4 className="text-xl font-medium text-foreground">{step.title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
-                </div>
-              ))}
-            </div>
-            
-            {/* Mechanism explanation - quieter */}
-            <div className="max-w-2xl mx-auto text-center pt-12 border-t border-border/30">
-              <h3 className="text-xl md:text-2xl font-medium text-foreground mb-4">
-                How Ketamine Works in the Brain
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Ketamine affects glutamate signaling, which plays a key role in mood and neural connectivity. 
-                This mechanism differs from traditional antidepressants.
+              <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+                Latest insights on ketamine therapy and mental health treatment.
               </p>
             </div>
-          </div>
-        </section>
-
-        {/* 7. MID-PAGE REASSURANCE BANNER - Visual anchor */}
-        <section className="py-32 bg-primary text-primary-foreground text-center">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-4xl md:text-5xl font-light max-w-3xl mx-auto leading-tight">
-              Ketamine therapy is delivered in a calm, medically supervised environment.
-            </h2>
             
-            <Button size="lg" variant="secondary" className="mt-10 px-10 py-6 text-lg h-auto" asChild>
-              <a href="#eligibility-form">
-                Check Your Eligibility
-              </a>
-            </Button>
-          </div>
-        </section>
-
-        {/* 8. WHO MAY BE A GOOD CANDIDATE? - Open checklist */}
-        <section className="py-24 lg:py-32 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto">
-              <div className="text-center mb-16">
-                <p className="text-primary text-sm font-medium tracking-widest uppercase mb-4">
-                  Eligibility
-                </p>
-                <h2 className="text-4xl md:text-5xl font-light text-foreground">
-                  Who May Be a Good Candidate?
-                </h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Blog post 1 */}
+              <div className="rounded-3xl overflow-hidden bg-muted/40">
+                <div className="aspect-[16/10] bg-muted" />
+                <div className="p-7 space-y-3">
+                  <h3 className="text-xl font-semibold text-foreground">Understanding Ketamine Therapy: What to Expect</h3>
+                  <p className="text-muted-foreground">A comprehensive guide to your first ketamine treatment session, from preparation to aftercare. (placeholder)</p>
+                  <Button variant="outline" size="sm">Read More</Button>
+                </div>
               </div>
               
-              <ul className="space-y-6 max-w-xl mx-auto">
-                {candidateItems.map((item, index) => (
-                  <li key={index} className="flex items-start gap-4">
-                    <Check className="mt-1 h-5 w-5 text-primary flex-shrink-0" />
-                    <span className="text-lg text-foreground/80">{item}</span>
-                  </li>
-                ))}
-              </ul>
+              {/* Blog post 2 */}
+              <div className="rounded-3xl overflow-hidden bg-muted/40">
+                <div className="aspect-[16/10] bg-muted" />
+                <div className="p-7 space-y-3">
+                  <h3 className="text-xl font-semibold text-foreground">Ketamine vs. Traditional Antidepressants</h3>
+                  <p className="text-muted-foreground">Exploring the differences in mechanism, timeline, and effectiveness for treatment-resistant depression. (placeholder)</p>
+                  <Button variant="outline" size="sm">Read More</Button>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* 9. SAFETY & SIDE EFFECTS - Visually demoted */}
-        <section className="py-16 bg-muted/40">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* SAFETY & SIDE EFFECTS (Demoted, quieter) */}
+        <section className="py-16 bg-muted/30">
+          <div className="mx-auto max-w-6xl px-6">
             <div className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-3xl font-light text-foreground">
+                <h2 className="text-2xl font-semibold text-foreground">
                   Safety & Side Effects
                 </h2>
-                <p className="text-muted-foreground mt-3 text-base">
+                <p className="text-muted-foreground mt-3 text-sm">
                   Ketamine therapy is provided under strict medical protocols with careful screening.
                 </p>
               </div>
@@ -516,10 +516,10 @@ const Ketamine = () => {
                     value={item.id}
                     className="bg-background rounded-xl border-0 px-6"
                   >
-                    <AccordionTrigger className="text-foreground/80 hover:no-underline py-5 text-base font-normal">
+                    <AccordionTrigger className="text-foreground/80 hover:no-underline py-4 text-sm font-normal">
                       {item.title}
                     </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground pb-5 text-base leading-relaxed">
+                    <AccordionContent className="text-muted-foreground pb-4 text-sm leading-relaxed">
                       {item.content}
                     </AccordionContent>
                   </AccordionItem>
@@ -529,66 +529,48 @@ const Ketamine = () => {
           </div>
         </section>
 
-        {/* 10. INSURANCE & ACCESS - 3-column icon row */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-light text-foreground mb-4">
-                  Insurance & Access
-                </h2>
-                <p className="text-muted-foreground">
-                  Ketamine therapy may be eligible for coverage depending on individual plans. 
-                  Our team can help review options.
-                </p>
-              </div>
-              
-              <div className="grid md:grid-cols-3 gap-12 text-center mb-10">
-                <div className="space-y-3">
-                  <FileCheck className="w-6 h-6 text-primary mx-auto" />
-                  <span className="text-sm text-muted-foreground block">Coverage verification</span>
-                </div>
-                <div className="space-y-3">
-                  <Eye className="w-6 h-6 text-primary mx-auto" />
-                  <span className="text-sm text-muted-foreground block">Transparent pricing</span>
-                </div>
-                <div className="space-y-3">
-                  <ShieldCheck className="w-6 h-6 text-primary mx-auto" />
-                  <span className="text-sm text-muted-foreground block">HSA/FSA accepted</span>
-                </div>
-              </div>
-              
-              <div className="text-center">
-                <Button variant="outline" size="sm" asChild>
-                  <a href="tel:201-781-2101">
-                    <Phone className="w-4 h-4 mr-2" />
-                    Verify Coverage
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 11. FINAL CTA + REPEATED FORM */}
-        <section className="py-32 bg-muted">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 gap-16 lg:gap-20 items-start max-w-6xl mx-auto">
-              {/* Left: CTA copy */}
+        {/* SECTION 9 — FINAL CTA + ELIGIBILITY FORM */}
+        <section id="eligibility" className="py-24 bg-primary text-primary-foreground scroll-mt-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="grid md:grid-cols-2 gap-12 items-start">
+              {/* Left: CTA copy + trust bullets */}
               <div className="space-y-8">
-                <h2 className="text-4xl md:text-5xl font-light text-foreground leading-tight">
+                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">
                   Take the Next Step Toward Relief
                 </h2>
-                <p className="text-muted-foreground text-xl leading-relaxed max-w-md">
-                  If traditional treatments haven't worked, our care team can help you 
-                  understand whether ketamine therapy may be appropriate.
+                <p className="text-primary-foreground/70 text-lg leading-relaxed">
+                  If traditional treatments haven't worked, our care team can help you understand whether ketamine therapy may be appropriate.
                 </p>
+                
+                <ul className="space-y-4 pt-4">
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-primary-foreground/70 flex-shrink-0 mt-0.5" />
+                    <span className="text-primary-foreground/70">No obligation assessment</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-primary-foreground/70 flex-shrink-0 mt-0.5" />
+                    <span className="text-primary-foreground/70">Response within 48 hours</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-primary-foreground/70 flex-shrink-0 mt-0.5" />
+                    <span className="text-primary-foreground/70">Confidential submission</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-primary-foreground/70 flex-shrink-0 mt-0.5" />
+                    <span className="text-primary-foreground/70">Insurance verification available</span>
+                  </li>
+                </ul>
+                
+                <div className="pt-4">
+                  <p className="text-primary-foreground/50 text-sm">
+                    Or call us directly: <a href="tel:201-781-2101" className="underline hover:text-primary-foreground">201-781-2101</a>
+                  </p>
+                </div>
               </div>
               
               {/* Right: Form */}
-              <div className="space-y-6 rounded-2xl bg-background p-10">
-                <h3 className="text-xl md:text-2xl font-medium text-foreground mb-6">Speak With Our Care Team</h3>
-                <EligibilityForm />
+              <div className="rounded-2xl bg-primary-foreground/10 backdrop-blur p-8">
+                <EligibilityForm variant="dark" />
               </div>
             </div>
           </div>
