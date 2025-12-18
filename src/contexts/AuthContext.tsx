@@ -25,7 +25,7 @@ interface AuthContextType {
   session: Session | null;
   loading: boolean;
   membership: TenantMembership | null;
-  signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
+  signIn: (email: string, password: string, rememberMe?: boolean) => Promise<{ error: Error | null }>;
   signUp: (email: string, password: string) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
   refreshMembership: () => Promise<void>;
@@ -148,8 +148,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => subscription.unsubscribe();
   }, []);
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (email: string, password: string, rememberMe: boolean = true) => {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
+    
+    // If "Remember Me" is unchecked, clear persistent storage so session ends on browser close
+    if (!error && !rememberMe) {
+      // Remove from localStorage but keep in-memory session active
+      const storageKey = `sb-${import.meta.env.VITE_SUPABASE_PROJECT_ID}-auth-token`;
+      localStorage.removeItem(storageKey);
+    }
+    
     return { error: error ? new Error(error.message) : null };
   };
 
