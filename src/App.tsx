@@ -20,6 +20,7 @@ import PTSD from "./pages/conditions/PTSD";
 import OCD from "./pages/conditions/OCD";
 import PainManagement from "./pages/conditions/PainManagement";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 
 // Admin imports
@@ -58,6 +59,7 @@ const App = () => (
             <Route path="/vitamin-infusion-englewood" element={<VitaminInfusions />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
