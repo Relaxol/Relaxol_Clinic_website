@@ -86,6 +86,7 @@ const PageEditor = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editingSection, setEditingSection] = useState<Section | null>(null);
   const [validationErrors, setValidationErrors] = useState<ValidationError[]>([]);
+  const [previewModeEnabled, setPreviewModeEnabled] = useState(true);
   
   const [form, setForm] = useState<PageForm>({
     title: '',
@@ -920,16 +921,30 @@ const PageEditor = () => {
         {/* Preview pane */}
         <Card className="h-full overflow-hidden">
           <CardHeader className="py-3 border-b">
-            <CardTitle className="text-sm flex items-center gap-2">
-              <Eye className="h-4 w-4" />
-              Live Preview
-            </CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-sm flex items-center gap-2">
+                <Eye className="h-4 w-4" />
+                Live Preview
+              </CardTitle>
+              {canEdit && (
+                <div className="flex items-center gap-2">
+                  <Label htmlFor="preview-mode" className="text-xs text-muted-foreground">
+                    Edit Overlays
+                  </Label>
+                  <Switch
+                    id="preview-mode"
+                    checked={previewModeEnabled}
+                    onCheckedChange={setPreviewModeEnabled}
+                  />
+                </div>
+              )}
+            </div>
           </CardHeader>
           <CardContent className="p-0 h-[calc(100%-53px)] overflow-auto">
             <PagePreview 
               page={form} 
               onSectionEdit={handleSectionEdit} 
-              previewMode={canEdit}
+              previewMode={canEdit && previewModeEnabled}
               highlightedSectionId={highlightedSection}
             />
           </CardContent>
