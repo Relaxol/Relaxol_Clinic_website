@@ -22,6 +22,7 @@ import PainManagement from "./pages/conditions/PainManagement";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
+import DynamicPage from "./pages/DynamicPage";
 
 // Admin imports
 import AdminLogin from "./pages/admin/Login";
@@ -53,15 +54,15 @@ const App = () => (
           <AccessibilityWidget />
           <ScrollToTop />
           <Routes>
-            {/* Public routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/spravato-Englewood" element={<Spravato />} />
-            <Route path="/ketamine" element={<Ketamine />} />
+            {/* Public routes - Dynamic rendering with dev-only fallbacks */}
+            <Route path="/" element={<DynamicPage slug="home" fallback={Home} />} />
+            <Route path="/spravato-Englewood" element={<DynamicPage slug="spravato-Englewood" fallback={Spravato} />} />
+            <Route path="/ketamine" element={<DynamicPage slug="ketamine" fallback={Ketamine} />} />
             <Route path="/vitamin-infusion-englewood" element={<VitaminInfusions />} />
-            <Route path="/faq" element={<FAQPage />} />
+            <Route path="/faq" element={<DynamicPage slug="faq" fallback={FAQPage} />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/contact" element={<DynamicPage slug="contact" fallback={Contact} />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/conditions/depression" element={<Depression />} />
