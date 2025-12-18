@@ -28,6 +28,14 @@ import AdminDashboard from "./pages/admin/Dashboard";
 import PostsList from "./pages/admin/posts/PostsList";
 import PostEditor from "./pages/admin/posts/PostEditor";
 import PagesList from "./pages/admin/pages/PagesList";
+import PageEditor from "./pages/admin/pages/PageEditor";
+import CategoriesList from "./pages/admin/categories/CategoriesList";
+import TagsList from "./pages/admin/tags/TagsList";
+import AuthorsList from "./pages/admin/authors/AuthorsList";
+import MediaLibrary from "./pages/admin/media/MediaLibrary";
+import UsersList from "./pages/admin/users/UsersList";
+import Settings from "./pages/admin/settings/Settings";
+import License from "./pages/admin/license/License";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -68,6 +76,14 @@ const App = () => (
               <Route path="posts" element={<PostsList />} />
               <Route path="posts/:id" element={<PostEditor />} />
               <Route path="pages" element={<PagesList />} />
+              <Route path="pages/:id" element={<PageEditor />} />
+              <Route path="categories" element={<CategoriesList />} />
+              <Route path="tags" element={<TagsList />} />
+              <Route path="authors" element={<AuthorsList />} />
+              <Route path="media" element={<MediaLibrary />} />
+              <Route path="users" element={<UsersList />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="license" element={<License />} />
             </Route>
             
             {/* Catch-all */}
