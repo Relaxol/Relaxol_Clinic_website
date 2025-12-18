@@ -562,11 +562,27 @@ const PageEditor = () => {
           <Button variant="ghost" size="icon" onClick={() => navigate('/admin/pages')}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
-          <div>
-            <h1 className="text-xl font-bold">{isNew ? 'New Page' : 'Edit Page'}</h1>
-            {isTemplatePage && (
-              <span className="text-sm text-muted-foreground">
-                Template: {TEMPLATE_LABELS[form.template!]}
+          <div className="flex items-center gap-3">
+            <div>
+              <h1 className="text-xl font-bold">{isNew ? 'New Page' : 'Edit Page'}</h1>
+              {isTemplatePage && (
+                <span className="text-sm text-muted-foreground">
+                  Template: {TEMPLATE_LABELS[form.template!]}
+                </span>
+              )}
+            </div>
+            {/* Status Badge */}
+            {!isNew && (
+              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                form.status === 'published' 
+                  ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' 
+                  : form.status === 'scheduled'
+                  ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
+                  : form.status === 'archived'
+                  ? 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400'
+                  : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
+              }`}>
+                {form.status === 'published' ? 'Published' : form.status === 'scheduled' ? 'Scheduled' : form.status === 'archived' ? 'Archived' : 'Draft'}
               </span>
             )}
           </div>
@@ -576,17 +592,16 @@ const PageEditor = () => {
           <div className="flex gap-2">
             <Button variant="outline" onClick={() => handleSave()} disabled={saving}>
               {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
-              Save Draft
+              Save
             </Button>
-            {form.status !== 'published' && (
+            {form.status === 'published' ? (
+              <Button variant="secondary" onClick={() => handleSave('draft')} disabled={saving}>
+                Unpublish
+              </Button>
+            ) : (
               <Button onClick={() => handleSave('published')} disabled={saving}>
                 <Send className="h-4 w-4 mr-2" />
                 Publish
-              </Button>
-            )}
-            {form.status === 'published' && (
-              <Button variant="secondary" onClick={() => handleSave('draft')} disabled={saving}>
-                Unpublish
               </Button>
             )}
           </div>
