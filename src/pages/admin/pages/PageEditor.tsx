@@ -203,15 +203,25 @@ const PageEditor = () => {
       });
 
       const rawContentJson = rawData.content_json as unknown;
-      const normalizedContentJson = isEmptyJsonObject(rawContentJson)
-        ? null
-        : (rawContentJson as unknown as TemplateContent);
+      const template = (rawData.template as TemplateType) || null;
+      
+      // Auto-initialize content_json with defaults if template is set but content is empty
+      let normalizedContentJson: TemplateContent | null;
+      if (isEmptyJsonObject(rawContentJson)) {
+        if (template && TEMPLATE_TYPES.includes(template)) {
+          normalizedContentJson = createDefaultContent(template);
+        } else {
+          normalizedContentJson = null;
+        }
+      } else {
+        normalizedContentJson = rawContentJson as unknown as TemplateContent;
+      }
 
       setForm({
         title: (rawData.title as string) || '',
         slug: (rawData.slug as string) || '',
         type: (rawData.type as string) || 'page',
-        template: (rawData.template as TemplateType) || null,
+        template: template,
         content_json: normalizedContentJson,
         hero_headline: (rawData.hero_headline as string) || '',
         hero_subheadline: (rawData.hero_subheadline as string) || '',
