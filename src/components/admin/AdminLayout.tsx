@@ -67,7 +67,7 @@ const AdminLayout = () => {
       )}>
         <div className="flex flex-col h-full">
           <div className="p-4 border-b flex items-center justify-between">
-            <h1 className="font-bold text-lg">Admin CMS</h1>
+            <h1 className="font-bold text-lg">Eleration CMS</h1>
             <Button 
               variant="ghost" 
               size="icon" 

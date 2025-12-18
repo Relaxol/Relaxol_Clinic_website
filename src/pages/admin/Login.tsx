@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
+import { Loader2, ArrowLeft } from 'lucide-react';
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -101,7 +101,11 @@ const AdminLogin = () => {
     <div className="min-h-screen flex items-center justify-center bg-muted p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">Admin CMS</CardTitle>
+          <Link to="/" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-4 self-start">
+            <ArrowLeft className="h-4 w-4 mr-1" />
+            Back to website
+          </Link>
+          <CardTitle className="text-2xl font-bold">Eleration CMS</CardTitle>
           <CardDescription>Sign in to manage your content</CardDescription>
         </CardHeader>
         <CardContent>
