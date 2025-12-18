@@ -1,5 +1,4 @@
 // Dynamic Section Renderer - Maps section types to components
-import { AnySectionData } from "@/lib/sections/registry";
 import { DynamicHero } from "./DynamicHero";
 import { DynamicText } from "./DynamicText";
 import { DynamicImageSection } from "./DynamicImageSection";
@@ -8,13 +7,20 @@ import { DynamicCTA } from "./DynamicCTA";
 import { DynamicStats } from "./DynamicStats";
 import { DynamicContact } from "./DynamicContact";
 import { DynamicVideo } from "./DynamicVideo";
+import { DynamicTreatments } from "./DynamicTreatments";
+import { DynamicDoctor } from "./DynamicDoctor";
+import { DynamicConditions } from "./DynamicConditions";
+import { DynamicTestimonials } from "./DynamicTestimonials";
+import { DynamicTimeline } from "./DynamicTimeline";
 
 interface SectionRendererProps {
-  section: AnySectionData;
+  section: Record<string, unknown>;
 }
 
 export function SectionRenderer({ section }: SectionRendererProps) {
-  switch (section.type) {
+  const type = section.type as string;
+  
+  switch (type) {
     case 'hero':
       return <DynamicHero data={section as any} />;
     case 'text':
@@ -32,31 +38,40 @@ export function SectionRenderer({ section }: SectionRendererProps) {
       return <DynamicContact data={section as any} />;
     case 'video':
       return <DynamicVideo data={section as any} />;
-    // For complex sections that need special rendering, return null for now
-    // They will be handled by legacy components or custom implementations
     case 'treatments':
-    case 'testimonials':
+      return <DynamicTreatments data={section as any} />;
     case 'doctor':
+      return <DynamicDoctor data={section as any} />;
     case 'conditions':
+      return <DynamicConditions data={section as any} />;
+    case 'testimonials':
+      return <DynamicTestimonials data={section as any} />;
+    case 'timeline':
+      return <DynamicTimeline data={section as any} />;
+    default:
+      console.warn(`Unknown section type: ${type}`);
       return (
-        <section 
-          className="py-20 bg-muted/30"
-          data-section-id={section.sectionId}
-          data-section-type={section.type}
-        >
+        <section className="py-10 bg-muted/30">
           <div className="container mx-auto px-4 text-center">
-            <p className="text-muted-foreground">
-              Section type "{section.type}" requires migration to dynamic rendering.
-            </p>
+            <p className="text-muted-foreground">Unknown section type: {type}</p>
           </div>
         </section>
       );
-    default: {
-      const unknownSection = section as { type?: string; sectionId?: string };
-      console.warn(`Unknown section type: ${unknownSection.type}`);
-      return null;
-    }
   }
 }
 
-export { DynamicHero, DynamicText, DynamicImageSection, DynamicFAQ, DynamicCTA, DynamicStats, DynamicContact, DynamicVideo };
+export { 
+  DynamicHero, 
+  DynamicText, 
+  DynamicImageSection, 
+  DynamicFAQ, 
+  DynamicCTA, 
+  DynamicStats, 
+  DynamicContact, 
+  DynamicVideo,
+  DynamicTreatments,
+  DynamicDoctor,
+  DynamicConditions,
+  DynamicTestimonials,
+  DynamicTimeline,
+};
