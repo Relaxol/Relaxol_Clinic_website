@@ -40,7 +40,7 @@ interface ConditionItem {
   description: string;
   imageUrl?: string;
   imageAlt?: string;
-  href: string;
+  href?: string;
 }
 
 interface ConditionsContent {
@@ -65,7 +65,7 @@ export function ConditionsSection({ content }: ConditionsSectionProps) {
     image: item.imageUrl || defaultConditions[index]?.image || conditionDepression,
     imageAlt: item.imageAlt || defaultConditions[index]?.imageAlt || item.title,
     description: item.description,
-    href: item.href,
+    href: item.href || defaultConditions[index]?.href || "#",
   })) ?? defaultConditions;
 
   return (
