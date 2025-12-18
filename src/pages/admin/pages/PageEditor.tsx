@@ -88,6 +88,23 @@ const PageEditor = () => {
   const { toast } = useToast();
   const isNew = id === 'new';
 
+  const isEmptyJsonObject = (value: unknown) => {
+    if (!value || typeof value !== 'object') return true;
+    if (Array.isArray(value)) return value.length === 0;
+    return Object.keys(value as Record<string, unknown>).length === 0;
+  };
+
+  const getCoreTemplateForSlug = (slug: string): TemplateType | null => {
+    const map: Record<string, TemplateType> = {
+      home: 'home_v1',
+      ketamine: 'ketamine_v1',
+      'spravato-Englewood': 'spravato_v1',
+      contact: 'contact_v1',
+      faq: 'faq_v1',
+    };
+    return map[slug] ?? null;
+  };
+
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
@@ -185,12 +202,17 @@ const PageEditor = () => {
         return section;
       });
 
+      const rawContentJson = rawData.content_json as unknown;
+      const normalizedContentJson = isEmptyJsonObject(rawContentJson)
+        ? null
+        : (rawContentJson as unknown as TemplateContent);
+
       setForm({
         title: (rawData.title as string) || '',
         slug: (rawData.slug as string) || '',
         type: (rawData.type as string) || 'page',
         template: (rawData.template as TemplateType) || null,
-        content_json: (rawData.content_json as unknown as TemplateContent) || null,
+        content_json: normalizedContentJson,
         hero_headline: (rawData.hero_headline as string) || '',
         hero_subheadline: (rawData.hero_subheadline as string) || '',
         sections_json: sections as Section[],
@@ -615,6 +637,7 @@ const PageEditor = () => {
           {isTemplatePage ? (
             // Template-based editing
             <div className="space-y-4">
+
               {/* Basic info */}
               <Card>
                 <CardHeader className="py-3">
@@ -641,23 +664,6 @@ const PageEditor = () => {
                       placeholder="page-url-slug"
                       disabled={!canEdit || (form.status === 'published' && !isAdmin)}
                     />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>Status</Label>
-                    <Select
-                      value={form.status}
-                      onValueChange={(value) => setForm(prev => ({ ...prev, status: value }))}
-                      disabled={!canEdit}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="draft">Draft</SelectItem>
-                        <SelectItem value="published">Published</SelectItem>
-                      </SelectContent>
-                    </Select>
                   </div>
                 </CardContent>
               </Card>
@@ -693,12 +699,41 @@ const PageEditor = () => {
             </div>
           ) : (
             // Generic section-based editing
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="content">Content</TabsTrigger>
-                <TabsTrigger value="sections">Sections</TabsTrigger>
-                <TabsTrigger value="seo">SEO</TabsTrigger>
-              </TabsList>
+            <div className="space-y-4">
+              {(() => {
+                const coreTemplate = getCoreTemplateForSlug(form.slug);
+                if (!coreTemplate || form.template) return null;
+
+                return (
+                  <Alert>
+                    <AlertDescription>
+                      This is a core page (/{form.slug}). The public site reads from Template Content.
+                      The fields in this editor are legacy and won’t appear on the live site.
+                      <div className="mt-3">
+                        <Button
+                          onClick={() => {
+                            const defaultContent = createDefaultContent(coreTemplate);
+                            setForm(prev => ({
+                              ...prev,
+                              template: coreTemplate,
+                              content_json: prev.content_json && !isEmptyJsonObject(prev.content_json) ? prev.content_json : defaultContent,
+                            }));
+                          }}
+                        >
+                          Switch to Template Editor
+                        </Button>
+                      </div>
+                    </AlertDescription>
+                  </Alert>
+                );
+              })()}
+
+              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="content">Content</TabsTrigger>
+                  <TabsTrigger value="sections">Sections</TabsTrigger>
+                  <TabsTrigger value="seo">SEO</TabsTrigger>
+                </TabsList>
 
               <TabsContent value="content" className="space-y-4 mt-4">
                 <div className="space-y-2">
@@ -899,6 +934,7 @@ const PageEditor = () => {
                 )}
               </TabsContent>
             </Tabs>
+            </div>
           )}
         </div>
 
