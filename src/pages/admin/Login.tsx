@@ -15,6 +15,7 @@ const AdminLogin = () => {
   const { toast } = useToast();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -48,6 +49,25 @@ const AdminLogin = () => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (password !== confirmPassword) {
+      toast({
+        title: 'Passwords do not match',
+        description: 'Please ensure both passwords are identical.',
+        variant: 'destructive'
+      });
+      return;
+    }
+
+    if (password.length < 6) {
+      toast({
+        title: 'Password too short',
+        description: 'Password must be at least 6 characters.',
+        variant: 'destructive'
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     const { error } = await signUp(email, password);
@@ -63,6 +83,7 @@ const AdminLogin = () => {
         title: 'Account created!',
         description: 'Your account has been created. You can now sign in.'
       });
+      setConfirmPassword('');
     }
     
     setIsSubmitting(false);
@@ -142,6 +163,18 @@ const AdminLogin = () => {
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
+                    minLength={6}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="signup-confirm-password">Confirm Password</Label>
+                  <Input
+                    id="signup-confirm-password"
+                    type="password"
+                    placeholder="••••••••"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                     minLength={6}
                   />
