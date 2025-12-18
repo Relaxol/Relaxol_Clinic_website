@@ -18,6 +18,7 @@ const navItems = [
   { label: "Ketamine", href: "/ketamine", isExternal: false },
   { label: "SPRAVATO®", href: "/spravato-Englewood", isExternal: false },
   { label: "Vitamin Infusions", href: "/vitamin-infusion-englewood", isExternal: false },
+  { label: "Blog", href: "/blog", isExternal: false },
   { label: "FAQ", href: "/faq", isExternal: false },
   { label: "Contact", href: "/contact", isExternal: false },
 ];
