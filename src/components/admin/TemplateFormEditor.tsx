@@ -1,0 +1,1197 @@
+import React, { useState } from 'react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { ChevronDown, ChevronUp, Plus, Trash2 } from 'lucide-react';
+import {
+  TemplateType,
+  TemplateContent,
+  HomeV1Content,
+  KetamineV1Content,
+  SpravatoV1Content,
+  ContactV1Content,
+  FAQV1Content,
+} from '@/lib/templates/schemas';
+
+interface TemplateFormEditorProps {
+  template: TemplateType;
+  content: TemplateContent;
+  onChange: (content: TemplateContent) => void;
+  disabled?: boolean;
+}
+
+// Reusable panel component
+function Panel({ 
+  title, 
+  children, 
+  defaultOpen = false 
+}: { 
+  title: string; 
+  children: React.ReactNode; 
+  defaultOpen?: boolean;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+
+  return (
+    <Card className="border-border/50">
+      <Collapsible open={open} onOpenChange={setOpen}>
+        <CollapsibleTrigger asChild>
+          <CardHeader className="cursor-pointer hover:bg-muted/50 transition-colors py-4">
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-lg">{title}</CardTitle>
+              {open ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
+            </div>
+          </CardHeader>
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <CardContent className="space-y-4 pt-0">
+            {children}
+          </CardContent>
+        </CollapsibleContent>
+      </Collapsible>
+    </Card>
+  );
+}
+
+// Field components
+function TextField({ 
+  label, 
+  value, 
+  onChange, 
+  placeholder,
+  disabled,
+  required 
+}: { 
+  label: string; 
+  value: string; 
+  onChange: (value: string) => void;
+  placeholder?: string;
+  disabled?: boolean;
+  required?: boolean;
+}) {
+  return (
+    <div className="space-y-2">
+      <Label>{label}{required && <span className="text-destructive ml-1">*</span>}</Label>
+      <Input
+        value={value || ''}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        disabled={disabled}
+      />
+    </div>
+  );
+}
+
+function TextAreaField({ 
+  label, 
+  value, 
+  onChange, 
+  placeholder,
+  disabled,
+  rows = 3 
+}: { 
+  label: string; 
+  value: string; 
+  onChange: (value: string) => void;
+  placeholder?: string;
+  disabled?: boolean;
+  rows?: number;
+}) {
+  return (
+    <div className="space-y-2">
+      <Label>{label}</Label>
+      <Textarea
+        value={value || ''}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        disabled={disabled}
+        rows={rows}
+      />
+    </div>
+  );
+}
+
+// Repeater for items
+function ItemRepeater<T extends object>({
+  label,
+  items,
+  onChange,
+  renderItem,
+  createItem,
+  disabled,
+}: {
+  label: string;
+  items: T[];
+  onChange: (items: T[]) => void;
+  renderItem: (item: T, index: number, updateItem: (updates: Partial<T>) => void) => React.ReactNode;
+  createItem: () => T;
+  disabled?: boolean;
+}) {
+  const addItem = () => {
+    onChange([...items, createItem()]);
+  };
+
+  const updateItem = (index: number, updates: Partial<T>) => {
+    const newItems = items.map((item, i) => (i === index ? { ...item, ...updates } : item));
+    onChange(newItems);
+  };
+
+  const removeItem = (index: number) => {
+    onChange(items.filter((_, i) => i !== index));
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <Label className="text-base font-semibold">{label}</Label>
+        <Button type="button" variant="outline" size="sm" onClick={addItem} disabled={disabled}>
+          <Plus className="h-4 w-4 mr-1" /> Add
+        </Button>
+      </div>
+      <div className="space-y-4">
+        {items.map((item, index) => (
+          <Card key={index} className="border-border/30">
+            <CardContent className="pt-4 space-y-3">
+              {renderItem(item, index, (updates) => updateItem(index, updates))}
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() => removeItem(index)}
+                disabled={disabled}
+                className="text-destructive hover:text-destructive"
+              >
+                <Trash2 className="h-4 w-4 mr-1" /> Remove
+              </Button>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Home Template Editor
+function HomeTemplateEditor({ 
+  content, 
+  onChange, 
+  disabled 
+}: { 
+  content: HomeV1Content; 
+  onChange: (content: HomeV1Content) => void;
+  disabled?: boolean;
+}) {
+  const update = <K extends keyof HomeV1Content>(key: K, value: HomeV1Content[K]) => {
+    onChange({ ...content, [key]: value });
+  };
+
+  return (
+    <div className="space-y-4">
+      <Panel title="Hero Section" defaultOpen>
+        <TextField
+          label="Subtitle"
+          value={content.hero.subtitle || ''}
+          onChange={(v) => update('hero', { ...content.hero, subtitle: v })}
+          placeholder="FIND HOPE AND RELIEF TODAY"
+          disabled={disabled}
+        />
+        <TextField
+          label="Headline"
+          value={content.hero.headline}
+          onChange={(v) => update('hero', { ...content.hero, headline: v })}
+          placeholder="New Jersey's Premier Ketamine & SPRAVATO® Clinic"
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body"
+          value={content.hero.body || ''}
+          onChange={(v) => update('hero', { ...content.hero, body: v })}
+          placeholder="Advanced, clinician-led treatments..."
+          disabled={disabled}
+        />
+        <div className="grid grid-cols-2 gap-4">
+          <TextField
+            label="CTA Label"
+            value={content.hero.ctaLabel || ''}
+            onChange={(v) => update('hero', { ...content.hero, ctaLabel: v })}
+            placeholder="Book Your Free Consultation Today!"
+            disabled={disabled}
+          />
+          <TextField
+            label="CTA Link"
+            value={content.hero.ctaHref || ''}
+            onChange={(v) => update('hero', { ...content.hero, ctaHref: v })}
+            placeholder="#contact"
+            disabled={disabled}
+          />
+        </div>
+      </Panel>
+
+      <Panel title="About Section">
+        <TextField
+          label="Title"
+          value={content.about.title}
+          onChange={(v) => update('about', { ...content.about, title: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body (HTML)"
+          value={content.about.bodyHtml}
+          onChange={(v) => update('about', { ...content.about, bodyHtml: v })}
+          disabled={disabled}
+          rows={5}
+        />
+        <TextField
+          label="Image URL"
+          value={content.about.imageUrl || ''}
+          onChange={(v) => update('about', { ...content.about, imageUrl: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Image Alt Text"
+          value={content.about.imageAlt || ''}
+          onChange={(v) => update('about', { ...content.about, imageAlt: v })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="Video Section">
+        <TextField
+          label="Subtitle"
+          value={content.video.subtitle || ''}
+          onChange={(v) => update('video', { ...content.video, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.video.title}
+          onChange={(v) => update('video', { ...content.video, title: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body"
+          value={content.video.body || ''}
+          onChange={(v) => update('video', { ...content.video, body: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Embed URL"
+          value={content.video.embedUrl}
+          onChange={(v) => update('video', { ...content.video, embedUrl: v })}
+          placeholder="https://www.youtube.com/embed/..."
+          disabled={disabled}
+          required
+        />
+        <TextField
+          label="Embed Title (for accessibility)"
+          value={content.video.embedTitle || ''}
+          onChange={(v) => update('video', { ...content.video, embedTitle: v })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="Treatments Section">
+        <TextField
+          label="Subtitle"
+          value={content.treatments.subtitle || ''}
+          onChange={(v) => update('treatments', { ...content.treatments, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.treatments.title}
+          onChange={(v) => update('treatments', { ...content.treatments, title: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Description"
+          value={content.treatments.description || ''}
+          onChange={(v) => update('treatments', { ...content.treatments, description: v })}
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Treatment Items"
+          items={content.treatments.items}
+          onChange={(items) => update('treatments', { ...content.treatments, items })}
+          disabled={disabled}
+          createItem={() => ({ title: '', description: '', tag: '', imageUrl: '', ctaLabel: 'Learn More', href: '' })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <TextField label="Tag" value={item.tag || ''} onChange={(v) => updateItem({ tag: v })} disabled={disabled} />
+              <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
+              <TextField label="Image URL" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
+              <div className="grid grid-cols-2 gap-4">
+                <TextField label="CTA Label" value={item.ctaLabel || ''} onChange={(v) => updateItem({ ctaLabel: v })} disabled={disabled} />
+                <TextField label="Link" value={item.href || ''} onChange={(v) => updateItem({ href: v })} disabled={disabled} />
+              </div>
+            </>
+          )}
+        />
+      </Panel>
+
+      <Panel title="Doctor Section">
+        <TextField
+          label="Subtitle"
+          value={content.doctor.subtitle || ''}
+          onChange={(v) => update('doctor', { ...content.doctor, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Name"
+          value={content.doctor.name}
+          onChange={(v) => update('doctor', { ...content.doctor, name: v })}
+          disabled={disabled}
+          required
+        />
+        <TextField
+          label="Image URL"
+          value={content.doctor.imageUrl || ''}
+          onChange={(v) => update('doctor', { ...content.doctor, imageUrl: v })}
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Bio Paragraphs"
+          items={content.doctor.bio.map(text => ({ text }))}
+          onChange={(items) => update('doctor', { ...content.doctor, bio: items.map(i => i.text) })}
+          disabled={disabled}
+          createItem={() => ({ text: '' })}
+          renderItem={(item, _, updateItem) => (
+            <TextAreaField label="Paragraph" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} />
+          )}
+        />
+      </Panel>
+
+      <Panel title="Conditions Section">
+        <TextField
+          label="Subtitle"
+          value={content.conditions.subtitle || ''}
+          onChange={(v) => update('conditions', { ...content.conditions, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.conditions.title}
+          onChange={(v) => update('conditions', { ...content.conditions, title: v })}
+          disabled={disabled}
+          required
+        />
+        <ItemRepeater
+          label="Condition Items"
+          items={content.conditions.items}
+          onChange={(items) => update('conditions', { ...content.conditions, items })}
+          disabled={disabled}
+          createItem={() => ({ title: '', description: '', imageUrl: '', href: '' })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
+              <TextField label="Image URL" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
+              <TextField label="Link" value={item.href || ''} onChange={(v) => updateItem({ href: v })} disabled={disabled} />
+            </>
+          )}
+        />
+      </Panel>
+
+      <Panel title="Testimonials Section">
+        <TextField
+          label="Subtitle"
+          value={content.testimonials.subtitle || ''}
+          onChange={(v) => update('testimonials', { ...content.testimonials, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.testimonials.title}
+          onChange={(v) => update('testimonials', { ...content.testimonials, title: v })}
+          disabled={disabled}
+          required
+        />
+        <ItemRepeater
+          label="Testimonial Items"
+          items={content.testimonials.items}
+          onChange={(items) => update('testimonials', { ...content.testimonials, items })}
+          disabled={disabled}
+          createItem={() => ({ quote: '', author: '', role: '', rating: 5 })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextAreaField label="Quote" value={item.quote} onChange={(v) => updateItem({ quote: v })} disabled={disabled} />
+              <div className="grid grid-cols-2 gap-4">
+                <TextField label="Author" value={item.author} onChange={(v) => updateItem({ author: v })} disabled={disabled} required />
+                <TextField label="Role" value={item.role || ''} onChange={(v) => updateItem({ role: v })} disabled={disabled} />
+              </div>
+              <TextField
+                label="Rating (1-5)"
+                value={String(item.rating || 5)}
+                onChange={(v) => updateItem({ rating: parseInt(v) || 5 })}
+                disabled={disabled}
+              />
+            </>
+          )}
+        />
+      </Panel>
+
+      <Panel title="Timeline Section">
+        <TextField
+          label="Subtitle"
+          value={content.timeline.subtitle || ''}
+          onChange={(v) => update('timeline', { ...content.timeline, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.timeline.title}
+          onChange={(v) => update('timeline', { ...content.timeline, title: v })}
+          disabled={disabled}
+          required
+        />
+        <ItemRepeater
+          label="Timeline Steps"
+          items={content.timeline.items}
+          onChange={(items) => update('timeline', { ...content.timeline, items })}
+          disabled={disabled}
+          createItem={() => ({ step: String((content.timeline.items.length || 0) + 1), title: '', description: '' })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Step Number" value={item.step} onChange={(v) => updateItem({ step: v })} disabled={disabled} required />
+              <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
+            </>
+          )}
+        />
+      </Panel>
+
+      <Panel title="FAQ Section">
+        <TextField
+          label="Title"
+          value={content.faq.title}
+          onChange={(v) => update('faq', { ...content.faq, title: v })}
+          disabled={disabled}
+          required
+        />
+        <ItemRepeater
+          label="FAQ Items"
+          items={content.faq.items}
+          onChange={(items) => update('faq', { ...content.faq, items })}
+          disabled={disabled}
+          createItem={() => ({ question: '', answer: '' })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Question" value={item.question} onChange={(v) => updateItem({ question: v })} disabled={disabled} required />
+              <TextAreaField label="Answer" value={item.answer} onChange={(v) => updateItem({ answer: v })} disabled={disabled} rows={4} />
+            </>
+          )}
+        />
+      </Panel>
+
+      <Panel title="Contact Section">
+        <TextField
+          label="Subtitle"
+          value={content.contact.subtitle || ''}
+          onChange={(v) => update('contact', { ...content.contact, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.contact.title}
+          onChange={(v) => update('contact', { ...content.contact, title: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body"
+          value={content.contact.body || ''}
+          onChange={(v) => update('contact', { ...content.contact, body: v })}
+          disabled={disabled}
+        />
+      </Panel>
+    </div>
+  );
+}
+
+// Ketamine Template Editor
+function KetamineTemplateEditor({
+  content,
+  onChange,
+  disabled,
+}: {
+  content: KetamineV1Content;
+  onChange: (content: KetamineV1Content) => void;
+  disabled?: boolean;
+}) {
+  const update = <K extends keyof KetamineV1Content>(key: K, value: KetamineV1Content[K]) => {
+    onChange({ ...content, [key]: value });
+  };
+
+  return (
+    <div className="space-y-4">
+      <Panel title="Hero Section" defaultOpen>
+        <TextField
+          label="Headline"
+          value={content.hero.headline}
+          onChange={(v) => update('hero', { ...content.hero, headline: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body"
+          value={content.hero.body || ''}
+          onChange={(v) => update('hero', { ...content.hero, body: v })}
+          disabled={disabled}
+        />
+        <div className="grid grid-cols-2 gap-4">
+          <TextField
+            label="CTA Label"
+            value={content.hero.ctaLabel || ''}
+            onChange={(v) => update('hero', { ...content.hero, ctaLabel: v })}
+            disabled={disabled}
+          />
+          <TextField
+            label="CTA Link"
+            value={content.hero.ctaHref || ''}
+            onChange={(v) => update('hero', { ...content.hero, ctaHref: v })}
+            disabled={disabled}
+          />
+        </div>
+      </Panel>
+
+      <Panel title="Stats">
+        <TextField
+          label="Title"
+          value={content.stats.title || ''}
+          onChange={(v) => update('stats', { ...content.stats, title: v })}
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Stat Items"
+          items={content.stats.items}
+          onChange={(items) => update('stats', { ...content.stats, items })}
+          disabled={disabled}
+          createItem={() => ({ value: '', label: '' })}
+          renderItem={(item, _, updateItem) => (
+            <div className="grid grid-cols-2 gap-4">
+              <TextField label="Value" value={item.value} onChange={(v) => updateItem({ value: v })} disabled={disabled} required />
+              <TextField label="Label" value={item.label} onChange={(v) => updateItem({ label: v })} disabled={disabled} required />
+            </div>
+          )}
+        />
+      </Panel>
+
+      <Panel title="Parallax Banner">
+        <TextField
+          label="Title"
+          value={content.parallax.title}
+          onChange={(v) => update('parallax', { ...content.parallax, title: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body"
+          value={content.parallax.body}
+          onChange={(v) => update('parallax', { ...content.parallax, body: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="CTA Label"
+          value={content.parallax.ctaLabel || ''}
+          onChange={(v) => update('parallax', { ...content.parallax, ctaLabel: v })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="Services">
+        <TextField
+          label="Title"
+          value={content.services.title}
+          onChange={(v) => update('services', { ...content.services, title: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Description"
+          value={content.services.description || ''}
+          onChange={(v) => update('services', { ...content.services, description: v })}
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Service Items"
+          items={content.services.items}
+          onChange={(items) => update('services', { ...content.services, items })}
+          disabled={disabled}
+          createItem={() => ({ title: '', description: '', imageUrl: '' })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
+              <TextField label="Image URL" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
+            </>
+          )}
+        />
+      </Panel>
+
+      <Panel title="Eligibility Section">
+        <TextField
+          label="Subtitle"
+          value={content.eligibility.subtitle || ''}
+          onChange={(v) => update('eligibility', { ...content.eligibility, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.eligibility.title}
+          onChange={(v) => update('eligibility', { ...content.eligibility, title: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body"
+          value={content.eligibility.body}
+          onChange={(v) => update('eligibility', { ...content.eligibility, body: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Phone"
+          value={content.eligibility.phone}
+          onChange={(v) => update('eligibility', { ...content.eligibility, phone: v })}
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Trust Bullets"
+          items={content.eligibility.trustBullets.map(text => ({ text }))}
+          onChange={(items) => update('eligibility', { ...content.eligibility, trustBullets: items.map(i => i.text) })}
+          disabled={disabled}
+          createItem={() => ({ text: '' })}
+          renderItem={(item, _, updateItem) => (
+            <TextField label="Bullet" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} />
+          )}
+        />
+      </Panel>
+
+      <Panel title="Cross-Sell (SPRAVATO)">
+        <TextField
+          label="Title"
+          value={content.crossSell.title}
+          onChange={(v) => update('crossSell', { ...content.crossSell, title: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body"
+          value={content.crossSell.body}
+          onChange={(v) => update('crossSell', { ...content.crossSell, body: v })}
+          disabled={disabled}
+        />
+        <div className="grid grid-cols-2 gap-4">
+          <TextField
+            label="CTA Label"
+            value={content.crossSell.ctaLabel}
+            onChange={(v) => update('crossSell', { ...content.crossSell, ctaLabel: v })}
+            disabled={disabled}
+          />
+          <TextField
+            label="CTA Link"
+            value={content.crossSell.ctaHref}
+            onChange={(v) => update('crossSell', { ...content.crossSell, ctaHref: v })}
+            disabled={disabled}
+          />
+        </div>
+        <TextField
+          label="Image URL"
+          value={content.crossSell.imageUrl || ''}
+          onChange={(v) => update('crossSell', { ...content.crossSell, imageUrl: v })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="FAQ Section">
+        <TextField
+          label="Title"
+          value={content.faq.title}
+          onChange={(v) => update('faq', { ...content.faq, title: v })}
+          disabled={disabled}
+          required
+        />
+        <ItemRepeater
+          label="FAQ Items"
+          items={content.faq.items}
+          onChange={(items) => update('faq', { ...content.faq, items })}
+          disabled={disabled}
+          createItem={() => ({ question: '', answer: '' })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Question" value={item.question} onChange={(v) => updateItem({ question: v })} disabled={disabled} required />
+              <TextAreaField label="Answer" value={item.answer} onChange={(v) => updateItem({ answer: v })} disabled={disabled} rows={4} />
+            </>
+          )}
+        />
+      </Panel>
+    </div>
+  );
+}
+
+// Contact Template Editor  
+function ContactTemplateEditor({
+  content,
+  onChange,
+  disabled,
+}: {
+  content: ContactV1Content;
+  onChange: (content: ContactV1Content) => void;
+  disabled?: boolean;
+}) {
+  const update = <K extends keyof ContactV1Content>(key: K, value: ContactV1Content[K]) => {
+    onChange({ ...content, [key]: value });
+  };
+
+  return (
+    <div className="space-y-4">
+      <Panel title="Hero Section" defaultOpen>
+        <TextField
+          label="Subtitle"
+          value={content.hero.subtitle || ''}
+          onChange={(v) => update('hero', { ...content.hero, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Headline"
+          value={content.hero.headline}
+          onChange={(v) => update('hero', { ...content.hero, headline: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body"
+          value={content.hero.body || ''}
+          onChange={(v) => update('hero', { ...content.hero, body: v })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="Clinic Information">
+        <TextField
+          label="Clinic Name"
+          value={content.clinicInfo.name}
+          onChange={(v) => update('clinicInfo', { ...content.clinicInfo, name: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Address"
+          value={content.clinicInfo.address}
+          onChange={(v) => update('clinicInfo', { ...content.clinicInfo, address: v })}
+          disabled={disabled}
+        />
+        <div className="grid grid-cols-2 gap-4">
+          <TextField
+            label="Phone"
+            value={content.clinicInfo.phone}
+            onChange={(v) => update('clinicInfo', { ...content.clinicInfo, phone: v })}
+            disabled={disabled}
+          />
+          <TextField
+            label="Email"
+            value={content.clinicInfo.email}
+            onChange={(v) => update('clinicInfo', { ...content.clinicInfo, email: v })}
+            disabled={disabled}
+          />
+        </div>
+        <TextAreaField
+          label="Hours"
+          value={content.clinicInfo.hours}
+          onChange={(v) => update('clinicInfo', { ...content.clinicInfo, hours: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Map Embed URL"
+          value={content.clinicInfo.mapEmbedUrl || ''}
+          onChange={(v) => update('clinicInfo', { ...content.clinicInfo, mapEmbedUrl: v })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="Form Section">
+        <TextField
+          label="Subtitle"
+          value={content.form.subtitle || ''}
+          onChange={(v) => update('form', { ...content.form, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.form.title}
+          onChange={(v) => update('form', { ...content.form, title: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body"
+          value={content.form.body || ''}
+          onChange={(v) => update('form', { ...content.form, body: v })}
+          disabled={disabled}
+        />
+      </Panel>
+    </div>
+  );
+}
+
+// FAQ Template Editor
+function FAQTemplateEditor({
+  content,
+  onChange,
+  disabled,
+}: {
+  content: FAQV1Content;
+  onChange: (content: FAQV1Content) => void;
+  disabled?: boolean;
+}) {
+  const update = <K extends keyof FAQV1Content>(key: K, value: FAQV1Content[K]) => {
+    onChange({ ...content, [key]: value });
+  };
+
+  return (
+    <div className="space-y-4">
+      <Panel title="Hero Section" defaultOpen>
+        <TextField
+          label="Headline"
+          value={content.hero.headline}
+          onChange={(v) => update('hero', { ...content.hero, headline: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body"
+          value={content.hero.body || ''}
+          onChange={(v) => update('hero', { ...content.hero, body: v })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="FAQ Sections">
+        <ItemRepeater
+          label="Sections"
+          items={content.sections}
+          onChange={(sections) => update('sections', sections)}
+          disabled={disabled}
+          createItem={() => ({ id: `section-${Date.now()}`, title: '', items: [] })}
+          renderItem={(section, _, updateSection) => (
+            <>
+              <TextField
+                label="Section Title"
+                value={section.title}
+                onChange={(v) => updateSection({ title: v })}
+                disabled={disabled}
+                required
+              />
+              <ItemRepeater
+                label="Questions"
+                items={section.items}
+                onChange={(items) => updateSection({ items })}
+                disabled={disabled}
+                createItem={() => ({ question: '', answer: '' })}
+                renderItem={(item, __, updateItem) => (
+                  <>
+                    <TextField label="Question" value={item.question} onChange={(v) => updateItem({ question: v })} disabled={disabled} required />
+                    <TextAreaField label="Answer" value={item.answer} onChange={(v) => updateItem({ answer: v })} disabled={disabled} rows={4} />
+                  </>
+                )}
+              />
+            </>
+          )}
+        />
+      </Panel>
+
+      <Panel title="CTA Section">
+        <TextField
+          label="Title"
+          value={content.cta.title}
+          onChange={(v) => update('cta', { ...content.cta, title: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body"
+          value={content.cta.body || ''}
+          onChange={(v) => update('cta', { ...content.cta, body: v })}
+          disabled={disabled}
+        />
+        <div className="grid grid-cols-2 gap-4">
+          <TextField
+            label="CTA Label"
+            value={content.cta.ctaLabel}
+            onChange={(v) => update('cta', { ...content.cta, ctaLabel: v })}
+            disabled={disabled}
+          />
+          <TextField
+            label="CTA Link"
+            value={content.cta.ctaHref}
+            onChange={(v) => update('cta', { ...content.cta, ctaHref: v })}
+            disabled={disabled}
+          />
+        </div>
+      </Panel>
+    </div>
+  );
+}
+
+// Spravato Template Editor (simplified version - can be expanded)
+function SpravatoTemplateEditor({
+  content,
+  onChange,
+  disabled,
+}: {
+  content: SpravatoV1Content;
+  onChange: (content: SpravatoV1Content) => void;
+  disabled?: boolean;
+}) {
+  const update = <K extends keyof SpravatoV1Content>(key: K, value: SpravatoV1Content[K]) => {
+    onChange({ ...content, [key]: value });
+  };
+
+  return (
+    <div className="space-y-4">
+      <Panel title="Hero Section" defaultOpen>
+        <TextField
+          label="Subtitle"
+          value={content.hero.subtitle || ''}
+          onChange={(v) => update('hero', { ...content.hero, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Headline"
+          value={content.hero.headline}
+          onChange={(v) => update('hero', { ...content.hero, headline: v })}
+          disabled={disabled}
+          required
+        />
+        <div className="grid grid-cols-2 gap-4">
+          <TextField
+            label="CTA Label"
+            value={content.hero.ctaLabel || ''}
+            onChange={(v) => update('hero', { ...content.hero, ctaLabel: v })}
+            disabled={disabled}
+          />
+          <TextField
+            label="CTA Link"
+            value={content.hero.ctaHref || ''}
+            onChange={(v) => update('hero', { ...content.hero, ctaHref: v })}
+            disabled={disabled}
+          />
+        </div>
+      </Panel>
+
+      <Panel title="Eligibility Form Section">
+        <TextField
+          label="Title"
+          value={content.eligibilityForm.title}
+          onChange={(v) => update('eligibilityForm', { ...content.eligibilityForm, title: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body"
+          value={content.eligibilityForm.body}
+          onChange={(v) => update('eligibilityForm', { ...content.eligibilityForm, body: v })}
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Trust Bullets"
+          items={content.eligibilityForm.trustBullets.map(text => ({ text }))}
+          onChange={(items) => update('eligibilityForm', { ...content.eligibilityForm, trustBullets: items.map(i => i.text) })}
+          disabled={disabled}
+          createItem={() => ({ text: '' })}
+          renderItem={(item, _, updateItem) => (
+            <TextField label="Bullet" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} />
+          )}
+        />
+      </Panel>
+
+      <Panel title="Treatment-Resistant Depression">
+        <TextField
+          label="Title"
+          value={content.trd.title}
+          onChange={(v) => update('trd', { ...content.trd, title: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body"
+          value={content.trd.body}
+          onChange={(v) => update('trd', { ...content.trd, body: v })}
+          disabled={disabled}
+          rows={5}
+        />
+        <TextField
+          label="Image URL"
+          value={content.trd.imageUrl || ''}
+          onChange={(v) => update('trd', { ...content.trd, imageUrl: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Image Alt"
+          value={content.trd.imageAlt || ''}
+          onChange={(v) => update('trd', { ...content.trd, imageAlt: v })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="Benefits Section">
+        <TextField
+          label="Subtitle"
+          value={content.benefits.subtitle || ''}
+          onChange={(v) => update('benefits', { ...content.benefits, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.benefits.title}
+          onChange={(v) => update('benefits', { ...content.benefits, title: v })}
+          disabled={disabled}
+          required
+        />
+        <ItemRepeater
+          label="Benefit Items"
+          items={content.benefits.items}
+          onChange={(items) => update('benefits', { ...content.benefits, items })}
+          disabled={disabled}
+          createItem={() => ({ title: '', description: '', icon: '' })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
+              <TextField label="Icon (lucide name)" value={item.icon || ''} onChange={(v) => updateItem({ icon: v })} disabled={disabled} />
+            </>
+          )}
+        />
+      </Panel>
+
+      <Panel title="What Is SPRAVATO Section">
+        <TextField
+          label="Subtitle"
+          value={content.whatIs.subtitle || ''}
+          onChange={(v) => update('whatIs', { ...content.whatIs, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.whatIs.title}
+          onChange={(v) => update('whatIs', { ...content.whatIs, title: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body"
+          value={content.whatIs.body}
+          onChange={(v) => update('whatIs', { ...content.whatIs, body: v })}
+          disabled={disabled}
+          rows={5}
+        />
+        <TextField
+          label="Image URL"
+          value={content.whatIs.imageUrl || ''}
+          onChange={(v) => update('whatIs', { ...content.whatIs, imageUrl: v })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="Timeline Section">
+        <TextField
+          label="Subtitle"
+          value={content.timeline.subtitle || ''}
+          onChange={(v) => update('timeline', { ...content.timeline, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.timeline.title}
+          onChange={(v) => update('timeline', { ...content.timeline, title: v })}
+          disabled={disabled}
+          required
+        />
+        <ItemRepeater
+          label="Timeline Steps"
+          items={content.timeline.items}
+          onChange={(items) => update('timeline', { ...content.timeline, items })}
+          disabled={disabled}
+          createItem={() => ({ step: '', title: '', description: '' })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Step" value={item.step} onChange={(v) => updateItem({ step: v })} disabled={disabled} />
+              <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
+            </>
+          )}
+        />
+      </Panel>
+
+      <Panel title="FAQ Section">
+        <TextField
+          label="Title"
+          value={content.faq.title}
+          onChange={(v) => update('faq', { ...content.faq, title: v })}
+          disabled={disabled}
+          required
+        />
+        <ItemRepeater
+          label="FAQ Items"
+          items={content.faq.items}
+          onChange={(items) => update('faq', { ...content.faq, items })}
+          disabled={disabled}
+          createItem={() => ({ question: '', answer: '' })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Question" value={item.question} onChange={(v) => updateItem({ question: v })} disabled={disabled} required />
+              <TextAreaField label="Answer" value={item.answer} onChange={(v) => updateItem({ answer: v })} disabled={disabled} rows={4} />
+            </>
+          )}
+        />
+      </Panel>
+
+      <Panel title="Contact Section">
+        <TextField
+          label="Subtitle"
+          value={content.contact.subtitle || ''}
+          onChange={(v) => update('contact', { ...content.contact, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.contact.title}
+          onChange={(v) => update('contact', { ...content.contact, title: v })}
+          disabled={disabled}
+          required
+        />
+        <TextAreaField
+          label="Body"
+          value={content.contact.body || ''}
+          onChange={(v) => update('contact', { ...content.contact, body: v })}
+          disabled={disabled}
+        />
+      </Panel>
+    </div>
+  );
+}
+
+// Main component
+export default function TemplateFormEditor({ template, content, onChange, disabled }: TemplateFormEditorProps) {
+  switch (template) {
+    case 'home_v1':
+      return <HomeTemplateEditor content={content as HomeV1Content} onChange={onChange} disabled={disabled} />;
+    case 'ketamine_v1':
+      return <KetamineTemplateEditor content={content as KetamineV1Content} onChange={onChange} disabled={disabled} />;
+    case 'spravato_v1':
+      return <SpravatoTemplateEditor content={content as SpravatoV1Content} onChange={onChange} disabled={disabled} />;
+    case 'contact_v1':
+      return <ContactTemplateEditor content={content as ContactV1Content} onChange={onChange} disabled={disabled} />;
+    case 'faq_v1':
+      return <FAQTemplateEditor content={content as FAQV1Content} onChange={onChange} disabled={disabled} />;
+    default:
+      return <div className="text-muted-foreground">Unknown template type: {template}</div>;
+  }
+}

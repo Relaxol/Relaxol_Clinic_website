@@ -22,7 +22,15 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import PagePreview from '@/components/admin/PagePreview';
 import SectionEditorDrawer, { validateSection } from '@/components/admin/SectionEditorDrawer';
+import TemplateFormEditor from '@/components/admin/TemplateFormEditor';
 import { v4 as uuidv4 } from 'uuid';
+import { 
+  TemplateType, 
+  TemplateContent, 
+  TEMPLATE_TYPES, 
+  TEMPLATE_LABELS,
+  createDefaultContent 
+} from '@/lib/templates/schemas';
 
 interface Section {
   sectionId: string;
@@ -41,6 +49,8 @@ interface PageForm {
   title: string;
   slug: string;
   type: string;
+  template: TemplateType | null;
+  content_json: TemplateContent | null;
   hero_headline: string;
   hero_subheadline: string;
   sections_json: Section[];
@@ -81,7 +91,7 @@ const PageEditor = () => {
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
-  const [activeTab, setActiveTab] = useState('hero');
+  const [activeTab, setActiveTab] = useState('content');
   const [highlightedSection, setHighlightedSection] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editingSection, setEditingSection] = useState<Section | null>(null);
@@ -92,6 +102,8 @@ const PageEditor = () => {
     title: '',
     slug: '',
     type: 'page',
+    template: null,
+    content_json: null,
     hero_headline: '',
     hero_subheadline: '',
     sections_json: [],
@@ -106,6 +118,9 @@ const PageEditor = () => {
     og_image_url: ''
   });
 
+  // Check if this is a template-based page
+  const isTemplatePage = form.template !== null && TEMPLATE_TYPES.includes(form.template);
+
   const licenseActive = membership?.licenseActive !== false;
   const canEdit = membership?.role !== 'viewer' && licenseActive;
   const isAdmin = membership?.role === 'admin';
@@ -117,11 +132,11 @@ const PageEditor = () => {
     const tab = searchParams.get('tab');
     const sectionId = searchParams.get('sectionId');
     
-    if (tab === 'sections') {
+    if (tab === 'sections' && !isTemplatePage) {
       setActiveTab('sections');
     }
     
-    if (sectionId && !loading) {
+    if (sectionId && !loading && !isTemplatePage) {
       // Find the section and open it
       const section = form.sections_json.find(s => s.sectionId === sectionId);
       if (section) {
@@ -137,7 +152,7 @@ const PageEditor = () => {
         setTimeout(() => setHighlightedSection(null), 3000);
       }
     }
-  }, [searchParams, loading, form.sections_json]);
+  }, [searchParams, loading, form.sections_json, isTemplatePage]);
 
   useEffect(() => {
     if (membership?.tenantId && !isNew) {
@@ -155,7 +170,10 @@ const PageEditor = () => {
 
       if (error) throw error;
 
-      let sections = Array.isArray(data.sections_json) ? data.sections_json as unknown as Section[] : [];
+      // Cast to handle new columns
+      const rawData = data as unknown as Record<string, unknown>;
+
+      let sections = Array.isArray(rawData.sections_json) ? rawData.sections_json as unknown as Section[] : [];
       
       // Ensure all sections have sectionId
       let needsUpdate = false;
@@ -168,21 +186,23 @@ const PageEditor = () => {
       });
 
       setForm({
-        title: data.title || '',
-        slug: data.slug || '',
-        type: data.type || 'page',
-        hero_headline: data.hero_headline || '',
-        hero_subheadline: data.hero_subheadline || '',
+        title: (rawData.title as string) || '',
+        slug: (rawData.slug as string) || '',
+        type: (rawData.type as string) || 'page',
+        template: (rawData.template as TemplateType) || null,
+        content_json: (rawData.content_json as unknown as TemplateContent) || null,
+        hero_headline: (rawData.hero_headline as string) || '',
+        hero_subheadline: (rawData.hero_subheadline as string) || '',
         sections_json: sections as Section[],
-        status: data.status || 'draft',
-        published_at: data.published_at || '',
-        seo_title: data.seo_title || '',
-        seo_description: data.seo_description || '',
-        canonical_url: data.canonical_url || '',
-        noindex: data.noindex || false,
-        og_title: data.og_title || '',
-        og_description: data.og_description || '',
-        og_image_url: data.og_image_url || ''
+        status: (rawData.status as string) || 'draft',
+        published_at: (rawData.published_at as string) || '',
+        seo_title: (rawData.seo_title as string) || '',
+        seo_description: (rawData.seo_description as string) || '',
+        canonical_url: (rawData.canonical_url as string) || '',
+        noindex: (rawData.noindex as boolean) || false,
+        og_title: (rawData.og_title as string) || '',
+        og_description: (rawData.og_description as string) || '',
+        og_image_url: (rawData.og_image_url as string) || ''
       });
 
       // Auto-save if we generated missing sectionIds
@@ -216,6 +236,13 @@ const PageEditor = () => {
       ...prev,
       title,
       slug: isNew ? generateSlug(title) : prev.slug
+    }));
+  };
+
+  const handleTemplateContentChange = (newContent: TemplateContent) => {
+    setForm(prev => ({
+      ...prev,
+      content_json: newContent
     }));
   };
 
@@ -314,8 +341,8 @@ const PageEditor = () => {
       return;
     }
 
-    // Validate before publish
-    if (newStatus === 'published') {
+    // Validate before publish (only for non-template pages)
+    if (newStatus === 'published' && !isTemplatePage) {
       const errors = validateAllSections();
       if (errors.length > 0) {
         setValidationErrors(errors);
@@ -337,6 +364,8 @@ const PageEditor = () => {
         title: form.title,
         slug: form.slug,
         type: form.type,
+        template: form.template,
+        content_json: form.content_json as unknown as any,
         hero_headline: form.hero_headline || null,
         hero_subheadline: form.hero_subheadline || null,
         sections_json: form.sections_json as unknown as any,
@@ -376,11 +405,12 @@ const PageEditor = () => {
           setForm(prev => ({ ...prev, status: newStatus }));
         }
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error saving page:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to save page';
       toast({
         title: 'Error',
-        description: error.message || 'Failed to save page',
+        description: errorMessage,
         variant: 'destructive'
       });
     } finally {
@@ -390,7 +420,7 @@ const PageEditor = () => {
 
   const handleSectionEdit = (sectionId: string) => {
     if (sectionId === 'hero') {
-      setActiveTab('hero');
+      setActiveTab('content');
       setHighlightedSection('hero');
       setTimeout(() => setHighlightedSection(null), 3000);
       return;
@@ -510,156 +540,6 @@ const PageEditor = () => {
                 disabled={!canEdit}
               />
             </div>
-
-            {(section.type === 'imageLeft' || section.type === 'imageRight') && (
-              <>
-                <div className="space-y-2">
-                  <Label>Image URL</Label>
-                  <Input
-                    value={section.image_url || ''}
-                    onChange={(e) => updateSection(section.sectionId, { image_url: e.target.value })}
-                    placeholder="https://..."
-                    disabled={!canEdit}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Image Alt Text *</Label>
-                  <Input
-                    value={section.image_alt || ''}
-                    onChange={(e) => updateSection(section.sectionId, { image_alt: e.target.value })}
-                    placeholder="Describe the image"
-                    disabled={!canEdit}
-                  />
-                </div>
-              </>
-            )}
-
-            {section.type === 'cta' && (
-              <>
-                <div className="space-y-2">
-                  <Label>CTA Button Label</Label>
-                  <Input
-                    value={section.cta_label || ''}
-                    onChange={(e) => updateSection(section.sectionId, { cta_label: e.target.value })}
-                    placeholder="Learn More"
-                    disabled={!canEdit}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>CTA Link</Label>
-                  <Input
-                    value={section.cta_href || ''}
-                    onChange={(e) => updateSection(section.sectionId, { cta_href: e.target.value })}
-                    placeholder="/contact"
-                    disabled={!canEdit}
-                  />
-                </div>
-              </>
-            )}
-
-            {section.type === 'faq' && (
-              <div className="space-y-4">
-                <Label>FAQ Items</Label>
-                {section.faq_items?.map((item, idx) => (
-                  <div key={idx} className="space-y-2 p-3 border rounded">
-                    <Input
-                      value={item.question}
-                      onChange={(e) => {
-                        const newItems = [...(section.faq_items || [])];
-                        newItems[idx] = { ...newItems[idx], question: e.target.value };
-                        updateSection(section.sectionId, { faq_items: newItems });
-                      }}
-                      placeholder="Question"
-                      disabled={!canEdit}
-                    />
-                    <Textarea
-                      value={item.answer}
-                      onChange={(e) => {
-                        const newItems = [...(section.faq_items || [])];
-                        newItems[idx] = { ...newItems[idx], answer: e.target.value };
-                        updateSection(section.sectionId, { faq_items: newItems });
-                      }}
-                      placeholder="Answer"
-                      rows={2}
-                      disabled={!canEdit}
-                    />
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => {
-                        const newItems = section.faq_items?.filter((_, i) => i !== idx);
-                        updateSection(section.sectionId, { faq_items: newItems });
-                      }}
-                    >
-                      <Trash2 className="h-4 w-4 mr-1" /> Remove
-                    </Button>
-                  </div>
-                ))}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    updateSection(section.sectionId, {
-                      faq_items: [...(section.faq_items || []), { question: '', answer: '' }]
-                    });
-                  }}
-                >
-                  <Plus className="h-4 w-4 mr-1" /> Add FAQ Item
-                </Button>
-              </div>
-            )}
-
-            {section.type === 'stats' && (
-              <div className="space-y-4">
-                <Label>Statistics</Label>
-                {section.stats_items?.map((item, idx) => (
-                  <div key={idx} className="flex gap-2 items-center">
-                    <Input
-                      value={item.value}
-                      onChange={(e) => {
-                        const newItems = [...(section.stats_items || [])];
-                        newItems[idx] = { ...newItems[idx], value: e.target.value };
-                        updateSection(section.sectionId, { stats_items: newItems });
-                      }}
-                      placeholder="100+"
-                      className="w-24"
-                      disabled={!canEdit}
-                    />
-                    <Input
-                      value={item.label}
-                      onChange={(e) => {
-                        const newItems = [...(section.stats_items || [])];
-                        newItems[idx] = { ...newItems[idx], label: e.target.value };
-                        updateSection(section.sectionId, { stats_items: newItems });
-                      }}
-                      placeholder="Happy Customers"
-                      disabled={!canEdit}
-                    />
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => {
-                        const newItems = section.stats_items?.filter((_, i) => i !== idx);
-                        updateSection(section.sectionId, { stats_items: newItems });
-                      }}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                ))}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    updateSection(section.sectionId, {
-                      stats_items: [...(section.stats_items || []), { label: '', value: '' }]
-                    });
-                  }}
-                >
-                  <Plus className="h-4 w-4 mr-1" /> Add Stat
-                </Button>
-              </div>
-            )}
           </CollapsibleContent>
         </div>
       </Collapsible>
@@ -682,7 +562,14 @@ const PageEditor = () => {
           <Button variant="ghost" size="icon" onClick={() => navigate('/admin/pages')}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
-          <h1 className="text-xl font-bold">{isNew ? 'New Page' : 'Edit Page'}</h1>
+          <div>
+            <h1 className="text-xl font-bold">{isNew ? 'New Page' : 'Edit Page'}</h1>
+            {isTemplatePage && (
+              <span className="text-sm text-muted-foreground">
+                Template: {TEMPLATE_LABELS[form.template!]}
+              </span>
+            )}
+          </div>
         </div>
         
         {canEdit && (
@@ -709,213 +596,295 @@ const PageEditor = () => {
       {/* Split pane editor */}
       <div className="grid lg:grid-cols-2 gap-6 min-h-[calc(100vh-200px)]">
         {/* Editor pane */}
-        <div className="space-y-4">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="hero">Hero</TabsTrigger>
-              <TabsTrigger value="sections">Sections</TabsTrigger>
-              <TabsTrigger value="seo">SEO</TabsTrigger>
-            </TabsList>
+        <div className="space-y-4 overflow-auto max-h-[calc(100vh-200px)]">
+          {isTemplatePage ? (
+            // Template-based editing
+            <div className="space-y-4">
+              {/* Basic info */}
+              <Card>
+                <CardHeader className="py-3">
+                  <CardTitle className="text-sm">Page Settings</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="title">Page Title *</Label>
+                    <Input
+                      id="title"
+                      value={form.title}
+                      onChange={(e) => handleTitleChange(e.target.value)}
+                      placeholder="Page title"
+                      disabled={!canEdit}
+                    />
+                  </div>
 
-            <TabsContent value="hero" className="space-y-4 mt-4">
-              <div className="space-y-2">
-                <Label htmlFor="title">Page Title *</Label>
-                <Input
-                  id="title"
-                  value={form.title}
-                  onChange={(e) => handleTitleChange(e.target.value)}
-                  placeholder="Page title"
+                  <div className="space-y-2">
+                    <Label htmlFor="slug">Slug *</Label>
+                    <Input
+                      id="slug"
+                      value={form.slug}
+                      onChange={(e) => setForm(prev => ({ ...prev, slug: e.target.value }))}
+                      placeholder="page-url-slug"
+                      disabled={!canEdit || (form.status === 'published' && !isAdmin)}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Status</Label>
+                    <Select
+                      value={form.status}
+                      onValueChange={(value) => setForm(prev => ({ ...prev, status: value }))}
+                      disabled={!canEdit}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="draft">Draft</SelectItem>
+                        <SelectItem value="published">Published</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Template content editor */}
+              {form.template && form.content_json && (
+                <TemplateFormEditor
+                  template={form.template}
+                  content={form.content_json}
+                  onChange={handleTemplateContentChange}
                   disabled={!canEdit}
                 />
-              </div>
+              )}
 
-              <div className="space-y-2">
-                <Label htmlFor="slug">Slug *</Label>
-                <Input
-                  id="slug"
-                  value={form.slug}
-                  onChange={(e) => setForm(prev => ({ ...prev, slug: e.target.value }))}
-                  placeholder="page-url-slug"
-                  disabled={!canEdit || (form.status === 'published' && !isAdmin)}
-                />
-              </div>
+              {/* Initialize content if empty */}
+              {form.template && !form.content_json && canEdit && (
+                <Card>
+                  <CardContent className="py-6 text-center">
+                    <p className="text-muted-foreground mb-4">
+                      This page has no content yet. Initialize it with default content?
+                    </p>
+                    <Button
+                      onClick={() => {
+                        const defaultContent = createDefaultContent(form.template!);
+                        setForm(prev => ({ ...prev, content_json: defaultContent }));
+                      }}
+                    >
+                      Initialize Content
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          ) : (
+            // Generic section-based editing
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="content">Content</TabsTrigger>
+                <TabsTrigger value="sections">Sections</TabsTrigger>
+                <TabsTrigger value="seo">SEO</TabsTrigger>
+              </TabsList>
 
-              <div className="space-y-2">
-                <Label htmlFor="type">Page Type</Label>
-                <Select
-                  value={form.type}
-                  onValueChange={(value) => setForm(prev => ({ ...prev, type: value }))}
-                  disabled={!canEdit || (!canCreateTreatment && form.type !== 'treatment')}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="page">Page</SelectItem>
-                    <SelectItem value="treatment" disabled={!canCreateTreatment}>
-                      Treatment {!canCreateTreatment && '(Upgrade required)'}
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="hero_headline">Hero Headline</Label>
-                <Input
-                  id="hero_headline"
-                  value={form.hero_headline}
-                  onChange={(e) => setForm(prev => ({ ...prev, hero_headline: e.target.value }))}
-                  placeholder="Main headline"
-                  disabled={!canEdit}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="hero_subheadline">Hero Subheadline</Label>
-                <Textarea
-                  id="hero_subheadline"
-                  value={form.hero_subheadline}
-                  onChange={(e) => setForm(prev => ({ ...prev, hero_subheadline: e.target.value }))}
-                  placeholder="Supporting text"
-                  rows={3}
-                  disabled={!canEdit}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label>Status</Label>
-                <Select
-                  value={form.status}
-                  onValueChange={(value) => setForm(prev => ({ ...prev, status: value }))}
-                  disabled={!canEdit}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="draft">Draft</SelectItem>
-                    <SelectItem value="published">Published</SelectItem>
-                    <SelectItem value="scheduled">Scheduled</SelectItem>
-                    <SelectItem value="archived">Archived</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="sections" className="space-y-4 mt-4">
-              <div className="flex justify-between items-center">
-                <Label>Page Sections</Label>
-                <Select onValueChange={(value) => addSection(value as Section['type'])}>
-                  <SelectTrigger className="w-40">
-                    <Plus className="h-4 w-4 mr-2" />
-                    <SelectValue placeholder="Add section" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {SECTION_TYPES.map((type) => (
-                      <SelectItem key={type.value} value={type.value}>
-                        {type.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {form.sections_json.length === 0 ? (
-                <div className="border-2 border-dashed rounded-lg p-8 text-center text-muted-foreground">
-                  <p>No sections yet. Add a section to get started.</p>
-                </div>
-              ) : (
+              <TabsContent value="content" className="space-y-4 mt-4">
                 <div className="space-y-2">
-                  {form.sections_json.map((section, index) => renderSectionEditor(section, index))}
+                  <Label htmlFor="title">Page Title *</Label>
+                  <Input
+                    id="title"
+                    value={form.title}
+                    onChange={(e) => handleTitleChange(e.target.value)}
+                    placeholder="Page title"
+                    disabled={!canEdit}
+                  />
                 </div>
-              )}
-            </TabsContent>
 
-            <TabsContent value="seo" className="space-y-4 mt-4">
-              <div className="space-y-2">
-                <Label htmlFor="seo_title">SEO Title</Label>
-                <Input
-                  id="seo_title"
-                  value={form.seo_title}
-                  onChange={(e) => setForm(prev => ({ ...prev, seo_title: e.target.value }))}
-                  placeholder="SEO-optimized title (max 60 chars)"
-                  maxLength={60}
-                  disabled={!canEdit}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="seo_description">SEO Description</Label>
-                <Textarea
-                  id="seo_description"
-                  value={form.seo_description}
-                  onChange={(e) => setForm(prev => ({ ...prev, seo_description: e.target.value }))}
-                  placeholder="Meta description (max 160 chars)"
-                  maxLength={160}
-                  rows={3}
-                  disabled={!canEdit}
-                />
-              </div>
-
-              {showAdvancedSeo && (
-                <div className="pt-4 border-t space-y-4">
-                  <h3 className="font-medium">Advanced SEO</h3>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="canonical_url">Canonical URL</Label>
-                    <Input
-                      id="canonical_url"
-                      value={form.canonical_url}
-                      onChange={(e) => setForm(prev => ({ ...prev, canonical_url: e.target.value }))}
-                      placeholder="https://..."
-                      disabled={!canEdit}
-                    />
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <Switch
-                      id="noindex"
-                      checked={form.noindex}
-                      onCheckedChange={(checked) => setForm(prev => ({ ...prev, noindex: checked }))}
-                      disabled={!canEdit}
-                    />
-                    <Label htmlFor="noindex">No Index</Label>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="og_title">OG Title</Label>
-                    <Input
-                      id="og_title"
-                      value={form.og_title}
-                      onChange={(e) => setForm(prev => ({ ...prev, og_title: e.target.value }))}
-                      disabled={!canEdit}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="og_description">OG Description</Label>
-                    <Textarea
-                      id="og_description"
-                      value={form.og_description}
-                      onChange={(e) => setForm(prev => ({ ...prev, og_description: e.target.value }))}
-                      rows={2}
-                      disabled={!canEdit}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="og_image_url">OG Image URL</Label>
-                    <Input
-                      id="og_image_url"
-                      value={form.og_image_url}
-                      onChange={(e) => setForm(prev => ({ ...prev, og_image_url: e.target.value }))}
-                      disabled={!canEdit}
-                    />
-                  </div>
+                <div className="space-y-2">
+                  <Label htmlFor="slug">Slug *</Label>
+                  <Input
+                    id="slug"
+                    value={form.slug}
+                    onChange={(e) => setForm(prev => ({ ...prev, slug: e.target.value }))}
+                    placeholder="page-url-slug"
+                    disabled={!canEdit || (form.status === 'published' && !isAdmin)}
+                  />
                 </div>
-              )}
-            </TabsContent>
-          </Tabs>
+
+                <div className="space-y-2">
+                  <Label htmlFor="type">Page Type</Label>
+                  <Select
+                    value={form.type}
+                    onValueChange={(value) => setForm(prev => ({ ...prev, type: value }))}
+                    disabled={!canEdit || (!canCreateTreatment && form.type !== 'treatment')}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="page">Page</SelectItem>
+                      <SelectItem value="treatment" disabled={!canCreateTreatment}>
+                        Treatment {!canCreateTreatment && '(Upgrade required)'}
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="hero_headline">Hero Headline</Label>
+                  <Input
+                    id="hero_headline"
+                    value={form.hero_headline}
+                    onChange={(e) => setForm(prev => ({ ...prev, hero_headline: e.target.value }))}
+                    placeholder="Main headline"
+                    disabled={!canEdit}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="hero_subheadline">Hero Subheadline</Label>
+                  <Textarea
+                    id="hero_subheadline"
+                    value={form.hero_subheadline}
+                    onChange={(e) => setForm(prev => ({ ...prev, hero_subheadline: e.target.value }))}
+                    placeholder="Supporting text"
+                    rows={3}
+                    disabled={!canEdit}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Status</Label>
+                  <Select
+                    value={form.status}
+                    onValueChange={(value) => setForm(prev => ({ ...prev, status: value }))}
+                    disabled={!canEdit}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="draft">Draft</SelectItem>
+                      <SelectItem value="published">Published</SelectItem>
+                      <SelectItem value="scheduled">Scheduled</SelectItem>
+                      <SelectItem value="archived">Archived</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="sections" className="space-y-4 mt-4">
+                <div className="flex justify-between items-center">
+                  <Label>Page Sections</Label>
+                  <Select onValueChange={(value) => addSection(value as Section['type'])}>
+                    <SelectTrigger className="w-40">
+                      <Plus className="h-4 w-4 mr-2" />
+                      <SelectValue placeholder="Add section" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {SECTION_TYPES.map((type) => (
+                        <SelectItem key={type.value} value={type.value}>
+                          {type.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {form.sections_json.length === 0 ? (
+                  <div className="border-2 border-dashed rounded-lg p-8 text-center text-muted-foreground">
+                    <p>No sections yet. Add a section to get started.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {form.sections_json.map((section, index) => renderSectionEditor(section, index))}
+                  </div>
+                )}
+              </TabsContent>
+
+              <TabsContent value="seo" className="space-y-4 mt-4">
+                <div className="space-y-2">
+                  <Label htmlFor="seo_title">SEO Title</Label>
+                  <Input
+                    id="seo_title"
+                    value={form.seo_title}
+                    onChange={(e) => setForm(prev => ({ ...prev, seo_title: e.target.value }))}
+                    placeholder="SEO-optimized title (max 60 chars)"
+                    maxLength={60}
+                    disabled={!canEdit}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="seo_description">SEO Description</Label>
+                  <Textarea
+                    id="seo_description"
+                    value={form.seo_description}
+                    onChange={(e) => setForm(prev => ({ ...prev, seo_description: e.target.value }))}
+                    placeholder="Meta description (max 160 chars)"
+                    maxLength={160}
+                    rows={3}
+                    disabled={!canEdit}
+                  />
+                </div>
+
+                {showAdvancedSeo && (
+                  <div className="pt-4 border-t space-y-4">
+                    <h3 className="font-medium">Advanced SEO</h3>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="canonical_url">Canonical URL</Label>
+                      <Input
+                        id="canonical_url"
+                        value={form.canonical_url}
+                        onChange={(e) => setForm(prev => ({ ...prev, canonical_url: e.target.value }))}
+                        placeholder="https://..."
+                        disabled={!canEdit}
+                      />
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                      <Switch
+                        id="noindex"
+                        checked={form.noindex}
+                        onCheckedChange={(checked) => setForm(prev => ({ ...prev, noindex: checked }))}
+                        disabled={!canEdit}
+                      />
+                      <Label htmlFor="noindex">No Index</Label>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="og_title">OG Title</Label>
+                      <Input
+                        id="og_title"
+                        value={form.og_title}
+                        onChange={(e) => setForm(prev => ({ ...prev, og_title: e.target.value }))}
+                        disabled={!canEdit}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="og_description">OG Description</Label>
+                      <Textarea
+                        id="og_description"
+                        value={form.og_description}
+                        onChange={(e) => setForm(prev => ({ ...prev, og_description: e.target.value }))}
+                        rows={2}
+                        disabled={!canEdit}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="og_image_url">OG Image URL</Label>
+                      <Input
+                        id="og_image_url"
+                        value={form.og_image_url}
+                        onChange={(e) => setForm(prev => ({ ...prev, og_image_url: e.target.value }))}
+                        disabled={!canEdit}
+                      />
+                    </div>
+                  </div>
+                )}
+              </TabsContent>
+            </Tabs>
+          )}
         </div>
 
         {/* Preview pane */}
@@ -926,7 +895,7 @@ const PageEditor = () => {
                 <Eye className="h-4 w-4" />
                 Live Preview
               </CardTitle>
-              {canEdit && (
+              {canEdit && !isTemplatePage && (
                 <div className="flex items-center gap-2">
                   <Label htmlFor="preview-mode" className="text-xs text-muted-foreground">
                     Edit Overlays
@@ -941,33 +910,44 @@ const PageEditor = () => {
             </div>
           </CardHeader>
           <CardContent className="p-0 h-[calc(100%-53px)] overflow-auto">
-            <PagePreview 
-              page={form} 
-              onSectionEdit={handleSectionEdit} 
-              previewMode={canEdit && previewModeEnabled}
-              highlightedSectionId={highlightedSection}
-            />
+            {isTemplatePage ? (
+              <div className="p-4 text-center text-muted-foreground">
+                <p>Preview not available for template pages.</p>
+                <p className="text-sm mt-2">
+                  View the live page at: <a href={`/${form.slug}`} target="_blank" className="text-primary underline">/{form.slug}</a>
+                </p>
+              </div>
+            ) : (
+              <PagePreview 
+                page={form} 
+                onSectionEdit={handleSectionEdit} 
+                previewMode={canEdit && previewModeEnabled}
+                highlightedSectionId={highlightedSection}
+              />
+            )}
           </CardContent>
         </Card>
       </div>
 
       {/* Section Editor Drawer */}
-      <SectionEditorDrawer
-        open={drawerOpen}
-        onOpenChange={(open) => {
-          setDrawerOpen(open);
-          if (!open) {
-            setEditingSection(null);
-            setSearchParams({});
-          }
-        }}
-        section={editingSection}
-        onUpdate={updateSection}
-        onDelete={deleteSection}
-        canEdit={canEdit}
-        canDelete={isAdmin || membership?.role === 'editor'}
-        validationErrors={editingSection ? getSectionErrors(editingSection.sectionId) : []}
-      />
+      {!isTemplatePage && (
+        <SectionEditorDrawer
+          open={drawerOpen}
+          onOpenChange={(open) => {
+            setDrawerOpen(open);
+            if (!open) {
+              setEditingSection(null);
+              setSearchParams({});
+            }
+          }}
+          section={editingSection}
+          onUpdate={updateSection}
+          onDelete={deleteSection}
+          canEdit={canEdit}
+          canDelete={isAdmin || membership?.role === 'editor'}
+          validationErrors={editingSection ? getSectionErrors(editingSection.sectionId) : []}
+        />
+      )}
 
       {/* Validation errors summary */}
       {validationErrors.length > 0 && (
