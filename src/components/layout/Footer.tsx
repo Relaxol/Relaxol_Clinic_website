@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Linkedin, ArrowUp, Phone, Mail, MapPin } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Phone, Mail, MapPin } from "lucide-react";
 import relaxolLogo from "@/assets/relaxol-logo.png";
 
 const navLinks = [
@@ -23,10 +23,6 @@ const socialLinks = [
 ];
 
 export function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <footer className="bg-foreground text-background">
       <div className="container mx-auto px-4 py-16">
@@ -119,13 +115,6 @@ export function Footer() {
               <social.icon className="w-5 h-5" />
             </a>
           ))}
-          <button
-            onClick={scrollToTop}
-            className="ml-4 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground hover:bg-accent transition-colors"
-            aria-label="Scroll to top"
-          >
-            <ArrowUp className="w-5 h-5" />
-          </button>
         </div>
       </div>
 
