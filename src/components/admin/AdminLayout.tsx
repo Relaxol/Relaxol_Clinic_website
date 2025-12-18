@@ -53,7 +53,7 @@ const AdminLayout = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-background flex w-full">
       {/* Mobile sidebar backdrop */}
       {sidebarOpen && (
         <div 
@@ -64,7 +64,7 @@ const AdminLayout = () => {
 
       {/* Sidebar */}
       <aside className={cn(
-        "fixed lg:static inset-y-0 left-0 z-50 w-64 bg-card border-r transform transition-transform duration-200 ease-in-out",
+        "fixed lg:relative inset-y-0 left-0 z-50 w-64 bg-card border-r transform transition-transform duration-200 ease-in-out flex-shrink-0",
         sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       )}>
         <div className="flex flex-col h-full">
