@@ -50,6 +50,30 @@ interface Author {
   name: string;
 }
 
+// Helper functions to convert between plain text and content JSON
+const contentToText = (contentJson: any[]): string => {
+  if (!contentJson || !Array.isArray(contentJson)) return '';
+  return contentJson
+    .map(block => {
+      if (typeof block === 'string') return block;
+      if (block.type === 'paragraph') return block.text || block.content || '';
+      if (block.type === 'heading') return block.text || '';
+      if (block.type === 'quote') return `> ${block.text || ''}`;
+      if (block.type === 'list') return (block.items || []).map((item: string) => `• ${item}`).join('\n');
+      return '';
+    })
+    .join('\n\n');
+};
+
+const textToContent = (text: string): any[] => {
+  if (!text.trim()) return [];
+  const paragraphs = text.split(/\n\n+/).filter(p => p.trim());
+  return paragraphs.map(p => ({
+    type: 'paragraph',
+    text: p.trim()
+  }));
+};
+
 const PostEditor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -352,19 +376,17 @@ const PostEditor = () => {
               <div className="space-y-2">
                 <Label>Content</Label>
                 <Textarea
-                  value={JSON.stringify(form.content_json, null, 2)}
+                  value={contentToText(form.content_json)}
                   onChange={(e) => {
-                    try {
-                      setForm(prev => ({ ...prev, content_json: JSON.parse(e.target.value) }));
-                    } catch {}
+                    setForm(prev => ({ ...prev, content_json: textToContent(e.target.value) }));
                   }}
-                  placeholder='[{"type": "paragraph", "content": "Your content here..."}]'
+                  placeholder="Write your blog post content here. Use blank lines to separate paragraphs."
                   rows={10}
-                  className="font-mono text-sm"
+                  className="text-sm"
                   disabled={!canEdit}
                 />
                 <p className="text-xs text-muted-foreground">
-                  Content is stored as JSON blocks. Supported types: heading, paragraph, list, quote, image
+                  Each paragraph separated by a blank line will become a separate block.
                 </p>
               </div>
             </TabsContent>
