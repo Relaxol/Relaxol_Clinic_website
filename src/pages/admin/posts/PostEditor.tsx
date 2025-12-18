@@ -128,8 +128,6 @@ const PostEditor = () => {
         slug: data.slug || '',
         excerpt: data.excerpt || '',
         content_json: Array.isArray(data.content_json) ? data.content_json : [],
-        excerpt: data.excerpt || '',
-        content_json: data.content_json || [],
         hero_image: data.hero_image || '',
         hero_image_alt: data.hero_image_alt || '',
         status: data.status || 'draft',

@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AccessibilityWidget } from "@/components/AccessibilityWidget";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Home from "./pages/Home";
 import Spravato from "./pages/Spravato";
 import Ketamine from "./pages/Ketamine";
@@ -20,6 +21,15 @@ import OCD from "./pages/conditions/OCD";
 import PainManagement from "./pages/conditions/PainManagement";
 import NotFound from "./pages/NotFound";
 
+// Admin imports
+import AdminLogin from "./pages/admin/Login";
+import AdminLayout from "./components/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/Dashboard";
+import PostsList from "./pages/admin/posts/PostsList";
+import PostEditor from "./pages/admin/posts/PostEditor";
+import PagesList from "./pages/admin/pages/PagesList";
+import ProtectedRoute from "./components/admin/ProtectedRoute";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -27,26 +37,43 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <AccessibilityWidget />
-      <ScrollToTop />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/spravato-Englewood" element={<Spravato />} />
-          <Route path="/ketamine" element={<Ketamine />} />
-          <Route path="/vitamin-infusion-englewood" element={<VitaminInfusions />} />
-          <Route path="/faq" element={<FAQPage />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms-of-service" element={<TermsOfService />} />
-          <Route path="/conditions/depression" element={<Depression />} />
-          <Route path="/conditions/anxiety" element={<Anxiety />} />
-          <Route path="/conditions/ptsd" element={<PTSD />} />
-          <Route path="/conditions/ocd" element={<OCD />} />
-          <Route path="/conditions/pain-management" element={<PainManagement />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AuthProvider>
+          <AccessibilityWidget />
+          <ScrollToTop />
+          <Routes>
+            {/* Public routes */}
+            <Route path="/" element={<Home />} />
+            <Route path="/spravato-Englewood" element={<Spravato />} />
+            <Route path="/ketamine" element={<Ketamine />} />
+            <Route path="/vitamin-infusion-englewood" element={<VitaminInfusions />} />
+            <Route path="/faq" element={<FAQPage />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/conditions/depression" element={<Depression />} />
+            <Route path="/conditions/anxiety" element={<Anxiety />} />
+            <Route path="/conditions/ptsd" element={<PTSD />} />
+            <Route path="/conditions/ocd" element={<OCD />} />
+            <Route path="/conditions/pain-management" element={<PainManagement />} />
+            
+            {/* Admin routes */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin" element={
+              <ProtectedRoute>
+                <AdminLayout />
+              </ProtectedRoute>
+            }>
+              <Route index element={<AdminDashboard />} />
+              <Route path="posts" element={<PostsList />} />
+              <Route path="posts/:id" element={<PostEditor />} />
+              <Route path="pages" element={<PagesList />} />
+            </Route>
+            
+            {/* Catch-all */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
