@@ -27,7 +27,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Plus, Trash2, Loader2, AlertCircle } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Plus, Trash2, Loader2, AlertCircle, Copy, Check, Mail, Clock, UserPlus } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -39,15 +40,27 @@ interface TenantMember {
   created_at: string;
 }
 
+interface Invite {
+  id: string;
+  email: string;
+  role: string;
+  token: string;
+  expires_at: string;
+  accepted_at: string | null;
+  created_at: string;
+}
+
 const UsersList = () => {
-  const { membership } = useAuth();
+  const { membership, session } = useAuth();
   const { toast } = useToast();
   const [members, setMembers] = useState<TenantMember[]>([]);
+  const [invites, setInvites] = useState<Invite[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [email, setEmail] = useState('');
-  const [role, setRole] = useState<'admin' | 'editor' | 'viewer'>('viewer');
+  const [role, setRole] = useState<'admin' | 'editor' | 'viewer'>('editor');
   const [saving, setSaving] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const isAdmin = membership?.role === 'admin';
   const licenseActive = membership?.licenseActive !== false;
@@ -55,31 +68,51 @@ const UsersList = () => {
   const limitReached = maxUsers !== null && members.length >= maxUsers;
 
   useEffect(() => {
-    fetchMembers();
+    fetchData();
   }, [membership?.tenantId]);
 
-  const fetchMembers = async () => {
+  const fetchData = async () => {
     if (!membership?.tenantId) return;
 
     try {
-      const { data, error } = await supabase
+      // Fetch members
+      const { data: membersData, error: membersError } = await supabase
         .from('tenant_members')
         .select('*')
         .eq('tenant_id', membership.tenantId)
         .order('created_at');
 
-      if (error) throw error;
-      setMembers(data || []);
+      if (membersError) throw membersError;
+      setMembers(membersData || []);
+
+      // Fetch pending invites (only if admin)
+      if (isAdmin) {
+        const { data: invitesData, error: invitesError } = await supabase
+          .from('invites')
+          .select('*')
+          .eq('tenant_id', membership.tenantId)
+          .is('accepted_at', null)
+          .order('created_at', { ascending: false });
+
+        if (!invitesError) {
+          setInvites(invitesData || []);
+        }
+      }
     } catch (error) {
-      console.error('Error fetching members:', error);
+      console.error('Error fetching data:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleAddUser = async () => {
+  const handleCreateInvite = async () => {
     if (!email) {
       toast({ title: 'Email is required', variant: 'destructive' });
+      return;
+    }
+
+    if (!membership?.tenantId || !session?.access_token) {
+      toast({ title: 'Session error', description: 'Please refresh the page', variant: 'destructive' });
       return;
     }
 
@@ -90,18 +123,60 @@ const UsersList = () => {
 
     setSaving(true);
     try {
-      // Note: In a real implementation, you'd need to look up the user by email
-      // or send an invitation. This is a simplified version.
-      toast({ 
-        title: 'Invitation system', 
-        description: 'In production, this would send an invitation email to the user.',
+      const { data, error } = await supabase.functions.invoke('create-invite', {
+        body: {
+          email: email.trim().toLowerCase(),
+          role,
+          tenant_id: membership.tenantId
+        }
       });
+
+      if (error) throw error;
+      if (data.error) throw new Error(data.error);
+
+      // Copy invite link to clipboard
+      const inviteLink = `${window.location.origin}/admin/accept-invite?token=${data.invite.token}`;
+      await navigator.clipboard.writeText(inviteLink);
+
+      toast({ 
+        title: 'Invite created!', 
+        description: 'Invite link copied to clipboard. Send it to the user.',
+      });
+
       setDialogOpen(false);
       setEmail('');
+      setRole('editor');
+      fetchData();
     } catch (error: any) {
+      console.error('Error creating invite:', error);
       toast({ title: 'Error', description: error.message, variant: 'destructive' });
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleCopyInviteLink = async (token: string, inviteId: string) => {
+    const inviteLink = `${window.location.origin}/admin/accept-invite?token=${token}`;
+    await navigator.clipboard.writeText(inviteLink);
+    setCopiedId(inviteId);
+    toast({ title: 'Invite link copied!' });
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const handleDeleteInvite = async (inviteId: string) => {
+    if (!confirm('Are you sure you want to delete this invite?')) return;
+    
+    try {
+      const { error } = await supabase
+        .from('invites')
+        .delete()
+        .eq('id', inviteId);
+
+      if (error) throw error;
+      toast({ title: 'Invite deleted' });
+      fetchData();
+    } catch (error: any) {
+      toast({ title: 'Error', description: error.message, variant: 'destructive' });
     }
   };
 
@@ -114,7 +189,7 @@ const UsersList = () => {
 
       if (error) throw error;
       toast({ title: 'Role updated' });
-      fetchMembers();
+      fetchData();
     } catch (error: any) {
       toast({ title: 'Error', description: error.message, variant: 'destructive' });
     }
@@ -131,7 +206,7 @@ const UsersList = () => {
 
       if (error) throw error;
       toast({ title: 'User removed' });
-      fetchMembers();
+      fetchData();
     } catch (error: any) {
       toast({ title: 'Error', description: error.message, variant: 'destructive' });
     }
@@ -145,6 +220,8 @@ const UsersList = () => {
     };
     return <Badge variant={variants[role]}>{role}</Badge>;
   };
+
+  const isExpired = (expiresAt: string) => new Date(expiresAt) < new Date();
 
   if (!isAdmin) {
     return (
@@ -182,13 +259,13 @@ const UsersList = () => {
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
               <Button disabled={limitReached}>
-                <Plus className="h-4 w-4 mr-2" />
-                Add User
+                <UserPlus className="h-4 w-4 mr-2" />
+                Invite User
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Add Team Member</DialogTitle>
+                <DialogTitle>Invite Team Member</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
@@ -213,10 +290,13 @@ const UsersList = () => {
                     </SelectContent>
                   </Select>
                 </div>
-                <Button onClick={handleAddUser} disabled={saving} className="w-full">
+                <Button onClick={handleCreateInvite} disabled={saving} className="w-full">
                   {saving && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
-                  Send Invitation
+                  Create Invite & Copy Link
                 </Button>
+                <p className="text-xs text-muted-foreground text-center">
+                  The invite link will be copied to your clipboard. Send it to the user via email or messaging.
+                </p>
               </div>
             </DialogContent>
           </Dialog>
@@ -232,62 +312,132 @@ const UsersList = () => {
         </Alert>
       )}
 
-      <div className="border rounded-lg">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>User ID</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead className="hidden md:table-cell">Joined</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {members.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
-                  No team members
-                </TableCell>
-              </TableRow>
-            ) : (
-              members.map((member) => (
-                <TableRow key={member.id}>
-                  <TableCell className="font-mono text-sm">
-                    {member.user_id.slice(0, 8)}...
-                  </TableCell>
-                  <TableCell>
-                    <Select 
-                      value={member.role} 
-                      onValueChange={(v) => handleUpdateRole(member.id, v as typeof member.role)}
-                    >
-                      <SelectTrigger className="w-28">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="viewer">Viewer</SelectItem>
-                        <SelectItem value="editor">Editor</SelectItem>
-                        <SelectItem value="admin">Admin</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell text-muted-foreground">
-                    {format(new Date(member.created_at), 'MMM d, yyyy')}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Button 
-                      variant="ghost" 
-                      size="icon"
-                      onClick={() => handleRemoveUser(member.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </TableCell>
+      <Tabs defaultValue="members" className="w-full">
+        <TabsList>
+          <TabsTrigger value="members">Members ({members.length})</TabsTrigger>
+          <TabsTrigger value="invites">Pending Invites ({invites.length})</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="members" className="mt-4">
+          <div className="border rounded-lg">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>User ID</TableHead>
+                  <TableHead>Role</TableHead>
+                  <TableHead className="hidden md:table-cell">Joined</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </div>
+              </TableHeader>
+              <TableBody>
+                {members.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
+                      No team members
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  members.map((member) => (
+                    <TableRow key={member.id}>
+                      <TableCell className="font-mono text-sm">
+                        {member.user_id.slice(0, 8)}...
+                      </TableCell>
+                      <TableCell>
+                        <Select 
+                          value={member.role} 
+                          onValueChange={(v) => handleUpdateRole(member.id, v as typeof member.role)}
+                        >
+                          <SelectTrigger className="w-28">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="viewer">Viewer</SelectItem>
+                            <SelectItem value="editor">Editor</SelectItem>
+                            <SelectItem value="admin">Admin</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell text-muted-foreground">
+                        {format(new Date(member.created_at), 'MMM d, yyyy')}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button 
+                          variant="ghost" 
+                          size="icon"
+                          onClick={() => handleRemoveUser(member.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="invites" className="mt-4">
+          <div className="border rounded-lg">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Email</TableHead>
+                  <TableHead>Role</TableHead>
+                  <TableHead className="hidden md:table-cell">Expires</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {invites.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
+                      No pending invites
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  invites.map((invite) => (
+                    <TableRow key={invite.id}>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Mail className="h-4 w-4 text-muted-foreground" />
+                          {invite.email}
+                        </div>
+                      </TableCell>
+                      <TableCell>{getRoleBadge(invite.role)}</TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        <div className={`flex items-center gap-1 ${isExpired(invite.expires_at) ? 'text-destructive' : 'text-muted-foreground'}`}>
+                          <Clock className="h-3 w-3" />
+                          {isExpired(invite.expires_at) ? 'Expired' : format(new Date(invite.expires_at), 'MMM d, yyyy')}
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex justify-end gap-1">
+                          <Button 
+                            variant="ghost" 
+                            size="icon"
+                            onClick={() => handleCopyInviteLink(invite.token, invite.id)}
+                            disabled={isExpired(invite.expires_at)}
+                          >
+                            {copiedId === invite.id ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                          </Button>
+                          <Button 
+                            variant="ghost" 
+                            size="icon"
+                            onClick={() => handleDeleteInvite(invite.id)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
