@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -16,10 +16,12 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, Send, Eye, ArrowLeft, Plus, Trash2, GripVertical, ChevronDown, ChevronUp, Copy, Link } from 'lucide-react';
+import { Loader2, Save, Send, Eye, ArrowLeft, Plus, Trash2, GripVertical, ChevronDown, ChevronUp, Copy, Link, AlertCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import PagePreview from '@/components/admin/PagePreview';
+import SectionEditorDrawer, { validateSection } from '@/components/admin/SectionEditorDrawer';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Section {
@@ -53,6 +55,12 @@ interface PageForm {
   og_image_url: string;
 }
 
+interface ValidationError {
+  sectionId: string;
+  field: string;
+  message: string;
+}
+
 const SECTION_TYPES = [
   { value: 'text', label: 'Text Block' },
   { value: 'imageLeft', label: 'Image Left' },
@@ -65,6 +73,7 @@ const SECTION_TYPES = [
 const PageEditor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { membership, user } = useAuth();
   const { toast } = useToast();
   const isNew = id === 'new';
@@ -74,6 +83,9 @@ const PageEditor = () => {
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
   const [activeTab, setActiveTab] = useState('hero');
   const [highlightedSection, setHighlightedSection] = useState<string | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [editingSection, setEditingSection] = useState<Section | null>(null);
+  const [validationErrors, setValidationErrors] = useState<ValidationError[]>([]);
   
   const [form, setForm] = useState<PageForm>({
     title: '',
@@ -99,6 +111,33 @@ const PageEditor = () => {
   const showAdvancedSeo = membership?.planFeatures.advanced_seo && isAdmin;
   const canCreateTreatment = membership?.planFeatures.treatment_pages;
 
+  // Handle deep-linking from URL params
+  useEffect(() => {
+    const tab = searchParams.get('tab');
+    const sectionId = searchParams.get('sectionId');
+    
+    if (tab === 'sections') {
+      setActiveTab('sections');
+    }
+    
+    if (sectionId && !loading) {
+      // Find the section and open it
+      const section = form.sections_json.find(s => s.sectionId === sectionId);
+      if (section) {
+        setActiveTab('sections');
+        setExpandedSections(prev => new Set([...prev, sectionId]));
+        setEditingSection(section);
+        setDrawerOpen(true);
+        setHighlightedSection(sectionId);
+        setTimeout(() => setHighlightedSection(null), 3000);
+      } else if (sectionId === 'hero') {
+        setActiveTab('hero');
+        setHighlightedSection('hero');
+        setTimeout(() => setHighlightedSection(null), 3000);
+      }
+    }
+  }, [searchParams, loading, form.sections_json]);
+
   useEffect(() => {
     if (membership?.tenantId && !isNew) {
       fetchPage();
@@ -115,7 +154,17 @@ const PageEditor = () => {
 
       if (error) throw error;
 
-      const sections = Array.isArray(data.sections_json) ? data.sections_json as unknown as Section[] : [];
+      let sections = Array.isArray(data.sections_json) ? data.sections_json as unknown as Section[] : [];
+      
+      // Ensure all sections have sectionId
+      let needsUpdate = false;
+      sections = sections.map(section => {
+        if (!section.sectionId) {
+          needsUpdate = true;
+          return { ...section, sectionId: uuidv4() };
+        }
+        return section;
+      });
 
       setForm({
         title: data.title || '',
@@ -134,6 +183,14 @@ const PageEditor = () => {
         og_description: data.og_description || '',
         og_image_url: data.og_image_url || ''
       });
+
+      // Auto-save if we generated missing sectionIds
+      if (needsUpdate && canEdit) {
+        await supabase
+          .from('pages')
+          .update({ sections_json: sections as unknown as any })
+          .eq('id', id);
+      }
     } catch (error) {
       console.error('Error fetching page:', error);
       toast({
@@ -228,9 +285,20 @@ const PageEditor = () => {
   };
 
   const copySectionLink = (sectionId: string) => {
-    const link = `${window.location.origin}/admin/pages/${id}?section=${sectionId}`;
+    const link = `${window.location.origin}/admin/pages/${id}?tab=sections&sectionId=${sectionId}`;
     navigator.clipboard.writeText(link);
-    toast({ title: 'Section link copied!' });
+    toast({ title: 'Section edit link copied!' });
+  };
+
+  const validateAllSections = (): ValidationError[] => {
+    const errors: ValidationError[] = [];
+    form.sections_json.forEach(section => {
+      const sectionErrors = validateSection(section);
+      sectionErrors.forEach(err => {
+        errors.push({ sectionId: section.sectionId, ...err });
+      });
+    });
+    return errors;
   };
 
   const handleSave = async (newStatus?: string) => {
@@ -245,6 +313,21 @@ const PageEditor = () => {
       return;
     }
 
+    // Validate before publish
+    if (newStatus === 'published') {
+      const errors = validateAllSections();
+      if (errors.length > 0) {
+        setValidationErrors(errors);
+        toast({
+          title: 'Cannot Publish',
+          description: `Fix ${errors.length} validation error(s) before publishing`,
+          variant: 'destructive'
+        });
+        return;
+      }
+    }
+
+    setValidationErrors([]);
     setSaving(true);
 
     try {
@@ -305,15 +388,45 @@ const PageEditor = () => {
   };
 
   const handleSectionEdit = (sectionId: string) => {
-    setActiveTab('sections');
-    setExpandedSections(prev => new Set([...prev, sectionId]));
-    setHighlightedSection(sectionId);
-    setTimeout(() => setHighlightedSection(null), 3000);
+    if (sectionId === 'hero') {
+      setActiveTab('hero');
+      setHighlightedSection('hero');
+      setTimeout(() => setHighlightedSection(null), 3000);
+      return;
+    }
+
+    const section = form.sections_json.find(s => s.sectionId === sectionId);
+    if (section) {
+      setActiveTab('sections');
+      setExpandedSections(prev => new Set([...prev, sectionId]));
+      setEditingSection(section);
+      setDrawerOpen(true);
+      setHighlightedSection(sectionId);
+      
+      // Update URL for deep-linking
+      setSearchParams({ tab: 'sections', sectionId });
+      
+      setTimeout(() => setHighlightedSection(null), 3000);
+    }
+  };
+
+  const openSectionDrawer = (section: Section) => {
+    setEditingSection(section);
+    setDrawerOpen(true);
+    setSearchParams({ tab: 'sections', sectionId: section.sectionId });
+  };
+
+  const getSectionErrors = (sectionId: string) => {
+    return validationErrors
+      .filter(e => e.sectionId === sectionId)
+      .map(e => ({ field: e.field, message: e.message }));
   };
 
   const renderSectionEditor = (section: Section, index: number) => {
     const isExpanded = expandedSections.has(section.sectionId);
     const isHighlighted = highlightedSection === section.sectionId;
+    const sectionErrors = getSectionErrors(section.sectionId);
+    const hasErrors = sectionErrors.length > 0;
 
     return (
       <Collapsible
@@ -330,7 +443,7 @@ const PageEditor = () => {
       >
         <div 
           id={`section-${section.sectionId}`}
-          className={`border rounded-lg ${isHighlighted ? 'ring-2 ring-primary animate-pulse' : ''}`}
+          className={`border rounded-lg ${isHighlighted ? 'ring-2 ring-primary animate-pulse' : ''} ${hasErrors ? 'border-destructive' : ''}`}
         >
           <CollapsibleTrigger asChild>
             <div className="flex items-center justify-between p-3 cursor-pointer hover:bg-muted/50">
@@ -340,8 +453,22 @@ const PageEditor = () => {
                 <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded">
                   {section.type}
                 </span>
+                {hasErrors && (
+                  <span className="text-xs text-destructive flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
+                    {sectionErrors.length} error(s)
+                  </span>
+                )}
               </div>
               <div className="flex items-center gap-1">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={(e) => { e.stopPropagation(); openSectionDrawer(section); }}
+                  className="mr-2"
+                >
+                  Edit
+                </Button>
                 <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); moveSection(section.sectionId, 'up'); }}>
                   <ChevronUp className="h-4 w-4" />
                 </Button>
@@ -351,7 +478,7 @@ const PageEditor = () => {
                 <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); duplicateSection(section.sectionId); }}>
                   <Copy className="h-4 w-4" />
                 </Button>
-                <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); copySectionLink(section.sectionId); }}>
+                <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); copySectionLink(section.sectionId); }} title="Copy edit link">
                   <Link className="h-4 w-4" />
                 </Button>
                 <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); deleteSection(section.sectionId); }}>
@@ -799,10 +926,43 @@ const PageEditor = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0 h-[calc(100%-53px)] overflow-auto">
-            <PagePreview page={form} onSectionEdit={handleSectionEdit} />
+            <PagePreview 
+              page={form} 
+              onSectionEdit={handleSectionEdit} 
+              previewMode={canEdit}
+              highlightedSectionId={highlightedSection}
+            />
           </CardContent>
         </Card>
       </div>
+
+      {/* Section Editor Drawer */}
+      <SectionEditorDrawer
+        open={drawerOpen}
+        onOpenChange={(open) => {
+          setDrawerOpen(open);
+          if (!open) {
+            setEditingSection(null);
+            setSearchParams({});
+          }
+        }}
+        section={editingSection}
+        onUpdate={updateSection}
+        onDelete={deleteSection}
+        canEdit={canEdit}
+        canDelete={isAdmin || membership?.role === 'editor'}
+        validationErrors={editingSection ? getSectionErrors(editingSection.sectionId) : []}
+      />
+
+      {/* Validation errors summary */}
+      {validationErrors.length > 0 && (
+        <Alert variant="destructive" className="fixed bottom-4 right-4 w-auto max-w-md z-50">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>
+            Fix {validationErrors.length} validation error(s) before publishing
+          </AlertDescription>
+        </Alert>
+      )}
     </div>
   );
 };
