@@ -1,4 +1,26 @@
-import { HeroSectionData } from "@/lib/sections/registry";
+import { Shield, Award, CreditCard, LucideIcon } from "lucide-react";
+
+const iconMap: Record<string, LucideIcon> = {
+  Shield,
+  Award,
+  CreditCard,
+};
+
+interface TrustPill {
+  icon: string;
+  label: string;
+}
+
+interface HeroSectionData {
+  sectionId: string;
+  type: 'hero';
+  subtitle?: string;
+  headline: string;
+  body?: string;
+  cta?: { label: string; href: string };
+  backgroundImage?: string;
+  trustPills?: TrustPill[];
+}
 
 interface Props {
   data: HeroSectionData;
@@ -50,6 +72,23 @@ export function DynamicHero({ data }: Props) {
               >
                 {data.cta.label}
               </a>
+            </div>
+          )}
+
+          {data.trustPills && data.trustPills.length > 0 && (
+            <div className="flex flex-wrap gap-3 animate-fade-up" style={{ animationDelay: "0.3s" }}>
+              {data.trustPills.map((pill, index) => {
+                const IconComponent = iconMap[pill.icon] || Award;
+                return (
+                  <div
+                    key={index}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 backdrop-blur-sm border border-white/25 text-white text-sm font-medium shadow-sm"
+                  >
+                    <IconComponent className="w-4 h-4 text-white/90" />
+                    <span>{pill.label}</span>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
