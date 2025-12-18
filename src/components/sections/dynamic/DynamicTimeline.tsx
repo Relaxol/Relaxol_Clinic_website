@@ -1,5 +1,5 @@
-interface TimelineItem {
-  step: string;
+interface TimelineStep {
+  number: number;
   title: string;
   description: string;
 }
@@ -7,9 +7,9 @@ interface TimelineItem {
 interface TimelineSectionData {
   sectionId: string;
   type: 'timeline';
-  subtitle?: string;
   title: string;
-  items: TimelineItem[];
+  description?: string;
+  steps: TimelineStep[];
 }
 
 interface Props {
@@ -24,44 +24,40 @@ export function DynamicTimeline({ data }: Props) {
       data-section-type={data.type}
     >
       <div className="container mx-auto px-4">
+        {/* Header */}
         <div className="text-center mb-16">
-          {data.subtitle && (
-            <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
-              {data.subtitle}
-            </p>
-          )}
-          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
             {data.title}
           </h2>
+          {data.description && (
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              {data.description}
+            </p>
+          )}
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-primary/20" />
-            
-            {data.items.map((item, index) => (
-              <div
-                key={index}
-                className={`relative flex items-start gap-8 mb-12 ${
-                  index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                }`}
-              >
-                {/* Step number */}
-                <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-xl shadow-lg z-10">
-                  {item.step}
+        {/* Timeline */}
+        <div className="relative">
+          {/* Connecting Line (Desktop) */}
+          <div className="hidden lg:block absolute top-7 left-0 right-0 h-0.5 bg-primary/30" />
+
+          {/* Steps */}
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            {data.steps.map((step, index) => (
+              <div key={index} className="timeline-step">
+                {/* Number Circle */}
+                <div className="timeline-circle mb-6 relative">
+                  {step.number}
                 </div>
-                
-                {/* Content */}
-                <div className={`ml-28 md:ml-0 md:w-[calc(50%-4rem)] ${index % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8'}`}>
-                  <div className="bg-card rounded-2xl p-6 shadow-soft">
-                    <h3 className="text-xl font-bold text-foreground mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
+
+                {/* Content Card */}
+                <div className="bg-white rounded-2xl shadow-soft p-6 text-center">
+                  <h3 className="text-lg font-bold text-foreground mb-2">
+                    {step.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    {step.description}
+                  </p>
                 </div>
               </div>
             ))}
