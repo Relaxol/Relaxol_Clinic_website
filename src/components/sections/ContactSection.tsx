@@ -11,8 +11,22 @@ import {
 } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
 
-export function ContactSection() {
+interface ContactContent {
+  subtitle?: string;
+  title?: string;
+  body?: string;
+}
+
+interface ContactSectionProps {
+  content?: ContactContent;
+}
+
+export function ContactSection({ content }: ContactSectionProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const subtitle = content?.subtitle ?? "SCHEDULE A CONSULTATION";
+  const title = content?.title ?? "Ready to Explore Your Treatment Options?";
+  const body = content?.body ?? "Take the first step with Dr. Khanna and our compassionate team. We'll contact you within one business day.";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,13 +51,13 @@ export function ContactSection() {
             {/* Header inside card */}
             <div className="text-center mb-10">
               <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
-                SCHEDULE A CONSULTATION
+                {subtitle}
               </p>
               <h2 className="text-2xl md:text-3xl lg:text-4xl text-foreground font-bold mb-4">
-                Ready to Explore Your Treatment Options?
+                {title}
               </h2>
               <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
-                Take the first step with Dr. Khanna and our compassionate team. We'll contact you within one business day.
+                {body}
               </p>
             </div>
 

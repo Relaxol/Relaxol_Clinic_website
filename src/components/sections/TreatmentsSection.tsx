@@ -5,7 +5,7 @@ import treatmentKetamine from "@/assets/treatment-ketamine.jpg";
 import treatmentTelehealth from "@/assets/treatment-telehealth.jpg";
 import treatmentPainManagement from "@/assets/treatment-pain-management.jpg";
 
-const treatments = [
+const defaultTreatments = [
   {
     title: "SPRAVATO® (Esketamine Nasal Spray)",
     tag: "FDA-Approved",
@@ -40,11 +40,44 @@ const treatments = [
   },
 ];
 
-export function TreatmentsSection() {
-  const [visibleCards, setVisibleCards] = useState<boolean[]>(new Array(treatments.length).fill(false));
+interface TreatmentItem {
+  title: string;
+  tag?: string | null;
+  description: string;
+  imageUrl?: string;
+  ctaLabel?: string;
+  href: string;
+}
+
+interface TreatmentsContent {
+  subtitle?: string;
+  title?: string;
+  description?: string;
+  items?: TreatmentItem[];
+}
+
+interface TreatmentsSectionProps {
+  content?: TreatmentsContent;
+}
+
+export function TreatmentsSection({ content }: TreatmentsSectionProps) {
+  const [visibleCards, setVisibleCards] = useState<boolean[]>(new Array(4).fill(false));
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerVisible, setHeaderVisible] = useState(false);
+
+  const subtitle = content?.subtitle ?? "Our Treatments";
+  const title = content?.title ?? "Treatment Options";
+  const description = content?.description ?? "Evidence-based therapies designed to provide lasting relief and restore your quality of life.";
+  
+  const treatments = content?.items?.map((item, index) => ({
+    title: item.title,
+    tag: item.tag ?? null,
+    description: item.description,
+    image: item.imageUrl || defaultTreatments[index]?.image || treatmentSpravato,
+    cta: item.ctaLabel || "Learn More",
+    href: item.href,
+  })) ?? defaultTreatments;
 
   useEffect(() => {
     // Header observer
@@ -103,14 +136,14 @@ export function TreatmentsSection() {
           }`}
         >
           <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-5">
-            Our Treatments
+            {subtitle}
           </p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl text-foreground font-bold mb-8 leading-[1.1]">
-            Treatment Options
+            {title}
           </h2>
           <div className="w-20 h-0.5 bg-primary/60 mx-auto mb-8" />
           <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            Evidence-based therapies designed to provide lasting relief and restore your quality of life.
+            {description}
           </p>
         </div>
 

@@ -4,7 +4,7 @@ import conditionAnxiety from "@/assets/condition-anxiety.jpg";
 import conditionPtsd from "@/assets/condition-ptsd.jpg";
 import conditionOcd from "@/assets/condition-ocd.jpg";
 
-const conditions = [
+const defaultConditions = [
   {
     title: "Depression",
     image: conditionDepression,
@@ -35,20 +35,52 @@ const conditions = [
   },
 ];
 
-export function ConditionsSection() {
+interface ConditionItem {
+  title: string;
+  description: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  href: string;
+}
+
+interface ConditionsContent {
+  subtitle?: string;
+  title?: string;
+  description?: string;
+  items?: ConditionItem[];
+}
+
+interface ConditionsSectionProps {
+  content?: ConditionsContent;
+}
+
+export function ConditionsSection({ content }: ConditionsSectionProps) {
+  const subtitle = content?.subtitle ?? "CONDITIONS WE TREAT";
+  const title = content?.title ?? "Specialized Mental Health Care";
+  const description = content?.description ?? "Our treatments are designed for patients who haven't found relief through traditional approaches.";
+  
+  // Map CMS items to display format, or use defaults
+  const conditions = content?.items?.map((item, index) => ({
+    title: item.title,
+    image: item.imageUrl || defaultConditions[index]?.image || conditionDepression,
+    imageAlt: item.imageAlt || defaultConditions[index]?.imageAlt || item.title,
+    description: item.description,
+    href: item.href,
+  })) ?? defaultConditions;
+
   return (
     <section id="conditions" className="py-24 md:py-32 bg-white">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
-            CONDITIONS WE TREAT
+            {subtitle}
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-5">
-            Specialized Mental Health Care
+            {title}
           </h2>
           <p className="text-muted-foreground text-lg">
-            Our treatments are designed for patients who haven't found relief through traditional approaches.
+            {description}
           </p>
         </div>
 

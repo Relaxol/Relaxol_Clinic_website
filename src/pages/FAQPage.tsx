@@ -8,9 +8,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Link } from "react-router-dom";
+import { usePageContent } from "@/hooks/usePageContent";
+import { FAQV1Content } from "@/lib/templates/schemas";
 
-// FAQ Data organized by section
-const faqSections = [
+// Default FAQ Data organized by section
+const defaultFaqSections = [
   {
     id: "general",
     title: "General Questions",
@@ -136,6 +138,25 @@ const faqSections = [
 ];
 
 const FAQPage = () => {
+  const { content } = usePageContent('faq');
+  const faqContent = content as FAQV1Content | null;
+  
+  // Extract content with defaults
+  const heroSubtitle = faqContent?.hero?.subtitle ?? "HELP CENTER";
+  const heroHeadline = faqContent?.hero?.headline ?? "Frequently Asked Questions";
+  const heroBody = faqContent?.hero?.body ?? "Clear answers about ketamine therapy, SPRAVATO®, safety, and the treatment process.";
+  const ctaTitle = faqContent?.cta?.title ?? "Still Have Questions? We're Here to Help.";
+  const ctaBody = faqContent?.cta?.body ?? "Our team is ready to answer any additional questions and help you determine if ketamine therapy is right for you.";
+  const ctaLabel = faqContent?.cta?.ctaLabel ?? "Schedule a Consultation";
+  const ctaHref = faqContent?.cta?.ctaHref ?? "/#contact";
+  
+  // Use CMS sections if available, otherwise use defaults
+  const faqSections = faqContent?.sections?.map((section, index) => ({
+    id: section.title.toLowerCase().replace(/\s+/g, '-'),
+    title: section.title,
+    faqs: section.items,
+  })) ?? defaultFaqSections;
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -150,11 +171,14 @@ const FAQPage = () => {
         {/* Hero Section */}
         <section className="py-16 md:py-24 bg-gradient-to-b from-cream to-primary/10">
           <div className="container mx-auto px-4 text-center">
+            <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-4">
+              {heroSubtitle}
+            </p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-              Frequently Asked Questions
+              {heroHeadline}
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              Clear answers about ketamine therapy, SPRAVATO®, safety, and the treatment process.
+              {heroBody}
             </p>
           </div>
         </section>
@@ -216,10 +240,10 @@ const FAQPage = () => {
         <section className="py-16 md:py-24 bg-cream-dark">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Still Have Questions? We're Here to Help.
+              {ctaTitle}
             </h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Our team is ready to answer any additional questions and help you determine if ketamine therapy is right for you.
+              {ctaBody}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
@@ -227,7 +251,7 @@ const FAQPage = () => {
                 className="bg-primary text-primary-foreground hover:bg-accent rounded-full px-8"
                 asChild
               >
-                <Link to="/#contact">Schedule a Consultation</Link>
+                <Link to={ctaHref}>{ctaLabel}</Link>
               </Button>
               <Button 
                 size="lg" 

@@ -1,4 +1,4 @@
-const steps = [
+const defaultSteps = [
   {
     number: 1,
     title: "Consultation",
@@ -26,17 +26,44 @@ const steps = [
   },
 ];
 
-export function TimelineSection() {
+interface TimelineItem {
+  step?: string;
+  number?: number;
+  title: string;
+  description: string;
+}
+
+interface TimelineContent {
+  subtitle?: string;
+  title?: string;
+  description?: string;
+  items?: TimelineItem[];
+}
+
+interface TimelineSectionProps {
+  content?: TimelineContent;
+}
+
+export function TimelineSection({ content }: TimelineSectionProps) {
+  const title = content?.title ?? "What to Expect";
+  const description = content?.description ?? "From your first consultation to long-term wellness, here's how we guide you through treatment.";
+  
+  const steps = content?.items?.map((item, index) => ({
+    number: item.number ?? parseInt(item.step || String(index + 1)),
+    title: item.title,
+    description: item.description,
+  })) ?? defaultSteps;
+
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
-            What to Expect
+            {title}
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            From your first consultation to long-term wellness, here's how we guide you through treatment.
+            {description}
           </p>
         </div>
 

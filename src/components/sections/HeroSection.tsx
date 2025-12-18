@@ -1,13 +1,31 @@
 import { Shield, Award, CreditCard } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
 
-const trustPills = [
+const defaultTrustPills = [
   { icon: Award, label: "Board-Certified Psychiatric Care" },
   { icon: Shield, label: "FDA-Approved SPRAVATO® Clinic" },
   { icon: CreditCard, label: "Insurance & Benefits Support" },
 ];
 
-export function HeroSection() {
+interface HeroContent {
+  subtitle?: string;
+  headline?: string;
+  body?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+interface HeroSectionProps {
+  content?: HeroContent;
+}
+
+export function HeroSection({ content }: HeroSectionProps) {
+  const subtitle = content?.subtitle ?? "FIND HOPE AND RELIEF TODAY";
+  const headline = content?.headline ?? "New Jersey's Premier Ketamine & SPRAVATO® Clinic";
+  const body = content?.body ?? "Advanced, clinician-led treatments for depression, anxiety, PTSD and OCD in a safe, monitored medical setting.";
+  const ctaLabel = content?.ctaLabel ?? "Book Your Free Consultation Today!";
+  const ctaHref = content?.ctaHref ?? "#contact";
+
   return (
     <section className="relative min-h-[80vh] flex items-center overflow-hidden">
       {/* Background image with subtle overlay for text readability */}
@@ -27,32 +45,32 @@ export function HeroSection() {
         <div className="max-w-3xl">
           {/* Subtitle */}
           <p className="text-[#D09B3C] text-sm md:text-base font-semibold uppercase tracking-widest mb-4 animate-fade-up">
-            FIND HOPE AND RELIEF TODAY
+            {subtitle}
           </p>
 
           {/* Main Heading */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl text-white font-bold leading-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-            New Jersey's Premier Ketamine & SPRAVATO® Clinic
+            {headline}
           </h1>
 
           {/* Subtitle Text */}
           <p className="text-white/90 text-lg md:text-xl leading-relaxed mb-8 animate-fade-up" style={{ animationDelay: "0.15s" }}>
-            Advanced, clinician-led treatments for depression, anxiety,<br className="hidden md:block" /> PTSD and OCD in a safe, monitored medical setting.
+            {body}
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-wrap gap-4 mb-10 animate-fade-up" style={{ animationDelay: "0.2s" }}>
             <a
-              href="#contact"
+              href={ctaHref}
               className="inline-flex items-center justify-center px-8 py-4 rounded-md bg-[#D09B3C] text-white font-semibold text-lg hover:bg-[#B8862F] transition-all duration-300 shadow-lg"
             >
-              Book Your Free Consultation Today!
+              {ctaLabel}
             </a>
           </div>
 
           {/* Trust Pills */}
           <div className="flex flex-wrap gap-3 animate-fade-up" style={{ animationDelay: "0.3s" }}>
-            {trustPills.map((pill) => (
+            {defaultTrustPills.map((pill) => (
               <div
                 key={pill.label}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 backdrop-blur-sm border border-white/25 text-white text-sm font-medium shadow-sm"

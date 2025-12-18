@@ -14,26 +14,33 @@ import { EnvironmentSection } from "@/components/sections/EnvironmentSection";
 import { DoctorSection } from "@/components/sections/DoctorSection";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { ContactSection } from "@/components/sections/ContactSection";
+import { usePageContent } from "@/hooks/usePageContent";
+import { HomeV1Content } from "@/lib/templates/schemas";
 
 const Home = () => {
+  const { content, loading } = usePageContent('home');
+  
+  // Cast to HomeV1Content if available
+  const homeContent = content as HomeV1Content | null;
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <main>
-        <HeroSection />
-        <AboutSection />
-        <VideoSection />
-        <TreatmentsSection />
-        <DoctorSection />
-        <ContactSection />
-        <ConditionsSection />
+        <HeroSection content={homeContent?.hero} />
+        <AboutSection content={homeContent?.about} />
+        <VideoSection content={homeContent?.video} />
+        <TreatmentsSection content={homeContent?.treatments} />
+        <DoctorSection content={homeContent?.doctor} />
+        <ContactSection content={homeContent?.contact} />
+        <ConditionsSection content={homeContent?.conditions} />
         <EnvironmentSection />
         <InsuranceSection />
         <WhyChooseSection />
-        <TestimonialsSection />
+        <TestimonialsSection content={homeContent?.testimonials} />
         <VideoTestimonialsSection />
-        <TimelineSection />
-        <FAQSection />
+        <TimelineSection content={homeContent?.timeline} />
+        <FAQSection content={homeContent?.faq} />
       </main>
       <Footer />
     </div>

@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const faqs = [
+const defaultFaqs = [
   {
     question: "What is the difference between ketamine and SPRAVATO®?",
     answer: "Ketamine is administered intravenously (IV) and is used off-label for depression and other conditions. SPRAVATO® (esketamine) is a nasal spray that's FDA-approved specifically for treatment-resistant depression. Both work on similar brain pathways but have different administration methods, coverage options, and regulatory statuses.",
@@ -28,7 +28,26 @@ const faqs = [
   },
 ];
 
-export function FAQSection() {
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface FAQContent {
+  title?: string;
+  description?: string;
+  items?: FAQItem[];
+}
+
+interface FAQSectionProps {
+  content?: FAQContent;
+}
+
+export function FAQSection({ content }: FAQSectionProps) {
+  const title = content?.title ?? "Frequently Asked Questions";
+  const description = content?.description ?? "Get answers to common questions about our treatments and process.";
+  const faqs = content?.items ?? defaultFaqs;
+
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -36,10 +55,10 @@ export function FAQSection() {
           {/* Header */}
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
-              Frequently Asked Questions
+              {title}
             </h2>
             <p className="text-muted-foreground text-lg">
-              Get answers to common questions about our treatments and process.
+              {description}
             </p>
           </div>
 
