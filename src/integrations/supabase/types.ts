@@ -374,6 +374,7 @@ export type Database = {
           seo_title: string | null
           slug: string
           status: string
+          template: string | null
           tenant_id: string
           title: string
           type: string
@@ -396,6 +397,7 @@ export type Database = {
           seo_title?: string | null
           slug: string
           status?: string
+          template?: string | null
           tenant_id: string
           title: string
           type?: string
@@ -418,6 +420,7 @@ export type Database = {
           seo_title?: string | null
           slug?: string
           status?: string
+          template?: string | null
           tenant_id?: string
           title?: string
           type?: string
