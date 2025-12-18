@@ -1,6 +1,6 @@
 import { Star, Quote } from "lucide-react";
 
-const testimonials = [
+const defaultTestimonials = [
   {
     name: "M.R.",
     treatment: "SPRAVATO® Patient",
@@ -21,20 +21,52 @@ const testimonials = [
   },
 ];
 
-export function TestimonialsSection() {
+interface TestimonialItem {
+  quote?: string;
+  text?: string;
+  author?: string;
+  name?: string;
+  role?: string;
+  treatment?: string;
+  rating?: number;
+}
+
+interface TestimonialsContent {
+  subtitle?: string;
+  title?: string;
+  description?: string;
+  items?: TestimonialItem[];
+}
+
+interface TestimonialsSectionProps {
+  content?: TestimonialsContent;
+}
+
+export function TestimonialsSection({ content }: TestimonialsSectionProps) {
+  const subtitle = content?.subtitle ?? "PATIENT EXPERIENCES";
+  const title = content?.title ?? "What Our Patients Are Saying";
+  const description = content?.description ?? "Real stories from patients who found relief through our treatments.";
+  
+  const testimonials = content?.items?.map(item => ({
+    name: item.author || item.name || "Anonymous",
+    treatment: item.role || item.treatment || "Patient",
+    text: item.quote || item.text || "",
+    rating: item.rating ?? 5,
+  })) ?? defaultTestimonials;
+
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
           <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
-            PATIENT EXPERIENCES
+            {subtitle}
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
-            What Our Patients Are Saying
+            {title}
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Real stories from patients who found relief through our treatments.
+            {description}
           </p>
         </div>
 

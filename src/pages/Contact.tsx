@@ -13,9 +13,22 @@ import {
 } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { usePageContent } from "@/hooks/usePageContent";
+import { ContactV1Content } from "@/lib/templates/schemas";
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { content } = usePageContent('contact');
+  
+  const contactContent = content as ContactV1Content | null;
+  
+  // Extract content with defaults
+  const heroSubtitle = contactContent?.hero?.subtitle ?? "Get In Touch";
+  const heroHeadline = contactContent?.hero?.headline ?? "Contact Us";
+  const heroBody = contactContent?.hero?.body ?? "We're here to answer your questions and help you begin your journey to wellness.";
+  const formSubtitle = contactContent?.form?.subtitle ?? "SEND US A MESSAGE";
+  const formTitle = contactContent?.form?.title ?? "Schedule a Consultation";
+  const formBody = contactContent?.form?.body ?? "Fill out the form below and we'll contact you within one business day.";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,13 +51,13 @@ export default function Contact() {
       <section className="relative py-20 md:py-28 bg-gradient-to-b from-[#5C4A3A] to-[#4A3C32]">
         <div className="container mx-auto px-4 text-center">
           <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-4">
-            Get In Touch
+            {heroSubtitle}
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-            Contact Us
+            {heroHeadline}
           </h1>
           <p className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto">
-            We're here to answer your questions and help you begin your journey to wellness.
+            {heroBody}
           </p>
         </div>
       </section>
@@ -130,11 +143,14 @@ export default function Contact() {
 
             {/* Contact Form */}
             <div className="bg-white rounded-3xl shadow-card p-8 md:p-10">
+              <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-2">
+                {formSubtitle}
+              </p>
               <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-                Schedule a Consultation
+                {formTitle}
               </h2>
               <p className="text-muted-foreground mb-8">
-                Fill out the form below and we'll contact you within one business day.
+                {formBody}
               </p>
 
               <form onSubmit={handleSubmit}>

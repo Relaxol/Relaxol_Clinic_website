@@ -7,7 +7,26 @@ const credentials = [
   { icon: GraduationCap, label: "Fellowship Trained" },
 ];
 
-export function DoctorSection() {
+interface DoctorContent {
+  subtitle?: string;
+  name?: string;
+  imageUrl?: string;
+  bio?: string[];
+}
+
+interface DoctorSectionProps {
+  content?: DoctorContent;
+}
+
+export function DoctorSection({ content }: DoctorSectionProps) {
+  const subtitle = content?.subtitle ?? "CLINICAL PSYCHIATRIST";
+  const name = content?.name ?? "Dr. Khanna";
+  const imageUrl = content?.imageUrl ?? doctorPortrait;
+  const bio = content?.bio ?? [
+    "Relaxol is founded by the esteemed Dr. Khanna, a leading specialist in Ketamine Therapy. Dr. Khanna and his compassionate team are dedicated to guiding you on your journey to optimal health.",
+    "Dr. Khanna is not just a psychiatrist; he's a guide for those navigating the complex landscape of mental health. With years of experience and a deep commitment to patient care, Dr. Khanna brings expertise and empathy to every consultation."
+  ];
+
   return (
     <section className="py-20 bg-cream-band">
       <div className="container mx-auto px-4">
@@ -19,8 +38,8 @@ export function DoctorSection() {
               <div className="absolute inset-0 rounded-full border-4 border-primary/20 transform scale-110" />
               <div className="w-80 h-80 md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] rounded-full overflow-hidden border-8 border-white shadow-hero">
                 <img
-                  src={doctorPortrait}
-                  alt="Dr. Khanna, Clinical Psychiatrist"
+                  src={imageUrl}
+                  alt={`${name}, Clinical Psychiatrist`}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -30,20 +49,19 @@ export function DoctorSection() {
           {/* Content Card */}
           <div className="bg-white rounded-3xl shadow-card p-8 md:p-12">
             <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
-              CLINICAL PSYCHIATRIST
+              {subtitle}
             </p>
             <h2 className="text-3xl md:text-4xl text-foreground font-bold mb-6">
-              Dr. Khanna
+              {name}
             </h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Relaxol is founded by the esteemed Dr. Khanna, a leading specialist in Ketamine Therapy. Dr. Khanna and his compassionate team are dedicated to guiding you on your journey to optimal health.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-8">
-              Dr. Khanna is not just a psychiatrist; he's a guide for those navigating the complex landscape of mental health. With years of experience and a deep commitment to patient care, Dr. Khanna brings expertise and empathy to every consultation.
-            </p>
+            {bio.map((paragraph, index) => (
+              <p key={index} className="text-muted-foreground leading-relaxed mb-4">
+                {paragraph}
+              </p>
+            ))}
 
             {/* Credentials */}
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 mt-4">
               {credentials.map((cred, index) => (
                 <div
                   key={index}
