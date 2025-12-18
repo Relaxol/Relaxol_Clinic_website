@@ -359,6 +359,7 @@ export type Database = {
       pages: {
         Row: {
           canonical_url: string | null
+          content_json: Json | null
           created_at: string
           created_by: string | null
           hero_headline: string | null
@@ -382,6 +383,7 @@ export type Database = {
         }
         Insert: {
           canonical_url?: string | null
+          content_json?: Json | null
           created_at?: string
           created_by?: string | null
           hero_headline?: string | null
@@ -405,6 +407,7 @@ export type Database = {
         }
         Update: {
           canonical_url?: string | null
+          content_json?: Json | null
           created_at?: string
           created_by?: string | null
           hero_headline?: string | null
