@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, Send, Clock, Eye, ArrowLeft } from 'lucide-react';
+import { Loader2, Save, Send, Clock, Eye, ArrowLeft, ExternalLink } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import PostPreview from '@/components/admin/PostPreview';
 
@@ -290,13 +290,23 @@ const PostEditor = () => {
               </Button>
             )}
             {form.status === 'published' && (
-              <Button 
-                variant="secondary"
-                onClick={() => handleSave('draft')} 
-                disabled={saving}
-              >
-                Unpublish
-              </Button>
+              <>
+                <Button 
+                  variant="secondary"
+                  onClick={() => handleSave('draft')} 
+                  disabled={saving}
+                >
+                  Unpublish
+                </Button>
+                {form.slug && (
+                  <a href={`/blog/${form.slug}`} target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline" className="gap-2">
+                      <ExternalLink className="h-4 w-4" />
+                      View Live
+                    </Button>
+                  </a>
+                )}
+              </>
             )}
           </div>
         )}
