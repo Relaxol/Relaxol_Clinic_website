@@ -54,15 +54,15 @@ const App = () => (
           <AccessibilityWidget />
           <ScrollToTop />
           <Routes>
-            {/* Public routes - Dynamic CMS rendering with fallbacks */}
-            <Route path="/" element={<DynamicPage slug="home" fallback={Home} />} />
-            <Route path="/spravato-Englewood" element={<DynamicPage slug="spravato-Englewood" fallback={Spravato} />} />
-            <Route path="/ketamine" element={<DynamicPage slug="ketamine" fallback={Ketamine} />} />
+            {/* Public routes - Hardcoded pages with custom designs */}
+            <Route path="/" element={<Home />} />
+            <Route path="/spravato-Englewood" element={<Spravato />} />
+            <Route path="/ketamine" element={<Ketamine />} />
             <Route path="/vitamin-infusion-englewood" element={<VitaminInfusions />} />
-            <Route path="/faq" element={<DynamicPage slug="faq" fallback={FAQPage} />} />
+            <Route path="/faq" element={<FAQPage />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/contact" element={<DynamicPage slug="contact" fallback={Contact} />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/conditions/depression" element={<Depression />} />
@@ -71,7 +71,7 @@ const App = () => (
             <Route path="/conditions/ocd" element={<OCD />} />
             <Route path="/conditions/pain-management" element={<PainManagement />} />
             
-            {/* Dynamic CMS pages */}
+            {/* Dynamic CMS pages - for NEW pages created via admin */}
             <Route path="/p/:slug" element={<DynamicPage />} />
             
             {/* Admin routes */}
