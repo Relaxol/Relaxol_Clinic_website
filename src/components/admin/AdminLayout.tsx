@@ -16,8 +16,10 @@ import {
   Menu,
   X,
   Lock,
-  Eye
+  Eye,
+  Globe
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 
@@ -160,6 +162,17 @@ const AdminLayout = () => {
                 </Badge>
               </>
             )}
+
+            <Link to="/" target="_blank">
+              <Button
+                variant="outline"
+                size="sm"
+                className="gap-2"
+              >
+                <Globe className="h-4 w-4" />
+                <span className="hidden sm:inline">View Website</span>
+              </Button>
+            </Link>
 
             <Button
               variant={previewMode ? "default" : "outline"}
