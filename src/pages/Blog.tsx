@@ -1,52 +1,68 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { Calendar, User, ArrowRight } from "lucide-react";
+import { Calendar, User, ArrowRight, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { format } from "date-fns";
 
-const samplePosts = [
-  {
-    id: 1,
-    title: "Understanding Ketamine Therapy: A Breakthrough Treatment for Depression",
-    excerpt: "Discover how ketamine therapy is revolutionizing the treatment of treatment-resistant depression and providing hope for millions of patients who haven't found relief with traditional medications.",
-    author: "Dr. Sangeet Khanna",
-    date: "December 15, 2025",
-    category: "Ketamine Therapy",
-    image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&h=500&fit=crop",
-    slug: "understanding-ketamine-therapy"
-  },
-  {
-    id: 2,
-    title: "SPRAVATO® vs Traditional Antidepressants: What You Need to Know",
-    excerpt: "Learn about the key differences between SPRAVATO® (esketamine) and traditional antidepressants, including how they work, effectiveness, and what to expect during treatment.",
-    author: "Dr. Sangeet Khanna",
-    date: "December 10, 2025",
-    category: "SPRAVATO®",
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=500&fit=crop",
-    slug: "spravato-vs-traditional-antidepressants"
-  },
-  {
-    id: 3,
-    title: "The Science Behind IV Vitamin Infusions for Wellness",
-    excerpt: "Explore the scientific evidence supporting IV vitamin infusions and how they can boost energy, immunity, and overall wellness more effectively than oral supplements.",
-    author: "Relaxol Clinical Team",
-    date: "December 5, 2025",
-    category: "Vitamin Infusions",
-    image: "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=800&h=500&fit=crop",
-    slug: "science-behind-iv-vitamin-infusions"
-  },
-  {
-    id: 4,
-    title: "Managing Anxiety: Combining Therapy with Modern Treatments",
-    excerpt: "A comprehensive guide to managing anxiety disorders through a combination of traditional therapy approaches and innovative treatments like ketamine-assisted therapy.",
-    author: "Dr. Sangeet Khanna",
-    date: "November 28, 2025",
-    category: "Mental Health",
-    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&h=500&fit=crop",
-    slug: "managing-anxiety-modern-treatments"
-  }
-];
+interface BlogPost {
+  id: string;
+  title: string;
+  excerpt: string | null;
+  slug: string;
+  hero_image: string | null;
+  published_at: string | null;
+  category: {
+    name: string;
+  } | null;
+  author: {
+    name: string;
+  } | null;
+}
 
 const Blog = () => {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const { data, error } = await supabase
+        .from("blog_posts")
+        .select(`
+          id,
+          title,
+          excerpt,
+          slug,
+          hero_image,
+          published_at,
+          category:categories(name),
+          author:authors(name)
+        `)
+        .eq("status", "published")
+        .lte("published_at", new Date().toISOString())
+        .order("published_at", { ascending: false });
+
+      if (error) {
+        console.error("Error fetching blog posts:", error);
+      } else {
+        setPosts(data || []);
+      }
+      setLoading(false);
+    };
+
+    fetchPosts();
+  }, []);
+
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return "";
+    return format(new Date(dateString), "MMMM d, yyyy");
+  };
+
+  const getImageUrl = (image: string | null) => {
+    return image || "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&h=500&fit=crop";
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -70,85 +86,121 @@ const Blog = () => {
       {/* Blog Grid */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          {/* Featured Post */}
-          <div className="mb-16">
-            <div className="grid md:grid-cols-2 gap-8 items-center bg-card rounded-2xl overflow-hidden shadow-lg">
-              <div className="aspect-[16/10] md:aspect-auto md:h-full">
-                <img 
-                  src={samplePosts[0].image} 
-                  alt={samplePosts[0].title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-8 md:p-12">
-                <span className="inline-block bg-[#D09B3C]/10 text-[#D09B3C] text-sm font-medium px-3 py-1 rounded-full mb-4">
-                  {samplePosts[0].category}
-                </span>
-                <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-                  {samplePosts[0].title}
-                </h2>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  {samplePosts[0].excerpt}
-                </p>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
-                  <span className="flex items-center gap-1.5">
-                    <User className="w-4 h-4" />
-                    {samplePosts[0].author}
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4" />
-                    {samplePosts[0].date}
-                  </span>
-                </div>
-                <Link 
-                  to={`/blog/${samplePosts[0].slug}`}
-                  className="inline-flex items-center gap-2 text-[#D09B3C] font-medium hover:gap-3 transition-all"
-                >
-                  Read Full Article
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
+          {loading ? (
+            <div className="flex justify-center items-center py-20">
+              <Loader2 className="w-8 h-8 animate-spin text-[#D09B3C]" />
             </div>
-          </div>
-
-          {/* Blog Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {samplePosts.slice(1).map((post) => (
-              <article 
-                key={post.id}
-                className="bg-card rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow group"
-              >
-                <div className="aspect-[16/10] overflow-hidden">
-                  <img 
-                    src={post.image} 
-                    alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-6">
-                  <span className="inline-block bg-[#D09B3C]/10 text-[#D09B3C] text-xs font-medium px-2.5 py-1 rounded-full mb-3">
-                    {post.category}
-                  </span>
-                  <h3 className="text-lg font-bold mb-3 text-foreground line-clamp-2 group-hover:text-[#D09B3C] transition-colors">
-                    {post.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground pt-4 border-t border-border">
-                    <span className="flex items-center gap-1">
-                      <User className="w-3.5 h-3.5" />
-                      {post.author}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {post.date}
-                    </span>
+          ) : posts.length === 0 ? (
+            <div className="text-center py-20">
+              <h2 className="text-2xl font-semibold text-muted-foreground mb-4">
+                No blog posts yet
+              </h2>
+              <p className="text-muted-foreground">
+                Check back soon for new articles and insights.
+              </p>
+            </div>
+          ) : (
+            <>
+              {/* Featured Post */}
+              <div className="mb-16">
+                <div className="grid md:grid-cols-2 gap-8 items-center bg-card rounded-2xl overflow-hidden shadow-lg">
+                  <div className="aspect-[16/10] md:aspect-auto md:h-full">
+                    <img 
+                      src={getImageUrl(posts[0].hero_image)} 
+                      alt={posts[0].title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="p-8 md:p-12">
+                    {posts[0].category && (
+                      <span className="inline-block bg-[#D09B3C]/10 text-[#D09B3C] text-sm font-medium px-3 py-1 rounded-full mb-4">
+                        {posts[0].category.name}
+                      </span>
+                    )}
+                    <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
+                      {posts[0].title}
+                    </h2>
+                    <p className="text-muted-foreground mb-6 leading-relaxed">
+                      {posts[0].excerpt || "Read more about this topic..."}
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
+                      {posts[0].author && (
+                        <span className="flex items-center gap-1.5">
+                          <User className="w-4 h-4" />
+                          {posts[0].author.name}
+                        </span>
+                      )}
+                      <span className="flex items-center gap-1.5">
+                        <Calendar className="w-4 h-4" />
+                        {formatDate(posts[0].published_at)}
+                      </span>
+                    </div>
+                    <Link 
+                      to={`/blog/${posts[0].slug}`}
+                      className="inline-flex items-center gap-2 text-[#D09B3C] font-medium hover:gap-3 transition-all"
+                    >
+                      Read Full Article
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
                   </div>
                 </div>
-              </article>
-            ))}
-          </div>
+              </div>
+
+              {/* Blog Grid */}
+              {posts.length > 1 && (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {posts.slice(1).map((post) => (
+                    <article 
+                      key={post.id}
+                      className="bg-card rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow group"
+                    >
+                      <div className="aspect-[16/10] overflow-hidden">
+                        <img 
+                          src={getImageUrl(post.hero_image)} 
+                          alt={post.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      <div className="p-6">
+                        {post.category && (
+                          <span className="inline-block bg-[#D09B3C]/10 text-[#D09B3C] text-xs font-medium px-2.5 py-1 rounded-full mb-3">
+                            {post.category.name}
+                          </span>
+                        )}
+                        <h3 className="text-lg font-bold mb-3 text-foreground line-clamp-2 group-hover:text-[#D09B3C] transition-colors">
+                          {post.title}
+                        </h3>
+                        <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                          {post.excerpt || "Read more..."}
+                        </p>
+                        <div className="flex items-center justify-between text-xs text-muted-foreground pt-4 border-t border-border">
+                          {post.author && (
+                            <span className="flex items-center gap-1">
+                              <User className="w-3.5 h-3.5" />
+                              {post.author.name}
+                            </span>
+                          )}
+                          <span className="flex items-center gap-1">
+                            <Calendar className="w-3.5 h-3.5" />
+                            {formatDate(post.published_at)}
+                          </span>
+                        </div>
+                      </div>
+                      <Link 
+                        to={`/blog/${post.slug}`}
+                        className="block px-6 pb-6"
+                      >
+                        <span className="inline-flex items-center gap-2 text-[#D09B3C] text-sm font-medium hover:gap-3 transition-all">
+                          Read Article
+                          <ArrowRight className="w-4 h-4" />
+                        </span>
+                      </Link>
+                    </article>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
 
           {/* Newsletter CTA */}
           <div className="mt-16 bg-[#5C4A3A] rounded-2xl p-8 md:p-12 text-center text-white">
