@@ -46,7 +46,7 @@ interface TreatmentItem {
   description: string;
   imageUrl?: string;
   ctaLabel?: string;
-  href: string;
+  href?: string;
 }
 
 interface TreatmentsContent {
@@ -76,7 +76,7 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
     description: item.description,
     image: item.imageUrl || defaultTreatments[index]?.image || treatmentSpravato,
     cta: item.ctaLabel || "Learn More",
-    href: item.href,
+    href: item.href || defaultTreatments[index]?.href || "#contact",
   })) ?? defaultTreatments;
 
   useEffect(() => {
