@@ -533,6 +533,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      add_admin_by_email: {
+        Args: { _email: string; _tenant_id: string }
+        Returns: undefined
+      }
       can_edit_tenant: {
         Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
