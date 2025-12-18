@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Edit } from 'lucide-react';
-import { useOutletContext } from 'react-router-dom';
 
 interface Section {
   sectionId: string;
@@ -27,21 +26,34 @@ interface PagePreviewProps {
     seo_description: string;
   };
   onSectionEdit?: (sectionId: string) => void;
+  previewMode?: boolean;
+  highlightedSectionId?: string | null;
 }
 
-const PagePreview: React.FC<PagePreviewProps> = ({ page, onSectionEdit }) => {
-  const context = useOutletContext<{ previewMode?: boolean }>();
-  const showOverlays = context?.previewMode;
+const PagePreview: React.FC<PagePreviewProps> = ({ 
+  page, 
+  onSectionEdit, 
+  previewMode = true,
+  highlightedSectionId 
+}) => {
+  const showOverlays = previewMode && !!onSectionEdit;
+  const highlightedRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (highlightedSectionId && highlightedRef.current) {
+      highlightedRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [highlightedSectionId]);
 
   const EditOverlay = ({ sectionId, label }: { sectionId: string; label: string }) => {
-    if (!showOverlays || !onSectionEdit) return null;
+    if (!showOverlays) return null;
     
     return (
       <Button
         size="sm"
         variant="secondary"
         className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10"
-        onClick={() => onSectionEdit(sectionId)}
+        onClick={() => onSectionEdit?.(sectionId)}
       >
         <Edit className="h-3 w-3 mr-1" />
         {label}
@@ -49,14 +61,21 @@ const PagePreview: React.FC<PagePreviewProps> = ({ page, onSectionEdit }) => {
     );
   };
 
+  const isHighlighted = (sectionId: string) => highlightedSectionId === sectionId;
+
   const renderSection = (section: Section) => {
+    const highlighted = isHighlighted(section.sectionId);
+    const highlightClass = highlighted ? 'ring-2 ring-primary ring-offset-2 animate-pulse' : '';
+
     switch (section.type) {
       case 'text':
         return (
           <div 
             key={section.sectionId}
+            ref={highlighted ? highlightedRef : undefined}
             data-section-id={section.sectionId}
-            className="relative group py-12 px-6"
+            data-section-type={section.type}
+            className={`relative group py-12 px-6 ${highlightClass}`}
           >
             <EditOverlay sectionId={section.sectionId} label="Edit section" />
             <div className="max-w-3xl mx-auto">
@@ -75,8 +94,10 @@ const PagePreview: React.FC<PagePreviewProps> = ({ page, onSectionEdit }) => {
         return (
           <div 
             key={section.sectionId}
+            ref={highlighted ? highlightedRef : undefined}
             data-section-id={section.sectionId}
-            className="relative group py-12 px-6"
+            data-section-type={section.type}
+            className={`relative group py-12 px-6 ${highlightClass}`}
           >
             <EditOverlay sectionId={section.sectionId} label="Edit section" />
             <div className={`max-w-5xl mx-auto flex flex-col ${section.type === 'imageRight' ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 items-center`}>
@@ -109,8 +130,10 @@ const PagePreview: React.FC<PagePreviewProps> = ({ page, onSectionEdit }) => {
         return (
           <div 
             key={section.sectionId}
+            ref={highlighted ? highlightedRef : undefined}
             data-section-id={section.sectionId}
-            className="relative group py-12 px-6 bg-muted/30"
+            data-section-type={section.type}
+            className={`relative group py-12 px-6 bg-muted/30 ${highlightClass}`}
           >
             <EditOverlay sectionId={section.sectionId} label="Edit section" />
             <div className="max-w-3xl mx-auto">
@@ -134,8 +157,10 @@ const PagePreview: React.FC<PagePreviewProps> = ({ page, onSectionEdit }) => {
         return (
           <div 
             key={section.sectionId}
+            ref={highlighted ? highlightedRef : undefined}
             data-section-id={section.sectionId}
-            className="relative group py-16 px-6 bg-primary text-primary-foreground"
+            data-section-type={section.type}
+            className={`relative group py-16 px-6 bg-primary text-primary-foreground ${highlightClass}`}
           >
             <EditOverlay sectionId={section.sectionId} label="Edit section" />
             <div className="max-w-3xl mx-auto text-center">
@@ -162,8 +187,10 @@ const PagePreview: React.FC<PagePreviewProps> = ({ page, onSectionEdit }) => {
         return (
           <div 
             key={section.sectionId}
+            ref={highlighted ? highlightedRef : undefined}
             data-section-id={section.sectionId}
-            className="relative group py-12 px-6 bg-muted/50"
+            data-section-type={section.type}
+            className={`relative group py-12 px-6 bg-muted/50 ${highlightClass}`}
           >
             <EditOverlay sectionId={section.sectionId} label="Edit section" />
             <div className="max-w-5xl mx-auto">
@@ -205,7 +232,11 @@ const PagePreview: React.FC<PagePreviewProps> = ({ page, onSectionEdit }) => {
       </div>
 
       {/* Hero Section */}
-      <div className="relative group bg-gradient-to-br from-primary/10 to-primary/5 py-20 px-6">
+      <div 
+        className={`relative group bg-gradient-to-br from-primary/10 to-primary/5 py-20 px-6 ${isHighlighted('hero') ? 'ring-2 ring-primary ring-offset-2 animate-pulse' : ''}`}
+        data-section-id="hero"
+        data-section-type="hero"
+      >
         <EditOverlay sectionId="hero" label="Edit hero" />
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
