@@ -246,3 +246,33 @@
     }
   }
 }
+
+/* Accessibility Styles */
+.high-contrast {
+  filter: contrast(1.25);
+}
+
+.high-contrast * {
+  border-color: currentColor !important;
+}
+
+.grayscale-mode {
+  filter: grayscale(100%);
+}
+
+.highlight-links a {
+  background-color: #ffff00 !important;
+  color: #000000 !important;
+  text-decoration: underline !important;
+  padding: 2px 4px;
+}
+
+.large-text {
+  font-size: 120% !important;
+}
+
+.large-text p,
+.large-text span,
+.large-text li {
+  line-height: 1.8 !important;
+}
