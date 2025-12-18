@@ -223,6 +223,50 @@ export type Database = {
           },
         ]
       }
+      invites: {
+        Row: {
+          accepted_at: string | null
+          created_at: string
+          created_by: string
+          email: string
+          expires_at: string
+          id: string
+          role: string
+          tenant_id: string
+          token: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          created_at?: string
+          created_by: string
+          email: string
+          expires_at: string
+          id?: string
+          role: string
+          tenant_id: string
+          token: string
+        }
+        Update: {
+          accepted_at?: string | null
+          created_at?: string
+          created_by?: string
+          email?: string
+          expires_at?: string
+          id?: string
+          role?: string
+          tenant_id?: string
+          token?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invites_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       licenses: {
         Row: {
           created_at: string
