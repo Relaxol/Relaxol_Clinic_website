@@ -132,9 +132,11 @@ export function Header() {
 
           {/* CTA Button */}
           <div className="hidden lg:flex items-center gap-3">
-            <Button className="btn-nav bg-[#D09B3C] text-white hover:bg-[#C48A25]">
-              Schedule Consultation
-            </Button>
+            <Link to="/contact">
+              <Button className="btn-nav bg-[#D09B3C] text-white hover:bg-[#C48A25]">
+                Schedule Consultation
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -198,9 +200,11 @@ export function Header() {
                 )
               ))}
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
-                <Button className="w-full bg-[#D09B3C] text-white hover:bg-[#C48A25]">
-                  Schedule Consultation
-                </Button>
+                <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
+                  <Button className="w-full bg-[#D09B3C] text-white hover:bg-[#C48A25]">
+                    Schedule Consultation
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
