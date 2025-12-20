@@ -20,6 +20,16 @@ import { Loader2, Save, Send, Eye, ArrowLeft, Plus, Trash2, GripVertical, Chevro
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import PagePreview from '@/components/admin/PagePreview';
 import SectionEditorDrawer, { validateSection } from '@/components/admin/SectionEditorDrawer';
 import TemplateFormEditor from '@/components/admin/TemplateFormEditor';
@@ -361,7 +371,48 @@ const PageEditor = () => {
     return errors;
   };
 
-  const handleSave = async (newStatus?: string) => {
+  // Validate template content for empty items arrays
+  const validateTemplateContent = (): { sectionName: string; warning: string }[] => {
+    const warnings: { sectionName: string; warning: string }[] = [];
+    
+    if (!form.content_json || !isTemplatePage) return warnings;
+    
+    const content = form.content_json as unknown as Record<string, unknown>;
+    
+    // Check common section patterns that have items arrays
+    const sectionsToCheck = [
+      { key: 'treatments', label: 'Treatments' },
+      { key: 'conditions', label: 'Conditions' },
+      { key: 'testimonials', label: 'Testimonials' },
+      { key: 'timeline', label: 'Timeline' },
+      { key: 'faq', label: 'FAQ' },
+      { key: 'features', label: 'Features' },
+      { key: 'benefits', label: 'Benefits' },
+      { key: 'stats', label: 'Statistics' },
+    ];
+    
+    sectionsToCheck.forEach(({ key, label }) => {
+      const section = content[key] as Record<string, unknown> | undefined;
+      if (section && 'items' in section) {
+        const items = section.items as unknown[];
+        if (Array.isArray(items) && items.length === 0) {
+          warnings.push({
+            sectionName: label,
+            warning: `${label} section has no items. Default content will be shown on the website.`
+          });
+        }
+      }
+    });
+    
+    return warnings;
+  };
+
+  const [emptyItemsWarnings, setEmptyItemsWarnings] = useState<{ sectionName: string; warning: string }[]>([]);
+
+  const [showEmptyItemsDialog, setShowEmptyItemsDialog] = useState(false);
+  const [pendingSaveStatus, setPendingSaveStatus] = useState<string | undefined>(undefined);
+
+  const handleSave = async (newStatus?: string, bypassWarnings = false) => {
     if (!canEdit) return;
     
     if (!form.title || !form.slug) {
@@ -371,6 +422,17 @@ const PageEditor = () => {
         variant: 'destructive'
       });
       return;
+    }
+
+    // Check for empty items warnings on template pages
+    if (isTemplatePage && !bypassWarnings) {
+      const warnings = validateTemplateContent();
+      if (warnings.length > 0) {
+        setEmptyItemsWarnings(warnings);
+        setPendingSaveStatus(newStatus);
+        setShowEmptyItemsDialog(true);
+        return;
+      }
     }
 
     // Validate before publish (only for non-template pages)
@@ -388,6 +450,7 @@ const PageEditor = () => {
     }
 
     setValidationErrors([]);
+    setEmptyItemsWarnings([]);
     setSaving(true);
 
     try {
@@ -1019,6 +1082,46 @@ const PageEditor = () => {
           </AlertDescription>
         </Alert>
       )}
+
+      {/* Empty Items Warning Dialog */}
+      <AlertDialog open={showEmptyItemsDialog} onOpenChange={setShowEmptyItemsDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <AlertCircle className="h-5 w-5 text-amber-500" />
+              Empty Sections Detected
+            </AlertDialogTitle>
+            <AlertDialogDescription asChild>
+              <div className="space-y-3">
+                <p>The following sections have no items and will show default content on the website:</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  {emptyItemsWarnings.map((warning, index) => (
+                    <li key={index} className="text-muted-foreground">
+                      <span className="font-medium text-foreground">{warning.sectionName}</span>: No items configured
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-sm">Do you want to save anyway?</p>
+              </div>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => {
+              setShowEmptyItemsDialog(false);
+              setPendingSaveStatus(undefined);
+            }}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={() => {
+              setShowEmptyItemsDialog(false);
+              handleSave(pendingSaveStatus, true);
+              setPendingSaveStatus(undefined);
+            }}>
+              Save Anyway
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
