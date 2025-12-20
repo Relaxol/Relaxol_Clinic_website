@@ -356,6 +356,41 @@ export type Database = {
           },
         ]
       }
+      page_content_history: {
+        Row: {
+          content_json: Json
+          id: string
+          page_id: string
+          saved_at: string
+          saved_by: string | null
+          version_note: string | null
+        }
+        Insert: {
+          content_json: Json
+          id?: string
+          page_id: string
+          saved_at?: string
+          saved_by?: string | null
+          version_note?: string | null
+        }
+        Update: {
+          content_json?: Json
+          id?: string
+          page_id?: string
+          saved_at?: string
+          saved_by?: string | null
+          version_note?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "page_content_history_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       pages: {
         Row: {
           canonical_url: string | null

@@ -125,6 +125,9 @@ const PageEditor = () => {
   const [validationErrors, setValidationErrors] = useState<ValidationError[]>([]);
   const [previewModeEnabled, setPreviewModeEnabled] = useState(true);
   
+  // Store original content for comparison (to detect item removal)
+  const [originalContentJson, setOriginalContentJson] = useState<TemplateContent | null>(null);
+  
   const [form, setForm] = useState<PageForm>({
     title: '',
     slug: '',
@@ -246,6 +249,9 @@ const PageEditor = () => {
         og_description: (rawData.og_description as string) || '',
         og_image_url: (rawData.og_image_url as string) || ''
       });
+
+      // Store original content for comparison (detect item removal)
+      setOriginalContentJson(normalizedContentJson);
 
       // Auto-save if we generated missing sectionIds
       if (needsUpdate && canEdit) {
@@ -408,11 +414,72 @@ const PageEditor = () => {
   };
 
   const [emptyItemsWarnings, setEmptyItemsWarnings] = useState<{ sectionName: string; warning: string }[]>([]);
+  const [removedItemsWarnings, setRemovedItemsWarnings] = useState<{ sectionName: string; originalCount: number; newCount: number }[]>([]);
 
   const [showEmptyItemsDialog, setShowEmptyItemsDialog] = useState(false);
+  const [showRemovedItemsDialog, setShowRemovedItemsDialog] = useState(false);
   const [pendingSaveStatus, setPendingSaveStatus] = useState<string | undefined>(undefined);
 
-  const handleSave = async (newStatus?: string, bypassWarnings = false) => {
+  // Detect sections where items were removed
+  const detectRemovedItems = (): { sectionName: string; originalCount: number; newCount: number }[] => {
+    const warnings: { sectionName: string; originalCount: number; newCount: number }[] = [];
+    
+    if (!form.content_json || !originalContentJson || !isTemplatePage) return warnings;
+    
+    const currentContent = form.content_json as unknown as Record<string, unknown>;
+    const originalContent = originalContentJson as unknown as Record<string, unknown>;
+    
+    const sectionsToCheck = [
+      { key: 'treatments', label: 'Treatments' },
+      { key: 'conditions', label: 'Conditions' },
+      { key: 'testimonials', label: 'Testimonials' },
+      { key: 'timeline', label: 'Timeline' },
+      { key: 'faq', label: 'FAQ' },
+    ];
+    
+    sectionsToCheck.forEach(({ key, label }) => {
+      const currentSection = currentContent[key] as Record<string, unknown> | undefined;
+      const originalSection = originalContent[key] as Record<string, unknown> | undefined;
+      
+      if (currentSection && originalSection && 'items' in currentSection && 'items' in originalSection) {
+        const currentItems = currentSection.items as unknown[];
+        const originalItems = originalSection.items as unknown[];
+        
+        if (Array.isArray(currentItems) && Array.isArray(originalItems)) {
+          if (currentItems.length < originalItems.length) {
+            warnings.push({
+              sectionName: label,
+              originalCount: originalItems.length,
+              newCount: currentItems.length
+            });
+          }
+        }
+      }
+    });
+    
+    return warnings;
+  };
+
+  // Save content history before updating
+  const saveContentHistory = async (pageId: string, contentJson: TemplateContent | null) => {
+    if (!contentJson) return;
+    
+    try {
+      await supabase
+        .from('page_content_history')
+        .insert({
+          page_id: pageId,
+          content_json: contentJson as unknown as any,
+          saved_by: user?.id,
+          version_note: 'Auto-backup before save'
+        });
+    } catch (error) {
+      console.error('Failed to save content history:', error);
+      // Don't block the save operation
+    }
+  };
+
+  const handleSave = async (newStatus?: string, bypassWarnings = false, bypassRemovedWarnings = false) => {
     if (!canEdit) return;
     
     if (!form.title || !form.slug) {
@@ -422,6 +489,17 @@ const PageEditor = () => {
         variant: 'destructive'
       });
       return;
+    }
+
+    // Check for removed items warnings on template pages (before empty check)
+    if (isTemplatePage && !bypassRemovedWarnings) {
+      const removedWarnings = detectRemovedItems();
+      if (removedWarnings.length > 0) {
+        setRemovedItemsWarnings(removedWarnings);
+        setPendingSaveStatus(newStatus);
+        setShowRemovedItemsDialog(true);
+        return;
+      }
     }
 
     // Check for empty items warnings on template pages
@@ -451,9 +529,15 @@ const PageEditor = () => {
 
     setValidationErrors([]);
     setEmptyItemsWarnings([]);
+    setRemovedItemsWarnings([]);
     setSaving(true);
 
     try {
+      // Save content history before updating (for existing pages with template content)
+      if (!isNew && isTemplatePage && originalContentJson) {
+        await saveContentHistory(id as string, originalContentJson);
+      }
+
       const pageData = {
         tenant_id: membership!.tenantId,
         title: form.title,
@@ -496,6 +580,8 @@ const PageEditor = () => {
         if (error) throw error;
 
         toast({ title: 'Page saved successfully' });
+        // Update original content reference after successful save
+        setOriginalContentJson(form.content_json);
         if (newStatus) {
           setForm(prev => ({ ...prev, status: newStatus }));
         }
@@ -1083,6 +1169,45 @@ const PageEditor = () => {
         </Alert>
       )}
 
+      {/* Removed Items Warning Dialog */}
+      <AlertDialog open={showRemovedItemsDialog} onOpenChange={setShowRemovedItemsDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <AlertCircle className="h-5 w-5 text-destructive" />
+              Content Will Be Removed
+            </AlertDialogTitle>
+            <AlertDialogDescription asChild>
+              <div className="space-y-3">
+                <p>The following sections have fewer items than before:</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  {removedItemsWarnings.map((warning, index) => (
+                    <li key={index} className="text-muted-foreground">
+                      <span className="font-medium text-foreground">{warning.sectionName}</span>: {warning.originalCount} → {warning.newCount} items
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-sm font-medium">A backup will be saved automatically. Continue?</p>
+              </div>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => {
+              setShowRemovedItemsDialog(false);
+              setPendingSaveStatus(undefined);
+            }}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={() => {
+              setShowRemovedItemsDialog(false);
+              handleSave(pendingSaveStatus, false, true);
+            }}>
+              Save with Backup
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       {/* Empty Items Warning Dialog */}
       <AlertDialog open={showEmptyItemsDialog} onOpenChange={setShowEmptyItemsDialog}>
         <AlertDialogContent>
@@ -1114,7 +1239,7 @@ const PageEditor = () => {
             </AlertDialogCancel>
             <AlertDialogAction onClick={() => {
               setShowEmptyItemsDialog(false);
-              handleSave(pendingSaveStatus, true);
+              handleSave(pendingSaveStatus, true, true);
               setPendingSaveStatus(undefined);
             }}>
               Save Anyway
