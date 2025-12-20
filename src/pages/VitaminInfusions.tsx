@@ -303,7 +303,7 @@ const VitaminInfusions = () => {
                       {infusion.description}
                     </p>
                     <Button 
-                      className="bg-[#8B7355] hover:bg-[#7A6548] text-white mt-auto"
+                      className="bg-accent hover:bg-accent/90 text-accent-foreground mt-auto shadow-glow"
                       onClick={() => setSelectedInfusion(infusion)}
                     >
                       Learn more
