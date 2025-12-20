@@ -5,7 +5,18 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { ChevronDown, ChevronUp, Plus, Trash2 } from 'lucide-react';
+import { ChevronDown, ChevronUp, Plus, Trash2, RotateCcw } from 'lucide-react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 import {
   TemplateType,
   TemplateContent,
@@ -15,6 +26,16 @@ import {
   ContactV1Content,
   FAQV1Content,
 } from '@/lib/templates/schemas';
+import {
+  defaultTreatmentItems,
+  defaultConditionItems,
+  defaultTestimonialItems,
+  defaultTimelineItems,
+  defaultFaqItems,
+  defaultStatItems,
+  defaultBenefitItems,
+  defaultServiceItems,
+} from '@/lib/templates/defaultItems';
 
 interface TemplateFormEditorProps {
   template: TemplateType;
@@ -114,7 +135,7 @@ function TextAreaField({
   );
 }
 
-// Repeater for items
+// Repeater for items with optional reset to defaults
 function ItemRepeater<T extends object>({
   label,
   items,
@@ -122,6 +143,7 @@ function ItemRepeater<T extends object>({
   renderItem,
   createItem,
   disabled,
+  defaultItems,
 }: {
   label: string;
   items: T[];
@@ -129,6 +151,7 @@ function ItemRepeater<T extends object>({
   renderItem: (item: T, index: number, updateItem: (updates: Partial<T>) => void) => React.ReactNode;
   createItem: () => T;
   disabled?: boolean;
+  defaultItems?: T[];
 }) {
   const addItem = () => {
     onChange([...items, createItem()]);
@@ -143,13 +166,54 @@ function ItemRepeater<T extends object>({
     onChange(items.filter((_, i) => i !== index));
   };
 
+  const resetToDefaults = () => {
+    if (defaultItems) {
+      onChange(defaultItems);
+    }
+  };
+
+  const isEmpty = items.length === 0;
+
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <Label className="text-base font-semibold">{label}</Label>
-        <Button type="button" variant="outline" size="sm" onClick={addItem} disabled={disabled}>
-          <Plus className="h-4 w-4 mr-1" /> Add
-        </Button>
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <Label className="text-base font-semibold">{label}</Label>
+          {isEmpty && (
+            <span className="text-xs text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">
+              Empty - defaults will show
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          {defaultItems && (
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button type="button" variant="outline" size="sm" disabled={disabled}>
+                  <RotateCcw className="h-4 w-4 mr-1" /> Reset to Defaults
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Reset to Default Content?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This will replace all current {label.toLowerCase()} with the default content. 
+                    This action cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={resetToDefaults}>
+                    Reset to Defaults
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
+          <Button type="button" variant="outline" size="sm" onClick={addItem} disabled={disabled}>
+            <Plus className="h-4 w-4 mr-1" /> Add
+          </Button>
+        </div>
       </div>
       <div className="space-y-4">
         {items.map((item, index) => (
@@ -321,6 +385,7 @@ function HomeTemplateEditor({
           items={content.treatments.items}
           onChange={(items) => update('treatments', { ...content.treatments, items })}
           disabled={disabled}
+          defaultItems={defaultTreatmentItems}
           createItem={() => ({ title: '', description: '', tag: '', imageUrl: '', ctaLabel: 'Learn More', href: '' })}
           renderItem={(item, _, updateItem) => (
             <>
@@ -388,6 +453,7 @@ function HomeTemplateEditor({
           items={content.conditions.items}
           onChange={(items) => update('conditions', { ...content.conditions, items })}
           disabled={disabled}
+          defaultItems={defaultConditionItems}
           createItem={() => ({ title: '', description: '', imageUrl: '', href: '' })}
           renderItem={(item, _, updateItem) => (
             <>
@@ -419,6 +485,7 @@ function HomeTemplateEditor({
           items={content.testimonials.items}
           onChange={(items) => update('testimonials', { ...content.testimonials, items })}
           disabled={disabled}
+          defaultItems={defaultTestimonialItems}
           createItem={() => ({ quote: '', author: '', role: '', rating: 5 })}
           renderItem={(item, _, updateItem) => (
             <>
@@ -457,6 +524,7 @@ function HomeTemplateEditor({
           items={content.timeline.items}
           onChange={(items) => update('timeline', { ...content.timeline, items })}
           disabled={disabled}
+          defaultItems={defaultTimelineItems}
           createItem={() => ({ step: String((content.timeline.items.length || 0) + 1), title: '', description: '' })}
           renderItem={(item, _, updateItem) => (
             <>
@@ -481,6 +549,7 @@ function HomeTemplateEditor({
           items={content.faq.items}
           onChange={(items) => update('faq', { ...content.faq, items })}
           disabled={disabled}
+          defaultItems={defaultFaqItems}
           createItem={() => ({ question: '', answer: '' })}
           renderItem={(item, _, updateItem) => (
             <>
@@ -574,6 +643,7 @@ function KetamineTemplateEditor({
           items={content.stats.items}
           onChange={(items) => update('stats', { ...content.stats, items })}
           disabled={disabled}
+          defaultItems={defaultStatItems}
           createItem={() => ({ value: '', label: '' })}
           renderItem={(item, _, updateItem) => (
             <div className="grid grid-cols-2 gap-4">
@@ -625,6 +695,7 @@ function KetamineTemplateEditor({
           items={content.services.items}
           onChange={(items) => update('services', { ...content.services, items })}
           disabled={disabled}
+          defaultItems={defaultServiceItems}
           createItem={() => ({ title: '', description: '', imageUrl: '' })}
           renderItem={(item, _, updateItem) => (
             <>
@@ -723,6 +794,7 @@ function KetamineTemplateEditor({
           items={content.faq.items}
           onChange={(items) => update('faq', { ...content.faq, items })}
           disabled={disabled}
+          defaultItems={defaultFaqItems}
           createItem={() => ({ question: '', answer: '' })}
           renderItem={(item, _, updateItem) => (
             <>
@@ -1060,6 +1132,7 @@ function SpravatoTemplateEditor({
           items={content.benefits.items}
           onChange={(items) => update('benefits', { ...content.benefits, items })}
           disabled={disabled}
+          defaultItems={defaultBenefitItems}
           createItem={() => ({ title: '', description: '', icon: '' })}
           renderItem={(item, _, updateItem) => (
             <>
@@ -1119,6 +1192,7 @@ function SpravatoTemplateEditor({
           items={content.timeline.items}
           onChange={(items) => update('timeline', { ...content.timeline, items })}
           disabled={disabled}
+          defaultItems={defaultTimelineItems}
           createItem={() => ({ step: '', title: '', description: '' })}
           renderItem={(item, _, updateItem) => (
             <>
@@ -1143,6 +1217,7 @@ function SpravatoTemplateEditor({
           items={content.faq.items}
           onChange={(items) => update('faq', { ...content.faq, items })}
           disabled={disabled}
+          defaultItems={defaultFaqItems}
           createItem={() => ({ question: '', answer: '' })}
           renderItem={(item, _, updateItem) => (
             <>
