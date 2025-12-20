@@ -70,14 +70,16 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
   const title = content?.title || "Treatment Options";
   const description = content?.description || "Evidence-based therapies designed to provide lasting relief and restore your quality of life.";
   
-  const treatments = content?.items?.map((item, index) => ({
-    title: item.title,
-    tag: item.tag ?? null,
-    description: item.description,
-    image: item.imageUrl || defaultTreatments[index]?.image || treatmentSpravato,
-    cta: item.ctaLabel || "Learn More",
-    href: item.href || defaultTreatments[index]?.href || "#contact",
-  })) ?? defaultTreatments;
+  const treatments = content?.items?.length 
+    ? content.items.map((item, index) => ({
+        title: item.title,
+        tag: item.tag ?? null,
+        description: item.description,
+        image: item.imageUrl || defaultTreatments[index]?.image || treatmentSpravato,
+        cta: item.ctaLabel || "Learn More",
+        href: item.href || defaultTreatments[index]?.href || "#contact",
+      }))
+    : defaultTreatments;
 
   useEffect(() => {
     // Header observer
