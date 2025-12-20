@@ -16,9 +16,14 @@ import serviceAnxiety from "@/assets/service-anxiety.jpg";
 import servicePtsd from "@/assets/service-ptsd.jpg";
 import servicePain from "@/assets/service-pain.jpg";
 import serviceMaintenance from "@/assets/service-maintenance.jpg";
+import conditionDepression from "@/assets/condition-depression.jpg";
+import conditionAnxiety from "@/assets/condition-anxiety.jpg";
+import conditionPtsd from "@/assets/condition-ptsd.jpg";
+import conditionOcd from "@/assets/condition-ocd.jpg";
 import { 
   ArrowRight,
-  Check
+  Check,
+  Quote
 } from "lucide-react";
 
 // Scroll helper
@@ -108,6 +113,146 @@ const safetyAccordionItems = [
     title: "Safety Considerations",
     content: "Ketamine therapy is not suitable for everyone. A thorough evaluation ensures treatment is safe and appropriate for you."
   },
+];
+
+// Conditions data with accordion items (migrated from original site)
+const conditionsData = [
+  {
+    id: "depression",
+    title: "Ketamine and Depression",
+    image: conditionDepression,
+    intro: "Ketamine has emerged as a powerful treatment for depression, particularly for those who have not found relief through conventional treatments. Its unique mechanism of action offers hope and rapid improvements for many patients.",
+    quote: "What you're going through may feel overwhelming now, but it's just one chapter of your story, not the whole book.",
+    accordionItems: [
+      {
+        id: "depression-mechanism",
+        title: "Unique Mechanism of Action",
+        content: "Unlike conventional antidepressants that primarily target the serotonin and norepinephrine systems, ketamine works on the glutamate system, the most prevalent neurotransmitter in the brain. By antagonizing the N-methyl-D-aspartate (NMDA) receptor, ketamine helps to restore normal communication between brain cells that has been disrupted by chronic stress and depression. This unique action allows for a different approach in treating depression, especially in cases where traditional antidepressants have not been effective."
+      },
+      {
+        id: "depression-rapid",
+        title: "Rapid Action",
+        content: "One of the most notable features of ketamine treatment for depression is its rapid onset of action. While traditional antidepressants can take weeks to months to show effects, ketamine can produce noticeable improvements in mood and outlook within hours to days. This rapid response is particularly crucial for patients with treatment-resistant depression who are in urgent need of relief."
+      },
+      {
+        id: "depression-neural",
+        title: "Neural Regeneration",
+        content: "Ketamine promotes the growth of new neural connections through a process known as synaptogenesis. In patients with chronic depression, there is often a decrease in synaptic connections in key areas of the brain associated with mood regulation. Ketamine's ability to stimulate the growth of these connections is thought to contribute significantly to its antidepressant effects, offering a form of neural repair that goes beyond the temporary relief provided by other treatments."
+      },
+      {
+        id: "depression-mood",
+        title: "Mood Enhancement",
+        content: "By modulating the activity of glutamate and other neurotransmitters, ketamine can lead to improvements in mood, anxiety, and overall well-being. Patients often report a sense of emotional release or breakthrough during treatment, which can be a pivotal experience in their recovery journey."
+      },
+      {
+        id: "depression-suicidal",
+        title: "Reduction of Suicidal Ideation",
+        content: "Ketamine has been shown to rapidly reduce suicidal thoughts, even in patients with treatment-resistant depression. This effect is particularly vital as it can provide critical time for other treatments to take effect and for patients to engage more fully in comprehensive care programs."
+      }
+    ]
+  },
+  {
+    id: "anxiety",
+    title: "Ketamine and Anxiety",
+    image: conditionAnxiety,
+    intro: "Ketamine therapy offers a new avenue of hope for individuals struggling with anxiety disorders, especially those who have found limited relief from traditional treatments. Its unique pharmacological properties can rapidly alleviate symptoms and offer a fresh perspective on managing anxiety.",
+    quote: "You don't have to let anxiety dictate your life. Each step you take towards understanding and managing it is a victory.",
+    accordionItems: [
+      {
+        id: "anxiety-modulation",
+        title: "Modulation of the Glutamate System",
+        content: "Ketamine's primary action is on the glutamate neurotransmitter system, the most abundant excitatory neurotransmitter in the brain. By blocking the NMDA receptors, ketamine influences glutamate activity, which plays a crucial role in mood regulation and anxiety responses. This modulation leads to rapid changes in brain chemistry that can significantly reduce anxiety symptoms."
+      },
+      {
+        id: "anxiety-rapid",
+        title: "Rapid Onset of Action",
+        content: "Unlike many traditional anxiety medications that may take weeks to become effective, ketamine can produce quick relief from anxiety symptoms, sometimes within hours. This rapid action is particularly beneficial for individuals with severe anxiety who are in immediate need of intervention."
+      },
+      {
+        id: "anxiety-neural",
+        title: "Promotion of Neural Plasticity",
+        content: "Ketamine stimulates neuroplasticity – the brain's ability to form new neural connections. This can help 'rewire' the brain's response to anxiety-inducing stimuli, offering a more lasting impact compared to traditional anxiolytics that only temporarily alleviate symptoms."
+      },
+      {
+        id: "anxiety-dissociative",
+        title: "Dissociative Effects",
+        content: "At controlled doses, ketamine's mild dissociative effects can provide a unique psychological space that allows individuals to distance themselves from their anxiety, gain perspective, and potentially explore the roots of their anxiety with greater objectivity. This effect is carefully managed to ensure safety and therapeutic benefit."
+      },
+      {
+        id: "anxiety-enhancement",
+        title: "Enhancement of Mindfulness and Psychotherapy",
+        content: "Ketamine therapy can enhance the effectiveness of psychotherapy and mindfulness practices. The altered state of consciousness it induces can facilitate deeper self-reflection and make individuals more receptive to therapeutic interventions, leading to more profound and lasting changes in anxiety management."
+      }
+    ]
+  },
+  {
+    id: "ptsd",
+    title: "Ketamine and PTSD",
+    image: conditionPtsd,
+    intro: "Ketamine therapy presents a transformative approach for those suffering from PTSD, particularly when traditional treatments have not been sufficient. Its unique pharmacological action offers rapid relief from PTSD symptoms and aids in the deeper processing of traumatic experiences.",
+    quote: "Your past doesn't define you. What you choose to do now and what you overcome define your character. Healing is possible, and it starts with a single step.",
+    accordionItems: [
+      {
+        id: "ptsd-rapid",
+        title: "Rapid Symptom Relief",
+        content: "Ketamine can provide quick relief from the intense and often debilitating symptoms of PTSD, such as flashbacks, severe anxiety, and emotional numbing. This rapid action can be a significant relief for patients who have struggled with these symptoms for extended periods."
+      },
+      {
+        id: "ptsd-glutamate",
+        title: "Modulation of Glutamate",
+        content: "By acting on the NMDA receptors, ketamine influences the glutamate system, which is involved in learning, memory, and emotional responses. This can help recalibrate the brain's response to trauma-related memories, reducing the intensity of the patient's reactions to triggers."
+      },
+      {
+        id: "ptsd-neural",
+        title: "Facilitation of Neural Plasticity",
+        content: "Ketamine promotes the growth of new synaptic connections. For PTSD patients, this can mean a restructuring of the neural pathways associated with traumatic memories, potentially leading to a reduction in the hold these memories have over the individual."
+      },
+      {
+        id: "ptsd-dissociative",
+        title: "Dissociative Properties",
+        content: "In a controlled therapeutic setting, ketamine's dissociative effects can enable patients to revisit traumatic memories with a sense of detachment. This can facilitate a more objective processing of traumatic experiences, which is a crucial part of trauma-focused therapies."
+      },
+      {
+        id: "ptsd-enhancement",
+        title: "Enhancement of Therapeutic Processes",
+        content: "The altered state of consciousness induced by ketamine can enhance the effectiveness of concurrent psychotherapy. It can make patients more open to exploring their trauma and more receptive to therapeutic strategies, potentially accelerating the healing process."
+      }
+    ]
+  },
+  {
+    id: "ocd",
+    title: "Ketamine and OCD",
+    image: conditionOcd,
+    intro: "Ketamine therapy is showing promise for individuals with Obsessive-Compulsive Disorder (OCD), particularly for those who have not responded adequately to traditional treatments. Its unique action on the brain's neurotransmitter systems can offer a new path to relief.",
+    quote: "You are not defined by OCD. Your courage to confront and overcome these challenges reflects your true strength.",
+    accordionItems: [
+      {
+        id: "ocd-glutamate",
+        title: "Impact on Glutamate System",
+        content: "Ketamine's primary action on the glutamate system, specifically its antagonism of NMDA receptors, plays a key role in its potential effectiveness for OCD. Glutamate dysregulation has been implicated in OCD, and by modulating this system, ketamine can help normalize neural activity in areas of the brain involved in obsessive and compulsive behaviors."
+      },
+      {
+        id: "ocd-rapid",
+        title: "Rapid Reduction in Symptoms",
+        content: "One of the most significant advantages of ketamine therapy for OCD is its rapid onset of action. Unlike SSRIs or other treatments that may take weeks to become effective, ketamine can offer quicker relief from the intrusive thoughts and compulsive behaviors characteristic of OCD."
+      },
+      {
+        id: "ocd-neural",
+        title: "Neuroplasticity Enhancement",
+        content: "Ketamine has been shown to promote neuroplasticity, the brain's ability to form and reorganize synaptic connections. This could be particularly beneficial for OCD patients, as it may help 'rewire' the brain's pathways that are involved in the cycle of obsessive thoughts and compulsive actions."
+      },
+      {
+        id: "ocd-mood",
+        title: "Mood and Anxiety Relief",
+        content: "OCD often coexists with anxiety and mood disorders. Ketamine's ability to rapidly alleviate anxiety and improve mood can provide additional relief for OCD patients, addressing the broader mental health picture and improving overall quality of life."
+      },
+      {
+        id: "ocd-therapy",
+        title: "Enhancing Therapy Outcomes",
+        content: "For some patients, ketamine therapy may enhance the effectiveness of cognitive-behavioral therapy (CBT) and other therapeutic approaches for OCD. The altered state of consciousness induced by ketamine can increase openness to new perspectives and therapeutic insights."
+      }
+    ]
+  }
 ];
 
 // Eligibility form component
@@ -339,6 +484,77 @@ const Ketamine = () => {
                     >
                       Book Consultation
                     </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION — CONDITIONS WE TREAT */}
+        <section className="py-20 md:py-28">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="text-center mb-16">
+              <p className="text-sm font-medium uppercase tracking-widest text-primary mb-4">Conditions We Treat</p>
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+                Ketamine Therapy for Mental Health
+              </h2>
+              <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
+                Discover how ketamine therapy can help with treatment-resistant depression, anxiety, PTSD, and OCD through its unique mechanism of action.
+              </p>
+            </div>
+            
+            <div className="space-y-16">
+              {conditionsData.map((condition, index) => (
+                <div 
+                  key={condition.id}
+                  className={`grid md:grid-cols-2 gap-8 md:gap-12 items-start ${
+                    index % 2 === 1 ? 'md:[&>*:first-child]:order-2' : ''
+                  }`}
+                >
+                  {/* Image side */}
+                  <div className="rounded-2xl overflow-hidden bg-muted aspect-[4/3]">
+                    <img 
+                      src={condition.image} 
+                      alt={condition.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
+                  {/* Content side */}
+                  <div className="space-y-6">
+                    <h3 className="text-2xl md:text-3xl font-semibold text-foreground">
+                      {condition.title}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {condition.intro}
+                    </p>
+                    
+                    {/* Quote */}
+                    <div className="relative bg-muted/50 rounded-xl p-5 border-l-4 border-primary/30">
+                      <Quote className="absolute top-4 right-4 w-6 h-6 text-primary/20" />
+                      <p className="text-foreground/80 italic text-sm leading-relaxed pr-8">
+                        "{condition.quote}"
+                      </p>
+                    </div>
+                    
+                    {/* Accordion */}
+                    <Accordion type="single" collapsible className="space-y-2">
+                      {condition.accordionItems.map((item) => (
+                        <AccordionItem 
+                          key={item.id} 
+                          value={item.id}
+                          className="bg-background rounded-xl border border-border/30 px-5"
+                        >
+                          <AccordionTrigger className="text-foreground hover:no-underline py-4 text-sm font-medium text-left">
+                            {item.title}
+                          </AccordionTrigger>
+                          <AccordionContent className="text-muted-foreground pb-4 text-sm leading-relaxed">
+                            {item.content}
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
                   </div>
                 </div>
               ))}
