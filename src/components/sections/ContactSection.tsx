@@ -166,9 +166,9 @@ export function ContactSection({ content }: ContactSectionProps) {
               </Button>
 
               <p className="text-center text-xs text-muted-foreground mt-4">
-                <a href="#" className="hover:text-primary">Privacy Policy</a>
+                <a href="/privacy-policy" className="hover:text-primary">Privacy Policy</a>
                 {" · "}
-                <a href="#" className="hover:text-primary">Terms of Service</a>
+                <a href="/terms-of-service" className="hover:text-primary">Terms of Service</a>
               </p>
             </form>
           </div>

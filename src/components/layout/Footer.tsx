@@ -3,11 +3,11 @@ import relaxolLogo from "@/assets/relaxol-logo.png";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "About", href: "#about" },
-  { label: "Treatments", href: "#treatments" },
-  { label: "Conditions", href: "#conditions" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+  { label: "Ketamine", href: "/ketamine" },
+  { label: "SPRAVATO®", href: "/spravato-Englewood" },
+  { label: "Vitamin Infusions", href: "/vitamin-infusion-englewood" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const hours = [
@@ -17,9 +17,9 @@ const hours = [
 ];
 
 const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
+  { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
+  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
+  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
 ];
 
 export function Footer() {

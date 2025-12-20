@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -22,9 +23,11 @@ const Anxiety = () => {
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                   Persistent anxiety can feel all-consuming, affecting your ability to work, sleep, and enjoy life. Our clinic offers treatments that target the brain's glutamate system, potentially offering rapid relief for those who haven't responded to conventional therapies.
                 </p>
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
-                  Schedule a Consultation
-                </Button>
+                <Link to="/contact">
+                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
+                    Schedule a Consultation
+                  </Button>
+                </Link>
               </div>
               <div className="rounded-2xl overflow-hidden shadow-xl">
                 <img 
@@ -60,9 +63,11 @@ const Anxiety = () => {
               </ul>
             </div>
             <div className="mt-12">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
-                Contact Us to Learn More
-              </Button>
+              <Link to="/contact">
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
+                  Contact Us to Learn More
+                </Button>
+              </Link>
             </div>
           </div>
         </section>

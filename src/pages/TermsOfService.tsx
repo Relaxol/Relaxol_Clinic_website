@@ -128,8 +128,8 @@ const TermsOfService = () => {
                 If you have any questions about these Terms of Service, please contact us:
               </p>
               <div className="text-muted-foreground">
-                <p><strong>Email:</strong> Info@Relaxol.com</p>
-                <p><strong>Phone:</strong> 201-781-2101</p>
+                <p><strong>Email:</strong> <a href="mailto:info@relaxolclinic.com" className="text-[#D09B3C] hover:underline">info@relaxolclinic.com</a></p>
+                <p><strong>Phone:</strong> <a href="tel:201-781-2101" className="text-[#D09B3C] hover:underline">201-781-2101</a></p>
                 <p><strong>Address:</strong> 560 Sylvan Avenue, Suite 2115, Englewood Cliffs, NJ 07632</p>
               </div>
             </div>

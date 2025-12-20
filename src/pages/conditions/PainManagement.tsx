@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -22,9 +23,11 @@ const PainManagement = () => {
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                   Chronic pain can be debilitating and significantly impact your quality of life. When traditional pain treatments haven't provided lasting relief, ketamine infusion therapy offers a promising alternative for managing various chronic pain conditions.
                 </p>
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
-                  Schedule a Consultation
-                </Button>
+                <Link to="/contact">
+                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
+                    Schedule a Consultation
+                  </Button>
+                </Link>
               </div>
               <div className="rounded-2xl overflow-hidden shadow-xl">
                 <img 
@@ -70,9 +73,11 @@ const PainManagement = () => {
               </ul>
             </div>
             <div className="mt-12">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
-                Contact Us to Learn More
-              </Button>
+              <Link to="/contact">
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
+                  Contact Us to Learn More
+                </Button>
+              </Link>
             </div>
           </div>
         </section>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -22,9 +23,11 @@ const Depression = () => {
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                   When traditional antidepressants fall short, ketamine and SPRAVATO® offer a new path forward. These breakthrough treatments work differently—often producing relief within hours or days rather than weeks.
                 </p>
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
-                  Schedule a Consultation
-                </Button>
+                <Link to="/contact">
+                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
+                    Schedule a Consultation
+                  </Button>
+                </Link>
               </div>
               <div className="rounded-2xl overflow-hidden shadow-xl">
                 <img 
@@ -60,9 +63,11 @@ const Depression = () => {
               </ul>
             </div>
             <div className="mt-12">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
-                Contact Us to Learn More
-              </Button>
+              <Link to="/contact">
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
+                  Contact Us to Learn More
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
