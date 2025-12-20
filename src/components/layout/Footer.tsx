@@ -1,5 +1,6 @@
 import { Facebook, Instagram, Linkedin, Phone, Mail, MapPin } from "lucide-react";
 import relaxolLogo from "@/assets/relaxol-logo.png";
+import ketamineDirectoryBadge from "@/assets/ketamine-directory-badge.png";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -32,9 +33,21 @@ export function Footer() {
             <div className="mb-6">
               <img src={relaxolLogo} alt="Relaxol Clinic" className="h-16 w-auto" />
             </div>
-            <p className="text-background/70 text-sm leading-relaxed">
+            <p className="text-background/70 text-sm leading-relaxed mb-6">
               New Jersey's premier destination for ketamine and SPRAVATO® therapy. We provide compassionate, clinician-led care for patients seeking relief from depression, anxiety, PTSD, and OCD.
             </p>
+            <a 
+              href="https://ketaminedirectory.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <img 
+                src={ketamineDirectoryBadge} 
+                alt="Verified Provider - KetamineDirectory.com" 
+                className="h-12 w-auto opacity-90 hover:opacity-100 transition-opacity"
+              />
+            </a>
           </div>
 
           {/* Navigation */}
