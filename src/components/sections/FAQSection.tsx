@@ -44,9 +44,9 @@ interface FAQSectionProps {
 }
 
 export function FAQSection({ content }: FAQSectionProps) {
-  const title = content?.title ?? "Frequently Asked Questions";
-  const description = content?.description ?? "Get answers to common questions about our treatments and process.";
-  const faqs = content?.items ?? defaultFaqs;
+  const title = content?.title || "Frequently Asked Questions";
+  const description = content?.description || "Get answers to common questions about our treatments and process.";
+  const faqs = content?.items?.length ? content.items : defaultFaqs;
 
   return (
     <section className="py-20 bg-background">

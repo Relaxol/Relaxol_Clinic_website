@@ -24,9 +24,9 @@ interface ContactSectionProps {
 export function ContactSection({ content }: ContactSectionProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  const subtitle = content?.subtitle ?? "SCHEDULE A CONSULTATION";
-  const title = content?.title ?? "Ready to Explore Your Treatment Options?";
-  const body = content?.body ?? "Take the first step with Dr. Khanna and our compassionate team. We'll contact you within one business day.";
+  const subtitle = content?.subtitle || "SCHEDULE A CONSULTATION";
+  const title = content?.title || "Ready to Explore Your Treatment Options?";
+  const body = content?.body || "Take the first step with Dr. Khanna and our compassionate team. We'll contact you within one business day.";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

@@ -45,14 +45,14 @@ interface TimelineSectionProps {
 }
 
 export function TimelineSection({ content }: TimelineSectionProps) {
-  const title = content?.title ?? "What to Expect";
-  const description = content?.description ?? "From your first consultation to long-term wellness, here's how we guide you through treatment.";
+  const title = content?.title || "What to Expect";
+  const description = content?.description || "From your first consultation to long-term wellness, here's how we guide you through treatment.";
   
-  const steps = content?.items?.map((item, index) => ({
+  const steps = content?.items?.length ? content.items.map((item, index) => ({
     number: item.number ?? parseInt(item.step || String(index + 1)),
     title: item.title,
     description: item.description,
-  })) ?? defaultSteps;
+  })) : defaultSteps;
 
   return (
     <section className="py-20 bg-background">
