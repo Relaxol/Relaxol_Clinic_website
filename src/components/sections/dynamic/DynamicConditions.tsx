@@ -48,7 +48,7 @@ export function DynamicConditions({ data }: Props) {
         </div>
 
         {/* Conditions Grid - 5 columns on desktop for all cards in one row */}
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 lg:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5">
           {data.items.map((condition, index) => (
             <div
               key={index}
