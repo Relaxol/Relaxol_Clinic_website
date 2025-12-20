@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -22,9 +23,11 @@ const PTSD = () => {
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                   Trauma can leave lasting imprints on the mind and body. Ketamine therapy has shown remarkable promise in helping patients process traumatic memories and reduce the intensity of PTSD symptoms in a safe, supportive environment.
                 </p>
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
-                  Schedule a Consultation
-                </Button>
+                <Link to="/contact">
+                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
+                    Schedule a Consultation
+                  </Button>
+                </Link>
               </div>
               <div className="rounded-2xl overflow-hidden shadow-xl">
                 <img 
@@ -60,9 +63,11 @@ const PTSD = () => {
               </ul>
             </div>
             <div className="mt-12">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
-                Contact Us to Learn More
-              </Button>
+              <Link to="/contact">
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-accent">
+                  Contact Us to Learn More
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
