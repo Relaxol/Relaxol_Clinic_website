@@ -287,23 +287,23 @@ const VitaminInfusions = () => {
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {infusionTypes.map((infusion, index) => (
-                <Card key={index} className="bg-background border-none shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 overflow-hidden">
-                  <div className="aspect-[4/3] overflow-hidden">
+                <Card key={index} className="bg-background border-none shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 overflow-hidden flex flex-col h-full">
+                  <div className="aspect-[4/3] overflow-hidden flex-shrink-0">
                     <img 
                       src={infusion.image} 
                       alt={infusion.title}
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <CardContent className="p-6 text-center">
+                  <CardContent className="p-6 text-center flex flex-col flex-1">
                     <h3 className="text-xl font-semibold text-foreground mb-3">
                       {infusion.title}
                     </h3>
-                    <p className="text-muted-foreground leading-relaxed mb-4">
+                    <p className="text-muted-foreground leading-relaxed mb-4 flex-1">
                       {infusion.description}
                     </p>
                     <Button 
-                      className="bg-[#8B7355] hover:bg-[#7A6548] text-white"
+                      className="bg-[#8B7355] hover:bg-[#7A6548] text-white mt-auto"
                       onClick={() => setSelectedInfusion(infusion)}
                     >
                       Learn more
