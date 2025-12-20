@@ -79,18 +79,18 @@ export function TimelineSection({ content }: TimelineSectionProps) {
             steps.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'
           }`}>
             {steps.map((step, index) => (
-              <div key={index} className="timeline-step">
+              <div key={index} className="timeline-step flex flex-col">
                 {/* Number Circle */}
-                <div className="timeline-circle mb-6 relative">
+                <div className="timeline-circle mb-6 relative flex-shrink-0">
                   {step.number}
                 </div>
 
                 {/* Content Card */}
-                <div className="bg-white rounded-2xl shadow-soft p-6 text-center">
+                <div className="bg-white rounded-2xl shadow-soft p-6 text-center flex-1 flex flex-col">
                   <h3 className="text-lg font-bold text-foreground mb-2">
                     {step.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
+                  <p className="text-muted-foreground text-sm leading-relaxed flex-1">
                     {step.description}
                   </p>
                 </div>
