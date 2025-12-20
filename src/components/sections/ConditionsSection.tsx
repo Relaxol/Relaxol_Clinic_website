@@ -84,8 +84,8 @@ export function ConditionsSection({ content }: ConditionsSectionProps) {
           </p>
         </div>
 
-        {/* Conditions Grid - 4 columns on desktop */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        {/* Conditions Grid - 5 columns on desktop */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6 max-w-7xl mx-auto">
           {conditions.map((condition, index) => (
             <div
               key={index}
