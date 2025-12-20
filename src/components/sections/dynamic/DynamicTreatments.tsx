@@ -55,41 +55,23 @@ export function DynamicTreatments({ data }: Props) {
           {data.items.map((treatment, index) => (
             <div
               key={index}
-              className="group relative bg-card rounded-2xl overflow-hidden transition-all duration-500 ease-out flex flex-col hover:-translate-y-2 shadow-md hover:shadow-xl border border-transparent hover:border-primary/20"
+              className="group bg-card rounded-2xl overflow-hidden transition-all duration-500 ease-out hover:-translate-y-2 shadow-md hover:shadow-xl border border-transparent hover:border-primary/20 p-6"
             >
+              <h3 className="text-xl font-bold text-foreground mb-2 leading-tight">
+                {treatment.title}
+              </h3>
               
-              <div className="relative h-64 md:h-72 overflow-hidden">
-                <img
-                  src={treatment.image}
-                  alt={treatment.title}
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-60" />
-                
-                {treatment.tag && (
-                  <span className="absolute top-6 left-6 px-4 py-2 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider rounded-full shadow-md">
-                    {treatment.tag}
-                  </span>
-                )}
-              </div>
-
-              <div className="relative p-6 md:p-8 bg-card flex flex-col h-full">
-                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 leading-tight">
-                  {treatment.title}
-                </h3>
-                
-                <p className="text-muted-foreground text-base leading-relaxed mb-4 flex-grow">
-                  {treatment.description}
-                </p>
-                
-                <a
-                  href={treatment.href}
-                  className="inline-flex items-center gap-2 text-primary font-semibold text-base hover:gap-3 transition-all duration-300 group/link"
-                >
-                  <span>{treatment.cta}</span>
-                  <ArrowRight className="w-5 h-5 transform group-hover/link:translate-x-1 transition-transform duration-300" />
-                </a>
-              </div>
+              <p className="text-muted-foreground text-base leading-relaxed mb-4">
+                {treatment.description}
+              </p>
+              
+              <a
+                href={treatment.href}
+                className="inline-flex items-center gap-2 text-primary font-semibold text-base hover:gap-3 transition-all duration-300 group/link"
+              >
+                <span>{treatment.cta}</span>
+                <ArrowRight className="w-5 h-5 transform group-hover/link:translate-x-1 transition-transform duration-300" />
+              </a>
             </div>
           ))}
         </div>
