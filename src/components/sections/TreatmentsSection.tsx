@@ -221,7 +221,7 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
           </p>
           <a
             href="#contact"
-            className="inline-flex items-center gap-3 px-10 py-5 bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
+            className="inline-flex items-center gap-3 px-10 py-5 bg-accent text-accent-foreground rounded-full font-semibold text-lg hover:bg-accent/90 transition-all duration-300 shadow-glow hover:shadow-xl hover:-translate-y-1"
           >
             Schedule Your Consultation
             <ArrowRight className="w-5 h-5" />
