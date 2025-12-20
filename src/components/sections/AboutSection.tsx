@@ -13,10 +13,10 @@ interface AboutSectionProps {
 }
 
 export function AboutSection({ content }: AboutSectionProps) {
-  const subtitle = content?.subtitle ?? "WHY RELAXOL CLINIC";
-  const title = content?.title ?? "A New Standard in Mental Health Care";
-  const imageUrl = content?.imageUrl ?? aboutClinic;
-  const imageAlt = content?.imageAlt ?? "Modern treatment facility interior";
+  const subtitle = content?.subtitle || "WHY RELAXOL CLINIC";
+  const title = content?.title || "A New Standard in Mental Health Care";
+  const imageUrl = content?.imageUrl || aboutClinic;
+  const imageAlt = content?.imageAlt || "Modern treatment facility interior";
   
   // Default body paragraphs
   const defaultBody = `<p class="text-muted-foreground text-lg leading-relaxed mb-6">At Relaxol Clinic, we combine advanced psychiatric expertise with FDA-approved treatments like SPRAVATO® and ketamine infusion therapy. Our approach is grounded in evidence-based medicine while remaining attentive to each patient's unique journey. Whether you're struggling with treatment-resistant depression, chronic anxiety, PTSD, or OCD, our team is here to provide compassionate, clinician-led care.</p><p class="text-muted-foreground text-lg leading-relaxed mb-8">We believe mental health care should be accessible, personalized, and delivered in an environment that feels safe. That's why our clinic offers private treatment rooms, flexible scheduling, and support navigating insurance—because healing shouldn't feel like a hurdle.</p>`;

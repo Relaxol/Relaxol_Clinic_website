@@ -55,18 +55,18 @@ interface ConditionsSectionProps {
 }
 
 export function ConditionsSection({ content }: ConditionsSectionProps) {
-  const subtitle = content?.subtitle ?? "CONDITIONS WE TREAT";
-  const title = content?.title ?? "Specialized Mental Health Care";
-  const description = content?.description ?? "Our treatments are designed for patients who haven't found relief through traditional approaches.";
+  const subtitle = content?.subtitle || "CONDITIONS WE TREAT";
+  const title = content?.title || "Specialized Mental Health Care";
+  const description = content?.description || "Our treatments are designed for patients who haven't found relief through traditional approaches.";
   
   // Map CMS items to display format, or use defaults
-  const conditions = content?.items?.map((item, index) => ({
+  const conditions = content?.items?.length ? content.items.map((item, index) => ({
     title: item.title,
     image: item.imageUrl || defaultConditions[index]?.image || conditionDepression,
     imageAlt: item.imageAlt || defaultConditions[index]?.imageAlt || item.title,
     description: item.description,
     href: item.href || defaultConditions[index]?.href || "#",
-  })) ?? defaultConditions;
+  })) : defaultConditions;
 
   return (
     <section id="conditions" className="py-24 md:py-32 bg-white">

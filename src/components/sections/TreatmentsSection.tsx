@@ -66,9 +66,9 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerVisible, setHeaderVisible] = useState(false);
 
-  const subtitle = content?.subtitle ?? "Our Treatments";
-  const title = content?.title ?? "Treatment Options";
-  const description = content?.description ?? "Evidence-based therapies designed to provide lasting relief and restore your quality of life.";
+  const subtitle = content?.subtitle || "Our Treatments";
+  const title = content?.title || "Treatment Options";
+  const description = content?.description || "Evidence-based therapies designed to provide lasting relief and restore your quality of life.";
   
   const treatments = content?.items?.map((item, index) => ({
     title: item.title,

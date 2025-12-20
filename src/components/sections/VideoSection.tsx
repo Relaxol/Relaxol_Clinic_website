@@ -11,11 +11,11 @@ interface VideoSectionProps {
 }
 
 export function VideoSection({ content }: VideoSectionProps) {
-  const subtitle = content?.subtitle ?? "LEARN MORE";
-  const title = content?.title ?? "Treatment Can Help";
-  const body = content?.body ?? "For many patients who've struggled with depression, anxiety, PTSD, or OCD, traditional treatments simply haven't worked. Ketamine and SPRAVATO® offer a different approach—targeting glutamate receptors in the brain to create new neural pathways and provide rapid relief.";
-  const embedUrl = content?.embedUrl ?? "https://www.youtube.com/embed/e0mdOODbGNU";
-  const embedTitle = content?.embedTitle ?? "Understanding Ketamine Therapy";
+  const subtitle = content?.subtitle || "LEARN MORE";
+  const title = content?.title || "Treatment Can Help";
+  const body = content?.body || "For many patients who've struggled with depression, anxiety, PTSD, or OCD, traditional treatments simply haven't worked. Ketamine and SPRAVATO® offer a different approach—targeting glutamate receptors in the brain to create new neural pathways and provide rapid relief.";
+  const embedUrl = content?.embedUrl || "https://www.youtube.com/embed/e0mdOODbGNU";
+  const embedTitle = content?.embedTitle || "Understanding Ketamine Therapy";
 
   return (
     <section className="py-20 bg-cream-dark">

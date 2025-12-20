@@ -43,16 +43,16 @@ interface TestimonialsSectionProps {
 }
 
 export function TestimonialsSection({ content }: TestimonialsSectionProps) {
-  const subtitle = content?.subtitle ?? "PATIENT EXPERIENCES";
-  const title = content?.title ?? "What Our Patients Are Saying";
-  const description = content?.description ?? "Real stories from patients who found relief through our treatments.";
+  const subtitle = content?.subtitle || "PATIENT EXPERIENCES";
+  const title = content?.title || "What Our Patients Are Saying";
+  const description = content?.description || "Real stories from patients who found relief through our treatments.";
   
-  const testimonials = content?.items?.map(item => ({
+  const testimonials = content?.items?.length ? content.items.map(item => ({
     name: item.author || item.name || "Anonymous",
     treatment: item.role || item.treatment || "Patient",
     text: item.quote || item.text || "",
     rating: item.rating ?? 5,
-  })) ?? defaultTestimonials;
+  })) : defaultTestimonials;
 
   return (
     <section className="py-20 bg-background">
