@@ -87,7 +87,7 @@ export function Header() {
         <div className="container mx-auto flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img src={relaxolLogo} alt="Relaxol Clinic" className="h-16 md:h-[72px] w-auto max-w-[260px] md:max-w-[360px] object-contain" />
+            <img src={relaxolLogo} alt="Relaxol Clinic" className="h-14 md:h-16 w-auto object-contain" />
           </Link>
 
           {/* Desktop Nav */}
