@@ -47,15 +47,15 @@ export function DynamicConditions({ data }: Props) {
           )}
         </div>
 
-        {/* Conditions Grid - 4 columns on desktop */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        {/* Conditions Grid - 5 columns on desktop for all cards in one row */}
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 lg:gap-6">
           {data.items.map((condition, index) => (
             <div
               key={index}
-              className="group bg-card rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
+              className="group bg-card rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
             >
               {/* Image */}
-              <div className="aspect-video overflow-hidden">
+              <div className="aspect-[4/3] overflow-hidden">
                 <img
                   src={condition.image}
                   alt={condition.imageAlt || condition.title}
@@ -64,16 +64,16 @@ export function DynamicConditions({ data }: Props) {
               </div>
               
               {/* Card Body */}
-              <div className="p-6 md:p-8">
-                <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-3">
+              <div className="p-4 lg:p-5">
+                <h3 className="text-lg lg:text-xl font-semibold text-foreground mb-2">
                   {condition.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed mb-5">
+                <p className="text-muted-foreground text-sm leading-relaxed mb-3 line-clamp-3">
                   {condition.description}
                 </p>
                 <Link
                   to={condition.href}
-                  className="text-primary font-semibold hover:text-accent transition-colors inline-flex items-center gap-2 text-base group/link"
+                  className="text-primary font-semibold hover:text-accent transition-colors inline-flex items-center gap-1.5 text-sm group/link"
                 >
                   Learn more 
                   <span className="group-hover/link:translate-x-1 transition-transform">→</span>
