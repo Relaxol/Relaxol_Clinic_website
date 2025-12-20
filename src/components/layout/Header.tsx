@@ -1,8 +1,7 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, Phone, ChevronDown, Settings } from "lucide-react";
+import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/contexts/AuthContext";
 import relaxolLogo from "@/assets/relaxol-logo.png";
 
 const conditionItems = [
@@ -29,9 +28,6 @@ export function Header() {
   const [isConditionsOpen, setIsConditionsOpen] = useState(false);
   const [mobileConditionsOpen, setMobileConditionsOpen] = useState(false);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const { user } = useAuth();
-  
-  const adminLink = user ? "/admin" : "/admin/login";
 
   const handleMouseEnter = () => {
     if (closeTimeoutRef.current) {
@@ -137,12 +133,6 @@ export function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link to={adminLink}>
-              <Button variant="outline" size="sm" className="gap-2">
-                <Settings className="h-4 w-4" />
-                Admin
-              </Button>
-            </Link>
             <Link to="/contact">
               <Button className="btn-nav bg-[#D09B3C] text-white hover:bg-[#C48A25]">
                 Schedule Consultation
@@ -211,12 +201,6 @@ export function Header() {
                 )
               ))}
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
-                <Link to={adminLink} onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="outline" className="w-full gap-2">
-                    <Settings className="h-4 w-4" />
-                    Admin
-                  </Button>
-                </Link>
                 <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
                   <Button className="w-full bg-[#D09B3C] text-white hover:bg-[#C48A25]">
                     Schedule Consultation
