@@ -382,23 +382,23 @@ const VitaminInfusions = () => {
                   <form className="space-y-4">
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="firstName">First Name</Label>
-                        <Input id="firstName" placeholder="John" />
+                        <Label htmlFor="firstName">First Name <span className="text-destructive">*</span></Label>
+                        <Input id="firstName" placeholder="John" required />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="lastName">Last Name</Label>
-                        <Input id="lastName" placeholder="Doe" />
+                        <Label htmlFor="lastName">Last Name <span className="text-destructive">*</span></Label>
+                        <Input id="lastName" placeholder="Doe" required />
                       </div>
                     </div>
                     
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" placeholder="john@example.com" />
+                      <Label htmlFor="email">Email <span className="text-destructive">*</span></Label>
+                      <Input id="email" type="email" placeholder="john@example.com" required />
                     </div>
                     
                     <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input id="phone" type="tel" placeholder="(201) 555-0123" />
+                      <Label htmlFor="phone">Phone Number <span className="text-destructive">*</span></Label>
+                      <Input id="phone" type="tel" placeholder="(201) 555-0123" required />
                     </div>
                     
                     <div className="space-y-2">
