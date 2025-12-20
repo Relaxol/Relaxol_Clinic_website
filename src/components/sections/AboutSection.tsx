@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import aboutClinic from "@/assets/about-clinic.jpg";
 
 interface AboutContent {
@@ -51,13 +53,15 @@ export function AboutSection({ content }: AboutSectionProps) {
 
           {/* Content */}
           <div className="order-1 lg:order-2">
-            <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />
-            <a 
-              href="#contact" 
-              className="btn-primary"
-            >
-              Schedule Your Consultation
-            </a>
+            <div 
+              className="prose prose-lg max-w-none [&>p]:text-muted-foreground [&>p]:text-lg [&>p]:leading-relaxed [&>p]:mb-6 [&>p:last-of-type]:mb-8"
+              dangerouslySetInnerHTML={{ __html: bodyHtml }} 
+            />
+            <Link to="/contact">
+              <Button className="bg-[#D09B3C] hover:bg-[#C48A25] text-white px-8 py-6 text-base rounded-full">
+                Schedule Your Consultation
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
