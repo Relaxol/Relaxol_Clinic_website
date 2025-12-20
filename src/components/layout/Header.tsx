@@ -74,11 +74,11 @@ export function Header() {
   return (
     <header className="w-full sticky top-0 z-50">
       {/* Top Bar */}
-      <div className="bg-foreground text-background py-2 px-4">
+      <div className="bg-[#D09B3C] text-white py-2 px-4">
         <div className="container mx-auto flex flex-wrap items-center justify-between gap-2 text-sm">
           <span className="font-medium">New Jersey's Premier Ketamine & SPRAVATO® Clinic</span>
           <div className="flex items-center gap-4">
-            <a href="tel:201-781-2101" className="flex items-center gap-1.5 hover:text-primary transition-colors">
+            <a href="tel:201-781-2101" className="flex items-center gap-1.5 hover:opacity-80 transition-opacity">
               <Phone className="w-4 h-4" />
               <span className="hidden sm:inline">Call: 201-781-2101</span>
             </a>
