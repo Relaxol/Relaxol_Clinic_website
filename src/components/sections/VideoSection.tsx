@@ -39,7 +39,7 @@ export function VideoSection({ content }: VideoSectionProps) {
             </p>
             <a
               href="#treatments"
-              className="btn-outline"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-all duration-300 shadow-glow"
             >
               Explore Treatment Options
             </a>
