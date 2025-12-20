@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 interface ConditionItem {
   title: string;
   description: string;
-  image: string;
+  /** Backwards compatible with older templates */
+  image?: string;
+  /** Preferred key used by CMS */
+  imageUrl?: string;
   imageAlt?: string;
   href: string;
 }
@@ -48,7 +51,7 @@ export function DynamicConditions({ data }: Props) {
         </div>
 
         {/* Conditions Grid - 5 columns on desktop for all cards in one row */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 lg:gap-5">
           {data.items.map((condition, index) => (
             <div
               key={index}
@@ -57,8 +60,9 @@ export function DynamicConditions({ data }: Props) {
               {/* Image */}
               <div className="aspect-[4/3] overflow-hidden">
                 <img
-                  src={condition.image}
+                  src={condition.imageUrl || condition.image || ""}
                   alt={condition.imageAlt || condition.title}
+                  loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
