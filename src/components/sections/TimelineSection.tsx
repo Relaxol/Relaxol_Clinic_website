@@ -72,8 +72,12 @@ export function TimelineSection({ content }: TimelineSectionProps) {
           {/* Connecting Line (Desktop) */}
           <div className="hidden lg:block absolute top-7 left-0 right-0 h-0.5 bg-primary/30" />
 
-          {/* Steps */}
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+          {/* Steps - dynamically adjust columns based on item count */}
+          <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${
+            steps.length === 4 ? 'lg:grid-cols-4' : 
+            steps.length === 5 ? 'lg:grid-cols-5' : 
+            steps.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'
+          }`}>
             {steps.map((step, index) => (
               <div key={index} className="timeline-step">
                 {/* Number Circle */}
