@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AccessibilityWidget } from "@/components/AccessibilityWidget";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { ScrollToTopOnNavigate } from "@/components/ScrollToTopOnNavigate";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Home from "./pages/Home";
 import Spravato from "./pages/Spravato";
@@ -51,6 +52,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
+          <ScrollToTopOnNavigate />
           <AccessibilityWidget />
           <ScrollToTop />
           <Routes>

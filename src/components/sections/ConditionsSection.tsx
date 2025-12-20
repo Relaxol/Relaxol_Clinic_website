@@ -89,10 +89,10 @@ export function ConditionsSection({ content }: ConditionsSectionProps) {
           {conditions.map((condition, index) => (
             <div
               key={index}
-              className="group bg-card rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
+              className="group bg-card rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 flex flex-col h-full"
             >
               {/* Image */}
-              <div className="aspect-video overflow-hidden">
+              <div className="aspect-[4/3] overflow-hidden">
                 <img
                   src={condition.image}
                   alt={condition.imageAlt}
@@ -101,16 +101,16 @@ export function ConditionsSection({ content }: ConditionsSectionProps) {
               </div>
               
               {/* Card Body */}
-              <div className="p-6 md:p-8">
-                <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-3">
+              <div className="p-4 lg:p-5 flex flex-col flex-grow">
+                <h3 className="text-lg lg:text-xl font-semibold text-foreground mb-2">
                   {condition.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed mb-5">
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-grow">
                   {condition.description}
                 </p>
                 <Link
                   to={condition.href}
-                  className="text-primary font-semibold hover:text-accent transition-colors inline-flex items-center gap-2 text-base group/link"
+                  className="text-primary font-semibold hover:text-accent transition-colors inline-flex items-center gap-1.5 text-sm group/link mt-auto"
                 >
                   Learn more 
                   <span className="group-hover/link:translate-x-1 transition-transform">→</span>
