@@ -38,7 +38,7 @@ const Home = () => {
         <InsuranceSection />
         <WhyChooseSection />
         <TestimonialsSection content={homeContent?.testimonials} />
-        <VideoTestimonialsSection />
+        {/* <VideoTestimonialsSection /> */}
         <TimelineSection content={homeContent?.timeline} />
         <FAQSection content={homeContent?.faq} />
       </main>
