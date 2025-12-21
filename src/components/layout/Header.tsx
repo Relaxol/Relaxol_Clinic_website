@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import relaxolLogo from "@/assets/relaxol-logo-new.png";
+import relaxolLogo from "@/assets/relaxol-logo-transparent.png";
 
 const conditionItems = [
   { label: "Depression", href: "/conditions/depression" },
