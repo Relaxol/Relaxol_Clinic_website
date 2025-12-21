@@ -198,7 +198,7 @@ const VitaminInfusions = () => {
           <div 
             className="absolute inset-0 bg-cover bg-center bg-fixed"
             style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=1920&q=80')`,
+              backgroundImage: `url('https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=1920&q=80')`,
             }}
           />
           {/* Overlay */}
