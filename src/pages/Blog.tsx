@@ -67,12 +67,22 @@ const Blog = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Hero Section */}
-      <section className="bg-[#5C4A3A] text-white py-16 md:py-24">
-        <div className="container mx-auto px-4">
+      {/* Hero Section with Parallax */}
+      <section className="relative py-24 md:py-32 overflow-hidden">
+        {/* Parallax Background */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-fixed"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1920&q=80')`,
+          }}
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#5C4A3A]/85 to-[#4A3C32]/90" />
+        
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-[#D09B3C] font-medium mb-4 tracking-wider uppercase">Insights & Updates</p>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Relaxol Clinic Blog
             </h1>
             <p className="text-lg text-white/80">
