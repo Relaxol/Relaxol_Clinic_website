@@ -185,7 +185,7 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
 
       {/* ZIP Code */}
       <div className="space-y-2">
-        <Label htmlFor="zipCode" className={labelClass}>ZIP Code</Label>
+        <Label htmlFor="zipCode" className={labelClass}>ZIP Code <span className="text-destructive">*</span></Label>
         <Input 
           id="zipCode"
           type="text"
@@ -199,7 +199,7 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
       {/* Contact fields */}
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="email" className={labelClass}>Email</Label>
+          <Label htmlFor="email" className={labelClass}>Email <span className="text-destructive">*</span></Label>
           <Input 
             id="email"
             type="email"
@@ -210,7 +210,7 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="phone" className={labelClass}>Phone</Label>
+          <Label htmlFor="phone" className={labelClass}>Phone <span className="text-destructive">*</span></Label>
           <Input 
             id="phone"
             type="tel"
