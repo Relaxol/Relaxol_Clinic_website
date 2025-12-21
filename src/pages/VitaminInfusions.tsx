@@ -192,9 +192,17 @@ const VitaminInfusions = () => {
       </Dialog>
       
       <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="relative py-20 lg:py-28 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#5C4A3A] via-[#4A3C32] to-[#6B5A4A]" />
+        {/* Hero Section with Parallax */}
+        <section className="relative py-24 lg:py-32 overflow-hidden">
+          {/* Parallax Background */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-fixed"
+            style={{
+              backgroundImage: `url('https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=1920&q=80')`,
+            }}
+          />
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#5C4A3A]/85 to-[#4A3C32]/90" />
           
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="max-w-3xl mx-auto text-center text-white">
