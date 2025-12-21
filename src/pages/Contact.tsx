@@ -47,9 +47,19 @@ export default function Contact() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Hero Section */}
-      <section className="relative py-20 md:py-28 bg-gradient-to-b from-[#5C4A3A] to-[#4A3C32]">
-        <div className="container mx-auto px-4 text-center">
+      {/* Hero Section with Parallax */}
+      <section className="relative py-24 md:py-32 overflow-hidden">
+        {/* Parallax Background */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-fixed"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=1920&q=80')`,
+          }}
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#5C4A3A]/85 to-[#4A3C32]/90" />
+        
+        <div className="container mx-auto px-4 text-center relative z-10">
           <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-4">
             {heroSubtitle}
           </p>
