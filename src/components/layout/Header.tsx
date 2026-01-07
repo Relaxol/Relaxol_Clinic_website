@@ -4,17 +4,17 @@ import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import relaxolLogo from "@/assets/relaxol-logo-transparent.png";
 
-const conditionItems = [
-  { label: "Depression", href: "/conditions/depression" },
-  { label: "Anxiety", href: "/conditions/anxiety" },
-  { label: "PTSD", href: "/conditions/ptsd" },
-  { label: "OCD", href: "/conditions/ocd" },
+const ketamineItems = [
+  { label: "What Is Ketamine?", href: "/ketamine" },
+  { label: "Depression Treatment", href: "/conditions/depression" },
+  { label: "Anxiety Treatment", href: "/conditions/anxiety" },
+  { label: "PTSD Treatment", href: "/conditions/ptsd" },
+  { label: "OCD Treatment", href: "/conditions/ocd" },
   { label: "Pain Management", href: "/conditions/pain-management" },
 ];
 
 const navItems = [
-  { label: "Treatments", href: "#treatments", hasDropdown: true, isExternal: false },
-  { label: "Ketamine", href: "/ketamine", isExternal: false },
+  { label: "Ketamine", href: "/ketamine", hasDropdown: true, isExternal: false },
   { label: "SPRAVATO®", href: "/spravato-Englewood", isExternal: false },
   { label: "Vitamin Infusions", href: "/vitamin-infusion-englewood", isExternal: false },
   { label: "Blog", href: "/blog", isExternal: false },
@@ -109,13 +109,13 @@ export function Header() {
                   {isConditionsOpen && (
                     <div className="absolute top-full left-0 pt-1 z-50">
                       <div className="bg-card rounded-lg shadow-xl border border-border py-2 min-w-[200px]">
-                        {conditionItems.map((condition) => (
+                        {ketamineItems.map((item) => (
                           <Link
-                            key={condition.label}
-                            to={condition.href}
+                            key={item.label}
+                            to={item.href}
                             className="block px-4 py-2 text-foreground hover:bg-cream-dark hover:text-primary transition-colors"
                           >
-                            {condition.label}
+                            {item.label}
                           </Link>
                         ))}
                       </div>
@@ -164,14 +164,14 @@ export function Header() {
                     </button>
                     {mobileConditionsOpen && (
                       <div className="pl-4 mt-1 space-y-1">
-                        {conditionItems.map((condition) => (
+                        {ketamineItems.map((item) => (
                           <Link
-                            key={condition.label}
-                            to={condition.href}
+                            key={item.label}
+                            to={item.href}
                             className="block px-4 py-2 text-white/70 hover:text-[#D09B3C] transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                           >
-                            {condition.label}
+                            {item.label}
                           </Link>
                         ))}
                       </div>
