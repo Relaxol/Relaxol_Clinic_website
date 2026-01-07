@@ -331,45 +331,6 @@ export default function Spravato() {
         </div>
       </section>
 
-      {/* 2. ELIGIBILITY / CONTACT FORM */}
-      <section id="eligibility-form" className="py-16 lg:py-24 bg-secondary/30 scroll-mt-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            {/* Left: Reassurance copy */}
-            <div className="space-y-6">
-              <h2 className="text-2xl md:text-3xl font-semibold text-foreground">
-                Find Out If You're a Candidate
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                SPRAVATO® is specifically designed for adults with treatment-resistant depression 
-                who haven't found relief from traditional antidepressants. Complete this brief 
-                form to see if you may qualify.
-              </p>
-              
-              <ul className="space-y-4 pt-4">
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-foreground">No obligation—we simply assess eligibility</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-foreground">Response within 48 hours from our care team</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-foreground">Insurance verification included</span>
-                </li>
-              </ul>
-            </div>
-            
-            {/* Right: Form */}
-            <div className="bg-background rounded-2xl p-6 md:p-8 shadow-lg border border-border">
-              <EligibilityForm />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* TREATMENT-RESISTANT DEPRESSION - Two Column Layout */}
       <section className="py-16 lg:py-20 bg-[#5C4A3A]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
