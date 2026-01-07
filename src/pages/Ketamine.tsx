@@ -440,13 +440,6 @@ const Ketamine = () => {
             <p className="text-base md:text-lg leading-relaxed text-white/80 max-w-2xl mx-auto">
               Ketamine therapy offers a different mechanism of action that can help patients who haven't responded to conventional antidepressants experience meaningful improvement.
             </p>
-            <Button 
-              variant="outline" 
-              onClick={() => scrollToId("eligibility")}
-              className="border-white text-white hover:bg-white hover:text-foreground"
-            >
-              Learn More
-            </Button>
           </div>
         </section>
 
