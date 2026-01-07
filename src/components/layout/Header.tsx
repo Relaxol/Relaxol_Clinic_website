@@ -90,89 +90,88 @@ export function Header() {
 
   return (
     <header className="w-full sticky top-0 z-50">
-      {/* Top Bar */}
-      <div className="bg-[#D09B3C] text-white py-2 px-4">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 flex flex-wrap items-center justify-between gap-2 text-sm">
-          <span className="font-medium">New Jersey's Premier Ketamine & SPRAVATO® Clinic</span>
-          <div className="flex items-center gap-4">
-            <a href="tel:201-781-2101" className="flex items-center gap-1.5 hover:opacity-80 transition-opacity">
+      {/* Combined Navigation Bar */}
+      <nav className="bg-[#1a1815] py-3 px-4 shadow-lg">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
+          {/* Top row with tagline and phone */}
+          <div className="flex items-center justify-between text-sm mb-2">
+            <span className="text-[#D09B3C] font-medium hidden sm:block">New Jersey's Premier Ketamine & SPRAVATO® Clinic</span>
+            <a href="tel:201-781-2101" className="flex items-center gap-1.5 text-[#D09B3C] hover:text-[#e5b056] transition-colors ml-auto">
               <Phone className="w-4 h-4" />
-              <span className="hidden sm:inline">Call: 201-781-2101</span>
+              <span>201-781-2101</span>
             </a>
           </div>
-        </div>
-      </div>
+          
+          {/* Main nav row */}
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link to="/" className="flex items-center">
+              <img src={relaxolLogo} alt="Relaxol Clinic" className="h-[90px] w-auto object-contain" />
+            </Link>
 
-      {/* Main Navigation */}
-      <nav className="bg-[#1a1815] border-t border-[#2a2520] py-2 px-4 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <img src={relaxolLogo} alt="Relaxol Clinic" className="h-[72px] w-auto object-contain" />
-          </Link>
-
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-0.5 flex-shrink-0">
-            {navItems.map((item) => (
-              item.hasDropdown ? (
-                <div
-                  key={item.label}
-                  className="relative"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <a
-                    href={item.href}
-                    className="px-3 py-4 text-white/90 hover:text-[#D09B3C] transition-colors font-medium inline-flex items-center gap-1 whitespace-nowrap text-sm"
+            {/* Desktop Nav */}
+            <div className="hidden lg:flex items-center gap-0.5 flex-shrink-0">
+              {navItems.map((item) => (
+                item.hasDropdown ? (
+                  <div
+                    key={item.label}
+                    className="relative"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
                   >
-                    {item.label}
-                    <ChevronDown className={`w-4 h-4 transition-transform ${isConditionsOpen ? 'rotate-180' : ''}`} />
-                  </a>
-                  {isConditionsOpen && (
-                    <div className="absolute top-full left-0 pt-1 z-50">
-                      <div className="bg-card rounded-lg shadow-xl border border-border py-2 min-w-[200px]">
-                        {ketamineItems.map((dropdownItem) => (
-                          <button
-                            key={dropdownItem.label}
-                            onClick={() => handleHashNavigation(dropdownItem.href)}
-                            className="block w-full text-left px-4 py-2 text-foreground hover:bg-cream-dark hover:text-primary transition-colors"
-                          >
-                            {dropdownItem.label}
-                          </button>
-                        ))}
+                    <a
+                      href={item.href}
+                      className="px-3 py-4 text-white/90 hover:text-[#D09B3C] transition-colors font-medium inline-flex items-center gap-1 whitespace-nowrap text-sm"
+                    >
+                      {item.label}
+                      <ChevronDown className={`w-4 h-4 transition-transform ${isConditionsOpen ? 'rotate-180' : ''}`} />
+                    </a>
+                    {isConditionsOpen && (
+                      <div className="absolute top-full left-0 pt-1 z-50">
+                        <div className="bg-card rounded-lg shadow-xl border border-border py-2 min-w-[200px]">
+                          {ketamineItems.map((dropdownItem) => (
+                            <button
+                              key={dropdownItem.label}
+                              onClick={() => handleHashNavigation(dropdownItem.href)}
+                              className="block w-full text-left px-4 py-2 text-foreground hover:bg-cream-dark hover:text-primary transition-colors"
+                            >
+                              {dropdownItem.label}
+                            </button>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <span key={item.label}>
-                  {renderNavLink(item)}
-                </span>
-              )
-            ))}
-          </div>
+                    )}
+                  </div>
+                ) : (
+                  <span key={item.label}>
+                    {renderNavLink(item)}
+                  </span>
+                )
+              ))}
+            </div>
 
-          {/* CTA Buttons */}
-          <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
-            <Link to="/verify-coverage">
-              <Button className="btn-nav bg-[#D09B3C] text-white hover:bg-[#C48A25] whitespace-nowrap">
-                Verify Coverage
-              </Button>
-            </Link>
-            <Link to="/contact">
-              <Button className="btn-nav bg-[#D09B3C] text-white hover:bg-[#C48A25] whitespace-nowrap">
-                Schedule Consultation
-              </Button>
-            </Link>
-          </div>
+            {/* CTA Buttons */}
+            <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
+              <Link to="/verify-coverage">
+                <Button className="btn-nav bg-[#D09B3C] text-white hover:bg-[#C48A25] whitespace-nowrap">
+                  Verify Coverage
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button className="btn-nav bg-[#D09B3C] text-white hover:bg-[#C48A25] whitespace-nowrap">
+                  Schedule Consultation
+                </Button>
+              </Link>
+            </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden text-white p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+            {/* Mobile Menu Button */}
+            <button
+              className="lg:hidden text-white p-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
