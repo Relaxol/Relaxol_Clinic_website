@@ -91,7 +91,7 @@ export function Header() {
   return (
     <header className="w-full sticky top-0 z-50">
       {/* Combined Navigation Bar */}
-      <nav className="bg-[#231e19] py-4 px-4 shadow-lg">
+      <nav className="bg-[#2a241e] py-4 px-4 shadow-lg">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
           <div className="flex items-center justify-between">
             {/* Logo - Left */}
