@@ -3,7 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { ConditionsSection } from "@/components/sections/ConditionsSection";
-import { InsuranceSection } from "@/components/sections/InsuranceSection";
+
 import { TreatmentsSection } from "@/components/sections/TreatmentsSection";
 import { WhyChooseSection } from "@/components/sections/WhyChooseSection";
 import { VideoSection } from "@/components/sections/VideoSection";
@@ -33,7 +33,7 @@ const Home = () => {
         <ContactSection content={homeContent?.contact} />
         <ConditionsSection content={homeContent?.conditions} />
         <EnvironmentSection />
-        <InsuranceSection />
+        
         <WhyChooseSection />
         <TestimonialsSection content={homeContent?.testimonials} />
         {/* <VideoTestimonialsSection /> */}
