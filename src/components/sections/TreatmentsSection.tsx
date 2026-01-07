@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import treatmentSpravato from "@/assets/treatment-spravato.jpg";
 import treatmentKetamine from "@/assets/treatment-ketamine.jpg";
-import treatmentTelehealth from "@/assets/treatment-telehealth.jpg";
 import treatmentPainManagement from "@/assets/treatment-pain-management.jpg";
+import infusionEnergy from "@/assets/infusion-energy.jpg";
 
 const defaultTreatments = [
   {
@@ -32,9 +32,9 @@ const defaultTreatments = [
   },
   {
     title: "Vitamin Infusion Therapy",
-    tag: null,
-    description: "Revitalize your body with our premium IV vitamin infusions. From energy boosts to immune support, our customized treatments deliver essential nutrients directly to your system.",
-    image: treatmentTelehealth,
+    tag: "Wellness",
+    description: "Boost your energy, immunity, and overall wellness with our premium IV vitamin infusions. Nutrients delivered directly to your system for maximum absorption and faster results.",
+    image: infusionEnergy,
     cta: "Learn More",
     href: "/vitamin-infusion-englewood",
   },
