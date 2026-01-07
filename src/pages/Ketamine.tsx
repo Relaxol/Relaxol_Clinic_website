@@ -423,6 +423,59 @@ const Ketamine = () => {
           </div>
         </section>
 
+        {/* SECTION — UNDERSTANDING KETAMINE THERAPY */}
+        <section className="py-20 md:py-28 bg-background">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
+            {/* Section Header */}
+            <div className="text-center mb-16">
+              <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
+                LEARN MORE
+              </p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+                Understanding Ketamine Therapy
+              </h2>
+            </div>
+
+            {/* Content Grid */}
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+              {/* What Is Ketamine Card */}
+              <div className="bg-card rounded-3xl p-8 md:p-10 shadow-card">
+                <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-3">
+                  <span className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">1</span>
+                  What Is Ketamine?
+                </h3>
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    Ketamine is a well-researched medication that has been FDA-approved since 1970. For decades, it has been safely used as an anesthetic in hospitals, emergency rooms, ambulances, and surgical settings for both adults and children. It is also widely used in veterinary medicine and is listed by the World Health Organization (WHO) as an essential medication due to its effectiveness and strong safety profile when properly administered.
+                  </p>
+                  <p>
+                    Over the past decade, leading institutions such as Yale University and the National Institutes of Health (NIH) have identified additional benefits of ketamine in the treatment of mood disorders, including depression. These findings have drawn significant attention in the mental health field and have expanded how clinicians think about treating treatment-resistant depression.
+                  </p>
+                </div>
+              </div>
+
+              {/* How Ketamine Therapy Works Card */}
+              <div className="bg-card rounded-3xl p-8 md:p-10 shadow-card">
+                <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-3">
+                  <span className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">2</span>
+                  How Ketamine Therapy Works
+                </h3>
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    Ketamine therapy is being studied for its potential to help individuals with depression and other mental health conditions who have not found relief with traditional treatments. Unlike conventional antidepressants, which often take weeks to build up in the system, ketamine may work more quickly by targeting different pathways in the brain involved in mood regulation.
+                  </p>
+                  <p>
+                    Treatment is provided in a clinical setting and may be administered through intravenous (IV) infusion or nasal spray. During each session, patients are closely monitored by trained medical professionals to ensure safety and comfort.
+                  </p>
+                  <p>
+                    The goal of ketamine therapy is to help "reset" certain brain circuits involved in mood and emotional regulation, which may lead to faster symptom relief and improved overall well-being for some individuals.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* SECTION 2 — "Rapid Solutions" parallax banner */}
         <section className="relative py-28 md:py-40 overflow-hidden">
           {/* Parallax background image - replace src later */}
