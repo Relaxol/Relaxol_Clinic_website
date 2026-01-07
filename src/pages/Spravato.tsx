@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -254,10 +255,10 @@ export default function Spravato() {
               
               <div className="flex flex-wrap gap-4 pt-2">
                 <Button size="lg" className="group" asChild>
-                  <a href="#eligibility-form">
+                  <Link to="/verify-coverage">
                     Check Eligibility
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </a>
+                  </Link>
                 </Button>
                 
                 <a 

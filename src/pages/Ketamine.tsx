@@ -691,8 +691,8 @@ const Ketamine = () => {
                   <Button asChild>
                     <Link to="/spravato-Englewood">Learn About SPRAVATO®</Link>
                   </Button>
-                  <Button variant="outline" onClick={() => scrollToId("eligibility")}>
-                    Check Eligibility
+                  <Button variant="outline" asChild>
+                    <Link to="/verify-coverage">Check Eligibility</Link>
                   </Button>
                 </div>
               </div>
