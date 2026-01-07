@@ -105,7 +105,7 @@ export function Header() {
           {/* Main nav row */}
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="flex items-center">
+            <Link to="/" className="flex items-center mb-3">
               <img src={relaxolLogo} alt="Relaxol Clinic" className="h-[90px] w-auto object-contain" />
             </Link>
 
