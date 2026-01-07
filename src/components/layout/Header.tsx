@@ -17,7 +17,6 @@ const navItems = [
   { label: "Ketamine", href: "/ketamine", hasDropdown: true, isExternal: false },
   { label: "SPRAVATO®", href: "/spravato-Englewood", isExternal: false },
   { label: "Vitamin Infusions", href: "/vitamin-infusion-englewood", isExternal: false },
-  { label: "Verify Coverage", href: "/verify-coverage", isExternal: false },
   { label: "Our Team", href: "/our-team", isExternal: false },
   { label: "Blog", href: "/blog", isExternal: false },
   { label: "FAQ", href: "/faq", isExternal: false },
@@ -51,7 +50,7 @@ export function Header() {
       return (
         <a
           href={item.href}
-          className="px-4 py-2 text-white/90 hover:text-[#D09B3C] transition-colors font-medium"
+          className="px-3 py-2 text-white/90 hover:text-[#D09B3C] transition-colors font-medium whitespace-nowrap text-sm"
         >
           {item.label}
         </a>
@@ -61,7 +60,7 @@ export function Header() {
     return (
       <Link
         to={item.href}
-        className="px-4 py-2 text-white/90 hover:text-[#D09B3C] transition-colors font-medium"
+        className="px-3 py-2 text-white/90 hover:text-[#D09B3C] transition-colors font-medium whitespace-nowrap text-sm"
       >
         {item.label}
       </Link>
@@ -92,7 +91,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-0.5 flex-shrink-0">
             {navItems.map((item) => (
               item.hasDropdown ? (
                 <div
@@ -103,7 +102,7 @@ export function Header() {
                 >
                   <a
                     href={item.href}
-                    className="px-4 py-4 text-white/90 hover:text-[#D09B3C] transition-colors font-medium inline-flex items-center gap-1"
+                    className="px-3 py-4 text-white/90 hover:text-[#D09B3C] transition-colors font-medium inline-flex items-center gap-1 whitespace-nowrap text-sm"
                   >
                     {item.label}
                     <ChevronDown className={`w-4 h-4 transition-transform ${isConditionsOpen ? 'rotate-180' : ''}`} />
@@ -133,9 +132,14 @@ export function Header() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
+            <Link to="/verify-coverage">
+              <Button className="btn-nav bg-[#D09B3C] text-white hover:bg-[#C48A25] whitespace-nowrap">
+                Verify Coverage
+              </Button>
+            </Link>
             <Link to="/contact">
-              <Button className="btn-nav bg-[#D09B3C] text-white hover:bg-[#C48A25]">
+              <Button className="btn-nav bg-[#D09B3C] text-white hover:bg-[#C48A25] whitespace-nowrap">
                 Schedule Consultation
               </Button>
             </Link>
@@ -202,6 +206,11 @@ export function Header() {
                 )
               ))}
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-[#2a2520]">
+                <Link to="/verify-coverage" onClick={() => setIsMenuOpen(false)}>
+                  <Button className="w-full bg-[#D09B3C] text-white hover:bg-[#C48A25]">
+                    Verify Coverage
+                  </Button>
+                </Link>
                 <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
                   <Button className="w-full bg-[#D09B3C] text-white hover:bg-[#C48A25]">
                     Schedule Consultation
