@@ -503,7 +503,7 @@ const Ketamine = () => {
             <div className="text-center mb-16">
               <p className="text-sm font-medium uppercase tracking-widest text-primary mb-4">Conditions We Treat</p>
               <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-                Ketamine Therapy for Mental Health
+                Ketamine Therapy
               </h2>
               <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
                 Discover how ketamine therapy can help with treatment-resistant depression, anxiety, PTSD, and OCD through its unique mechanism of action.
