@@ -742,39 +742,6 @@ const Ketamine = () => {
           </div>
         </section>
         */}
-
-        {/* SAFETY & SIDE EFFECTS (Demoted, quieter) */}
-        <section className="py-16 bg-muted/30">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="max-w-3xl mx-auto">
-              <div className="text-center mb-10">
-                <h2 className="text-2xl font-semibold text-foreground">
-                  Safety & Side Effects
-                </h2>
-                <p className="text-muted-foreground mt-3 text-sm">
-                  Ketamine therapy is provided under strict medical protocols with careful screening.
-                </p>
-              </div>
-              
-              <Accordion type="single" collapsible className="space-y-3">
-                {safetyAccordionItems.map((item) => (
-                  <AccordionItem 
-                    key={item.id} 
-                    value={item.id}
-                    className="bg-background rounded-xl border-0 px-6"
-                  >
-                    <AccordionTrigger className="text-foreground/80 hover:no-underline py-4 text-sm font-normal">
-                      {item.title}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground pb-4 text-sm leading-relaxed">
-                      {item.content}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-          </div>
-        </section>
       </main>
       <Footer />
     </div>
