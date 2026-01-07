@@ -355,10 +355,6 @@ const VitaminInfusions = () => {
                 <p className="text-muted-foreground leading-relaxed">
                   Low B12 levels are common, especially for those following vegetarian or vegan lifestyles, and supplementation can help restore balance and support day-to-day wellbeing.
                 </p>
-                
-                <Button className="bg-[#D09B3C] hover:bg-[#C48A25] text-white">
-                  Learn More
-                </Button>
               </div>
             </div>
           </div>
@@ -385,10 +381,6 @@ const VitaminInfusions = () => {
                 <p className="text-muted-foreground leading-relaxed">
                   Delivering NAD+ through an IV infusion allows for faster absorption and more efficient results compared to oral supplementation, helping optimize NAD+ levels and support whole-body vitality.
                 </p>
-                
-                <Button className="bg-[#D09B3C] hover:bg-[#C48A25] text-white">
-                  Learn More
-                </Button>
               </div>
               
               {/* Right: Image */}
