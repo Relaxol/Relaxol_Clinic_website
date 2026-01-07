@@ -116,23 +116,44 @@ const FAQPage = () => {
         {/* FAQ Section */}
         <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <Accordion type="single" collapsible className="space-y-4">
-                {faqItems.map((faq, index) => (
-                  <AccordionItem
-                    key={index}
-                    value={`faq-${index}`}
-                    className="bg-card rounded-2xl border border-border/30 px-6 overflow-hidden"
-                  >
-                    <AccordionTrigger className="text-left text-lg md:text-xl font-semibold text-foreground hover:text-primary py-6 hover:no-underline [&[data-state=open]>svg]:rotate-180">
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground leading-relaxed pb-6 text-base">
-                      {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
+            <div className="max-w-6xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Left Column */}
+                <Accordion type="single" collapsible className="space-y-4">
+                  {faqItems.filter((_, index) => index % 2 === 0).map((faq, index) => (
+                    <AccordionItem
+                      key={index}
+                      value={`faq-left-${index}`}
+                      className="bg-card rounded-2xl border border-border/30 px-6 overflow-hidden"
+                    >
+                      <AccordionTrigger className="text-left text-base md:text-lg font-semibold text-foreground hover:text-primary py-5 hover:no-underline [&[data-state=open]>svg]:rotate-180">
+                        {faq.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground leading-relaxed pb-5 text-sm">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+                
+                {/* Right Column */}
+                <Accordion type="single" collapsible className="space-y-4">
+                  {faqItems.filter((_, index) => index % 2 === 1).map((faq, index) => (
+                    <AccordionItem
+                      key={index}
+                      value={`faq-right-${index}`}
+                      className="bg-card rounded-2xl border border-border/30 px-6 overflow-hidden"
+                    >
+                      <AccordionTrigger className="text-left text-base md:text-lg font-semibold text-foreground hover:text-primary py-5 hover:no-underline [&[data-state=open]>svg]:rotate-180">
+                        {faq.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground leading-relaxed pb-5 text-sm">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
             </div>
           </div>
         </section>
