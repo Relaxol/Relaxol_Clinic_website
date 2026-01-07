@@ -561,6 +561,13 @@ const Ketamine = () => {
                         </AccordionItem>
                       ))}
                     </Accordion>
+                    
+                    {/* Schedule Consultation Button */}
+                    <Link to="/contact">
+                      <Button className="mt-4 bg-primary hover:bg-accent text-primary-foreground font-semibold px-6 py-3 rounded-full">
+                        Schedule Consultation
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               ))}
