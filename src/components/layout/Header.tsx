@@ -94,9 +94,9 @@ export function Header() {
       <nav className="bg-[#1a1815] py-3 px-4 shadow-lg">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
           {/* Top row with tagline and phone */}
-          <div className="flex items-center justify-between text-sm mb-2">
+          <div className="flex items-center justify-end gap-6 text-sm mb-2">
             <span className="text-[#D09B3C] font-medium hidden sm:block">New Jersey's Premier Ketamine & SPRAVATO® Clinic</span>
-            <a href="tel:201-781-2101" className="flex items-center gap-1.5 text-[#D09B3C] hover:text-[#e5b056] transition-colors ml-auto">
+            <a href="tel:201-781-2101" className="flex items-center gap-1.5 text-[#D09B3C] hover:text-[#e5b056] transition-colors">
               <Phone className="w-4 h-4" />
               <span>201-781-2101</span>
             </a>
