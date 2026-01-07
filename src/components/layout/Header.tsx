@@ -153,9 +153,9 @@ export function Header() {
                 ))}
                 
                 {/* CTA Button */}
-                <Link to="/contact" className="ml-4">
+                <Link to="/verify-coverage" className="ml-4">
                   <Button className="bg-[#D09B3C] text-white hover:bg-[#C48A25] whitespace-nowrap px-5 py-2 text-sm font-semibold">
-                    FREE CONSULTATION
+                    Insurance Coverage
                   </Button>
                 </Link>
               </div>
