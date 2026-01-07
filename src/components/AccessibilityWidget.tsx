@@ -96,11 +96,11 @@ export function AccessibilityWidget() {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed right-4 bottom-24 z-50 w-14 h-14 flex items-center justify-center transition-all duration-300 hover:scale-110"
+        className="fixed right-4 bottom-24 z-50 w-14 h-14 flex items-center justify-center transition-all duration-300 hover:scale-110 rounded-full overflow-hidden"
         aria-label="Accessibility Options"
         title="Accessibility Options"
       >
-        <img src={accessibilityIcon} alt="Accessibility" className="w-14 h-14" />
+        <img src={accessibilityIcon} alt="Accessibility" className="w-14 h-14 rounded-full object-cover" />
       </button>
 
       {/* Widget Panel */}
