@@ -31,9 +31,9 @@ const defaultTreatments = [
     href: "/conditions/pain-management",
   },
   {
-    title: "Vitamin Infusion Therapy",
+    title: "IV Vitamin Infusion Therapy",
     tag: "Wellness",
-    description: "Boost your energy, immunity, and overall wellness with our premium IV vitamin infusions. Nutrients delivered directly to your system for maximum absorption and faster results.",
+    description: "Recharge your body with our physician-supervised IV vitamin drips. Whether you need an energy boost, immune support, or hydration recovery, experience 100% nutrient absorption for optimal wellness.",
     image: infusionEnergy,
     cta: "Learn More",
     href: "/vitamin-infusion-englewood",
