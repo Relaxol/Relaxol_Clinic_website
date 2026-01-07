@@ -91,15 +91,7 @@ export function Header() {
   return (
     <header className="w-full sticky top-0 z-50">
       {/* Combined Navigation Bar */}
-      <nav className="relative bg-[#231e19] py-4 px-4 shadow-lg overflow-hidden">
-        {/* Subtle pattern overlay */}
-        <div 
-          className="absolute inset-0 opacity-20 pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30L30 0z' fill='none' stroke='%23D09B3C' stroke-width='1'/%3E%3C/svg%3E")`,
-            backgroundSize: '30px 30px',
-          }}
-        />
+      <nav className="bg-[#231e19] py-4 px-4 shadow-lg">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
           <div className="flex items-center justify-between">
             {/* Logo - Left */}
