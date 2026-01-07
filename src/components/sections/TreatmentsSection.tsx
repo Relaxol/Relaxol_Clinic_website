@@ -31,12 +31,12 @@ const defaultTreatments = [
     href: "/conditions/pain-management",
   },
   {
-    title: "Ongoing Care & Telehealth Support",
+    title: "Vitamin Infusion Therapy",
     tag: null,
-    description: "Comprehensive follow-up support including psychiatric consultations, medication management, and telehealth check-ins to ensure long-term wellness.",
+    description: "Revitalize your body with our premium IV vitamin infusions. From energy boosts to immune support, our customized treatments deliver essential nutrients directly to your system.",
     image: treatmentTelehealth,
     cta: "Learn More",
-    href: "#contact",
+    href: "/vitamin-infusion-englewood",
   },
 ];
 
