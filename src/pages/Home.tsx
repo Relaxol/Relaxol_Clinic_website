@@ -11,7 +11,7 @@ import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { VideoTestimonialsSection } from "@/components/sections/VideoTestimonialsSection";
 import { TimelineSection } from "@/components/sections/TimelineSection";
 import { EnvironmentSection } from "@/components/sections/EnvironmentSection";
-import { FAQSection } from "@/components/sections/FAQSection";
+import { CoverageSection } from "@/components/sections/CoverageSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { usePageContent } from "@/hooks/usePageContent";
 import { HomeV1Content } from "@/lib/templates/schemas";
@@ -38,7 +38,7 @@ const Home = () => {
         <TestimonialsSection content={homeContent?.testimonials} />
         {/* <VideoTestimonialsSection /> */}
         <TimelineSection content={homeContent?.timeline} />
-        <FAQSection content={homeContent?.faq} />
+        <CoverageSection />
       </main>
       <Footer />
     </div>
