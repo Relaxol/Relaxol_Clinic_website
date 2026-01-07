@@ -187,22 +187,22 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
               </div>
 
               {/* Content Area */}
-              <div className="relative p-8 md:p-10 bg-card flex flex-col h-full min-h-[280px]">
-                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-5 leading-tight min-h-[5.5rem] md:min-h-[6rem]">
+              <div className="relative p-6 md:p-8 bg-card flex flex-col flex-grow">
+                <h3 className="text-lg md:text-xl font-bold text-foreground mb-3 leading-tight">
                   {treatment.title}
                 </h3>
                 
-                <p className="text-muted-foreground text-base md:text-lg leading-relaxed flex-grow">
+                <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-4 flex-grow">
                   {treatment.description}
                 </p>
                 
                 {/* CTA Link */}
                 <a
                   href={treatment.href}
-                  className="inline-flex items-center gap-2 text-primary font-semibold text-base hover:gap-3 transition-all duration-300 group/link mt-8"
+                  className="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all duration-300 group/link"
                 >
                   <span>{treatment.cta}</span>
-                  <ArrowRight className="w-5 h-5 transform group-hover/link:translate-x-1 transition-transform duration-300" />
+                  <ArrowRight className="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform duration-300" />
                 </a>
               </div>
 
