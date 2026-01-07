@@ -381,7 +381,7 @@ const Ketamine = () => {
             {/* Left column */}
             <div className="space-y-6">
               <h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-foreground">
-                Ketamine Therapy for Treatment-Resistant Depression
+                Rapid Relief for a Range of Mood and Chronic Conditions
               </h1>
               <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
                 Personalized care for individuals who haven't found relief with traditional treatments.
