@@ -81,13 +81,6 @@ export function CoverageSection() {
               </p>
             </div>
             
-            <div className="bg-white rounded-2xl p-6 shadow-md border border-border/50">
-              <h4 className="text-lg font-semibold text-foreground mb-2">Flexible Payment Options</h4>
-              <p className="text-muted-foreground text-sm">
-                For treatments not covered by insurance, we offer flexible payment plans to make care accessible.
-              </p>
-            </div>
-            
             <div className="bg-primary/10 rounded-2xl p-6 border border-primary/20">
               <h4 className="text-lg font-semibold text-primary mb-2">Free Benefits Verification</h4>
               <p className="text-foreground text-sm">
