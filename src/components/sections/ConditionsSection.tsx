@@ -55,7 +55,7 @@ interface ConditionsSectionProps {
 }
 
 export function ConditionsSection({ content }: ConditionsSectionProps) {
-  const subtitle = content?.subtitle || "CONDITIONS WE TREAT";
+  const subtitle = content?.subtitle || "";
   const title = content?.title || "Specialized Mental Health Care";
   const description = content?.description || "Our treatments are designed for patients who haven't found relief through traditional approaches.";
   
