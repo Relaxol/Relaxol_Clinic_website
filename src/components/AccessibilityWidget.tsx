@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Accessibility, Plus, Minus, Eye, Type, RotateCcw, X } from "lucide-react";
+import { Plus, Minus, Eye, Type, RotateCcw, X, Accessibility } from "lucide-react";
+import accessibilityIcon from "@/assets/accessibility-icon.png";
 
 interface AccessibilitySettings {
   fontSize: number;
@@ -95,11 +96,11 @@ export function AccessibilityWidget() {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed right-4 bottom-24 z-50 w-14 h-14 bg-[#2563eb] hover:bg-[#1d4ed8] text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
+        className="fixed right-4 bottom-24 z-50 w-14 h-14 flex items-center justify-center transition-all duration-300 hover:scale-110"
         aria-label="Accessibility Options"
         title="Accessibility Options"
       >
-        <Accessibility className="w-7 h-7" />
+        <img src={accessibilityIcon} alt="Accessibility" className="w-14 h-14" />
       </button>
 
       {/* Widget Panel */}
