@@ -26,7 +26,7 @@ const socialLinks = [
 export function Footer() {
   return (
     <footer className="bg-foreground text-background">
-      <div className="container mx-auto px-4 py-16">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo & Description */}
           <div className="lg:col-span-1">
@@ -133,7 +133,7 @@ export function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-background/10">
-        <div className="container mx-auto px-4 py-6">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-background/60">
             <p>© 2025 Relaxol Clinic. All rights reserved.</p>
             <div className="flex items-center gap-6">

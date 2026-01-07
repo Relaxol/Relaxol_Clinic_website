@@ -3,7 +3,7 @@ import treatmentRoom from "@/assets/treatment-room.jpg";
 export function EnvironmentSection() {
   return (
     <section className="py-20 bg-cream-dark">
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div>

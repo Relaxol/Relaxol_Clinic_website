@@ -50,7 +50,7 @@ export function FAQSection({ content }: FAQSectionProps) {
 
   return (
     <section className="py-20 bg-background">
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
