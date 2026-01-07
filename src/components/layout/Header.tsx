@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import relaxolLogo from "@/assets/relaxol-logo-transparent.png";
@@ -28,6 +28,27 @@ export function Header() {
   const [isConditionsOpen, setIsConditionsOpen] = useState(false);
   const [mobileConditionsOpen, setMobileConditionsOpen] = useState(false);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const navigate = useNavigate();
+
+  const handleHashNavigation = (href: string) => {
+    const [path, hash] = href.split('#');
+    
+    if (hash) {
+      navigate(path || '/ketamine');
+      // Wait for navigation then scroll to element
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    } else {
+      navigate(href);
+    }
+    
+    setIsConditionsOpen(false);
+    setIsMenuOpen(false);
+  };
 
   const handleMouseEnter = () => {
     if (closeTimeoutRef.current) {
@@ -110,14 +131,14 @@ export function Header() {
                   {isConditionsOpen && (
                     <div className="absolute top-full left-0 pt-1 z-50">
                       <div className="bg-card rounded-lg shadow-xl border border-border py-2 min-w-[200px]">
-                        {ketamineItems.map((item) => (
-                          <Link
-                            key={item.label}
-                            to={item.href}
-                            className="block px-4 py-2 text-foreground hover:bg-cream-dark hover:text-primary transition-colors"
+                        {ketamineItems.map((dropdownItem) => (
+                          <button
+                            key={dropdownItem.label}
+                            onClick={() => handleHashNavigation(dropdownItem.href)}
+                            className="block w-full text-left px-4 py-2 text-foreground hover:bg-cream-dark hover:text-primary transition-colors"
                           >
-                            {item.label}
-                          </Link>
+                            {dropdownItem.label}
+                          </button>
                         ))}
                       </div>
                     </div>
@@ -170,15 +191,14 @@ export function Header() {
                     </button>
                     {mobileConditionsOpen && (
                       <div className="pl-4 mt-1 space-y-1">
-                        {ketamineItems.map((item) => (
-                          <Link
-                            key={item.label}
-                            to={item.href}
-                            className="block px-4 py-2 text-white/70 hover:text-[#D09B3C] transition-colors"
-                            onClick={() => setIsMenuOpen(false)}
+                        {ketamineItems.map((dropdownItem) => (
+                          <button
+                            key={dropdownItem.label}
+                            onClick={() => handleHashNavigation(dropdownItem.href)}
+                            className="block w-full text-left px-4 py-2 text-white/70 hover:text-[#D09B3C] transition-colors"
                           >
-                            {item.label}
-                          </Link>
+                            {dropdownItem.label}
+                          </button>
                         ))}
                       </div>
                     )}
