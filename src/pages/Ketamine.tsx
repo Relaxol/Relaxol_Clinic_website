@@ -708,7 +708,7 @@ const Ketamine = () => {
           </div>
         </section>
 
-        {/* SECTION 8 — BLOG PREVIEW */}
+        {/* SECTION 8 — BLOG PREVIEW (hidden for now)
         <section className="py-20 md:py-28">
           <div className="mx-auto max-w-6xl px-6">
             <div className="text-center mb-16">
@@ -721,7 +721,6 @@ const Ketamine = () => {
             </div>
             
             <div className="grid md:grid-cols-2 gap-8">
-              {/* Blog post 1 */}
               <div className="rounded-3xl overflow-hidden bg-muted/40">
                 <div className="aspect-[16/10] bg-muted" />
                 <div className="p-7 space-y-3">
@@ -731,7 +730,6 @@ const Ketamine = () => {
                 </div>
               </div>
               
-              {/* Blog post 2 */}
               <div className="rounded-3xl overflow-hidden bg-muted/40">
                 <div className="aspect-[16/10] bg-muted" />
                 <div className="p-7 space-y-3">
@@ -743,6 +741,7 @@ const Ketamine = () => {
             </div>
           </div>
         </section>
+        */}
 
         {/* SAFETY & SIDE EFFECTS (Demoted, quieter) */}
         <section className="py-16 bg-muted/30">
