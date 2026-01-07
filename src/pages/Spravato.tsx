@@ -293,6 +293,44 @@ export default function Spravato() {
         </div>
       </section>
 
+      {/* WHAT IS SPRAVATO - Explanation + Image */}
+      <section className="py-16 lg:py-24 bg-card">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left: Text */}
+            <div className="space-y-6">
+              <span className="text-primary font-semibold text-sm uppercase tracking-widest">
+                About the Treatment
+              </span>
+              <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
+                What Is SPRAVATO®?
+              </h2>
+              
+              <p className="text-muted-foreground leading-relaxed">
+                SPRAVATO® is a prescription nasal spray derived from esketamine and approved 
+                by the FDA for treatment-resistant depression. It's used alongside an oral 
+                antidepressant for adults who haven't found relief from standard medications.
+              </p>
+              
+              <p className="text-muted-foreground leading-relaxed">
+                Unlike traditional antidepressants that target serotonin or norepinephrine, 
+                SPRAVATO® works on the glutamate system—potentially restoring neural connections 
+                weakened by chronic depression.
+              </p>
+            </div>
+            
+            {/* Right: Official SPRAVATO Device Image */}
+            <div className="flex justify-center items-center">
+              <img 
+                src={spravatoDeviceOfficial} 
+                alt="SPRAVATO nasal spray device"
+                className="max-w-full h-auto"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 2. ELIGIBILITY / CONTACT FORM */}
       <section id="eligibility-form" className="py-16 lg:py-24 bg-secondary/30 scroll-mt-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -395,44 +433,6 @@ export default function Spravato() {
                 </CardContent>
               </Card>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. WHAT IS SPRAVATO - Explanation + Image */}
-      <section className="py-16 lg:py-24 bg-card">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left: Text */}
-            <div className="space-y-6">
-              <span className="text-primary font-semibold text-sm uppercase tracking-widest">
-                About the Treatment
-              </span>
-              <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-                What Is SPRAVATO®?
-              </h2>
-              
-              <p className="text-muted-foreground leading-relaxed">
-                SPRAVATO® is a prescription nasal spray derived from esketamine and approved 
-                by the FDA for treatment-resistant depression. It's used alongside an oral 
-                antidepressant for adults who haven't found relief from standard medications.
-              </p>
-              
-              <p className="text-muted-foreground leading-relaxed">
-                Unlike traditional antidepressants that target serotonin or norepinephrine, 
-                SPRAVATO® works on the glutamate system—potentially restoring neural connections 
-                weakened by chronic depression.
-              </p>
-            </div>
-            
-            {/* Right: Official SPRAVATO Device Image */}
-            <div className="flex justify-center items-center">
-              <img 
-                src={spravatoDeviceOfficial} 
-                alt="SPRAVATO nasal spray device"
-                className="max-w-full h-auto"
-              />
-            </div>
           </div>
         </div>
       </section>
