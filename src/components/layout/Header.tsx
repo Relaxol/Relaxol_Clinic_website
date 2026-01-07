@@ -6,11 +6,11 @@ import relaxolLogo from "@/assets/relaxol-logo-transparent.png";
 
 const ketamineItems = [
   { label: "What Is Ketamine?", href: "/ketamine" },
-  { label: "Depression Treatment", href: "/conditions/depression" },
-  { label: "Anxiety Treatment", href: "/conditions/anxiety" },
-  { label: "PTSD Treatment", href: "/conditions/ptsd" },
-  { label: "OCD Treatment", href: "/conditions/ocd" },
-  { label: "Pain Management", href: "/conditions/pain-management" },
+  { label: "Depression Treatment", href: "/ketamine#depression" },
+  { label: "Anxiety Treatment", href: "/ketamine#anxiety" },
+  { label: "PTSD Treatment", href: "/ketamine#ptsd" },
+  { label: "OCD Treatment", href: "/ketamine#ocd" },
+  { label: "Pain Management", href: "/ketamine#chronic-pain" },
 ];
 
 const navItems = [

@@ -554,7 +554,8 @@ const Ketamine = () => {
               {conditionsData.map((condition, index) => (
                 <div 
                   key={condition.id}
-                  className={`grid md:grid-cols-2 gap-8 md:gap-12 items-start ${
+                  id={condition.id}
+                  className={`scroll-mt-32 grid md:grid-cols-2 gap-8 md:gap-12 items-start ${
                     index % 2 === 1 ? 'md:[&>*:first-child]:order-2' : ''
                   }`}
                 >
