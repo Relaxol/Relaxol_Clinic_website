@@ -24,6 +24,8 @@ import infusionRecovery from "@/assets/infusion-recovery.jpg";
 import infusionImmunity from "@/assets/infusion-immunity.jpg";
 import infusionAlleviate from "@/assets/infusion-alleviate.jpg";
 import infusionBeauty from "@/assets/infusion-beauty.jpg";
+import vitaminB12Injection from "@/assets/vitamin-b12-injection.jpg";
+import nadInfusion from "@/assets/nad-infusion.jpg";
 
 const infusionTypes = [
   {
@@ -319,6 +321,84 @@ const VitaminInfusions = () => {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Vitamin B12 Injections Section */}
+        <section className="py-16 lg:py-24 bg-background">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Left: Image */}
+              <div className="rounded-2xl overflow-hidden shadow-xl">
+                <img 
+                  src={vitaminB12Injection} 
+                  alt="Vitamin B12 Injection"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              {/* Right: Content */}
+              <div className="space-y-6">
+                <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
+                  Vitamin B12 Injections
+                </h2>
+                
+                <p className="text-muted-foreground leading-relaxed">
+                  Vitamin B12 supports natural energy, healthy metabolism, and overall vitality. It plays an important role in red blood cell production, nerve health, and helping the body turn food into usable energy.
+                </p>
+                
+                <p className="text-muted-foreground leading-relaxed">
+                  B12 injections deliver this essential vitamin directly into the muscle, allowing for better absorption and helping support energy levels, mental clarity, and physical wellness.
+                </p>
+                
+                <p className="text-muted-foreground leading-relaxed">
+                  Low B12 levels are common, especially for those following vegetarian or vegan lifestyles, and supplementation can help restore balance and support day-to-day wellbeing.
+                </p>
+                
+                <Button className="bg-[#D09B3C] hover:bg-[#C48A25] text-white">
+                  Learn More
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* NAD & NAD+ Infusions Section */}
+        <section className="py-16 lg:py-24 bg-card">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Left: Content */}
+              <div className="space-y-6 lg:order-1">
+                <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
+                  NAD & NAD+ Infusions
+                </h2>
+                
+                <p className="text-muted-foreground leading-relaxed">
+                  Nicotinamide adenine dinucleotide (NAD+) is a naturally occurring coenzyme found in nearly every cell of the body. It plays a vital role in cellular energy production, metabolism, and overall cellular health.
+                </p>
+                
+                <p className="text-muted-foreground leading-relaxed">
+                  NAD+ supports healthy aging, mental clarity, athletic performance, and the body's natural repair processes. It is widely used in wellness and functional medicine to help promote balance, resilience, and recovery at a cellular level.
+                </p>
+                
+                <p className="text-muted-foreground leading-relaxed">
+                  Delivering NAD+ through an IV infusion allows for faster absorption and more efficient results compared to oral supplementation, helping optimize NAD+ levels and support whole-body vitality.
+                </p>
+                
+                <Button className="bg-[#D09B3C] hover:bg-[#C48A25] text-white">
+                  Learn More
+                </Button>
+              </div>
+              
+              {/* Right: Image */}
+              <div className="rounded-2xl overflow-hidden shadow-xl lg:order-2">
+                <img 
+                  src={nadInfusion} 
+                  alt="NAD+ IV Infusion"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           </div>
         </section>
