@@ -91,7 +91,7 @@ export function Header() {
   return (
     <header className="w-full sticky top-0 z-50">
       {/* Combined Navigation Bar */}
-      <nav className="bg-[#1a1815] py-4 px-4 shadow-lg">
+      <nav className="bg-[#2a241e] py-4 px-4 shadow-lg">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
           <div className="flex items-center justify-between">
             {/* Logo - Left */}
@@ -173,7 +173,7 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden bg-[#1a1815] border-t border-[#2a2520] mt-4 py-4 px-4 animate-fade-in">
+          <div className="lg:hidden bg-[#2a241e] border-t border-[#3a342e] mt-4 py-4 px-4 animate-fade-in">
             <div className="flex flex-col gap-2">
               {navItems.map((item) => (
                 item.hasDropdown ? (
