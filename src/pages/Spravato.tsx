@@ -503,10 +503,10 @@ export default function Spravato() {
             </p>
             
             <Button size="lg" variant="outline" className="group" asChild>
-              <a href="#final-form">
+              <Link to="/verify-coverage">
                 Verify Coverage
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </Link>
             </Button>
           </div>
         </div>
