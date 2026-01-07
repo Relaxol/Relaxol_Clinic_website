@@ -450,46 +450,6 @@ const Ketamine = () => {
           </div>
         </section>
 
-        {/* SECTION 3 — SERVICES GRID (moved under parallax) */}
-        <section className="py-20 md:py-28 bg-muted/30">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-                Our Services
-              </h2>
-              <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Comprehensive ketamine therapy programs tailored to your needs.
-              </p>
-            </div>
-            
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {servicesItems.map((service, index) => (
-                <div 
-                  key={index} 
-                  className="rounded-2xl bg-background overflow-hidden hover:shadow-lg transition group"
-                >
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img 
-                      src={service.image} 
-                      alt={service.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold text-foreground">{service.title}</h3>
-                    <p className="mt-2 text-muted-foreground text-sm">{service.description}</p>
-                    <button 
-                      className="mt-4 text-sm font-medium underline underline-offset-4 text-foreground hover:text-primary transition-colors"
-                      onClick={() => scrollToId("eligibility")}
-                    >
-                      Book Consultation
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* SECTION — CONDITIONS WE TREAT */}
         <section className="py-20 md:py-28">
