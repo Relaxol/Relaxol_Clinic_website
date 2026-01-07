@@ -21,6 +21,7 @@ import PTSD from "./pages/conditions/PTSD";
 import OCD from "./pages/conditions/OCD";
 import PainManagement from "./pages/conditions/PainManagement";
 import OurTeam from "./pages/OurTeam";
+import InsuranceVerification from "./pages/InsuranceVerification";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
@@ -74,6 +75,7 @@ const App = () => (
             <Route path="/conditions/ocd" element={<OCD />} />
             <Route path="/conditions/pain-management" element={<PainManagement />} />
             <Route path="/our-team" element={<OurTeam />} />
+            <Route path="/verify-coverage" element={<InsuranceVerification />} />
             
             {/* Dynamic CMS pages - for NEW pages created via admin */}
             <Route path="/p/:slug" element={<DynamicPage />} />
