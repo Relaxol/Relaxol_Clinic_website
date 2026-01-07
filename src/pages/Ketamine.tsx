@@ -20,6 +20,7 @@ import conditionDepression from "@/assets/condition-depression.jpg";
 import conditionAnxiety from "@/assets/condition-anxiety.jpg";
 import conditionPtsd from "@/assets/condition-ptsd.jpg";
 import conditionOcd from "@/assets/condition-ocd.jpg";
+import conditionPain from "@/assets/condition-pain.jpg";
 import { 
   ArrowRight,
   Check,
@@ -250,6 +251,45 @@ const conditionsData = [
         id: "ocd-therapy",
         title: "Enhancing Therapy Outcomes",
         content: "For some patients, ketamine therapy may enhance the effectiveness of cognitive-behavioral therapy (CBT) and other therapeutic approaches for OCD. The altered state of consciousness induced by ketamine can increase openness to new perspectives and therapeutic insights."
+      }
+    ]
+  },
+  {
+    id: "chronic-pain",
+    title: "Ketamine and Chronic Pain",
+    image: conditionPain,
+    intro: "Ketamine has emerged as a promising option for people living with chronic pain, especially for those who have tried multiple treatments without finding lasting relief. By working differently than many traditional pain therapies, ketamine may help ease pain, support daily functioning, and improve overall quality of life.",
+    quote: "Chronic pain may be a chapter in your life, but it is not the whole story—there are still pages of hope yet to be written.",
+    accordionItems: [
+      {
+        id: "pain-mechanism",
+        title: "Unique Mechanism of Action",
+        content: "Unlike traditional pain medications that primarily address symptoms, ketamine works by modulating the NMDA receptor system and reducing nerve hypersensitivity, helping the nervous system reset its pain signaling."
+      },
+      {
+        id: "pain-rapid",
+        title: "Rapid Relief",
+        content: "Many patients experience noticeable reductions in pain and improved comfort within hours, rather than the weeks or months typical of standard pain treatments."
+      },
+      {
+        id: "pain-rewiring",
+        title: "Re-Wiring the Nervous System",
+        content: "Ketamine encourages neuroplasticity—meaning the brain and spinal cord can form new connections and pathways, helping disrupt long-standing pain circuits and restore more normal sensation and movement."
+      },
+      {
+        id: "pain-sensitivity",
+        title: "Reduced Sensitivity & Improved Function",
+        content: "By reducing over-active pain signaling and nerve sensitization, ketamine not only eases discomfort but can also improve mobility, sleep, and quality of life for individuals living with chronic pain."
+      },
+      {
+        id: "pain-conditions",
+        title: "Conditions We Treat",
+        content: "Complex Regional Pain Syndrome (CRPS), Fibromyalgia, Neuropathic pain, Chronic migraines and headaches, Failed back surgery syndrome, and Phantom limb pain."
+      },
+      {
+        id: "pain-candidate",
+        title: "Who Is a Candidate?",
+        content: "Adults with chronic pain lasting more than 3 months, those who haven't responded adequately to conventional pain treatments, patients looking to reduce dependence on opioid medications, and individuals with pain conditions that have a neuropathic component."
       }
     ]
   }
