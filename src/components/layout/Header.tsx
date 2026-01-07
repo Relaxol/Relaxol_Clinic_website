@@ -13,7 +13,6 @@ const conditionItems = [
 ];
 
 const navItems = [
-  { label: "Home", href: "/", isExternal: false },
   { label: "Treatments", href: "#treatments", hasDropdown: true, isExternal: false },
   { label: "Ketamine", href: "/ketamine", isExternal: false },
   { label: "SPRAVATO®", href: "/spravato-Englewood", isExternal: false },
