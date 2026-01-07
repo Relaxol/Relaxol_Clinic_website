@@ -70,7 +70,7 @@ export function ConditionsSection({ content }: ConditionsSectionProps) {
 
   return (
     <section id="conditions" className="py-24 md:py-32 bg-white">
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
         {/* Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">

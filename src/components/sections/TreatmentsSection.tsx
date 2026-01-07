@@ -129,7 +129,7 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
       <div className="absolute inset-0 bg-gradient-to-b from-cream via-cream-dark/40 to-cream" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 relative z-10">
         {/* Elegant Centered Header */}
         <div 
           ref={headerRef}

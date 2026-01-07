@@ -70,7 +70,7 @@ export function Header() {
     <header className="w-full sticky top-0 z-50">
       {/* Top Bar */}
       <div className="bg-[#D09B3C] text-white py-2 px-4">
-        <div className="container mx-auto flex flex-wrap items-center justify-between gap-2 text-sm">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 flex flex-wrap items-center justify-between gap-2 text-sm">
           <span className="font-medium">New Jersey's Premier Ketamine & SPRAVATO® Clinic</span>
           <div className="flex items-center gap-4">
             <a href="tel:201-781-2101" className="flex items-center gap-1.5 hover:opacity-80 transition-opacity">
@@ -83,7 +83,7 @@ export function Header() {
 
       {/* Main Navigation */}
       <nav className="bg-[#1a1815] border-t border-[#2a2520] py-2 px-4 shadow-sm">
-        <div className="container mx-auto flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img src={relaxolLogo} alt="Relaxol Clinic" className="h-[72px] w-auto object-contain" />

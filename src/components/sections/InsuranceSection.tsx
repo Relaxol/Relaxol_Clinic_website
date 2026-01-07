@@ -3,7 +3,7 @@ import { Shield } from "lucide-react";
 export function InsuranceSection() {
   return (
     <section id="insurance" className="py-16 bg-white">
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
         {/* Header */}
         <div className="text-center mb-12">
           <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">

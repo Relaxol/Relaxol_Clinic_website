@@ -44,7 +44,7 @@ export function ContactSection({ content }: ContactSectionProps) {
 
   return (
     <section id="contact" className="py-16 bg-cream-band">
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
         <div className="max-w-4xl mx-auto">
           {/* Integrated card design matching doctor section */}
           <div className="bg-white rounded-3xl shadow-card p-8 md:p-12">
