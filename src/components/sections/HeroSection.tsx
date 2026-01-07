@@ -22,7 +22,7 @@ interface HeroSectionProps {
 export function HeroSection({ content }: HeroSectionProps) {
   const subtitle = content?.subtitle ?? "FIND HOPE AND RELIEF TODAY";
   const headline = content?.headline ?? "New Jersey's Premier Ketamine & SPRAVATO® Clinic";
-  const body = content?.body ?? "Advanced, clinician-led treatments for depression, anxiety, PTSD and OCD in a safe, monitored medical setting.";
+  const body = content?.body ?? "Advanced, clinician-led treatments for Depression, Anxiety, PTSD, OCD and Chronic Pain.";
   const ctaLabel = content?.ctaLabel ?? "Book Your Free Consultation Today!";
   const ctaHref = content?.ctaHref ?? "#contact";
 
