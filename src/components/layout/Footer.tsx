@@ -31,7 +31,7 @@ export function Footer() {
           {/* Logo & Description */}
           <div className="lg:col-span-1">
             <div className="mb-6">
-              <img src={relaxolLogo} alt="Relaxol Clinic" className="h-14 w-auto" />
+              <img src={relaxolLogo} alt="Relaxol Clinic" className="h-28 w-auto" />
             </div>
             <p className="text-background/70 text-sm leading-relaxed mb-6">
               New Jersey's premier destination for ketamine and SPRAVATO® therapy. We provide compassionate, clinician-led care for patients seeking relief from depression, anxiety, PTSD, and OCD.
