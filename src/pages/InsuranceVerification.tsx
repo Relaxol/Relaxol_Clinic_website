@@ -231,6 +231,11 @@ const InsuranceVerification = () => {
                 >
                   {isSubmitting ? "Submitting..." : "Submit"}
                 </Button>
+
+                {/* Insurance Providers Text */}
+                <p className="text-center text-muted-foreground text-sm mt-6">
+                  We Accept Medicaid, Medicare and Commercial Insurance Plans
+                </p>
               </form>
             </div>
           </div>
