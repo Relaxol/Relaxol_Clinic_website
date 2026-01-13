@@ -57,7 +57,7 @@ export function DynamicHero({ data }: Props) {
           )}
 
           {/* Main Heading */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl text-white font-bold leading-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl text-white font-bold leading-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
             {data.headline}
           </h1>
 
