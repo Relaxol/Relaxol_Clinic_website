@@ -246,8 +246,9 @@ export default function Spravato() {
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* Left: Text Content */}
             <div className="space-y-6">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-background leading-tight">
-                SPRAVATO® Treatment for Depression That Hasn't Responded to Medication
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-background leading-tight">
+                <span className="block">SPRAVATO®</span>
+                Treatment for Depression That Hasn't Responded to Medication
               </h1>
               <h2 className="text-xl md:text-2xl text-background/80">
                 FDA-approved esketamine therapy administered in a medically supervised clinic
