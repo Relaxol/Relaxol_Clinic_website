@@ -25,16 +25,16 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-foreground text-background">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+    <footer className="bg-[#2a241e] text-background">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo & Description */}
           <div className="lg:col-span-1">
-            <div className="mb-6">
-              <img src={relaxolLogo} alt="Relaxol Clinic" className="w-full max-w-[280px] h-auto" />
+            <div className="mb-4">
+              <img src={relaxolLogo} alt="Relaxol Clinic" className="w-full max-w-[240px] h-auto" />
             </div>
-            <p className="text-background/70 text-sm leading-relaxed mb-6">
-              New Jersey's premier destination for ketamine and SPRAVATO® therapy. We provide compassionate, clinician-led care for patients seeking relief from depression, anxiety, PTSD, and OCD.
+            <p className="text-background/70 text-sm leading-relaxed mb-4">
+              New Jersey's premier destination for ketamine and SPRAVATO® therapy.
             </p>
             <a 
               href="https://ketaminedirectory.com" 
@@ -52,7 +52,7 @@ export function Footer() {
 
           {/* Navigation */}
           <div>
-            <h3 className="text-lg font-semibold mb-6">QUICK LINKS</h3>
+            <h3 className="text-base font-semibold mb-4">QUICK LINKS</h3>
             <ul className="space-y-3">
               {navLinks.map((link) => (
                 <li key={link.label}>
@@ -69,8 +69,8 @@ export function Footer() {
 
           {/* Hours */}
           <div>
-            <h3 className="text-lg font-semibold mb-6">OFFICE HOURS</h3>
-            <ul className="space-y-2">
+            <h3 className="text-base font-semibold mb-4">OFFICE HOURS</h3>
+            <ul className="space-y-1">
               {hours.map((item) => (
                 <li key={item.day} className="text-background/70 text-sm">
                   {item.day}: <span className="text-background/90">{item.time}</span>
@@ -81,8 +81,8 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-lg font-semibold mb-6">CONTACT US</h3>
-            <ul className="space-y-4">
+            <h3 className="text-base font-semibold mb-4">CONTACT US</h3>
+            <ul className="space-y-3">
               <li>
                 <a
                   href="tel:201-781-2101"
@@ -117,7 +117,7 @@ export function Footer() {
         </div>
 
         {/* Social Links */}
-        <div className="flex items-center justify-center gap-4 mt-12 pt-8 border-t border-background/10">
+        <div className="flex items-center justify-center gap-4 mt-8 pt-6 border-t border-background/10">
           {socialLinks.map((social) => (
             <a
               key={social.label}
@@ -133,7 +133,7 @@ export function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-background/10">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-6">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-background/60">
             <p>© 2025 Relaxol Clinic. All rights reserved.</p>
             <div className="flex items-center gap-6">
