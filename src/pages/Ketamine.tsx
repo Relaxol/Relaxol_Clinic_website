@@ -78,7 +78,7 @@ const servicesItems = [
   {
     image: serviceAnxiety,
     title: "Anxiety Treatment",
-    description: "Evidence-based ketamine protocols for chronic anxiety and related conditions."
+    description: "Evidence-based ketamine protocols for Chronic Anxiety and related conditions."
   },
   {
     image: servicePtsd,
@@ -88,7 +88,7 @@ const servicesItems = [
   {
     image: servicePain,
     title: "Chronic Pain Management",
-    description: "Ketamine infusions for neuropathic pain and chronic pain conditions."
+    description: "Ketamine infusions for neuropathic pain and Chronic Pain conditions."
   },
   {
     image: serviceMaintenance,
@@ -344,7 +344,7 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
 
       {/* Question 2 */}
       <div className="space-y-3">
-        <Label className={labelClass}>Are you currently diagnosed with depression, anxiety, or PTSD?</Label>
+        <Label className={labelClass}>Are you currently diagnosed with Depression, Anxiety, or PTSD?</Label>
         <div className="flex gap-3">
           {["Yes", "No"].map((option) => (
             <button
