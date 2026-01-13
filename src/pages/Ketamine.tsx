@@ -420,7 +420,7 @@ const Ketamine = () => {
           <div className="mx-auto max-w-6xl px-6 grid md:grid-cols-2 gap-12 items-center">
             {/* Left column */}
             <div className="space-y-6">
-              <h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-foreground">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground">
                 Ketamine Therapy: Rapid Relief for a Range of Mood and Chronic Conditions
               </h1>
               <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
