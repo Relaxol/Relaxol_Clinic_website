@@ -36,8 +36,9 @@ export function HeroSection({ content }: HeroSectionProps) {
           backgroundPosition: '50% 50%',
         }}
       >
-        {/* Light overlay for text contrast without muting colors */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent" />
+        {/* Dark overlay for better text contrast */}
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent" />
       </div>
 
       {/* Content */}
