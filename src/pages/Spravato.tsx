@@ -165,7 +165,7 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
 
       {/* Question 2 */}
       <div className="space-y-2">
-        <Label className={labelClass}>Are you currently diagnosed with depression?</Label>
+        <Label className={labelClass}>Are you currently diagnosed with Depression?</Label>
         <div className="flex gap-3">
           {["Yes", "No"].map((option) => (
             <button

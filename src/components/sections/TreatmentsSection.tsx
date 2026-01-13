@@ -17,7 +17,7 @@ const defaultTreatments = [
   {
     title: "Ketamine Infusion Therapy for Relief",
     tag: null,
-    description: "Precisely controlled IV ketamine therapy offering rapid relief for depression, anxiety, PTSD, and OCD. Ideal for patients who haven't responded to standard treatments.",
+    description: "Precisely controlled IV ketamine therapy offering rapid relief for Depression, Anxiety, PTSD, and OCD. Ideal for patients who haven't responded to standard treatments.",
     image: treatmentKetamine,
     cta: "Learn More",
     href: "#contact",
@@ -25,7 +25,7 @@ const defaultTreatments = [
   {
     title: "Chronic Pain Management Solutions",
     tag: null,
-    description: "Comprehensive pain management solutions including ketamine infusions for chronic pain conditions. Our approach targets pain at its source for lasting relief.",
+    description: "Comprehensive pain management solutions including ketamine infusions for Chronic Pain conditions. Our approach targets pain at its source for lasting relief.",
     image: treatmentPainManagement,
     cta: "Learn More",
     href: "/conditions/pain-management",
