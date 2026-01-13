@@ -124,6 +124,20 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', sans-serif;
+    font-size: 1.0625rem; /* 17px base - slightly larger for better readability */
+    line-height: 1.7;
+  }
+  
+  /* Ensure paragraphs and common text elements have good readable sizing */
+  p, li, span, label {
+    font-size: inherit;
+    line-height: inherit;
+  }
+  
+  /* Slightly larger text for key content areas */
+  .prose p, .prose li {
+    font-size: 1.125rem; /* 18px for prose content */
+    line-height: 1.75;
   }
   
   h1, h2, h3, h4, h5, h6 {
