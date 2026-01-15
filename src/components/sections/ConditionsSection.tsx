@@ -1,37 +1,45 @@
 import { Link } from "react-router-dom";
-import conditionDepression from "@/assets/condition-depression.jpg";
-import conditionAnxiety from "@/assets/condition-anxiety.jpg";
-import conditionPtsd from "@/assets/condition-ptsd.jpg";
-import conditionOcd from "@/assets/condition-ocd.jpg";
+import conditionDepression from "@/assets/condition-depression-new.jpg";
+import conditionAnxiety from "@/assets/condition-anxiety-new.jpg";
+import conditionPtsd from "@/assets/condition-ptsd-new.jpg";
+import conditionOcd from "@/assets/condition-ocd-new.jpg";
+import conditionPain from "@/assets/condition-pain-new.jpg";
 
 const defaultConditions = [
   {
     title: "Depression",
     image: conditionDepression,
-    imageAlt: "Person finding relief, sitting peacefully by a sunlit window",
+    imageAlt: "Woman with hands covering face experiencing depression",
     description: "When traditional antidepressants fall short, ketamine and SPRAVATO® offer rapid relief—often within hours, not weeks.",
     href: "/conditions/depression",
   },
   {
     title: "Anxiety",
     image: conditionAnxiety,
-    imageAlt: "Woman practicing calm breathing meditation in a serene setting",
+    imageAlt: "Woman with hands on head experiencing anxiety",
     description: "For persistent anxiety that hasn't responded to conventional therapies, our treatments target the glutamate system for faster relief.",
     href: "/conditions/anxiety",
   },
   {
     title: "PTSD",
     image: conditionPtsd,
-    imageAlt: "Male veteran finding peace during therapy session in a calming environment",
+    imageAlt: "Man in military clothing experiencing PTSD symptoms",
     description: "Ketamine therapy helps process traumatic memories and reduce PTSD symptoms in a safe, supportive environment.",
     href: "/conditions/ptsd",
   },
   {
     title: "OCD",
     image: conditionOcd,
-    imageAlt: "Person in quiet focused contemplation with mental clarity",
+    imageAlt: "Woman arranging items in precise order representing OCD",
     description: "For medication-resistant OCD, ketamine-based therapies may help interrupt intrusive thoughts and compulsive behaviors.",
     href: "/conditions/ocd",
+  },
+  {
+    title: "Chronic Pain",
+    image: conditionPain,
+    imageAlt: "Man experiencing chronic pain holding his back",
+    description: "Ketamine infusions offer relief for chronic pain conditions including CRPS, fibromyalgia, and neuropathic pain.",
+    href: "/conditions/pain-management",
   },
 ];
 
