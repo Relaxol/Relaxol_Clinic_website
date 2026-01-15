@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import treatmentSpravato from "@/assets/treatment-spravato.jpg";
-import treatmentKetamine from "@/assets/treatment-ketamine.jpg";
+import treatmentKetamine from "@/assets/treatment-ketamine-new.jpg";
 import treatmentPainManagement from "@/assets/treatment-pain-management.jpg";
 import infusionEnergy from "@/assets/infusion-energy.jpg";
 
