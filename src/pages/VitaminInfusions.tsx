@@ -131,6 +131,7 @@ const benefits = [
 
 const VitaminInfusions = () => {
   const [selectedInfusion, setSelectedInfusion] = useState<typeof infusionTypes[0] | null>(null);
+  const [showB12Modal, setShowB12Modal] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -345,20 +346,62 @@ const VitaminInfusions = () => {
                 </h2>
                 
                 <p className="text-muted-foreground leading-relaxed">
-                  Vitamin B12 supports natural energy, healthy metabolism, and overall vitality. It plays an important role in red blood cell production, nerve health, and helping the body turn food into usable energy.
+                  Vitamin B12 is essential for energy production, brain function, and cell metabolism. Our B12 injections provide rapid absorption and can help boost energy levels, improve mood, and support overall wellness.
                 </p>
                 
-                <p className="text-muted-foreground leading-relaxed">
-                  B12 injections deliver this essential vitamin directly into the muscle, allowing for better absorption and helping support energy levels, mental clarity, and physical wellness.
-                </p>
-                
-                <p className="text-muted-foreground leading-relaxed">
-                  Low B12 levels are common, especially for those following vegetarian or vegan lifestyles, and supplementation can help restore balance and support day-to-day wellbeing.
-                </p>
+                <Button 
+                  className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-glow hover:shadow-[0_0_0_1px_rgba(208,155,60,0.2),0_8px_24px_rgba(208,155,60,0.35)] transition-all duration-300"
+                  onClick={() => setShowB12Modal(true)}
+                >
+                  Learn more
+                </Button>
               </div>
             </div>
           </div>
         </section>
+
+        {/* B12 Modal */}
+        <Dialog open={showB12Modal} onOpenChange={setShowB12Modal}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <button 
+              onClick={() => setShowB12Modal(false)} 
+              className="absolute right-4 top-4 text-muted-foreground hover:text-foreground"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            <div className="space-y-6 mt-2">
+              <img 
+                src={vitaminB12Injection} 
+                alt="Vitamin B12 Injection"
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              
+              <h3 className="text-2xl font-bold text-foreground">
+                Vitamin B12 Injections
+              </h3>
+              
+              <p className="text-muted-foreground leading-relaxed">
+                Vitamin B12 supports natural energy, healthy metabolism, and overall vitality. It plays an important role in red blood cell production, nerve health, and helping the body turn food into usable energy.
+              </p>
+              
+              <p className="text-muted-foreground leading-relaxed">
+                B12 injections deliver this essential vitamin directly into the muscle, allowing for better absorption and helping support energy levels, mental clarity, and physical wellness.
+              </p>
+              
+              <p className="text-muted-foreground leading-relaxed">
+                Low B12 levels are common, especially for those following vegetarian or vegan lifestyles, and supplementation can help restore balance and support day-to-day wellbeing.
+              </p>
+              
+              <Button 
+                className="w-full bg-[#5C4A3A] hover:bg-[#4A3C32] text-white"
+                onClick={() => setShowB12Modal(false)}
+              >
+                BOOK ONLINE
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* NAD & NAD+ Infusions Section */}
         <section className="py-16 lg:py-24 bg-card">
