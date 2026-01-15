@@ -12,6 +12,7 @@ const PrivacyPolicy = () => {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Privacy Policy
           </h1>
+          <p className="text-white/80">(email) - TBD</p>
         </div>
       </section>
 
@@ -92,7 +93,7 @@ const PrivacyPolicy = () => {
             <div>
               <h2 className="text-2xl font-semibold text-foreground mb-4">Links to External Sites</h2>
               <p className="text-foreground/80 leading-relaxed">
-                Our website may include links to third-party websites. These sites are not controlled by Relaxol Clinic, and we are not responsible for their privacy practices. We recommend reviewing their privacy policies before sharing any personal information.
+                Our website may include links to third-party websites. These sites are not controlled by Positive Reset Recovery Services, and we are not responsible for their privacy practices. We recommend reviewing their privacy policies before sharing any personal information.
               </p>
             </div>
 
@@ -106,7 +107,7 @@ const PrivacyPolicy = () => {
             <div>
               <h2 className="text-2xl font-semibold text-foreground mb-4">HIPAA Compliance</h2>
               <p className="text-foreground/80 leading-relaxed mb-4">
-                Relaxol Clinic complies fully with the Health Insurance Portability and Accountability Act (HIPAA). This means your Protected Health Information (PHI) is handled with the highest level of confidentiality and care.
+                Positive Reset Recovery Services complies fully with the Health Insurance Portability and Accountability Act (HIPAA). This means your Protected Health Information (PHI) is handled with the highest level of confidentiality and care.
               </p>
               <p className="text-foreground/80 leading-relaxed mb-4">
                 We follow HIPAA's rules regarding:
@@ -163,13 +164,7 @@ const PrivacyPolicy = () => {
             <div>
               <h2 className="text-2xl font-semibold text-foreground mb-4">Contact Us</h2>
               <p className="text-foreground/80 leading-relaxed">
-                If you have any questions, need to access your records, or want to file a privacy complaint, please contact us:{" "}
-                <a 
-                  href="mailto:info@relaxolclinic.com" 
-                  className="text-[#D09B3C] hover:underline"
-                >
-                  info@relaxolclinic.com
-                </a>
+                If you have any questions, need to access your records, or want to file a privacy complaint, please contact us: email (TBD)
               </p>
             </div>
 
