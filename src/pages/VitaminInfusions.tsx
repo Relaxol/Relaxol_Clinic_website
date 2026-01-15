@@ -414,7 +414,15 @@ const VitaminInfusions = () => {
                 </h2>
                 
                 <p className="text-muted-foreground leading-relaxed">
-                  NAD+ is a vital molecule our bodies naturally produce, but its levels decline with age. Often called a "miracle molecule," NAD+ is known for supporting healthy aging and cellular wellness.
+                  Nicotinamide adenine dinucleotide (NAD+) is a naturally occurring coenzyme found in nearly every cell of the body. It plays a vital role in cellular energy production, metabolism, and overall cellular health.
+                </p>
+                
+                <p className="text-muted-foreground leading-relaxed">
+                  NAD+ supports healthy aging, mental clarity, athletic performance, and the body's natural repair processes. It is widely used in wellness and functional medicine to help promote balance, resilience, and recovery at a cellular level.
+                </p>
+                
+                <p className="text-muted-foreground leading-relaxed">
+                  Delivering NAD+ through an IV infusion allows for faster absorption and more efficient results compared to oral supplementation, helping optimize NAD+ levels and support whole-body vitality.
                 </p>
                 
                 <Button 
