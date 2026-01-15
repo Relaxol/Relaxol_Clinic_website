@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import treatmentSpravato from "@/assets/treatment-spravato.jpg";
 import treatmentKetamine from "@/assets/treatment-ketamine-new.jpg";
@@ -20,7 +21,7 @@ const defaultTreatments = [
     description: "Precisely controlled IV ketamine therapy offering rapid relief for Depression, Anxiety, PTSD, and OCD. Ideal for patients who haven't responded to standard treatments.",
     image: treatmentKetamine,
     cta: "Learn More",
-    href: "#contact",
+    href: "/contact",
   },
   {
     title: "Chronic Pain Management Solutions",
@@ -77,7 +78,7 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
         description: item.description,
         image: item.imageUrl || defaultTreatments[index]?.image || treatmentSpravato,
         cta: item.ctaLabel || "Learn More",
-        href: item.href || defaultTreatments[index]?.href || "#contact",
+        href: item.href || defaultTreatments[index]?.href || "/contact",
       }))
     : defaultTreatments;
 
@@ -197,13 +198,13 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
                 </p>
                 
                 {/* CTA Link */}
-                <a
-                  href={treatment.href}
+                <Link
+                  to={treatment.href}
                   className="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all duration-300 group/link"
                 >
                   <span>{treatment.cta}</span>
                   <ArrowRight className="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform duration-300" />
-                </a>
+                </Link>
               </div>
 
               {/* Hover lift effect */}
@@ -212,21 +213,6 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div className={`text-center mt-20 md:mt-24 transition-all duration-1000 delay-500 ${
-          headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-          <p className="text-muted-foreground mb-8 text-lg">
-            Ready to explore your treatment options?
-          </p>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-3 px-10 py-5 bg-accent text-accent-foreground rounded-full font-semibold text-lg hover:bg-accent/90 transition-all duration-300 shadow-glow hover:shadow-xl hover:-translate-y-1"
-          >
-            Schedule Your Consultation
-            <ArrowRight className="w-5 h-5" />
-          </a>
-        </div>
       </div>
     </section>
   );
