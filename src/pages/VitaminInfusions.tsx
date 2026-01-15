@@ -132,7 +132,7 @@ const benefits = [
 const VitaminInfusions = () => {
   const [selectedInfusion, setSelectedInfusion] = useState<typeof infusionTypes[0] | null>(null);
   const [showB12Modal, setShowB12Modal] = useState(false);
-
+  const [showNADModal, setShowNADModal] = useState(false);
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -414,16 +414,15 @@ const VitaminInfusions = () => {
                 </h2>
                 
                 <p className="text-muted-foreground leading-relaxed">
-                  Nicotinamide adenine dinucleotide (NAD+) is a naturally occurring coenzyme found in nearly every cell of the body. It plays a vital role in cellular energy production, metabolism, and overall cellular health.
+                  NAD+ is a vital molecule our bodies naturally produce, but its levels decline with age. Often called a "miracle molecule," NAD+ is known for supporting healthy aging and cellular wellness.
                 </p>
                 
-                <p className="text-muted-foreground leading-relaxed">
-                  NAD+ supports healthy aging, mental clarity, athletic performance, and the body's natural repair processes. It is widely used in wellness and functional medicine to help promote balance, resilience, and recovery at a cellular level.
-                </p>
-                
-                <p className="text-muted-foreground leading-relaxed">
-                  Delivering NAD+ through an IV infusion allows for faster absorption and more efficient results compared to oral supplementation, helping optimize NAD+ levels and support whole-body vitality.
-                </p>
+                <Button 
+                  className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-glow hover:shadow-[0_0_0_1px_rgba(208,155,60,0.2),0_8px_24px_rgba(208,155,60,0.35)] transition-all duration-300"
+                  onClick={() => setShowNADModal(true)}
+                >
+                  Learn more
+                </Button>
               </div>
               
               {/* Right: Image */}
@@ -437,6 +436,77 @@ const VitaminInfusions = () => {
             </div>
           </div>
         </section>
+
+        {/* NAD Modal */}
+        <Dialog open={showNADModal} onOpenChange={setShowNADModal}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <button 
+              onClick={() => setShowNADModal(false)} 
+              className="absolute right-4 top-4 text-muted-foreground hover:text-foreground"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            <div className="space-y-6 mt-2">
+              <img 
+                src={nadInfusion} 
+                alt="NAD+ Infusion"
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              
+              <h3 className="text-2xl font-bold text-foreground">
+                NAD+ Infusions
+              </h3>
+              
+              <p className="text-muted-foreground leading-relaxed">
+                NAD+ is a vital molecule our bodies naturally produce, but like many things, its levels decline with age. Often called a "miracle molecule," NAD+ is known for supporting healthy aging and is considered one of the closest things we have to a "fountain of youth."
+              </p>
+              
+              <p className="text-muted-foreground leading-relaxed">
+                When administered intravenously, NAD+ helps activate enzymes called sirtuins, which support your body's natural repair processes, promote overall wellness, and help reduce the effects of aging.
+              </p>
+              
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Pain alleviation</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Anti-aging benefits</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Increased energy</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Increased metabolism</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Reduced inflammation</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Prevent and correct DNA damage</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                <span className="text-sm">Alleviate opiate or substance withdrawal symptoms</span>
+              </div>
+              
+              <Button 
+                className="w-full bg-[#5C4A3A] hover:bg-[#4A3C32] text-white"
+                onClick={() => setShowNADModal(false)}
+              >
+                BOOK ONLINE
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* Contact/Consultation Form */}
         <section className="py-16 lg:py-24 bg-[#5C4A3A]">
