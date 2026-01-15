@@ -18,31 +18,16 @@ import {
 } from "lucide-react";
 
 // Import infusion images
-import infusionQuench from "@/assets/infusion-quench.jpg";
+import infusionQuench from "@/assets/infusion-quench-new.jpg";
 import infusionEnergy from "@/assets/infusion-energy.jpg";
-import infusionRecovery from "@/assets/infusion-recovery.jpg";
-import infusionImmunity from "@/assets/infusion-immunity.jpg";
+import infusionRecovery from "@/assets/infusion-recovery-new.jpg";
+import infusionImmunity from "@/assets/infusion-immunity-new.jpg";
 import infusionAlleviate from "@/assets/infusion-alleviate.jpg";
-import infusionBeauty from "@/assets/infusion-beauty.jpg";
+import infusionBeauty from "@/assets/infusion-beauty-new.jpg";
 import vitaminB12Injection from "@/assets/vitamin-b12-injection.jpg";
 import nadInfusion from "@/assets/nad-infusion.jpg";
 
 const infusionTypes = [
-  {
-    image: infusionQuench,
-    title: "Quench",
-    description: "Rehydrate and restore essential vitamins with our Quench Infusion.",
-    fullDescription: "Our Quench IV infusion is designed to combat dehydration and restore your body's essential vitamins and minerals. Whether you're recovering from illness, jet lag, or simply feeling run down, this hydrating therapy delivers fluids and nutrients directly to your bloodstream for immediate relief.",
-    benefits: [
-      "Rapid rehydration",
-      "Restores electrolyte balance",
-      "Relieves fatigue and headaches",
-      "Improves skin hydration",
-      "Supports kidney function"
-    ],
-    ingredients: "Normal Saline, B-Complex Vitamins, Vitamin B12, Vitamin C, Magnesium",
-    duration: "30-45 minutes",
-  },
   {
     image: infusionEnergy,
     title: "Get Up & Go",
@@ -56,6 +41,21 @@ const infusionTypes = [
       "Reduces fatigue"
     ],
     ingredients: "B-Complex Vitamins, Vitamin B12, L-Carnitine, MIC (Methionine, Inositol, Choline)",
+    duration: "30-45 minutes",
+  },
+  {
+    image: infusionQuench,
+    title: "Quench",
+    description: "Rehydrate and restore essential vitamins with our Quench Infusion.",
+    fullDescription: "Our Quench IV infusion is designed to combat dehydration and restore your body's essential vitamins and minerals. Whether you're recovering from illness, jet lag, or simply feeling run down, this hydrating therapy delivers fluids and nutrients directly to your bloodstream for immediate relief.",
+    benefits: [
+      "Rapid rehydration",
+      "Restores electrolyte balance",
+      "Relieves fatigue and headaches",
+      "Improves skin hydration",
+      "Supports kidney function"
+    ],
+    ingredients: "Normal Saline, B-Complex Vitamins, Vitamin B12, Vitamin C, Magnesium",
     duration: "30-45 minutes",
   },
   {
@@ -89,21 +89,6 @@ const infusionTypes = [
     duration: "45-60 minutes",
   },
   {
-    image: infusionAlleviate,
-    title: "Alleviate",
-    description: "Reduce abdominal discomfort and relieve bloating.",
-    fullDescription: "The Alleviate IV infusion is specially formulated to help reduce abdominal discomfort, bloating, and symptoms associated with PMS or digestive issues. This soothing blend of vitamins and minerals helps relax muscles and reduce inflammation for lasting relief.",
-    benefits: [
-      "Reduces bloating and cramping",
-      "Relieves PMS symptoms",
-      "Relaxes muscle tension",
-      "Reduces inflammation",
-      "Promotes digestive comfort"
-    ],
-    ingredients: "Calcium, Magnesium, B-Complex, Vitamin B12, Anti-inflammatory compounds",
-    duration: "30-45 minutes",
-  },
-  {
     image: infusionBeauty,
     title: "Inner Beauty",
     description: "Reduce the appearance of wrinkles and quench tired skin.",
@@ -117,6 +102,21 @@ const infusionTypes = [
     ],
     ingredients: "Glutathione, Vitamin C, Biotin, B-Complex, Zinc",
     duration: "45-60 minutes",
+  },
+  {
+    image: infusionAlleviate,
+    title: "Alleviate",
+    description: "Reduce abdominal discomfort and relieve bloating.",
+    fullDescription: "The Alleviate IV infusion is specially formulated to help reduce abdominal discomfort, bloating, and symptoms associated with PMS or digestive issues. This soothing blend of vitamins and minerals helps relax muscles and reduce inflammation for lasting relief.",
+    benefits: [
+      "Reduces bloating and cramping",
+      "Relieves PMS symptoms",
+      "Relaxes muscle tension",
+      "Reduces inflammation",
+      "Promotes digestive comfort"
+    ],
+    ingredients: "Calcium, Magnesium, B-Complex, Vitamin B12, Anti-inflammatory compounds",
+    duration: "30-45 minutes",
   },
 ];
 
