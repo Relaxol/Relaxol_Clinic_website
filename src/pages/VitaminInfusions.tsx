@@ -347,7 +347,15 @@ const VitaminInfusions = () => {
                 </h2>
                 
                 <p className="text-muted-foreground leading-relaxed">
-                  Vitamin B12 is essential for energy production, brain function, and cell metabolism. Our B12 injections provide rapid absorption and can help boost energy levels, improve mood, and support overall wellness.
+                  Vitamin B12 supports natural energy, healthy metabolism, and overall vitality. It plays an important role in red blood cell production, nerve health, and helping the body turn food into usable energy.
+                </p>
+                
+                <p className="text-muted-foreground leading-relaxed">
+                  B12 injections deliver this essential vitamin directly into the muscle, allowing for better absorption and helping support energy levels, mental clarity, and physical wellness.
+                </p>
+                
+                <p className="text-muted-foreground leading-relaxed">
+                  Low B12 levels are common, especially for those following vegetarian or vegan lifestyles, and supplementation can help restore balance and support day-to-day wellbeing.
                 </p>
                 
                 <Button 
@@ -383,16 +391,59 @@ const VitaminInfusions = () => {
               </h3>
               
               <p className="text-muted-foreground leading-relaxed">
-                Vitamin B12 supports natural energy, healthy metabolism, and overall vitality. It plays an important role in red blood cell production, nerve health, and helping the body turn food into usable energy.
+                Vitamin B12 is essential for energy, brain function, and overall health, but your body needs a protein called intrinsic factor, produced in the stomach, to absorb it properly. If your body doesn't produce enough, a deficiency can occur. Intramuscular B12 injections are an effective way to restore healthy B12 levels and support your wellbeing.
               </p>
               
-              <p className="text-muted-foreground leading-relaxed">
-                B12 injections deliver this essential vitamin directly into the muscle, allowing for better absorption and helping support energy levels, mental clarity, and physical wellness.
-              </p>
-              
-              <p className="text-muted-foreground leading-relaxed">
-                Low B12 levels are common, especially for those following vegetarian or vegan lifestyles, and supplementation can help restore balance and support day-to-day wellbeing.
-              </p>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Boosts energy levels</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Supports brain function and concentration</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Improves metabolism</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Helps prevent anemia</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Supports mood and may relieve depression</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Strengthens immunity</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Promotes bone health and reduces risk of osteoporosis</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Enhances heart health</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Improves sleep quality</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Supports healthy hair, skin, and nails</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Reduces hair loss</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                  <span className="text-sm">Supports red blood cell formation</span>
+                </div>
+              </div>
               
               <Button 
                 className="w-full bg-[#5C4A3A] hover:bg-[#4A3C32] text-white"
