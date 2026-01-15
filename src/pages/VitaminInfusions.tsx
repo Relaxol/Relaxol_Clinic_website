@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -395,9 +396,9 @@ const VitaminInfusions = () => {
               
               <Button 
                 className="w-full bg-[#5C4A3A] hover:bg-[#4A3C32] text-white"
-                onClick={() => setShowB12Modal(false)}
+                asChild
               >
-                BOOK ONLINE
+                <Link to="/contact">BOOK ONLINE</Link>
               </Button>
             </div>
           </DialogContent>
@@ -508,9 +509,9 @@ const VitaminInfusions = () => {
               
               <Button 
                 className="w-full bg-[#5C4A3A] hover:bg-[#4A3C32] text-white"
-                onClick={() => setShowNADModal(false)}
+                asChild
               >
-                BOOK ONLINE
+                <Link to="/contact">BOOK ONLINE</Link>
               </Button>
             </div>
           </DialogContent>
