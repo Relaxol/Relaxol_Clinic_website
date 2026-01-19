@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import conditionAnxiety from "@/assets/condition-anxiety.jpg";
+import conditionAnxiety from "@/assets/condition-anxiety-new.jpg";
 
 const Anxiety = () => {
   return (

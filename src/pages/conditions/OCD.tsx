@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import conditionOcd from "@/assets/condition-ocd.jpg";
+import conditionOcd from "@/assets/condition-ocd-new.jpg";
 
 const OCD = () => {
   return (
