@@ -16,11 +16,11 @@ import serviceAnxiety from "@/assets/service-anxiety.jpg";
 import servicePtsd from "@/assets/service-ptsd.jpg";
 import servicePain from "@/assets/service-pain.jpg";
 import serviceMaintenance from "@/assets/service-maintenance.jpg";
-import conditionDepression from "@/assets/condition-depression.jpg";
-import conditionAnxiety from "@/assets/condition-anxiety.jpg";
-import conditionPtsd from "@/assets/condition-ptsd.jpg";
-import conditionOcd from "@/assets/condition-ocd.jpg";
-import conditionPain from "@/assets/condition-pain.jpg";
+import conditionDepression from "@/assets/condition-depression-new.jpg";
+import conditionAnxiety from "@/assets/condition-anxiety-new.jpg";
+import conditionPtsd from "@/assets/condition-ptsd-new.jpg";
+import conditionOcd from "@/assets/condition-ocd-new.jpg";
+import conditionPain from "@/assets/condition-pain-new.jpg";
 import { 
   ArrowRight,
   Check,
