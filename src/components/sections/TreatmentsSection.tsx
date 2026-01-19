@@ -189,7 +189,7 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
 
               {/* Content Area */}
               <div className="relative p-6 md:p-8 bg-card flex flex-col flex-grow">
-                <h3 className="text-lg md:text-xl font-bold text-foreground mb-3 leading-tight">
+                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 leading-tight">
                   {treatment.title}
                 </h3>
                 
