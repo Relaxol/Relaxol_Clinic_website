@@ -13,7 +13,7 @@ const defaultTreatments = [
     description: "FDA-approved nasal spray for treatment-resistant depression. Provides clinically proven relief when traditional antidepressants haven't worked. Administered under medical supervision for safety and comfort.",
     image: treatmentSpravato,
     cta: "Learn More",
-    href: "/spravato",
+    href: "/spravato-Englewood",
   },
   {
     title: "Ketamine Infusion Therapy for Relief",
@@ -21,7 +21,7 @@ const defaultTreatments = [
     description: "Precisely controlled IV ketamine therapy offering rapid relief for Depression, Anxiety, PTSD, and OCD. Ideal for patients who haven't responded to standard treatments.",
     image: treatmentKetamine,
     cta: "Learn More",
-    href: "/contact",
+    href: "/ketamine",
   },
   {
     title: "Chronic Pain Management Solutions",
