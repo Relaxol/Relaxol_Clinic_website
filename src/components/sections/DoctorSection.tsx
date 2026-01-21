@@ -40,7 +40,7 @@ export function DoctorSection({ content }: DoctorSectionProps) {
                 <img
                   src={imageUrl}
                   alt={`${name}, Clinical Psychiatrist`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top md:object-center"
                 />
               </div>
             </div>
