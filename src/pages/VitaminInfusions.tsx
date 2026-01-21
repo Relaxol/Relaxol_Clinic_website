@@ -23,7 +23,7 @@ import infusionQuench from "@/assets/infusion-quench-new.jpg";
 import infusionEnergy from "@/assets/infusion-energy.jpg";
 import infusionRecovery from "@/assets/infusion-recovery-new.jpg";
 import infusionImmunity from "@/assets/infusion-immunity-new.jpg";
-import infusionAlleviate from "@/assets/infusion-alleviate-v2.jpg";
+import infusionAlleviate from "@/assets/infusion-alleviate-v3.jpg";
 import infusionBeauty from "@/assets/infusion-beauty-new.jpg";
 import vitaminB12Injection from "@/assets/vitamin-b12-injection.jpg";
 import nadInfusion from "@/assets/nad-infusion.jpg";
