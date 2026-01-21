@@ -212,7 +212,6 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

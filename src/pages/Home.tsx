@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { ConditionsSection } from "@/components/sections/ConditionsSection";
+import { ArrowRight } from "lucide-react";
 
 import { TreatmentsSection } from "@/components/sections/TreatmentsSection";
 import { WhyChooseSection } from "@/components/sections/WhyChooseSection";
@@ -39,6 +40,22 @@ const Home = () => {
         {/* <VideoTestimonialsSection /> */}
         <TimelineSection content={homeContent?.timeline} />
         <CoverageSection />
+        
+        {/* Final CTA Section */}
+        <section className="py-20 md:py-28 bg-gradient-to-b from-cream to-cream-dark/30">
+          <div className="container mx-auto px-4 text-center">
+            <p className="text-muted-foreground mb-8 text-lg">
+              Ready to explore your treatment options?
+            </p>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-3 px-10 py-5 bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
+            >
+              Schedule Your Consultation
+              <ArrowRight className="w-5 h-5" />
+            </a>
+          </div>
+        </section>
       </main>
       <Footer />
     </div>
