@@ -50,7 +50,7 @@ export function DynamicTestimonials({ data }: Props) {
           {data.items.map((testimonial, index) => (
             <div
               key={index}
-              className="testimonial-card relative"
+              className="testimonial-card relative flex flex-col h-full"
             >
               {/* Quote Icon */}
               <Quote className="absolute top-6 right-6 w-10 h-10 text-primary/20" />
@@ -63,13 +63,13 @@ export function DynamicTestimonials({ data }: Props) {
               </div>
 
               {/* Text */}
-              <p className="text-muted-foreground italic leading-relaxed mb-6">
+              <p className="text-muted-foreground italic leading-relaxed mb-6 flex-grow">
                 "{testimonial.text}"
               </p>
 
               {/* Author */}
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <div className="flex items-center gap-4 mt-auto">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                   <span className="text-primary font-semibold text-lg">
                     {testimonial.name.charAt(0)}
                   </span>
