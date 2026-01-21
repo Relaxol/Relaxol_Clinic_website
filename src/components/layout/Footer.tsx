@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Linkedin, Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import relaxolLogo from "@/assets/relaxol-logo-footer.png";
 import ketamineDirectoryBadge from "@/assets/ketamine-directory-badge.png";
 
@@ -17,11 +17,6 @@ const hours = [
   { day: "Sunday", time: "Closed" },
 ];
 
-const socialLinks = [
-  { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-];
 
 export function Footer() {
   return (
@@ -101,19 +96,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Social */}
-          <div className="flex gap-2 md:justify-end items-start">
-            {socialLinks.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                aria-label={social.label}
-                className="w-8 h-8 rounded-full bg-background/10 flex items-center justify-center text-background hover:bg-primary hover:text-primary-foreground transition-colors"
-              >
-                <social.icon className="w-4 h-4" />
-              </a>
-            ))}
-          </div>
         </div>
       </div>
 
