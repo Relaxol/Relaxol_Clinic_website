@@ -30,7 +30,6 @@ const Home = () => {
         <AboutSection content={homeContent?.about} />
         <VideoSection content={homeContent?.video} />
         <TreatmentsSection content={homeContent?.treatments} />
-        <ContactSection content={homeContent?.contact} />
         <ConditionsSection content={homeContent?.conditions} />
         <EnvironmentSection />
         
@@ -39,6 +38,7 @@ const Home = () => {
         {/* <VideoTestimonialsSection /> */}
         <TimelineSection content={homeContent?.timeline} />
         <CoverageSection />
+        <ContactSection content={homeContent?.contact} />
       </main>
       <Footer />
     </div>
