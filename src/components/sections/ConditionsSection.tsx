@@ -3,7 +3,7 @@ import conditionDepression from "@/assets/condition-depression-new.jpg";
 import conditionAnxiety from "@/assets/condition-anxiety-new.jpg";
 import conditionPtsd from "@/assets/condition-ptsd-new.jpg";
 import conditionOcd from "@/assets/condition-ocd-new.jpg";
-import conditionPain from "@/assets/condition-pain-new.jpg";
+import conditionPain from "@/assets/condition-pain-v3.png";
 
 const defaultConditions = [
   {
