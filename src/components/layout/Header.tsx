@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import relaxolLogo from "@/assets/relaxol-logo-transparent.png";
+import relaxolLogo from "@/assets/relaxol-logo-nav.png";
 
 const ketamineItems = [
   { label: "What Is Ketamine?", href: "/ketamine" },
