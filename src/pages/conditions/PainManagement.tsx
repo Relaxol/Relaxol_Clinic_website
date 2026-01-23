@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import conditionPain from "@/assets/condition-pain-v4.jpg";
+import conditionPain from "@/assets/condition-pain-new.jpg";
 
 const PainManagement = () => {
   return (
