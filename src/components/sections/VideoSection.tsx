@@ -20,17 +20,45 @@ export function VideoSection({ content }: VideoSectionProps) {
   return (
     <section className="py-20 bg-cream-dark">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
+        {/* Header - shown on mobile only */}
+        <div className="lg:hidden mb-6">
+          <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
+            {subtitle}
+          </p>
+          <h2 className="text-3xl md:text-4xl text-foreground font-bold">
+            {title.includes("Can Help") ? (
+              <>Treatment <span className="text-primary">Can Help</span></>
+            ) : title}
+          </h2>
+        </div>
+
+        {/* YouTube Video - shown on mobile only, right after header */}
+        <div className="lg:hidden mb-8">
+          <div className="image-card aspect-video overflow-hidden">
+            <iframe
+              src={embedUrl}
+              className="w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title={embedTitle}
+            />
+          </div>
+        </div>
+
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div>
-            <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
-              {subtitle}
-            </p>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-6">
-              {title.includes("Can Help") ? (
-                <>Treatment <span className="text-primary">Can Help</span></>
-              ) : title}
-            </h2>
+            {/* Header - shown on desktop only */}
+            <div className="hidden lg:block">
+              <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
+                {subtitle}
+              </p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-6">
+                {title.includes("Can Help") ? (
+                  <>Treatment <span className="text-primary">Can Help</span></>
+                ) : title}
+              </h2>
+            </div>
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
               {body}
             </p>
@@ -45,8 +73,8 @@ export function VideoSection({ content }: VideoSectionProps) {
             </a>
           </div>
 
-          {/* YouTube Video */}
-          <div className="image-card aspect-video overflow-hidden">
+          {/* YouTube Video - shown on desktop only */}
+          <div className="hidden lg:block image-card aspect-video overflow-hidden">
             <iframe
               src={embedUrl}
               className="w-full h-full"
