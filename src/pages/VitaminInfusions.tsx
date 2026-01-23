@@ -31,9 +31,9 @@ import nadInfusion from "@/assets/nad-infusion.jpg";
 const infusionTypes = [
   {
     image: infusionEnergy,
-    title: "Get Up & Go",
-    description: "Our Get Up & Go infusion helps burn fat and boost metabolism.",
-    fullDescription: "The Get Up & Go IV infusion is formulated to kickstart your metabolism and enhance your energy levels. This blend of B vitamins and amino acids helps your body convert food into energy more efficiently, supporting weight management and athletic performance.",
+    title: "Vital Energy",
+    description: "Our Vital Energy infusion supports fat metabolism and boosts energy.",
+    fullDescription: "The Vital Energy IV infusion is formulated to kickstart your metabolism and enhance your energy levels. This blend of B vitamins and amino acids helps your body convert food into energy more efficiently, supporting weight management and athletic performance.",
     benefits: [
       "Boosts metabolism",
       "Increases energy levels",
@@ -46,9 +46,9 @@ const infusionTypes = [
   },
   {
     image: infusionQuench,
-    title: "Quench",
-    description: "Rehydrate and restore essential vitamins with our Quench Infusion.",
-    fullDescription: "Our Quench IV infusion is designed to combat dehydration and restore your body's essential vitamins and minerals. Whether you're recovering from illness, jet lag, or simply feeling run down, this hydrating therapy delivers fluids and nutrients directly to your bloodstream for immediate relief.",
+    title: "Hydration Reset",
+    description: "Reset hydration levels and replenish essential vitamins with our Hydration Reset infusion.",
+    fullDescription: "Our Hydration Reset IV infusion is designed to combat dehydration and restore your body's essential vitamins and minerals. Whether you're recovering from illness, jet lag, or simply feeling run down, this hydrating therapy delivers fluids and nutrients directly to your bloodstream for immediate relief.",
     benefits: [
       "Rapid rehydration",
       "Restores electrolyte balance",
@@ -61,9 +61,9 @@ const infusionTypes = [
   },
   {
     image: infusionRecovery,
-    title: "Recovery & Performance",
-    description: "Replenish essential nutrients with our Recovery & Performance infusion.",
-    fullDescription: "Designed for athletes and active individuals, our Recovery & Performance IV infusion helps replenish nutrients lost during intense physical activity. This powerful blend supports muscle recovery, reduces inflammation, and helps you get back to peak performance faster.",
+    title: "Endurance Support",
+    description: "Replenish nutrients and support recovery with our Endurance Support infusion.",
+    fullDescription: "Designed for athletes and active individuals, our Endurance Support IV infusion helps replenish nutrients lost during intense physical activity. This powerful blend supports muscle recovery, reduces inflammation, and helps you get back to peak performance faster.",
     benefits: [
       "Accelerates muscle recovery",
       "Reduces inflammation",
@@ -76,9 +76,9 @@ const infusionTypes = [
   },
   {
     image: infusionImmunity,
-    title: "Immunity",
-    description: "Boost your immunity and protect against infection.",
-    fullDescription: "Our Immunity IV infusion delivers a powerful dose of immune-boosting vitamins and antioxidants directly to your bloodstream. High-dose Vitamin C, Zinc, and other essential nutrients help strengthen your body's natural defenses against illness and infection.",
+    title: "Immune Reset",
+    description: "Boost your body's defenses with our Immune Support infusion.",
+    fullDescription: "Our Immune Reset IV infusion delivers a powerful dose of immune-boosting vitamins and antioxidants directly to your bloodstream. High-dose Vitamin C, Zinc, and other essential nutrients help strengthen your body's natural defenses against illness and infection.",
     benefits: [
       "Strengthens immune system",
       "High-dose Vitamin C therapy",
@@ -91,9 +91,9 @@ const infusionTypes = [
   },
   {
     image: infusionBeauty,
-    title: "Inner Beauty",
-    description: "Reduce the appearance of wrinkles and quench tired skin.",
-    fullDescription: "Our Inner Beauty IV infusion delivers a powerful blend of antioxidants and skin-nourishing vitamins that work from the inside out. Glutathione, Biotin, and Vitamin C help reduce the appearance of fine lines, brighten skin tone, and promote healthy hair and nails.",
+    title: "Radiance",
+    description: "Minimizes wrinkles while replenishing and refreshing skin.",
+    fullDescription: "Our Radiance IV infusion delivers a powerful blend of antioxidants and skin-nourishing vitamins that work from the inside out. Glutathione, Biotin, and Vitamin C help reduce the appearance of fine lines, brighten skin tone, and promote healthy hair and nails.",
     benefits: [
       "Reduces fine lines and wrinkles",
       "Brightens and evens skin tone",
@@ -106,9 +106,9 @@ const infusionTypes = [
   },
   {
     image: infusionAlleviate,
-    title: "Alleviate",
-    description: "Reduce abdominal discomfort and relieve bloating.",
-    fullDescription: "The Alleviate IV infusion is specially formulated to help reduce abdominal discomfort, bloating, and symptoms associated with PMS or digestive issues. This soothing blend of vitamins and minerals helps relax muscles and reduce inflammation for lasting relief.",
+    title: "Digestive Support",
+    description: "Eases abdominal discomfort and promotes digestive wellness.",
+    fullDescription: "The Digestive Support IV infusion is specially formulated to help reduce abdominal discomfort, bloating, and symptoms associated with PMS or digestive issues. This soothing blend of vitamins and minerals helps relax muscles and reduce inflammation for lasting relief.",
     benefits: [
       "Reduces bloating and cramping",
       "Relieves PMS symptoms",
