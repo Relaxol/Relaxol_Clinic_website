@@ -125,7 +125,7 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
   }, []);
 
   return (
-    <section id="treatments" className="relative py-28 md:py-36 overflow-hidden">
+    <section id="treatments" className="relative py-16 md:py-28 lg:py-36 overflow-hidden">
       {/* Premium warm gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-cream via-cream-dark/40 to-cream" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
