@@ -465,7 +465,7 @@ const Ketamine = () => {
         </section>
 
         {/* SECTION — UNDERSTANDING KETAMINE THERAPY */}
-        <section className="py-20 md:py-28 bg-background">
+        <section className="py-10 md:py-20 lg:py-28 bg-background">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
             {/* Section Header */}
             <div className="text-center mb-16">
