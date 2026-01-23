@@ -243,16 +243,40 @@ export default function Spravato() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#4A3C32]/60 via-[#6B5A4A]/40 to-[#5C4A3A]/80" />
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Mobile: Title + Video first */}
+          <div className="lg:hidden space-y-6 mb-6">
+            <h1 className="text-2xl sm:text-3xl font-bold text-background leading-tight">
+              <span className="block">SPRAVATO®</span>
+              Treatment for Depression That Hasn't Responded to Medication
+            </h1>
+            <h2 className="text-xl md:text-2xl text-background/80">
+              FDA-approved esketamine therapy administered in a medically supervised clinic
+            </h2>
+            
+            {/* Video - shown on mobile right after the title */}
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl">
+              <iframe
+                src="https://player.vimeo.com/video/332355023?title=0&byline=0&portrait=0"
+                className="w-full h-full"
+                allow="autoplay; fullscreen"
+                title="SPRAVATO® Treatment Overview"
+              />
+            </div>
+          </div>
+
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* Left: Text Content */}
             <div className="space-y-6">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-background leading-tight">
-                <span className="block">SPRAVATO®</span>
-                Treatment for Depression That Hasn't Responded to Medication
-              </h1>
-              <h2 className="text-xl md:text-2xl text-background/80">
-                FDA-approved esketamine therapy administered in a medically supervised clinic
-              </h2>
+              {/* Desktop only title */}
+              <div className="hidden lg:block">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-background leading-tight">
+                  <span className="block">SPRAVATO®</span>
+                  Treatment for Depression That Hasn't Responded to Medication
+                </h1>
+                <h2 className="text-xl md:text-2xl text-background/80 mt-6">
+                  FDA-approved esketamine therapy administered in a medically supervised clinic
+                </h2>
+              </div>
               
               <div className="flex flex-wrap gap-4 pt-2">
                 <Button size="lg" className="group" asChild>
@@ -281,8 +305,8 @@ export default function Spravato() {
               </div>
             </div>
             
-            {/* Right: Video */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl">
+            {/* Right: Video - Desktop only */}
+            <div className="hidden lg:block relative aspect-video rounded-2xl overflow-hidden shadow-2xl">
               <iframe
                 src="https://player.vimeo.com/video/332355023?title=0&byline=0&portrait=0"
                 className="w-full h-full"
