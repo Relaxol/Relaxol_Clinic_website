@@ -78,7 +78,7 @@ const servicesItems = [
   {
     image: serviceAnxiety,
     title: "Anxiety Treatment",
-    description: "Evidence-based ketamine protocols for Chronic Anxiety and related conditions."
+    description: "Evidence-based ketamine protocols for Anxiety and related conditions."
   },
   {
     image: servicePtsd,
@@ -88,7 +88,7 @@ const servicesItems = [
   {
     image: servicePain,
     title: "Chronic Pain Management",
-    description: "Ketamine infusions for neuropathic pain and Chronic Pain conditions."
+    description: "Ketamine infusions for neuropathic pain and chronic pain conditions."
   },
   {
     image: serviceMaintenance,
