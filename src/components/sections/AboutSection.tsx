@@ -28,7 +28,7 @@ export function AboutSection({ content }: AboutSectionProps) {
     <section id="about" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 lg:mb-12">
           <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
             {subtitle}
           </p>
@@ -39,9 +39,20 @@ export function AboutSection({ content }: AboutSectionProps) {
           </h2>
         </div>
 
+        {/* Image - shown on mobile only, right after header */}
+        <div className="lg:hidden mb-8">
+          <div className="image-card aspect-[4/3]">
+            <img
+              src={imageUrl}
+              alt={imageAlt}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Image */}
-          <div className="relative order-2 lg:order-1">
+          {/* Image - shown on desktop only */}
+          <div className="relative hidden lg:block">
             <div className="image-card aspect-[4/3]">
               <img
                 src={imageUrl}
@@ -52,7 +63,7 @@ export function AboutSection({ content }: AboutSectionProps) {
           </div>
 
           {/* Content */}
-          <div className="order-1 lg:order-2">
+          <div>
             <div 
               className="prose prose-lg max-w-none [&>p]:text-muted-foreground [&>p]:text-lg [&>p]:leading-relaxed [&>p]:mb-6 [&>p:last-of-type]:mb-8"
               dangerouslySetInnerHTML={{ __html: bodyHtml }} 
