@@ -23,7 +23,7 @@ export function EnvironmentSection() {
 
           {/* Image */}
           <div className="relative">
-            <div className="image-card aspect-[4/3]">
+            <div className="image-card aspect-[3/4] sm:aspect-[4/3]">
               <img
                 src={treatmentRoom}
                 alt="Comfortable treatment room with calming atmosphere"
