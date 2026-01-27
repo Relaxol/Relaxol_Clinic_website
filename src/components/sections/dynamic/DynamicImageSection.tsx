@@ -17,7 +17,7 @@ export function DynamicImageSection({ data }: Props) {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Image */}
           <div className={`relative ${isImageLeft ? 'order-1' : 'order-2 lg:order-2'}`}>
-            <div className="image-card aspect-[4/3]">
+            <div className="image-card aspect-[3/4] sm:aspect-[4/3]">
               {data.image.url ? (
                 <img
                   src={data.image.url}
