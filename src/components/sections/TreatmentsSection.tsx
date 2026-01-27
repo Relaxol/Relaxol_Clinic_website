@@ -169,11 +169,11 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
               <div className="absolute inset-0 rounded-2xl transition-shadow duration-500 group-hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)]" />
               
               {/* Image Container */}
-              <div className="relative h-56 sm:h-64 md:h-72 overflow-hidden bg-muted flex items-center justify-center">
+              <div className="relative h-56 sm:h-64 md:h-72 overflow-hidden">
                 <img
                   src={treatment.image}
                   alt={treatment.title}
-                  className="w-full h-full object-contain md:object-cover object-top transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                  className="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
                 
                 {/* Subtle gradient overlay */}
