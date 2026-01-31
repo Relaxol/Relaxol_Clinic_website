@@ -170,12 +170,10 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
               
               {/* Image Container */}
               <div className="relative h-56 sm:h-64 md:h-72 overflow-hidden">
-              <img
+                <img
                   src={treatment.image}
                   alt={treatment.title}
-                  className={`w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out ${
-                    index === 1 ? 'object-center sm:object-top' : 'object-top'
-                  }`}
+                  className="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
                 
                 {/* Subtle gradient overlay */}
