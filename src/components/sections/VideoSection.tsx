@@ -59,10 +59,10 @@ export function VideoSection({ content }: VideoSectionProps) {
                 ) : title}
               </h2>
             </div>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+            <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg sm:leading-relaxed mb-6">
               {body}
             </p>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-8">
+            <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg sm:leading-relaxed mb-8">
               Watch our video to learn more about how these breakthrough treatments work and whether they might be right for you.
             </p>
             <a

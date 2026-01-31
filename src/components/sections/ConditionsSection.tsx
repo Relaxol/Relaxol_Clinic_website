@@ -87,7 +87,7 @@ export function ConditionsSection({ content }: ConditionsSectionProps) {
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-5">
             {title}
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg sm:leading-relaxed">
             {description}
           </p>
         </div>
@@ -113,7 +113,7 @@ export function ConditionsSection({ content }: ConditionsSectionProps) {
                 <h3 className="text-lg lg:text-xl font-semibold text-foreground mb-2">
                   {condition.title}
                 </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-grow">
+                <p className="text-muted-foreground font-light tracking-wide text-[12px] leading-[1.55] sm:font-normal sm:tracking-normal sm:text-sm sm:leading-relaxed mb-4 flex-grow">
                   {condition.description}
                 </p>
                 <Link

@@ -145,7 +145,7 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
             {title}
           </h2>
           <div className="w-20 h-0.5 bg-primary/60 mx-auto mb-8" />
-          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+          <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg md:sm:text-xl sm:leading-relaxed max-w-2xl mx-auto">
             {description}
           </p>
         </div>
@@ -196,7 +196,7 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
                   {treatment.title}
                 </h3>
                 
-                <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-4 flex-grow">
+                <p className="text-muted-foreground font-light tracking-wide text-[13px] leading-[1.6] sm:font-normal sm:tracking-normal sm:text-sm md:sm:text-base sm:leading-relaxed mb-4 flex-grow">
                   {treatment.description}
                 </p>
                 

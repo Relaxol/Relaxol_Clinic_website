@@ -62,7 +62,7 @@ export function TimelineSection({ content }: TimelineSectionProps) {
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
             {title}
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg sm:leading-relaxed max-w-2xl mx-auto">
             {description}
           </p>
         </div>
@@ -90,7 +90,7 @@ export function TimelineSection({ content }: TimelineSectionProps) {
                   <h3 className="text-lg font-bold text-foreground mb-2">
                     {step.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed flex-1">
+                  <p className="text-muted-foreground font-light tracking-wide text-[13px] leading-[1.6] sm:font-normal sm:tracking-normal sm:text-sm sm:leading-relaxed flex-1">
                     {step.description}
                   </p>
                 </div>
