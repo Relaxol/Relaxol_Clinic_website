@@ -65,7 +65,7 @@ export function AboutSection({ content }: AboutSectionProps) {
           {/* Content */}
           <div>
             <div 
-              className="prose prose-lg max-w-none [&>p]:text-muted-foreground [&>p]:font-light [&>p]:tracking-wide [&>p]:text-[15px] [&>p]:leading-[1.9] [&>p]:mb-5 sm:[&>p]:text-lg sm:[&>p]:font-normal sm:[&>p]:tracking-normal sm:[&>p]:leading-relaxed sm:[&>p]:mb-6 [&>p:last-of-type]:mb-8"
+              className="prose prose-lg max-w-none [&>p]:text-muted-foreground [&>p]:font-light [&>p]:tracking-wide [&>p]:text-[15px] [&>p]:leading-[1.65] [&>p]:mb-5 sm:[&>p]:text-lg sm:[&>p]:font-normal sm:[&>p]:tracking-normal sm:[&>p]:leading-relaxed sm:[&>p]:mb-6 [&>p:last-of-type]:mb-8"
               dangerouslySetInnerHTML={{ __html: bodyHtml }} 
             />
             <Link to="/contact">
