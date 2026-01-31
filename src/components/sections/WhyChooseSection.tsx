@@ -1,4 +1,5 @@
 import { Stethoscope, FileCheck, CreditCard, Lock } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 const reasons = [
   {
@@ -25,7 +26,11 @@ const reasons = [
 
 export function WhyChooseSection() {
   return (
-    <section className="py-20 bg-cream-band">
+    <section className="pt-8 pb-20 sm:py-20 bg-cream-band">
+      {/* Mobile divider */}
+      <div className="sm:hidden max-w-7xl mx-auto px-6 mb-8">
+        <Separator className="bg-border/50" />
+      </div>
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
         {/* Header */}
         <div className="text-center mb-12">
