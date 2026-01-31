@@ -21,7 +21,7 @@ export function CoverageSection() {
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-5">
             Understanding Your Coverage
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg sm:leading-relaxed">
             We believe cost shouldn't be a barrier to mental health care. Our team is here to help you navigate your insurance options.
           </p>
         </div>
@@ -45,7 +45,7 @@ export function CoverageSection() {
               ))}
             </ul>
 
-            <p className="text-muted-foreground mb-6">
+            <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-base sm:leading-relaxed mb-6">
               Our dedicated team will verify your benefits and explain your out-of-pocket costs before you begin treatment.
             </p>
 

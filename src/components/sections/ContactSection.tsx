@@ -56,7 +56,7 @@ export function ContactSection({ content }: ContactSectionProps) {
               <h2 className="text-2xl md:text-3xl lg:text-4xl text-foreground font-bold mb-4">
                 {title}
               </h2>
-              <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
+              <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-base md:sm:text-lg sm:leading-relaxed max-w-2xl mx-auto">
                 {body}
               </p>
             </div>

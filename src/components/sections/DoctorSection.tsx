@@ -55,7 +55,7 @@ export function DoctorSection({ content }: DoctorSectionProps) {
               {name}
             </h2>
             {bio.map((paragraph, index) => (
-              <p key={index} className="text-muted-foreground leading-relaxed mb-4">
+              <p key={index} className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-base sm:leading-relaxed mb-4">
                 {paragraph}
               </p>
             ))}

@@ -65,7 +65,7 @@ export function TestimonialsSection({ content }: TestimonialsSectionProps) {
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
             {title}
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg sm:leading-relaxed max-w-2xl mx-auto">
             {description}
           </p>
         </div>
@@ -87,8 +87,7 @@ export function TestimonialsSection({ content }: TestimonialsSectionProps) {
                 ))}
               </div>
 
-              {/* Text */}
-              <p className="text-muted-foreground italic leading-relaxed mb-6">
+              <p className="text-muted-foreground italic font-light tracking-wide text-[14px] leading-[1.6] sm:font-normal sm:tracking-normal sm:text-base sm:leading-relaxed mb-6">
                 "{testimonial.text}"
               </p>
 

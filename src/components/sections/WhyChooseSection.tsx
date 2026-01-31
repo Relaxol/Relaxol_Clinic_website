@@ -37,7 +37,7 @@ export function WhyChooseSection() {
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
             Why Choose Relaxol Clinic
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg sm:leading-relaxed max-w-2xl mx-auto">
             Compassionate care backed by expertise and evidence.
           </p>
         </div>
@@ -55,7 +55,7 @@ export function WhyChooseSection() {
               <h3 className="text-lg font-bold text-foreground mb-3">
                 {reason.title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed text-sm">
+              <p className="text-muted-foreground font-light tracking-wide text-[13px] leading-[1.55] sm:font-normal sm:tracking-normal sm:text-sm sm:leading-relaxed">
                 {reason.description}
               </p>
             </div>
