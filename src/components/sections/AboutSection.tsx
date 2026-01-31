@@ -20,8 +20,8 @@ export function AboutSection({ content }: AboutSectionProps) {
   const imageUrl = content?.imageUrl || aboutClinic;
   const imageAlt = content?.imageAlt || "Modern treatment facility interior";
   
-  // Default body paragraphs
-  const defaultBody = `<p class="text-muted-foreground text-lg leading-relaxed mb-6">At Relaxol Clinic, we combine advanced psychiatric expertise with FDA-approved treatments like SPRAVATO® and ketamine infusion therapy. Our approach is grounded in evidence-based medicine while remaining attentive to each patient's unique journey. Whether you're struggling with treatment-resistant Depression, Chronic Anxiety, PTSD, or OCD, our team is here to provide compassionate, clinician-led care.</p><p class="text-muted-foreground text-lg leading-relaxed mb-8">We believe mental health care should be accessible, personalized, and delivered in an environment that feels safe. That's why our clinic offers private treatment rooms, flexible scheduling, and support navigating insurance—because healing shouldn't feel like a hurdle.</p>`;
+  // Default body paragraphs - refined for premium medical aesthetic
+  const defaultBody = `<p>At Relaxol Clinic, we combine advanced psychiatric expertise with FDA-approved treatments like SPRAVATO® and ketamine infusion therapy. Our approach is grounded in evidence-based medicine while remaining attentive to each patient's unique journey. Whether you're struggling with treatment-resistant Depression, Chronic Anxiety, PTSD, or OCD, our team is here to provide compassionate, clinician-led care.</p><p>We believe mental health care should be accessible, personalized, and delivered in an environment that feels safe. That's why our clinic offers private treatment rooms, flexible scheduling, and support navigating insurance—because healing shouldn't feel like a hurdle.</p>`;
   const bodyHtml = content?.bodyHtml ?? defaultBody;
 
   return (
@@ -65,7 +65,7 @@ export function AboutSection({ content }: AboutSectionProps) {
           {/* Content */}
           <div>
             <div 
-              className="prose prose-lg max-w-none [&>p]:text-muted-foreground [&>p]:text-lg [&>p]:leading-relaxed [&>p]:mb-6 [&>p:last-of-type]:mb-8"
+              className="prose prose-lg max-w-none [&>p]:text-muted-foreground [&>p]:font-light [&>p]:tracking-wide [&>p]:text-[15px] [&>p]:leading-[1.9] [&>p]:mb-5 sm:[&>p]:text-lg sm:[&>p]:font-normal sm:[&>p]:tracking-normal sm:[&>p]:leading-relaxed sm:[&>p]:mb-6 [&>p:last-of-type]:mb-8"
               dangerouslySetInnerHTML={{ __html: bodyHtml }} 
             />
             <Link to="/contact">
