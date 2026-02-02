@@ -104,7 +104,7 @@ export function ConditionsSection({ content }: ConditionsSectionProps) {
                 <img
                   src={condition.image}
                   alt={condition.imageAlt}
-                  className="w-full h-full object-cover object-top md:object-center group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
               
