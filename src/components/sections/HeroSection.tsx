@@ -42,7 +42,7 @@ export function HeroSection({ content }: HeroSectionProps) {
       </div>
 
       {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pt-10 pb-20">
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pt-4 md:pt-10 pb-20">
         <div className="max-w-3xl">
           {/* Subtitle */}
           <p className="text-[#D09B3C] text-sm md:text-base font-semibold uppercase tracking-widest mb-4 animate-fade-up">
