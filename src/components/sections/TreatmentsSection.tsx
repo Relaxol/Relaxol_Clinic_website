@@ -174,7 +174,7 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
                   src={treatment.image}
                   alt={treatment.title}
                   className={`w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out ${
-                    index === 1 ? 'object-[center_20%]' : index === 2 ? 'object-[60%_top] md:object-center' : 'object-top'
+                    index === 1 ? 'object-[center_20%]' : index === 2 ? 'object-right md:object-center' : 'object-top'
                   }`}
                 />
                 
