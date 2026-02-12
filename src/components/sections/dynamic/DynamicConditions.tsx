@@ -58,12 +58,12 @@ export function DynamicConditions({ data }: Props) {
               className="group bg-card rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
             >
               {/* Image */}
-              <div className="aspect-[3/4] sm:aspect-[4/3] overflow-hidden">
+              <div className="aspect-[1/1] sm:aspect-[4/3] overflow-hidden">
                 <img
                   src={condition.imageUrl || condition.image || ""}
                   alt={condition.imageAlt || condition.title}
                   loading="lazy"
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
               
