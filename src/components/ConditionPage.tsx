@@ -14,7 +14,9 @@ interface ConditionPageProps {
 
 const ConditionPage = ({ slug, fallbackImage, fallback }: ConditionPageProps) => {
   const { content, loading } = usePageContent(`conditions-${slug}`);
-  const c = (content as ConditionV1Content) || fallback;
+  // Use fallback if content is null or empty object
+  const hasContent = content && Object.keys(content).length > 0 && (content as any).hero;
+  const c = (hasContent ? content : fallback) as ConditionV1Content;
 
   if (loading) {
     return (
