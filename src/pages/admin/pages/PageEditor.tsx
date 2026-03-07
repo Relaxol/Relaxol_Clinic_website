@@ -33,6 +33,7 @@ import {
 import PagePreview from '@/components/admin/PagePreview';
 import SectionEditorDrawer, { validateSection } from '@/components/admin/SectionEditorDrawer';
 import TemplateFormEditor from '@/components/admin/TemplateFormEditor';
+import TemplatePreviewRenderer from '@/components/admin/TemplatePreviewRenderer';
 import { v4 as uuidv4 } from 'uuid';
 import { 
   TemplateType, 
