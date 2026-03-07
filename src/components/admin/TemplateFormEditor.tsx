@@ -27,6 +27,11 @@ import {
   FAQV1Content,
 } from '@/lib/templates/schemas';
 import {
+  ConditionV1Content,
+  VitaminInfusionsV1Content,
+  OurTeamV1Content,
+} from '@/lib/templates/newSchemas';
+import {
   defaultTreatmentItems,
   defaultConditionItems,
   defaultTestimonialItems,
