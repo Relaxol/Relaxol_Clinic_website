@@ -57,10 +57,18 @@ const UsersList = () => {
   const [invites, setInvites] = useState<Invite[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [createUserDialogOpen, setCreateUserDialogOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [role, setRole] = useState<'admin' | 'editor' | 'viewer'>('editor');
   const [saving, setSaving] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  // Create user form state
+  const [createEmail, setCreateEmail] = useState('');
+  const [createPassword, setCreatePassword] = useState('');
+  const [createConfirmPassword, setCreateConfirmPassword] = useState('');
+  const [createRole, setCreateRole] = useState<'admin' | 'editor' | 'viewer'>('editor');
+  const [creatingUser, setCreatingUser] = useState(false);
 
   const isAdmin = membership?.role === 'admin';
   const licenseActive = membership?.licenseActive !== false;
@@ -75,7 +83,6 @@ const UsersList = () => {
     if (!membership?.tenantId) return;
 
     try {
-      // Fetch members
       const { data: membersData, error: membersError } = await supabase
         .from('tenant_members')
         .select('*')
@@ -85,7 +92,6 @@ const UsersList = () => {
       if (membersError) throw membersError;
       setMembers(membersData || []);
 
-      // Fetch pending invites (only if admin)
       if (isAdmin) {
         const { data: invitesData, error: invitesError } = await supabase
           .from('invites')
@@ -134,7 +140,6 @@ const UsersList = () => {
       if (error) throw error;
       if (data.error) throw new Error(data.error);
 
-      // Copy invite link to clipboard
       const inviteLink = `${window.location.origin}/admin/accept-invite?token=${data.invite.token}`;
       await navigator.clipboard.writeText(inviteLink);
 
@@ -152,6 +157,65 @@ const UsersList = () => {
       toast({ title: 'Error', description: error.message, variant: 'destructive' });
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleCreateUser = async () => {
+    if (!createEmail || !createPassword) {
+      toast({ title: 'Email and password are required', variant: 'destructive' });
+      return;
+    }
+
+    if (createPassword.length < 6) {
+      toast({ title: 'Password must be at least 6 characters', variant: 'destructive' });
+      return;
+    }
+
+    if (createPassword !== createConfirmPassword) {
+      toast({ title: 'Passwords do not match', variant: 'destructive' });
+      return;
+    }
+
+    if (!membership?.tenantId) {
+      toast({ title: 'Session error', description: 'Please refresh the page', variant: 'destructive' });
+      return;
+    }
+
+    if (limitReached) {
+      toast({ title: 'User limit reached', description: 'Upgrade your plan to add more users', variant: 'destructive' });
+      return;
+    }
+
+    setCreatingUser(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('create-user', {
+        body: {
+          email: createEmail.trim().toLowerCase(),
+          password: createPassword,
+          role: createRole,
+          tenant_id: membership.tenantId
+        }
+      });
+
+      if (error) throw error;
+      if (data.error) throw new Error(data.error);
+
+      toast({ 
+        title: 'User created!', 
+        description: `${data.user.email} has been added as ${data.user.role}. They can now log in with their credentials.`,
+      });
+
+      setCreateUserDialogOpen(false);
+      setCreateEmail('');
+      setCreatePassword('');
+      setCreateConfirmPassword('');
+      setCreateRole('editor');
+      fetchData();
+    } catch (error: any) {
+      console.error('Error creating user:', error);
+      toast({ title: 'Error', description: error.message, variant: 'destructive' });
+    } finally {
+      setCreatingUser(false);
     }
   };
 
@@ -256,50 +320,117 @@ const UsersList = () => {
           </p>
         </div>
         {licenseActive && (
-          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-            <DialogTrigger asChild>
-              <Button disabled={limitReached}>
-                <UserPlus className="h-4 w-4 mr-2" />
-                Invite User
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Invite Team Member</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4 py-4">
-                <div className="space-y-2">
-                  <Label>Email *</Label>
-                  <Input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="user@example.com"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Role</Label>
-                  <Select value={role} onValueChange={(v) => setRole(v as typeof role)}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="viewer">Viewer (read-only)</SelectItem>
-                      <SelectItem value="editor">Editor (can edit content)</SelectItem>
-                      <SelectItem value="admin">Admin (full access)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <Button onClick={handleCreateInvite} disabled={saving} className="w-full">
-                  {saving && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
-                  Create Invite & Copy Link
+          <div className="flex gap-2">
+            {/* Create User Dialog */}
+            <Dialog open={createUserDialogOpen} onOpenChange={setCreateUserDialogOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" disabled={limitReached}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Create User
                 </Button>
-                <p className="text-xs text-muted-foreground text-center">
-                  The invite link will be copied to your clipboard. Send it to the user via email or messaging.
-                </p>
-              </div>
-            </DialogContent>
-          </Dialog>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Create User Directly</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 py-4">
+                  <div className="space-y-2">
+                    <Label>Email *</Label>
+                    <Input
+                      type="email"
+                      value={createEmail}
+                      onChange={(e) => setCreateEmail(e.target.value)}
+                      placeholder="user@example.com"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Password *</Label>
+                    <Input
+                      type="password"
+                      value={createPassword}
+                      onChange={(e) => setCreatePassword(e.target.value)}
+                      placeholder="Min 6 characters"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Confirm Password *</Label>
+                    <Input
+                      type="password"
+                      value={createConfirmPassword}
+                      onChange={(e) => setCreateConfirmPassword(e.target.value)}
+                      placeholder="Re-enter password"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Role</Label>
+                    <Select value={createRole} onValueChange={(v) => setCreateRole(v as typeof createRole)}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="viewer">Viewer (read-only)</SelectItem>
+                        <SelectItem value="editor">Editor (can edit content)</SelectItem>
+                        <SelectItem value="admin">Admin (full access)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <Button onClick={handleCreateUser} disabled={creatingUser} className="w-full">
+                    {creatingUser && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+                    Create User
+                  </Button>
+                  <p className="text-xs text-muted-foreground text-center">
+                    The user will be able to log in immediately with these credentials. No email verification required.
+                  </p>
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            {/* Invite User Dialog */}
+            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+              <DialogTrigger asChild>
+                <Button disabled={limitReached}>
+                  <UserPlus className="h-4 w-4 mr-2" />
+                  Invite User
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Invite Team Member</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 py-4">
+                  <div className="space-y-2">
+                    <Label>Email *</Label>
+                    <Input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="user@example.com"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Role</Label>
+                    <Select value={role} onValueChange={(v) => setRole(v as typeof role)}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="viewer">Viewer (read-only)</SelectItem>
+                        <SelectItem value="editor">Editor (can edit content)</SelectItem>
+                        <SelectItem value="admin">Admin (full access)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <Button onClick={handleCreateInvite} disabled={saving} className="w-full">
+                    {saving && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+                    Create Invite & Copy Link
+                  </Button>
+                  <p className="text-xs text-muted-foreground text-center">
+                    The invite link will be copied to your clipboard. Send it to the user via email or messaging.
+                  </p>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
         )}
       </div>
 
