@@ -1511,6 +1511,14 @@ function SpravatoTemplateEditor({
             </>
           )}
         />
+        <TextAreaField
+          label="Mechanism Explanation Text"
+          value={content.timeline.mechanismText || ''}
+          onChange={(v) => update('timeline', { ...content.timeline, mechanismText: v })}
+          placeholder="SPRAVATO® targets NMDA receptors in the brain..."
+          disabled={disabled}
+          rows={3}
+        />
       </Panel>
 
       <Panel title="FAQ Section">
