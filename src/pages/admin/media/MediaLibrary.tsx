@@ -137,6 +137,17 @@ const MediaLibrary = () => {
     if (!confirm('Are you sure you want to delete this file?')) return;
     
     try {
+      // Find the media item to get its storage path
+      const item = media.find(m => m.id === id);
+      if (item?.url) {
+        // Extract the storage path from the public URL
+        const urlParts = item.url.split('/media/');
+        if (urlParts.length > 1) {
+          const storagePath = decodeURIComponent(urlParts[urlParts.length - 1]);
+          await supabase.storage.from('media').remove([storagePath]);
+        }
+      }
+
       const { error } = await supabase.from('media').delete().eq('id', id);
       if (error) throw error;
       toast({ title: 'File deleted' });
