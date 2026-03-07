@@ -241,7 +241,8 @@ function ItemRepeater<T extends object>({
               </Button>
             </CardContent>
           </Card>
-        ))}
+        );
+        })}
       </div>
     </div>
   );
