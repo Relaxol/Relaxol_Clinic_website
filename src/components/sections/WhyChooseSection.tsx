@@ -1,7 +1,7 @@
 import { Stethoscope, FileCheck, CreditCard, Lock } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
-const reasons = [
+const defaultReasons = [
   {
     icon: Stethoscope,
     title: "Clinician-Led Care",
@@ -24,7 +24,32 @@ const reasons = [
   },
 ];
 
-export function WhyChooseSection() {
+interface WhyChooseContent {
+  title?: string;
+  description?: string;
+  items?: { title: string; description: string }[];
+}
+
+interface WhyChooseSectionProps {
+  content?: WhyChooseContent;
+}
+
+export function WhyChooseSection({ content }: WhyChooseSectionProps) {
+  const title = content?.title || "Why Choose Relaxol Clinic";
+  const description = content?.description || "Compassionate care backed by expertise and evidence.";
+  const cmsItems = content?.items;
+  
+  // Map icons by index for CMS items (icons stay hardcoded as they're visual design elements)
+  const icons = [Stethoscope, FileCheck, CreditCard, Lock];
+
+  const reasons = cmsItems?.length
+    ? cmsItems.map((item, i) => ({
+        icon: icons[i % icons.length],
+        title: item.title,
+        description: item.description,
+      }))
+    : defaultReasons;
+
   return (
     <section className="pt-8 pb-20 sm:py-20 bg-cream-band">
       {/* Mobile divider */}
@@ -35,10 +60,10 @@ export function WhyChooseSection() {
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4">
-            Why Choose Relaxol Clinic
+            {title}
           </h2>
           <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg sm:leading-relaxed max-w-2xl mx-auto">
-            Compassionate care backed by expertise and evidence.
+            {description}
           </p>
         </div>
 
