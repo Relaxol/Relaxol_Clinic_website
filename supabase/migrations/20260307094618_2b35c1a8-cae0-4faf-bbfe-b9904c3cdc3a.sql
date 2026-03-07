@@ -1,0 +1,1 @@
+UPDATE pages SET content_json = '{}'::jsonb WHERE slug = 'spravato-Englewood' AND status = 'published';

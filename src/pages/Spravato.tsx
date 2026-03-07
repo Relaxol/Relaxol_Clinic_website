@@ -256,11 +256,11 @@ export default function Spravato() {
   const heroCtaLabel = cms?.hero?.ctaLabel || "Check Eligibility";
 
   const trdTitle = cms?.trd?.title || "Treatment-Resistant Depression";
-  const trdBody = cms?.trd?.body || null;
+  const trdBody = cms?.trd?.body || "Depression is not as simple as just \"sadness.\" Sadness is a feeling that comes and goes with everyday life. Almost 300 million people suffer from depression worldwide, and despite a variety of depression treatments available, many continue to suffer without relief from these medications.\n\nFortunately, SPRAVATO® – the breakthrough FDA-approved esketamine nasal spray – is showing excellent results in relieving those symptoms of depression. As a SPRAVATO® REMS-certified treatment provider, our treatment team can alleviate even the most severe forms of treatment-resistant depression.";
 
   const whatIsSubtitle = cms?.whatIs?.subtitle || "About the Treatment";
   const whatIsTitle = cms?.whatIs?.title || "What Is SPRAVATO®?";
-  const whatIsBody = cms?.whatIs?.body || null;
+  const whatIsBody = cms?.whatIs?.body || "SPRAVATO® is a prescription nasal spray derived from esketamine and approved by the FDA for treatment-resistant depression. It's used alongside an oral antidepressant for adults who haven't found relief from standard medications.\n\nUnlike traditional antidepressants that target serotonin or norepinephrine, SPRAVATO® works on the glutamate system—potentially restoring neural connections weakened by chronic depression.";
 
   const benefitsSubtitle = cms?.benefits?.subtitle || "Why SPRAVATO®";
   const benefitsTitle = cms?.benefits?.title || "Benefits of SPRAVATO® Treatment";
@@ -374,23 +374,11 @@ export default function Spravato() {
                 {whatIsTitle}
               </h2>
               
-              {whatIsBody ? (
-                <p className="text-muted-foreground leading-relaxed">{whatIsBody}</p>
-              ) : (
-                <>
-                  <p className="text-muted-foreground leading-relaxed">
-                    SPRAVATO® is a prescription nasal spray derived from esketamine and approved 
-                    by the FDA for treatment-resistant depression. It's used alongside an oral 
-                    antidepressant for adults who haven't found relief from standard medications.
-                  </p>
-                  
-                  <p className="text-muted-foreground leading-relaxed">
-                    Unlike traditional antidepressants that target serotonin or norepinephrine, 
-                    SPRAVATO® works on the glutamate system—potentially restoring neural connections 
-                    weakened by chronic depression.
-                  </p>
-                </>
-              )}
+              {whatIsBody.split('\n\n').map((paragraph, index) => (
+                <p key={index} className="text-muted-foreground leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
             </div>
             
             {/* Right: Official SPRAVATO Device Image */}
@@ -424,23 +412,11 @@ export default function Spravato() {
                 {trdTitle}
               </h2>
               
-              {trdBody ? (
-                <p className="text-white/90 leading-relaxed text-base md:text-lg">{trdBody}</p>
-              ) : (
-                <>
-                  <p className="text-white/90 leading-relaxed text-base md:text-lg">
-                    Depression is not as simple as just "sadness." Sadness is a feeling that comes and goes with 
-                    everyday life. Almost 300 million people suffer from depression worldwide, and despite a variety 
-                    of depression treatments available, many continue to suffer without relief from these medications.
-                  </p>
-                  
-                  <p className="text-white/90 leading-relaxed text-base md:text-lg">
-                    Fortunately, SPRAVATO® – the breakthrough FDA-approved esketamine nasal spray – is showing 
-                    excellent results in relieving those symptoms of depression. As a SPRAVATO® REMS-certified 
-                    treatment provider, our treatment team can alleviate even the most severe forms of treatment-resistant depression.
-                  </p>
-                </>
-              )}
+              {trdBody.split('\n\n').map((paragraph, index) => (
+                <p key={index} className="text-white/90 leading-relaxed text-base md:text-lg">
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </div>
         </div>
