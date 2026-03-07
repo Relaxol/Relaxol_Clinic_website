@@ -21,10 +21,11 @@
 11. [Licensing & Feature Gating](#11-licensing--feature-gating)
 12. [Settings](#12-settings)
 13. [Content Protection & Safety](#13-content-protection--safety)
-14. [Database Tables Reference](#14-database-tables-reference)
-15. [Edge Functions Reference](#15-edge-functions-reference)
-16. [Environment Variables](#16-environment-variables)
-17. [Recommendations: Features to Add Before Handoff](#17-recommendations-features-to-add-before-handoff)
+14. [Activity Log](#14-activity-log)
+15. [Database Tables Reference](#15-database-tables-reference)
+16. [Edge Functions Reference](#16-edge-functions-reference)
+17. [Environment Variables](#17-environment-variables)
+18. [Recommendations: Features to Add Before Handoff](#18-recommendations-features-to-add-before-handoff)
 
 ---
 
@@ -35,12 +36,14 @@ The project uses a **hybrid CMS architecture**:
 | Page Type | Rendering | Editable Via CMS? |
 |---|---|---|
 | **Core pages** (`/`, `/ketamine`, `/spravato-Englewood`, `/faq`, `/contact`) | Hardcoded React components with original CSS layouts | ✅ Yes — content (text, images, URLs) is sourced from `pages.content_json` in the database |
+| **Condition pages** (`/conditions/depression`, `/anxiety`, `/ptsd`, `/ocd`, `/pain-management`) | Hardcoded React components with content props | ✅ Yes — content sourced from `pages.content_json` with fallback defaults |
+| **Vitamin Infusions** (`/vitamin-infusion-englewood`) | Hardcoded React component with content props | ✅ Yes — content sourced from `pages.content_json` |
+| **Our Team** (`/our-team`) | Hardcoded React component with content props | ✅ Yes — content sourced from `pages.content_json` |
 | **New CMS pages** (created via admin panel) | Dynamically rendered at `/p/:slug` | ✅ Yes — full section-based editing |
 | **Blog posts** (`/blog`, `/blog/:slug`) | Dynamically rendered from `blog_posts` table | ✅ Yes — full blog editor |
-| **Condition pages** (`/conditions/*`) | Hardcoded React components | ❌ Not CMS-editable |
-| **Static pages** (`/privacy-policy`, `/terms-of-service`, `/our-team`, etc.) | Hardcoded React components | ❌ Not CMS-editable |
+| **Static pages** (`/privacy-policy`, `/terms-of-service`) | Hardcoded React components | ❌ Not CMS-editable |
 
-**Key principle:** Core page designs (CSS, layout, spacing) are preserved exactly as built. Only the *content* (text strings, image URLs, FAQ items, etc.) is pulled from the database.
+**Key principle:** Core page designs (CSS, layout, spacing) are preserved exactly as built. Only the *content* (text strings, image URLs, FAQ items, etc.) is pulled from the database. If CMS content is missing or incomplete, hardcoded fallback defaults are used — the site never appears blank.
 
 ---
 
@@ -106,15 +109,18 @@ Displays:
 
 ### Template-Based Pages (Core Pages)
 
-These 5 core pages use predefined templates with structured content schemas:
+These core pages use predefined templates with structured content schemas:
 
-| Template | Slug | Editable Sections |
+| Template | Slug | Editable Sections (Admin Panels) |
 |---|---|---|
-| `home_v1` | `home` | Hero, About, Video, Treatments (items), Doctor, Conditions (items), Testimonials (items), Timeline (items), FAQ (items), Contact |
-| `ketamine_v1` | `ketamine` | Hero, Stats (items), Parallax, Services (items), Eligibility, Cross-sell, FAQ (items) |
-| `spravato_v1` | `spravato-Englewood` | Hero, Eligibility Form, TRD section, Benefits (items), What Is section, Timeline (items), FAQ (items), Contact |
+| `home_v1` | `home` | Hero, About, Video (title, body, second paragraph, video URL), Treatments (items), Doctor, Conditions (items), Environment (title, description, items), Why Choose (title, subtitle, items with icon/title/description), Testimonials (items), Timeline (items), Coverage (title, subtitle, points, quick facts), FAQ (items), Contact |
+| `ketamine_v1` | `ketamine` | Hero, Stats (items), Understanding Ketamine (title, description, cards with paragraphs), Services (items with title, description, image, link), Conditions (items with title, description, icon, accordion sub-items), Parallax, Eligibility, Cross-sell, FAQ (items) |
+| `spravato_v1` | `spravato-Englewood` | Hero, Eligibility Form, TRD Section (title, paragraphs), Benefits (items with title, description, icon), What Is section, Timeline (items, mechanism text), FAQ (items), Contact |
 | `contact_v1` | `contact` | Hero, Clinic Info (name, address, phone, email, hours), Form section |
-| `faq_v1` | `faq` | Hero, FAQ Sections (grouped items), CTA |
+| `faq_v1` | `faq` | Hero, FAQ Items (flat list of question/answer pairs), CTA (title, description, label, href, phone, email, address) |
+| `condition_v1` | `conditions-depression`, `conditions-anxiety`, `conditions-ptsd`, `conditions-ocd`, `conditions-pain-management` | Hero (subtitle, headline, body, CTA, image), Content (title, paragraphs, subsections with title/body/bullets), CTA (label, href) |
+| `vitamin_v1` | `vitamin-infusion-englewood` | Hero, About, Infusions (items), Benefits, Process, FAQ (items), CTA |
+| `team_v1` | `our-team` | Hero, Team Members (items with name, title, bio, image) |
 
 ### How to edit a template page:
 
@@ -122,19 +128,72 @@ These 5 core pages use predefined templates with structured content schemas:
 2. Click on the page you want to edit
 3. The **Template Content** tab shows a form organized by section
 4. Each section is collapsible — click to expand and edit fields
-5. For sections with repeatable items (treatments, testimonials, FAQ, etc.):
+5. For sections with repeatable items (treatments, testimonials, FAQ, conditions, benefits, etc.):
    - Click **"Add Item"** to add new entries
-   - Click the trash icon to remove entries
+   - Click the trash icon to remove entries (with confirmation dialog)
    - Items can be reordered
 6. Click **"Save Draft"** to save without publishing
 7. Click **"Publish"** to make changes live on the website
-8. A **live preview** panel shows how changes will look
+8. A **live preview** panel shows how changes will look in real-time as you type
+
+### Detailed Panel Reference: Home Page (`home_v1`)
+
+| Panel | Fields |
+|---|---|
+| **Hero** | Subtitle, Headline, Body, CTA Label, CTA Link, Image URL, Image Alt |
+| **About** | Title, Body |
+| **Video** | Title, Body, Second Paragraph, Video URL |
+| **Treatments** | Items: title, description, imageUrl, href |
+| **Doctor** | Name, Title, Bio, Image URL |
+| **Conditions** | Items: title, description, imageUrl, href |
+| **Environment** | Title, Description, Items: title, description, imageUrl |
+| **Why Choose** | Title, Subtitle, Items: icon, title, description |
+| **Testimonials** | Items: quote, author, role |
+| **Timeline** | Items: step, title, description |
+| **Coverage** | Title, Subtitle, Points (list), Quick Facts (list) |
+| **FAQ** | Items: question, answer |
+| **Contact** | Title, Body, Phone, Email, Address |
+
+### Detailed Panel Reference: Ketamine Page (`ketamine_v1`)
+
+| Panel | Fields |
+|---|---|
+| **Hero** | Subtitle, Headline, Body, CTA Label, CTA Link, Image URL, Image Alt |
+| **Stats** | Items: value, label |
+| **Understanding Ketamine** | Title, Description, Cards: title, paragraphs (array) |
+| **Services** | Items: title, description, imageUrl, href |
+| **Conditions** | Items: title, description, icon, accordionItems: trigger, content |
+| **Parallax** | Title, Body |
+| **Eligibility** | Title, Items (list) |
+| **Cross-sell** | Title, Body, CTA Label, CTA Link |
+| **FAQ** | Items: question, answer |
+
+### Detailed Panel Reference: SPRAVATO Page (`spravato_v1`)
+
+| Panel | Fields |
+|---|---|
+| **Hero** | Subtitle, Headline, Body, CTA Label, CTA Link, Image URL, Image Alt |
+| **Eligibility Form** | Title, Body |
+| **TRD Section** | Title, Paragraphs (array) |
+| **Benefits** | Items: title, description, icon |
+| **What Is Section** | Title, Body, Image URL |
+| **Timeline** | Items: step, title, description; Mechanism Text |
+| **FAQ** | Items: question, answer |
+| **Contact** | Title, Body, Phone, Email |
+
+### Detailed Panel Reference: FAQ Page (`faq_v1`)
+
+| Panel | Fields |
+|---|---|
+| **Hero** | Subtitle, Headline, Body |
+| **FAQ Items** | Flat list of items: question, answer |
+| **CTA** | Title, Description, Label, Link, Phone, Email, Address |
 
 ### Section-based pages (Dynamic CMS pages)
 
 New pages created via the admin use a section-based editor:
 
-- **Section types available:** Text Block, Image Left, Image Right, FAQ, Call to Action, Statistics
+- **Section types available:** Hero, Text Block, Image Left, Image Right, FAQ, Call to Action, Statistics, Contact, Video, Treatments, Doctor, Conditions, Testimonials, Timeline
 - Sections can be added, reordered (up/down), duplicated, or deleted
 - Each section has a unique ID for deep-linking
 - Published at `/p/:slug`
@@ -145,6 +204,7 @@ New pages created via the admin use a section-based editor:
 - **Removal warning:** If you remove items from any section, a confirmation dialog shows which sections lost items
 - **Empty items warning:** If sections have empty items arrays, a dialog warns before publish
 - **Validation:** Image alt text required, FAQ items need both Q&A, CTA needs label + href
+- **Version history:** Browse and restore previous versions via the history drawer
 
 ---
 
@@ -200,10 +260,12 @@ New pages created via the admin use a section-based editor:
 - **Copy URL** to clipboard for use in blog posts or pages
 - **Delete media** (admin only)
 - Alt text is enforced for accessibility
+- Files stored in Supabase Storage `media` bucket with public access
 
-### Current limitation:
+### Media in page editors:
 
-Media is stored as URL references in the `media` database table. The actual files are uploaded to Supabase Storage (if configured) or referenced by external URL.
+- Template page editors include **ImageUploadField** components that allow direct upload or browsing the media library inline
+- Uploaded images automatically sync metadata (URL, dimensions, file size, MIME type) to the `media` table
 
 ---
 
@@ -238,6 +300,12 @@ Media is stored as URL references in the `media` database table. The actual file
 - Open Graph: OG Title, OG Description, OG Image URL
 
 Available on both **pages** and **blog posts**.
+
+### Structured Data (JSON-LD):
+- `MedicalClinic` schema on the home page
+- `Physician` schema on the team page
+- `FAQPage` schema on the FAQ page
+- Automatically generated from page content
 
 ---
 
@@ -280,15 +348,28 @@ Displays (read-only):
 
 ## 13. Content Protection & Safety
 
-Three layers of protection prevent accidental content loss:
+Four layers of protection prevent accidental content loss:
 
-1. **Auto-backup history:** Every save creates an entry in `page_content_history` with the previous content
-2. **Item removal warning:** Dialog appears if you reduce the number of items in any section (treatments, conditions, testimonials, timeline, FAQ)
+1. **Auto-backup history:** Every save creates an entry in `page_content_history` with the previous content. Browse and restore via the history drawer in the editor.
+2. **Item removal warning:** Dialog appears if you reduce the number of items in any section (treatments, conditions, testimonials, timeline, FAQ, benefits, etc.)
 3. **Empty items warning:** Dialog appears before publish if any sections have zero items
+4. **Confirmation dialogs:** Duplicate and Archive actions in the Pages List require confirmation
 
 ---
 
-## 14. Database Tables Reference
+## 14. Activity Log
+
+**URL:** `/admin/activity`
+
+All content-related actions are logged to the `activity_log` table:
+- **Tracked actions:** create, update, delete, publish, upload
+- **Tracked entities:** pages, blog posts, media, users
+- Each entry records: user email, action, entity type, entity title, timestamp, details
+- Provides a full audit trail for accountability
+
+---
+
+## 15. Database Tables Reference
 
 | Table | Purpose |
 |---|---|
@@ -306,6 +387,8 @@ Three layers of protection prevent accidental content loss:
 | `authors` | Blog authors |
 | `media` | Uploaded media references |
 | `invites` | Invite tokens for user provisioning |
+| `form_submissions` | Contact/lead form submissions |
+| `activity_log` | Audit trail for all CMS actions |
 
 All tables have **Row-Level Security (RLS)** policies. Key patterns:
 - Members can **view** content in their tenant
@@ -315,7 +398,7 @@ All tables have **Row-Level Security (RLS)** policies. Key patterns:
 
 ---
 
-## 15. Edge Functions Reference
+## 16. Edge Functions Reference
 
 | Function | Path | Purpose |
 |---|---|---|
@@ -327,7 +410,7 @@ All three functions have `verify_jwt = false` (accessible without auth token).
 
 ---
 
-## 16. Environment Variables
+## 17. Environment Variables
 
 Required for deployment:
 
@@ -345,64 +428,40 @@ Edge functions also use these secrets (configured in Supabase dashboard):
 
 ---
 
-## 17. Recommendations: Features to Add Before Handoff
+## 18. Recommendations: Features to Add Before Handoff
 
 ### 🔴 High Priority
 
-1. **Supabase Storage Bucket Setup**
-   - Currently no storage bucket exists. Media uploads need a `media` storage bucket configured in Supabase with proper RLS policies. Without this, the media library cannot upload files — only reference external URLs.
-
-2. **Email Delivery for Invites**
+1. **Email Delivery for Invites**
    - Invite emails are not automatically sent. Currently, the admin must manually share the invite link. Consider integrating an email service (Resend, SendGrid) via an edge function to auto-send invite emails.
 
-3. **Password Reset Flow**
+2. **Password Reset Flow**
    - There is no "Forgot Password" link on the admin login page. Supabase Auth supports this natively — just needs a UI button and redirect URL configuration.
-
-4. **Condition Pages CMS Integration**
-   - The 5 condition pages (`/conditions/depression`, `/anxiety`, `/ptsd`, `/ocd`, `/pain-management`) are fully hardcoded and not editable via CMS. Adding template schemas (like the core pages) would make them editable.
 
 ### 🟡 Medium Priority
 
-5. **Blog Rich Text Editor**
+3. **Blog Rich Text Editor**
    - Blog content is currently plain text with paragraph splitting. A rich text editor (e.g., TipTap, Lexical) would allow formatting: bold, italic, headings, links, embedded images.
 
-6. **Media Picker in Editors**
-   - Currently, image URLs must be pasted manually into page/post editors. A media picker that lets users browse and select from the media library would be much easier.
-
-7. **Scheduled Publishing**
+4. **Scheduled Publishing**
    - Posts/pages can have a `published_at` date, but there's no calendar/date picker UI to schedule future publication. Adding a date picker would enable scheduling.
 
-8. **Content Revision Comparison (Diff View)**
-   - `page_content_history` stores version backups but there's no UI to compare or restore previous versions. A diff viewer or "Restore this version" button would be valuable.
-
-9. **Bulk Actions on Posts/Pages**
+5. **Bulk Actions on Posts/Pages**
    - No multi-select or bulk operations (delete, unpublish, change category). Useful when managing many posts.
-
-10. **Blog Post Image Upload Integration**
-    - Blog hero images currently require pasting a URL. Integrating with the media library upload flow would streamline this.
 
 ### 🟢 Nice to Have
 
-11. **Analytics Dashboard**
-    - Add page view tracking or integrate with Google Analytics. Show traffic stats on the admin dashboard.
+6. **Analytics Dashboard**
+   - Add page view tracking or integrate with Google Analytics. Show traffic stats on the admin dashboard.
 
-12. **Content Preview for Dynamic Pages**
-    - The section-based editor shows a preview for template pages but dynamic pages (`/p/:slug`) could benefit from a similar live preview.
+7. **SEO Sitemap Generation**
+   - Auto-generate `sitemap.xml` from published pages and blog posts for better search engine indexing.
 
-13. **Vitamin Infusions Page CMS Integration**
-    - The `/vitamin-infusion-englewood` page is hardcoded. Could be templated for CMS editing.
+8. **Blog Comment System**
+   - If patient engagement is desired, a moderated comment system could be added to blog posts.
 
-14. **Contact Form Submissions Table**
-    - The contact page has a form but submissions may not be stored in the database. Adding a `form_submissions` table and admin view would let the team see incoming inquiries.
-
-15. **SEO Sitemap Generation**
-    - Auto-generate `sitemap.xml` from published pages and blog posts for better search engine indexing.
-
-16. **Blog Comment System**
-    - If patient engagement is desired, a moderated comment system could be added to blog posts.
-
-17. **Multi-Tenant White-Label**
-    - The architecture already supports multi-tenancy. If the CMS will be used for other clinics, add tenant switching and customizable branding.
+9. **Multi-Tenant White-Label**
+   - The architecture already supports multi-tenancy. If the CMS will be used for other clinics, add tenant switching and customizable branding.
 
 ---
 
@@ -423,6 +482,7 @@ Edge functions also use these secrets (configured in Supabase dashboard):
 | `/admin/authors` | Author management |
 | `/admin/media` | Media library |
 | `/admin/users` | User & invite management |
+| `/admin/activity` | Activity log |
 | `/admin/settings` | Account & workspace settings |
 | `/admin/license` | Plan & feature details |
 | `/admin/accept-invite?token=...` | Accept an invite |
