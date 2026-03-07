@@ -544,17 +544,17 @@ export default function Spravato() {
             </p>
             
             <Accordion type="single" collapsible className="space-y-4">
-              {safetyAccordionItems.map((item) => (
+              {(faqItems || safetyAccordionItems).map((item, index) => (
                 <AccordionItem 
-                  key={item.id} 
-                  value={item.id}
+                  key={'id' in item ? item.id : `faq-${index}`} 
+                  value={'id' in item ? item.id : `faq-${index}`}
                   className="bg-background rounded-xl px-6 border-none shadow-sm"
                 >
                   <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-5">
-                    {item.title}
+                    {'question' in item ? item.question : item.title}
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
-                    {item.content}
+                    {'answer' in item ? item.answer : item.content}
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -572,14 +572,13 @@ export default function Spravato() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <span className="text-primary font-semibold text-sm uppercase tracking-widest">
-              Coverage
+              {contactSubtitle}
             </span>
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4 mb-6">
-              Insurance & Access
+              {contactTitle}
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              We work with many major insurance providers. Our team will verify your benefits 
-              and assist with prior authorization to help maximize your coverage.
+              {contactBody}
             </p>
             
             <Button size="lg" variant="outline" className="group" asChild>
