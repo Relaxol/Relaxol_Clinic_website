@@ -435,21 +435,27 @@ export default function Spravato() {
           </div>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {benefitsCards.map((card, index) => (
-              <Card key={index} className="border-border/50 shadow-sm hover:shadow-md transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                    <card.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {card.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {card.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
+            {(cms?.benefits?.items?.length ? cms.benefits.items : benefitsCards).map((card, index) => {
+              // For CMS items, use a default icon; for hardcoded items, use the icon property
+              const IconComponent = 'icon' in card && typeof card.icon !== 'string' ? card.icon : null;
+              const iconMap: Record<string, typeof Zap> = { Zap, Brain, HeartPulse, Stethoscope, ShieldPlus };
+              const ResolvedIcon = IconComponent || (typeof (card as any).icon === 'string' ? iconMap[(card as any).icon] : null) || Zap;
+              return (
+                <Card key={index} className="border-border/50 shadow-sm hover:shadow-md transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                      <ResolvedIcon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                      {card.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {card.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -468,26 +474,32 @@ export default function Spravato() {
           
           {/* Timeline */}
           <div className="grid md:grid-cols-4 gap-6 mb-16">
-            {treatmentSteps.map((step, index) => (
-              <div key={index} className="relative">
-                {/* Connector Line (desktop) */}
-                {index < treatmentSteps.length - 1 && (
-                  <div className="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-border z-0" />
-                )}
-                
-                <div className="relative z-10 flex flex-col items-center text-center">
-                  <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center mb-4 shadow-lg">
-                    <step.icon className="w-7 h-7" />
+            {(cms?.timeline?.items?.length ? cms.timeline.items : treatmentSteps).map((step, index) => {
+              // For CMS items, use default icons; for hardcoded items, use the icon property
+              const defaultIcons = [ClipboardCheck, Activity, Clock, CalendarCheck];
+              const StepIcon = 'icon' in step && typeof step.icon !== 'string' ? step.icon : defaultIcons[index % defaultIcons.length];
+              const totalSteps = cms?.timeline?.items?.length ? cms.timeline.items.length : treatmentSteps.length;
+              return (
+                <div key={index} className="relative">
+                  {/* Connector Line (desktop) */}
+                  {index < totalSteps - 1 && (
+                    <div className="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-border z-0" />
+                  )}
+                  
+                  <div className="relative z-10 flex flex-col items-center text-center">
+                    <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center mb-4 shadow-lg">
+                      <StepIcon className="w-7 h-7" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                      {step.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {step.description}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {step.description}
-                  </p>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           
           {/* Mechanism explanation */}
