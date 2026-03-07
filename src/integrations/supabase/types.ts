@@ -355,34 +355,40 @@ export type Database = {
           alt_text: string | null
           created_at: string
           filename: string
+          height: number | null
           id: string
           mime_type: string | null
           size: number | null
           tenant_id: string
           uploaded_by: string | null
           url: string
+          width: number | null
         }
         Insert: {
           alt_text?: string | null
           created_at?: string
           filename: string
+          height?: number | null
           id?: string
           mime_type?: string | null
           size?: number | null
           tenant_id: string
           uploaded_by?: string | null
           url: string
+          width?: number | null
         }
         Update: {
           alt_text?: string | null
           created_at?: string
           filename?: string
+          height?: number | null
           id?: string
           mime_type?: string | null
           size?: number | null
           tenant_id?: string
           uploaded_by?: string | null
           url?: string
+          width?: number | null
         }
         Relationships: [
           {
