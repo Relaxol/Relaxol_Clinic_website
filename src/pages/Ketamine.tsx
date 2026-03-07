@@ -577,10 +577,10 @@ const Ketamine = () => {
           
           <div className="relative z-10 mx-auto max-w-4xl px-6 text-center space-y-6">
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white">
-              Rapid Relief When Traditional Treatments Haven't Worked
+              {parallaxTitle}
             </h2>
             <p className="text-base md:text-lg leading-relaxed text-white/80 max-w-2xl mx-auto">
-              Ketamine therapy offers a different mechanism of action that can help patients who haven't responded to conventional antidepressants experience meaningful improvement.
+              {parallaxBody}
             </p>
           </div>
         </section>
