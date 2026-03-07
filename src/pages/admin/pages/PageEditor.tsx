@@ -1293,6 +1293,18 @@ const PageEditor = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      {/* Content History Drawer */}
+      {!isNew && isTemplatePage && (
+        <ContentHistoryDrawer
+          open={historyOpen}
+          onOpenChange={setHistoryOpen}
+          pageId={id as string}
+          template={form.template}
+          onRevert={(content) => {
+            setForm(prev => ({ ...prev, content_json: content }));
+          }}
+        />
+      )}
     </div>
   );
 };
