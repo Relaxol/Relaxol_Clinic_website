@@ -15,10 +15,14 @@ import {
   MapPin,
   Droplets,
   Check,
-  X
+  X,
+  Loader2
 } from "lucide-react";
+import { usePageContent } from "@/hooks/usePageContent";
+import { VitaminInfusionsV1Content } from "@/lib/templates/newSchemas";
+import { defaultVitaminInfusionsContent } from "@/lib/templates/newDefaults";
 
-// Import infusion images
+// Import infusion images (used as fallbacks)
 import infusionQuench from "@/assets/infusion-quench-new.jpg";
 import infusionEnergy from "@/assets/infusion-energy.jpg";
 import infusionRecovery from "@/assets/infusion-recovery-new.jpg";
@@ -28,112 +32,36 @@ import infusionBeauty from "@/assets/infusion-beauty-new.jpg";
 import vitaminB12Injection from "@/assets/vitamin-b12-injection.jpg";
 import nadInfusion from "@/assets/nad-infusion.jpg";
 
-const infusionTypes = [
-  {
-    image: infusionEnergy,
-    title: "Vital Energy",
-    description: "Our Vital Energy infusion supports fat metabolism and boosts energy.",
-    fullDescription: "The Vital Energy IV infusion is formulated to kickstart your metabolism and enhance your energy levels. This blend of B vitamins and amino acids helps your body convert food into energy more efficiently, supporting weight management and athletic performance.",
-    benefits: [
-      "Boosts metabolism",
-      "Increases energy levels",
-      "Supports fat burning",
-      "Enhances athletic performance",
-      "Reduces fatigue"
-    ],
-    ingredients: "B-Complex Vitamins, Vitamin B12, L-Carnitine, MIC (Methionine, Inositol, Choline)",
-    duration: "30-45 minutes",
-  },
-  {
-    image: infusionQuench,
-    title: "Hydration Reset",
-    description: "Reset hydration levels and replenish essential vitamins with our Hydration Reset infusion.",
-    fullDescription: "Our Hydration Reset IV infusion is designed to combat dehydration and restore your body's essential vitamins and minerals. Whether you're recovering from illness, jet lag, or simply feeling run down, this hydrating therapy delivers fluids and nutrients directly to your bloodstream for immediate relief.",
-    benefits: [
-      "Rapid rehydration",
-      "Restores electrolyte balance",
-      "Relieves fatigue and headaches",
-      "Improves skin hydration",
-      "Supports kidney function"
-    ],
-    ingredients: "Normal Saline, B-Complex Vitamins, Vitamin B12, Vitamin C, Magnesium",
-    duration: "30-45 minutes",
-  },
-  {
-    image: infusionRecovery,
-    title: "Endurance Support",
-    description: "Replenish nutrients and support recovery with our Endurance Support infusion.",
-    fullDescription: "Designed for athletes and active individuals, our Endurance Support IV infusion helps replenish nutrients lost during intense physical activity. This powerful blend supports muscle recovery, reduces inflammation, and helps you get back to peak performance faster.",
-    benefits: [
-      "Accelerates muscle recovery",
-      "Reduces inflammation",
-      "Replenishes electrolytes",
-      "Reduces muscle soreness",
-      "Enhances endurance"
-    ],
-    ingredients: "Normal Saline, B-Complex, Vitamin C, Glutathione, Magnesium, Zinc, Amino Acids",
-    duration: "45-60 minutes",
-  },
-  {
-    image: infusionImmunity,
-    title: "Immune Reset",
-    description: "Boost your body's defenses with our Immune Support infusion.",
-    fullDescription: "Our Immune Reset IV infusion delivers a powerful dose of immune-boosting vitamins and antioxidants directly to your bloodstream. High-dose Vitamin C, Zinc, and other essential nutrients help strengthen your body's natural defenses against illness and infection.",
-    benefits: [
-      "Strengthens immune system",
-      "High-dose Vitamin C therapy",
-      "Protects against infections",
-      "Reduces cold and flu duration",
-      "Powerful antioxidant support"
-    ],
-    ingredients: "High-Dose Vitamin C, Zinc, B-Complex, Vitamin D, Glutathione",
-    duration: "45-60 minutes",
-  },
-  {
-    image: infusionBeauty,
-    title: "Radiance",
-    description: "Minimizes wrinkles while replenishing and refreshing skin.",
-    fullDescription: "Our Radiance IV infusion delivers a powerful blend of antioxidants and skin-nourishing vitamins that work from the inside out. Glutathione, Biotin, and Vitamin C help reduce the appearance of fine lines, brighten skin tone, and promote healthy hair and nails.",
-    benefits: [
-      "Reduces fine lines and wrinkles",
-      "Brightens and evens skin tone",
-      "Strengthens hair and nails",
-      "Powerful antioxidant detox",
-      "Promotes collagen production"
-    ],
-    ingredients: "Glutathione, Vitamin C, Biotin, B-Complex, Zinc",
-    duration: "45-60 minutes",
-  },
-  {
-    image: infusionAlleviate,
-    title: "Digestive Support",
-    description: "Eases abdominal discomfort and promotes digestive wellness.",
-    fullDescription: "The Digestive Support IV infusion is specially formulated to help reduce abdominal discomfort, bloating, and symptoms associated with PMS or digestive issues. This soothing blend of vitamins and minerals helps relax muscles and reduce inflammation for lasting relief.",
-    benefits: [
-      "Reduces bloating and cramping",
-      "Relieves PMS symptoms",
-      "Relaxes muscle tension",
-      "Reduces inflammation",
-      "Promotes digestive comfort"
-    ],
-    ingredients: "Calcium, Magnesium, B-Complex, Vitamin B12, Anti-inflammatory compounds",
-    duration: "30-45 minutes",
-  },
-];
-
-const benefits = [
-  "100% absorption directly into bloodstream",
-  "Immediate effects within minutes",
-  "Customized formulations for your needs",
-  "Administered by licensed medical professionals",
-  "Comfortable, relaxing treatment environment",
-  "No downtime - return to activities immediately",
-];
+// Map infusion titles to fallback images
+const infusionImageMap: Record<string, string> = {
+  'Vital Energy': infusionEnergy,
+  'Hydration Reset': infusionQuench,
+  'Endurance Support': infusionRecovery,
+  'Immune Reset': infusionImmunity,
+  'Radiance': infusionBeauty,
+  'Digestive Support': infusionAlleviate,
+};
 
 const VitaminInfusions = () => {
-  const [selectedInfusion, setSelectedInfusion] = useState<typeof infusionTypes[0] | null>(null);
+  const { content, loading } = usePageContent('vitamin-infusions');
+  const c = (content as VitaminInfusionsV1Content) || defaultVitaminInfusionsContent;
+
+  const [selectedInfusion, setSelectedInfusion] = useState<VitaminInfusionsV1Content['infusions']['items'][0] | null>(null);
   const [showB12Modal, setShowB12Modal] = useState(false);
   const [showNADModal, setShowNADModal] = useState(false);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  const getInfusionImage = (infusion: VitaminInfusionsV1Content['infusions']['items'][0]) => {
+    return infusion.imageUrl || infusionImageMap[infusion.title] || infusionEnergy;
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -151,7 +79,7 @@ const VitaminInfusions = () => {
               
               <div className="space-y-6 mt-4">
                 <img 
-                  src={selectedInfusion.image} 
+                  src={getInfusionImage(selectedInfusion)} 
                   alt={selectedInfusion.title}
                   className="w-full h-48 object-cover rounded-lg"
                 />
@@ -165,7 +93,7 @@ const VitaminInfusions = () => {
                   <ul className="space-y-2">
                     {selectedInfusion.benefits.map((benefit, index) => (
                       <li key={index} className="flex items-center gap-2 text-muted-foreground">
-                        <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                        <Check className="w-5 h-5 text-[hsl(var(--primary))] flex-shrink-0" />
                         {benefit}
                       </li>
                     ))}
@@ -184,7 +112,7 @@ const VitaminInfusions = () => {
                 </div>
                 
                 <Button 
-                  className="w-full bg-[#D09B3C] hover:bg-[#C48A25] text-white"
+                  className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
                   onClick={() => setSelectedInfusion(null)}
                 >
                   Schedule This Treatment
@@ -198,36 +126,35 @@ const VitaminInfusions = () => {
       <main className="flex-grow">
         {/* Hero Section with Parallax */}
         <section className="relative py-24 lg:py-32 overflow-hidden">
-          {/* Parallax Background */}
           <div 
             className="absolute inset-0 bg-cover bg-center bg-fixed"
             style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=1920&q=80')`,
+              backgroundImage: c.hero.backgroundImageUrl 
+                ? `url('${c.hero.backgroundImageUrl}')` 
+                : `url('https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=1920&q=80')`,
             }}
           />
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#5C4A3A]/85 to-[#4A3C32]/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--foreground))]/85 to-[hsl(var(--foreground))]/90" />
           
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="max-w-3xl mx-auto text-center text-white">
-              <span className="inline-block px-4 py-1.5 bg-white/10 rounded-full text-sm font-medium mb-6">
-                IV Vitamin Therapy
-              </span>
+              {c.hero.badge && (
+                <span className="inline-block px-4 py-1.5 bg-white/10 rounded-full text-sm font-medium mb-6">
+                  {c.hero.badge}
+                </span>
+              )}
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                Vitamin Infusion Therapy
+                {c.hero.headline}
               </h1>
               <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8">
-                Experience the power of IV vitamin therapy at Relaxol Clinic in Englewood Cliffs, NJ. 
-                Our customized infusions deliver essential nutrients directly to your bloodstream for 
-                maximum absorption and immediate benefits.
+                {c.hero.body}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-[#D09B3C] hover:bg-[#C48A25] text-white">
-                  Schedule Consultation
-                </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                  Learn More
-                </Button>
+                <Link to={c.hero.ctaHref || '/contact'}>
+                  <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                    {c.hero.ctaLabel || 'Schedule Consultation'}
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -238,28 +165,19 @@ const VitaminInfusions = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               <div className="space-y-6">
-                <span className="text-primary font-semibold text-sm uppercase tracking-widest">
-                  About the Treatment
-                </span>
+                {c.about.subtitle && (
+                  <span className="text-primary font-semibold text-sm uppercase tracking-widest">
+                    {c.about.subtitle}
+                  </span>
+                )}
                 <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-                  What Is IV Vitamin Therapy?
+                  {c.about.title}
                 </h2>
-                
-                <p className="text-muted-foreground leading-relaxed">
-                  IV Vitamin Therapy delivers vitamins, minerals, and other vital nutrients directly 
-                  into your bloodstream, bypassing the digestive system for 100% absorption. This 
-                  method allows your body to receive higher concentrations of nutrients than would 
-                  be possible through oral supplements.
-                </p>
-                
-                <p className="text-muted-foreground leading-relaxed">
-                  At Relaxol Clinic, our medical team customizes each infusion to address your 
-                  specific health goals—whether you're seeking increased energy, immune support, 
-                  enhanced mental clarity, or overall wellness optimization.
-                </p>
-
+                {c.about.paragraphs.map((p, i) => (
+                  <p key={i} className="text-muted-foreground leading-relaxed">{p}</p>
+                ))}
                 <div className="grid grid-cols-2 gap-4 pt-4">
-                  {benefits.slice(0, 4).map((benefit, index) => (
+                  {c.about.benefits.slice(0, 4).map((benefit, index) => (
                     <div key={index} className="flex items-start gap-2">
                       <Sparkles className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                       <span className="text-sm text-foreground">{benefit}</span>
@@ -275,7 +193,7 @@ const VitaminInfusions = () => {
                     Why Choose IV Therapy?
                   </h3>
                   <ul className="text-left space-y-3">
-                    {benefits.map((benefit, index) => (
+                    {c.about.benefits.map((benefit, index) => (
                       <li key={index} className="flex items-center gap-3 text-muted-foreground">
                         <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />
                         {benefit}
@@ -292,17 +210,17 @@ const VitaminInfusions = () => {
         <section className="py-16 lg:py-24 bg-card">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-12">
-              <h2 className="text-3xl md:text-4xl font-semibold text-[#8B7355] italic">
-                Vitamin Infusions We Offer
+              <h2 className="text-3xl md:text-4xl font-semibold text-primary italic">
+                {c.infusions.title}
               </h2>
             </div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {infusionTypes.map((infusion, index) => (
+              {c.infusions.items.map((infusion, index) => (
                 <Card key={index} className="bg-background border-none shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 overflow-hidden flex flex-col h-full">
                   <div className="aspect-[4/3] overflow-hidden flex-shrink-0">
                     <img 
-                      src={infusion.image} 
+                      src={getInfusionImage(infusion)} 
                       alt={infusion.title}
                       className="w-full h-full object-cover"
                     />
@@ -331,33 +249,20 @@ const VitaminInfusions = () => {
         <section className="py-16 lg:py-24 bg-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              {/* Left: Image */}
               <div className="rounded-2xl overflow-hidden shadow-xl">
                 <img 
-                  src={vitaminB12Injection} 
-                  alt="Vitamin B12 Injection"
+                  src={c.b12.imageUrl || vitaminB12Injection} 
+                  alt={c.b12.imageAlt || 'Vitamin B12 Injection'}
                   className="w-full h-full object-cover"
                 />
               </div>
-              
-              {/* Right: Content */}
               <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-                  Vitamin B12 Injections
+                  {c.b12.title}
                 </h2>
-                
-                <p className="text-muted-foreground leading-relaxed">
-                  Vitamin B12 supports natural energy, healthy metabolism, and overall vitality. It plays an important role in red blood cell production, nerve health, and helping the body turn food into usable energy.
-                </p>
-                
-                <p className="text-muted-foreground leading-relaxed">
-                  B12 injections deliver this essential vitamin directly into the muscle, allowing for better absorption and helping support energy levels, mental clarity, and physical wellness.
-                </p>
-                
-                <p className="text-muted-foreground leading-relaxed">
-                  Low B12 levels are common, especially for those following vegetarian or vegan lifestyles, and supplementation can help restore balance and support day-to-day wellbeing.
-                </p>
-                
+                {c.b12.paragraphs.map((p, i) => (
+                  <p key={i} className="text-muted-foreground leading-relaxed">{p}</p>
+                ))}
                 <Button 
                   className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-glow hover:shadow-[0_0_0_1px_rgba(208,155,60,0.2),0_8px_24px_rgba(208,155,60,0.35)] transition-all duration-300"
                   onClick={() => setShowB12Modal(true)}
@@ -381,74 +286,27 @@ const VitaminInfusions = () => {
             
             <div className="space-y-6 mt-2">
               <img 
-                src={vitaminB12Injection} 
-                alt="Vitamin B12 Injection"
+                src={c.b12.imageUrl || vitaminB12Injection} 
+                alt={c.b12.imageAlt || 'Vitamin B12 Injection'}
                 className="w-full h-48 object-cover rounded-lg"
               />
               
-              <h3 className="text-2xl font-bold text-foreground">
-                Vitamin B12 Injections
-              </h3>
+              <h3 className="text-2xl font-bold text-foreground">{c.b12.title}</h3>
               
               <p className="text-muted-foreground leading-relaxed">
-                Vitamin B12 is essential for energy, brain function, and overall health, but your body needs a protein called intrinsic factor, produced in the stomach, to absorb it properly. If your body doesn't produce enough, a deficiency can occur. Intramuscular B12 injections are an effective way to restore healthy B12 levels and support your wellbeing.
+                {c.b12.modalDescription}
               </p>
               
               <div className="grid grid-cols-2 gap-3">
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Boosts energy levels</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Supports brain function and concentration</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Improves metabolism</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Helps prevent anemia</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Supports mood and may relieve depression</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Strengthens immunity</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Promotes bone health and reduces risk of osteoporosis</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Enhances heart health</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Improves sleep quality</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Supports healthy hair, skin, and nails</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Reduces hair loss</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Supports red blood cell formation</span>
-                </div>
+                {c.b12.modalBenefits.map((benefit, i) => (
+                  <div key={i} className="flex items-center gap-2 text-muted-foreground">
+                    <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="text-sm">{benefit}</span>
+                  </div>
+                ))}
               </div>
               
-              <Button 
-                className="w-full bg-[#5C4A3A] hover:bg-[#4A3C32] text-white"
-                asChild
-              >
+              <Button className="w-full bg-foreground hover:bg-foreground/90 text-background" asChild>
                 <Link to="/contact">BOOK ONLINE</Link>
               </Button>
             </div>
@@ -459,24 +317,13 @@ const VitaminInfusions = () => {
         <section className="py-16 lg:py-24 bg-card">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              {/* Left: Content */}
               <div className="space-y-6 lg:order-1">
                 <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-                  NAD & NAD+ Infusions
+                  {c.nad.title}
                 </h2>
-                
-                <p className="text-muted-foreground leading-relaxed">
-                  Nicotinamide adenine dinucleotide (NAD+) is a naturally occurring coenzyme found in nearly every cell of the body. It plays a vital role in cellular energy production, metabolism, and overall cellular health.
-                </p>
-                
-                <p className="text-muted-foreground leading-relaxed">
-                  NAD+ supports healthy aging, mental clarity, athletic performance, and the body's natural repair processes. It is widely used in wellness and functional medicine to help promote balance, resilience, and recovery at a cellular level.
-                </p>
-                
-                <p className="text-muted-foreground leading-relaxed">
-                  Delivering NAD+ through an IV infusion allows for faster absorption and more efficient results compared to oral supplementation, helping optimize NAD+ levels and support whole-body vitality.
-                </p>
-                
+                {c.nad.paragraphs.map((p, i) => (
+                  <p key={i} className="text-muted-foreground leading-relaxed">{p}</p>
+                ))}
                 <Button 
                   className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-glow hover:shadow-[0_0_0_1px_rgba(208,155,60,0.2),0_8px_24px_rgba(208,155,60,0.35)] transition-all duration-300"
                   onClick={() => setShowNADModal(true)}
@@ -484,12 +331,10 @@ const VitaminInfusions = () => {
                   Learn more
                 </Button>
               </div>
-              
-              {/* Right: Image */}
               <div className="rounded-2xl overflow-hidden shadow-xl lg:order-2">
                 <img 
-                  src={nadInfusion} 
-                  alt="NAD+ IV Infusion"
+                  src={c.nad.imageUrl || nadInfusion} 
+                  alt={c.nad.imageAlt || 'NAD+ IV Infusion'}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -509,59 +354,28 @@ const VitaminInfusions = () => {
             
             <div className="space-y-6 mt-2">
               <img 
-                src={nadInfusion} 
-                alt="NAD+ Infusion"
+                src={c.nad.imageUrl || nadInfusion} 
+                alt={c.nad.imageAlt || 'NAD+ Infusion'}
                 className="w-full h-48 object-cover rounded-lg"
               />
               
-              <h3 className="text-2xl font-bold text-foreground">
-                NAD+ Infusions
-              </h3>
+              <h3 className="text-2xl font-bold text-foreground">{c.nad.title}</h3>
               
-              <p className="text-muted-foreground leading-relaxed">
-                NAD+ is a vital molecule our bodies naturally produce, but like many things, its levels decline with age. Often called a "miracle molecule," NAD+ is known for supporting healthy aging and is considered one of the closest things we have to a "fountain of youth."
-              </p>
-              
-              <p className="text-muted-foreground leading-relaxed">
-                When administered intravenously, NAD+ helps activate enzymes called sirtuins, which support your body's natural repair processes, promote overall wellness, and help reduce the effects of aging.
-              </p>
+              <p className="text-muted-foreground leading-relaxed">{c.nad.modalDescription}</p>
+              {c.nad.modalSubDescription && (
+                <p className="text-muted-foreground leading-relaxed">{c.nad.modalSubDescription}</p>
+              )}
               
               <div className="grid grid-cols-2 gap-3">
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Pain alleviation</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Anti-aging benefits</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Increased energy</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Increased metabolism</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Reduced inflammation</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                  <span className="text-sm">Prevent and correct DNA damage</span>
-                </div>
+                {c.nad.modalBenefits.map((benefit, i) => (
+                  <div key={i} className="flex items-center gap-2 text-muted-foreground">
+                    <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="text-sm">{benefit}</span>
+                  </div>
+                ))}
               </div>
               
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Check className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
-                <span className="text-sm">Alleviate opiate or substance withdrawal symptoms</span>
-              </div>
-              
-              <Button 
-                className="w-full bg-[#5C4A3A] hover:bg-[#4A3C32] text-white"
-                asChild
-              >
+              <Button className="w-full bg-foreground hover:bg-foreground/90 text-background" asChild>
                 <Link to="/contact">BOOK ONLINE</Link>
               </Button>
             </div>
@@ -569,64 +383,59 @@ const VitaminInfusions = () => {
         </Dialog>
 
         {/* Contact/Consultation Form */}
-        <section className="py-16 lg:py-24 bg-[#5C4A3A]">
+        <section className="py-16 lg:py-24 bg-foreground">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-              {/* Left: Contact Info */}
-              <div className="text-white space-y-8">
+              <div className="text-background space-y-8">
                 <div>
                   <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                    Ready to Feel Your Best?
+                    {c.contact.title}
                   </h2>
-                  <p className="text-white/80 text-lg leading-relaxed">
-                    Schedule a consultation to discuss which vitamin infusion is right for you. 
-                    Our medical team will create a personalized treatment plan based on your 
-                    health goals.
+                  <p className="text-background/80 text-lg leading-relaxed">
+                    {c.contact.body}
                   </p>
                 </div>
                 
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-background/10 flex items-center justify-center">
                       <Phone className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="text-white/60 text-sm">Call Us</p>
-                      <a href="tel:201-781-2101" className="text-lg font-medium hover:text-[#D09B3C] transition-colors">
-                        201-781-2101
+                      <p className="text-background/60 text-sm">Call Us</p>
+                      <a href={`tel:${c.contact.phone}`} className="text-lg font-medium hover:text-accent transition-colors">
+                        {c.contact.phone}
                       </a>
                     </div>
                   </div>
                   
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-background/10 flex items-center justify-center">
                       <Mail className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="text-white/60 text-sm">Email</p>
-                      <a href="mailto:info@relaxolclinic.com" className="text-lg font-medium hover:text-[#D09B3C] transition-colors">
-                        info@relaxolclinic.com
+                      <p className="text-background/60 text-sm">Email</p>
+                      <a href={`mailto:${c.contact.email}`} className="text-lg font-medium hover:text-accent transition-colors">
+                        {c.contact.email}
                       </a>
                     </div>
                   </div>
                   
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-background/10 flex items-center justify-center">
                       <MapPin className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="text-white/60 text-sm">Location</p>
-                      <p className="text-lg font-medium">
-                        560 Sylvan Avenue, Suite 2115<br />
-                        Englewood Cliffs, NJ 07632
+                      <p className="text-background/60 text-sm">Location</p>
+                      <p className="text-lg font-medium whitespace-pre-line">
+                        {c.contact.address}
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
               
-              {/* Right: Form */}
-              <Card className="bg-white border-none shadow-2xl">
+              <Card className="bg-background border-none shadow-2xl">
                 <CardContent className="p-6 md:p-8">
                   <h3 className="text-2xl font-semibold text-foreground mb-6">
                     Request a Consultation
@@ -668,7 +477,7 @@ const VitaminInfusions = () => {
                       />
                     </div>
                     
-                    <Button type="submit" className="w-full bg-[#D09B3C] hover:bg-[#C48A25] text-white">
+                    <Button type="submit" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
                       Submit Request
                     </Button>
                   </form>

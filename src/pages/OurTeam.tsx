@@ -1,15 +1,29 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { Award, Clock, GraduationCap } from "lucide-react";
+import { Award, Clock, GraduationCap, Loader2 } from "lucide-react";
 import doctorPortrait from "@/assets/dr-sangeet-khanna.jpg";
+import { usePageContent } from "@/hooks/usePageContent";
+import { OurTeamV1Content } from "@/lib/templates/newSchemas";
+import { defaultOurTeamContent } from "@/lib/templates/newDefaults";
 
-const credentials = [
-  { icon: Award, label: "Board Certified" },
-  { icon: Clock, label: "15+ Years Experience" },
-  { icon: GraduationCap, label: "Fellowship Trained" },
-];
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Award,
+  Clock,
+  GraduationCap,
+};
 
 const OurTeam = () => {
+  const { content, loading } = usePageContent('our-team');
+  const c = (content as OurTeamV1Content) || defaultOurTeamContent;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -18,13 +32,13 @@ const OurTeam = () => {
         <section className="py-16 bg-cream-band">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 text-center">
             <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
-              MEET OUR EXPERTS
+              {c.hero.subtitle || 'MEET OUR EXPERTS'}
             </p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl text-foreground font-bold mb-6">
-              Our Team
+              {c.hero.headline}
             </h1>
             <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto">
-              Compassionate care from experienced psychiatric professionals dedicated to your mental wellness.
+              {c.hero.body}
             </p>
           </div>
         </section>
@@ -36,12 +50,11 @@ const OurTeam = () => {
               {/* Image */}
               <div className="flex justify-center lg:justify-end">
                 <div className="relative">
-                  {/* Decorative ring */}
                   <div className="absolute inset-0 rounded-full border-4 border-primary/20 transform scale-110" />
                   <div className="w-80 h-80 md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] rounded-full overflow-hidden border-8 border-white shadow-hero">
                     <img
-                      src={doctorPortrait}
-                      alt="Dr. Khanna, Clinical Psychiatrist"
+                      src={c.doctor.imageUrl || doctorPortrait}
+                      alt={c.doctor.imageAlt || `${c.doctor.name}, Clinical Psychiatrist`}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -49,31 +62,30 @@ const OurTeam = () => {
               </div>
 
               {/* Content Card */}
-              <div className="bg-white rounded-3xl shadow-card p-8 md:p-12">
+              <div className="bg-card rounded-3xl shadow-card p-8 md:p-12">
                 <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
-                  CLINICAL PSYCHIATRIST
+                  {c.doctor.subtitle || 'CLINICAL PSYCHIATRIST'}
                 </p>
                 <h2 className="text-3xl md:text-4xl text-foreground font-bold mb-6">
-                  Dr. Khanna
+                  {c.doctor.name}
                 </h2>
-                <p className="text-muted-foreground leading-relaxed mb-4">
-                  Relaxol is founded by the esteemed Dr. Khanna, a leading specialist in Ketamine Therapy. Dr. Khanna and his compassionate team are dedicated to guiding you on your journey to optimal health.
-                </p>
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  Dr. Khanna is not just a psychiatrist; he's a guide for those navigating the complex landscape of mental health. With years of experience and a deep commitment to patient care, Dr. Khanna brings expertise and empathy to every consultation.
-                </p>
+                {c.doctor.bio.map((paragraph, i) => (
+                  <p key={i} className="text-muted-foreground leading-relaxed mb-4">
+                    {paragraph}
+                  </p>
+                ))}
 
                 {/* Credentials */}
                 <div className="flex flex-wrap gap-4 mt-4">
-                  {credentials.map((cred, index) => (
-                    <div
-                      key={index}
-                      className="trust-badge"
-                    >
-                      <cred.icon className="w-5 h-5 text-primary" />
-                      <span>{cred.label}</span>
-                    </div>
-                  ))}
+                  {c.doctor.credentials.map((cred, index) => {
+                    const IconComponent = iconMap[cred.icon] || Award;
+                    return (
+                      <div key={index} className="trust-badge">
+                        <IconComponent className="w-5 h-5 text-primary" />
+                        <span>{cred.label}</span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -84,16 +96,16 @@ const OurTeam = () => {
         <section className="py-16 bg-cream-band">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-              Ready to Start Your Journey?
+              {c.cta.title}
             </h2>
             <p className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto">
-              Schedule a consultation with Dr. Khanna and take the first step toward mental wellness.
+              {c.cta.body}
             </p>
             <a
-              href="/contact"
+              href={c.cta.ctaHref}
               className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-primary text-primary-foreground font-semibold text-lg hover:bg-accent transition-all duration-300 shadow-glow"
             >
-              Schedule Your Consultation
+              {c.cta.ctaLabel}
             </a>
           </div>
         </section>
