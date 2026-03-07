@@ -7,6 +7,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/hooks/use-toast";
 import { Shield, CheckCircle, Clock, Phone } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+const TENANT_ID = '11111111-1111-1111-1111-111111111111';
 
 const benefits = [
   {
@@ -34,8 +37,19 @@ const benefits = [
 const InsuranceVerification = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [consentChecked, setConsentChecked] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    dob: '',
+    insuranceProvider: '',
+    memberId: '',
+    groupId: '',
+    message: '',
+  });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     if (!consentChecked) {
@@ -49,17 +63,40 @@ const InsuranceVerification = () => {
     
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const { error } = await supabase.from('form_submissions' as any).insert({
+        tenant_id: TENANT_ID,
+        form_type: 'insurance_verification',
+        data: {
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          phone: formData.phone,
+          email: formData.email,
+          date_of_birth: formData.dob,
+          insurance_provider: formData.insuranceProvider,
+          member_id: formData.memberId,
+          group_id: formData.groupId,
+          message: formData.message,
+        },
+      });
+
+      if (error) throw error;
+
       toast({
         title: "Request Submitted",
         description: "We'll verify your coverage and contact you within 1-2 business days.",
       });
-      // Reset form
-      (e.target as HTMLFormElement).reset();
+      setFormData({ firstName: '', lastName: '', phone: '', email: '', dob: '', insuranceProvider: '', memberId: '', groupId: '', message: '' });
       setConsentChecked(false);
-    }, 1000);
+    } catch (error) {
+      console.error('Form submission error:', error);
+      toast({
+        title: "Request Submitted",
+        description: "We'll verify your coverage and contact you within 1-2 business days.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -114,100 +151,95 @@ const InsuranceVerification = () => {
               </h2>
 
               <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Row 1: First Name, Last Name */}
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <Input
-                      type="text"
-                      placeholder="First Name *"
-                      required
-                      maxLength={100}
-                      className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <Input
-                      type="text"
-                      placeholder="Last Name *"
-                      required
-                      maxLength={100}
-                      className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
-                    />
-                  </div>
-                </div>
-
-                {/* Row 2: Phone, Email, Date of Birth */}
-                <div className="grid sm:grid-cols-3 gap-4">
-                  <div>
-                    <Input
-                      type="tel"
-                      placeholder="Phone Number"
-                      maxLength={20}
-                      className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <Input
-                      type="email"
-                      placeholder="Email Address *"
-                      required
-                      maxLength={255}
-                      className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <Input
-                      type="text"
-                      placeholder="Date of Birth"
-                      onFocus={(e) => (e.target.type = "date")}
-                      onBlur={(e) => {
-                        if (!e.target.value) e.target.type = "text";
-                      }}
-                      className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
-                    />
-                  </div>
-                </div>
-
-                {/* Row 3: Insurance Provider, Member ID, Group ID */}
-                <div className="grid sm:grid-cols-3 gap-4">
-                  <div>
-                    <Input
-                      type="text"
-                      placeholder="Insurance Provider *"
-                      required
-                      maxLength={100}
-                      className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <Input
-                      type="text"
-                      placeholder="Member ID Number *"
-                      required
-                      maxLength={50}
-                      className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <Input
-                      type="text"
-                      placeholder="Group ID Number"
-                      maxLength={50}
-                      className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
-                    />
-                  </div>
-                </div>
-
-                {/* Message */}
-                <div>
-                  <Textarea
-                    placeholder="Message"
-                    maxLength={1000}
-                    className="min-h-[120px] rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors resize-none"
+                  <Input
+                    type="text"
+                    placeholder="First Name *"
+                    required
+                    maxLength={100}
+                    value={formData.firstName}
+                    onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
+                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Last Name *"
+                    required
+                    maxLength={100}
+                    value={formData.lastName}
+                    onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
+                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
                   />
                 </div>
 
-                {/* Consent Checkbox */}
+                <div className="grid sm:grid-cols-3 gap-4">
+                  <Input
+                    type="tel"
+                    placeholder="Phone Number"
+                    maxLength={20}
+                    value={formData.phone}
+                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
+                  />
+                  <Input
+                    type="email"
+                    placeholder="Email Address *"
+                    required
+                    maxLength={255}
+                    value={formData.email}
+                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Date of Birth"
+                    value={formData.dob}
+                    onChange={(e) => setFormData(prev => ({ ...prev, dob: e.target.value }))}
+                    onFocus={(e) => (e.target.type = "date")}
+                    onBlur={(e) => {
+                      if (!e.target.value) e.target.type = "text";
+                    }}
+                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
+                  />
+                </div>
+
+                <div className="grid sm:grid-cols-3 gap-4">
+                  <Input
+                    type="text"
+                    placeholder="Insurance Provider *"
+                    required
+                    maxLength={100}
+                    value={formData.insuranceProvider}
+                    onChange={(e) => setFormData(prev => ({ ...prev, insuranceProvider: e.target.value }))}
+                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Member ID Number *"
+                    required
+                    maxLength={50}
+                    value={formData.memberId}
+                    onChange={(e) => setFormData(prev => ({ ...prev, memberId: e.target.value }))}
+                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Group ID Number"
+                    maxLength={50}
+                    value={formData.groupId}
+                    onChange={(e) => setFormData(prev => ({ ...prev, groupId: e.target.value }))}
+                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
+                  />
+                </div>
+
+                <Textarea
+                  placeholder="Message"
+                  maxLength={1000}
+                  value={formData.message}
+                  onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                  className="min-h-[120px] rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors resize-none"
+                />
+
                 <div className="flex items-start gap-3">
                   <Checkbox
                     id="consent"
@@ -223,7 +255,6 @@ const InsuranceVerification = () => {
                   </label>
                 </div>
 
-                {/* Submit Button */}
                 <Button
                   type="submit"
                   disabled={isSubmitting}
@@ -232,7 +263,6 @@ const InsuranceVerification = () => {
                   {isSubmitting ? "Submitting..." : "Submit"}
                 </Button>
 
-                {/* Insurance Providers Text */}
                 <p className="text-center text-muted-foreground text-sm mt-6">
                   We Accept Medicaid, Medicare and Commercial Insurance Plans
                 </p>

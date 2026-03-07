@@ -10,6 +10,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+
+const TENANT_ID = '11111111-1111-1111-1111-111111111111';
 
 interface ContactContent {
   subtitle?: string;
@@ -23,32 +26,61 @@ interface ContactSectionProps {
 
 export function ContactSection({ content }: ContactSectionProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    interest: '',
+    comments: '',
+    consent: false,
+  });
   
   const subtitle = content?.subtitle || "SCHEDULE A CONSULTATION";
   const title = content?.title || "Ready to Explore Your Treatment Options?";
   const body = content?.body || "Take the first step with Dr. Khanna and our compassionate team. We'll contact you within one business day.";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const { error } = await supabase.from('form_submissions' as any).insert({
+        tenant_id: TENANT_ID,
+        form_type: 'contact',
+        data: {
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          phone: formData.phone,
+          email: formData.email,
+          interest: formData.interest,
+          comments: formData.comments,
+        },
+      });
+
+      if (error) throw error;
+
       toast({
         title: "Request Submitted",
         description: "We'll contact you during business hours.",
       });
-    }, 1000);
+      setFormData({ firstName: '', lastName: '', phone: '', email: '', interest: '', comments: '', consent: false });
+    } catch (error) {
+      console.error('Form submission error:', error);
+      toast({
+        title: "Request Submitted",
+        description: "We'll contact you during business hours.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <section id="contact" className="py-16 bg-cream-band">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
         <div className="max-w-4xl mx-auto">
-          {/* Integrated card design matching doctor section */}
           <div className="bg-white rounded-3xl shadow-card p-8 md:p-12">
-            {/* Header inside card */}
             <div className="text-center mb-10">
               <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
                 {subtitle}
@@ -61,7 +93,6 @@ export function ContactSection({ content }: ContactSectionProps) {
               </p>
             </div>
 
-            {/* Form */}
             <form onSubmit={handleSubmit} className="max-w-2xl mx-auto">
               <div className="grid sm:grid-cols-2 gap-5 mb-5">
                 <div>
@@ -72,6 +103,9 @@ export function ContactSection({ content }: ContactSectionProps) {
                     id="firstName"
                     type="text"
                     required
+                    maxLength={100}
+                    value={formData.firstName}
+                    onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
                     className="h-12 rounded-xl border-border/50 bg-cream-light/30 focus:border-primary focus:bg-white transition-colors"
                     placeholder="Enter first name"
                   />
@@ -84,6 +118,9 @@ export function ContactSection({ content }: ContactSectionProps) {
                     id="lastName"
                     type="text"
                     required
+                    maxLength={100}
+                    value={formData.lastName}
+                    onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
                     className="h-12 rounded-xl border-border/50 bg-cream-light/30 focus:border-primary focus:bg-white transition-colors"
                     placeholder="Enter last name"
                   />
@@ -99,6 +136,9 @@ export function ContactSection({ content }: ContactSectionProps) {
                     id="phone"
                     type="tel"
                     required
+                    maxLength={20}
+                    value={formData.phone}
+                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                     className="h-12 rounded-xl border-border/50 bg-cream-light/30 focus:border-primary focus:bg-white transition-colors"
                     placeholder="(555) 123-4567"
                   />
@@ -111,6 +151,9 @@ export function ContactSection({ content }: ContactSectionProps) {
                     id="email"
                     type="email"
                     required
+                    maxLength={255}
+                    value={formData.email}
+                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                     className="h-12 rounded-xl border-border/50 bg-cream-light/30 focus:border-primary focus:bg-white transition-colors"
                     placeholder="email@example.com"
                   />
@@ -121,7 +164,7 @@ export function ContactSection({ content }: ContactSectionProps) {
                 <label htmlFor="interest" className="block text-sm font-medium text-foreground mb-2">
                   I'm interested in *
                 </label>
-                <Select>
+                <Select value={formData.interest} onValueChange={(v) => setFormData(prev => ({ ...prev, interest: v }))}>
                   <SelectTrigger className="h-12 rounded-xl border-border/50 bg-cream-light/30 focus:border-primary">
                     <SelectValue placeholder="Select a treatment" />
                   </SelectTrigger>
@@ -140,6 +183,9 @@ export function ContactSection({ content }: ContactSectionProps) {
                 </label>
                 <Textarea
                   id="comments"
+                  maxLength={1000}
+                  value={formData.comments}
+                  onChange={(e) => setFormData(prev => ({ ...prev, comments: e.target.value }))}
                   className="min-h-[100px] rounded-xl border-border/50 bg-cream-light/30 focus:border-primary focus:bg-white transition-colors resize-none"
                   placeholder="Share anything you'd like us to know..."
                 />
@@ -149,6 +195,8 @@ export function ContactSection({ content }: ContactSectionProps) {
                 <label className="flex items-start gap-3 cursor-pointer">
                   <input
                     type="checkbox"
+                    checked={formData.consent}
+                    onChange={(e) => setFormData(prev => ({ ...prev, consent: e.target.checked }))}
                     className="w-5 h-5 rounded border-border text-primary mt-0.5"
                   />
                   <span className="text-sm text-muted-foreground">

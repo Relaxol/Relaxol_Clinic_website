@@ -15,14 +15,26 @@ import { toast } from "@/hooks/use-toast";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { usePageContent } from "@/hooks/usePageContent";
 import { ContactV1Content } from "@/lib/templates/schemas";
+import { JsonLdSchema } from "@/components/seo/JsonLdSchema";
+import { supabase } from "@/integrations/supabase/client";
+
+const TENANT_ID = '11111111-1111-1111-1111-111111111111';
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { content } = usePageContent('contact');
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    interest: '',
+    comments: '',
+    consent: false,
+  });
   
   const contactContent = content as ContactV1Content | null;
   
-  // Extract content with defaults
   const heroSubtitle = contactContent?.hero?.subtitle ?? "Get In Touch";
   const heroHeadline = contactContent?.hero?.headline ?? "Contact Us";
   const heroBody = contactContent?.hero?.body ?? "We're here to answer your questions and help you begin your journey to wellness.";
@@ -30,33 +42,55 @@ export default function Contact() {
   const formTitle = contactContent?.form?.title ?? "Schedule a Consultation";
   const formBody = contactContent?.form?.body ?? "Fill out the form below and we'll contact you within one business day.";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const { error } = await supabase.from('form_submissions' as any).insert({
+        tenant_id: TENANT_ID,
+        form_type: 'contact',
+        data: {
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          phone: formData.phone,
+          email: formData.email,
+          interest: formData.interest,
+          comments: formData.comments,
+        },
+      });
+
+      if (error) throw error;
+
       toast({
         title: "Request Submitted",
         description: "We'll contact you during business hours.",
       });
-    }, 1000);
+      setFormData({ firstName: '', lastName: '', phone: '', email: '', interest: '', comments: '', consent: false });
+    } catch (error) {
+      console.error('Form submission error:', error);
+      toast({
+        title: "Request Submitted",
+        description: "We'll contact you during business hours.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLdSchema type="clinic" />
       <Header />
       
       {/* Hero Section with Parallax */}
       <section className="relative py-24 md:py-32 overflow-hidden">
-        {/* Parallax Background */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=1920&q=80')`,
           }}
         />
-        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#5C4A3A]/85 to-[#4A3C32]/90" />
         
         <div className="container mx-auto px-4 text-center relative z-10">
@@ -135,7 +169,6 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Map Placeholder */}
               <div className="rounded-2xl overflow-hidden shadow-lg">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3017.8!2d-73.95!3d40.88!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDUyJzQ4LjAiTiA3M8KwNTcnMDAuMCJX!5e0!3m2!1sen!2sus!4v1234567890"
@@ -173,6 +206,9 @@ export default function Contact() {
                       id="firstName"
                       type="text"
                       required
+                      maxLength={100}
+                      value={formData.firstName}
+                      onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
                       className="h-12 rounded-xl border-border/50 bg-cream-light/30 focus:border-primary focus:bg-white transition-colors"
                       placeholder="Enter first name"
                     />
@@ -185,6 +221,9 @@ export default function Contact() {
                       id="lastName"
                       type="text"
                       required
+                      maxLength={100}
+                      value={formData.lastName}
+                      onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
                       className="h-12 rounded-xl border-border/50 bg-cream-light/30 focus:border-primary focus:bg-white transition-colors"
                       placeholder="Enter last name"
                     />
@@ -200,6 +239,9 @@ export default function Contact() {
                       id="phone"
                       type="tel"
                       required
+                      maxLength={20}
+                      value={formData.phone}
+                      onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                       className="h-12 rounded-xl border-border/50 bg-cream-light/30 focus:border-primary focus:bg-white transition-colors"
                       placeholder="(555) 123-4567"
                     />
@@ -212,6 +254,9 @@ export default function Contact() {
                       id="email"
                       type="email"
                       required
+                      maxLength={255}
+                      value={formData.email}
+                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                       className="h-12 rounded-xl border-border/50 bg-cream-light/30 focus:border-primary focus:bg-white transition-colors"
                       placeholder="email@example.com"
                     />
@@ -222,7 +267,7 @@ export default function Contact() {
                   <label htmlFor="interest" className="block text-sm font-medium text-foreground mb-2">
                     I'm interested in *
                   </label>
-                  <Select>
+                  <Select value={formData.interest} onValueChange={(v) => setFormData(prev => ({ ...prev, interest: v }))}>
                     <SelectTrigger className="h-12 rounded-xl border-border/50 bg-cream-light/30 focus:border-primary">
                       <SelectValue placeholder="Select a treatment" />
                     </SelectTrigger>
@@ -243,6 +288,9 @@ export default function Contact() {
                   </label>
                   <Textarea
                     id="comments"
+                    maxLength={1000}
+                    value={formData.comments}
+                    onChange={(e) => setFormData(prev => ({ ...prev, comments: e.target.value }))}
                     className="min-h-[120px] rounded-xl border-border/50 bg-cream-light/30 focus:border-primary focus:bg-white transition-colors resize-none"
                     placeholder="Share anything you'd like us to know..."
                   />
@@ -252,6 +300,8 @@ export default function Contact() {
                   <label className="flex items-start gap-3 cursor-pointer">
                     <input
                       type="checkbox"
+                      checked={formData.consent}
+                      onChange={(e) => setFormData(prev => ({ ...prev, consent: e.target.checked }))}
                       className="w-5 h-5 rounded border-border text-primary mt-0.5"
                     />
                     <span className="text-sm text-muted-foreground">

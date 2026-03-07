@@ -776,24 +776,51 @@ const PageEditor = () => {
           </div>
         </div>
         
-        {canEdit && (
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={() => handleSave()} disabled={saving}>
-              {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
-              Save
+        <div className="flex items-center gap-2">
+          {/* Preview as visitor button */}
+          {!isNew && form.slug && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                // Map slug to the correct public route
+                const slugToRoute: Record<string, string> = {
+                  'home': '/',
+                  'ketamine': '/ketamine',
+                  'spravato-Englewood': '/spravato-Englewood',
+                  'contact': '/contact',
+                  'faq': '/faq',
+                  'our-team': '/our-team',
+                  'vitamin-infusion-englewood': '/vitamin-infusion-englewood',
+                };
+                const route = slugToRoute[form.slug] || `/p/${form.slug}`;
+                window.open(route, '_blank');
+              }}
+            >
+              <Eye className="h-4 w-4 mr-2" />
+              Preview
             </Button>
-            {form.status === 'published' ? (
-              <Button variant="secondary" onClick={() => handleSave('draft')} disabled={saving}>
-                Unpublish
+          )}
+
+          {canEdit && (
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => handleSave()} disabled={saving}>
+                {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
+                Save
               </Button>
-            ) : (
-              <Button onClick={() => handleSave('published')} disabled={saving}>
-                <Send className="h-4 w-4 mr-2" />
-                Publish
-              </Button>
-            )}
-          </div>
-        )}
+              {form.status === 'published' ? (
+                <Button variant="secondary" onClick={() => handleSave('draft')} disabled={saving}>
+                  Unpublish
+                </Button>
+              ) : (
+                <Button onClick={() => handleSave('published')} disabled={saving}>
+                  <Send className="h-4 w-4 mr-2" />
+                  Publish
+                </Button>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Split pane editor */}
