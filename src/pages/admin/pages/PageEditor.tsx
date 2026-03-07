@@ -133,6 +133,7 @@ const PageEditor = () => {
   const [editingSection, setEditingSection] = useState<Section | null>(null);
   const [validationErrors, setValidationErrors] = useState<ValidationError[]>([]);
   const [previewModeEnabled, setPreviewModeEnabled] = useState(true);
+  const [historyOpen, setHistoryOpen] = useState(false);
   
   // Store original content for comparison (to detect item removal)
   const [originalContentJson, setOriginalContentJson] = useState<TemplateContent | null>(null);
