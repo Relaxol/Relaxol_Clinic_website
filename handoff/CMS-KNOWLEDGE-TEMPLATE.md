@@ -199,11 +199,171 @@ Each section type maps to a `Dynamic*` component (DynamicHero, DynamicText, etc.
 
 ## 8. SEO Architecture
 
-- `JsonLdSchema` component injects structured data (MedicalClinic, Physician, FAQPage)
-- Each page has `seo_title`, `seo_description`, `og_*` fields in the database
-- `DynamicPage` sets `document.title` from CMS data
-- `robots.txt` allows all crawlers
-- Blog posts include per-post SEO fields
+### Per-Page Meta Tags (react-helmet-async)
+
+Install `react-helmet-async` and wrap `<App />` in `<HelmetProvider>` in `main.tsx`.
+
+Create a reusable `PageSEO` component that every page uses:
+
+```tsx
+// src/components/seo/PageSEO.tsx
+import { Helmet } from "react-helmet-async";
+
+const SITE_URL = "https://example.com";
+const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og-default.jpg`;
+
+interface PageSEOProps {
+  title: string;
+  description: string;
+  path?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  type?: "website" | "article";
+  publishedAt?: string;
+  authorName?: string;
+}
+
+export function PageSEO({ title, description, path = "/", ...props }: PageSEOProps) {
+  const fullTitle = `${title} | Site Name`;
+  const canonical = `${SITE_URL}${path}`;
+  return (
+    <Helmet>
+      <title>{fullTitle}</title>
+      <meta name="description" content={description} />
+      <link rel="canonical" href={canonical} />
+      <meta property="og:title" content={props.ogTitle || fullTitle} />
+      <meta property="og:description" content={props.ogDescription || description} />
+      <meta property="og:url" content={canonical} />
+      <meta property="og:image" content={props.ogImage || DEFAULT_OG_IMAGE} />
+      <meta name="twitter:card" content="summary_large_image" />
+      {props.type === "article" && props.publishedAt && (
+        <meta property="article:published_time" content={props.publishedAt} />
+      )}
+    </Helmet>
+  );
+}
+```
+
+**Usage in every page:**
+```tsx
+<PageSEO
+  title="Ketamine Therapy"
+  description="Fast-acting ketamine treatment for depression and anxiety."
+  path="/ketamine"
+/>
+```
+
+For CMS-driven pages (DynamicPage), pull `seo_title`, `seo_description`, and `og_*` fields from the database and pass them as props.
+
+### JSON-LD Structured Data
+
+Three structured data components handle different schema types:
+
+| Component | Schema Type | Used On |
+|-----------|-------------|---------|
+| `JsonLdSchema` | MedicalClinic, Physician, FAQPage | Home, Contact, FAQ, Team pages |
+| `BlogPostJsonLd` | BlogPosting | Individual blog posts |
+| `BreadcrumbJsonLd` | BreadcrumbList | Blog posts, condition pages |
+
+```tsx
+// src/components/seo/BlogPostJsonLd.tsx
+export function BlogPostJsonLd({ title, description, url, imageUrl, publishedAt, authorName }) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description,
+    url,
+    image: imageUrl,
+    datePublished: publishedAt,
+    author: { "@type": "Person", name: authorName },
+    publisher: { "@type": "Organization", name: "Clinic Name" },
+  };
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
+}
+
+// src/components/seo/BreadcrumbJsonLd.tsx
+export function BreadcrumbJsonLd({ items }: { items: { name: string; href: string }[] }) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: `https://example.com${item.href}`,
+    })),
+  };
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
+}
+```
+
+**Blog post page example:**
+```tsx
+<PageSEO title={post.title} description={post.excerpt} path={`/blog/${post.slug}`} type="article" />
+<BlogPostJsonLd title={post.title} url={`https://example.com/blog/${post.slug}`} authorName={post.author?.name} />
+<BreadcrumbJsonLd items={[
+  { name: "Home", href: "/" },
+  { name: "Blog", href: "/blog" },
+  { name: post.title, href: `/blog/${post.slug}` },
+]} />
+```
+
+### Dynamic Sitemap (Edge Function)
+
+Create a `sitemap` edge function that generates XML from published pages and blog posts:
+
+```typescript
+// supabase/functions/sitemap/index.ts
+Deno.serve(async () => {
+  const supabase = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+
+  // Fetch published blog posts
+  const { data: posts } = await supabase
+    .from("blog_posts")
+    .select("slug, updated_at")
+    .eq("status", "published")
+    .lte("published_at", new Date().toISOString());
+
+  // Fetch published dynamic pages
+  const { data: pages } = await supabase
+    .from("pages")
+    .select("slug, updated_at")
+    .eq("status", "published");
+
+  // Build XML with static routes + dynamic entries
+  let xml = `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="...">`;
+  // Add static routes with priorities
+  STATIC_ROUTES.forEach(route => { xml += `<url><loc>${SITE_URL}${route.path}</loc>...</url>`; });
+  // Add blog posts
+  posts?.forEach(post => { xml += `<url><loc>${SITE_URL}/blog/${post.slug}</loc>...</url>`; });
+  // Add dynamic CMS pages
+  pages?.forEach(page => { xml += `<url><loc>${SITE_URL}/p/${page.slug}</loc>...</url>`; });
+  xml += `</urlset>`;
+
+  return new Response(xml, { headers: { "Content-Type": "application/xml" } });
+});
+```
+
+**Config:** Set `verify_jwt = false` in `supabase/config.toml` for the sitemap function.
+
+**robots.txt:** Include `Sitemap: https://example.com/sitemap.xml` directive.
+
+**Hosting rewrite:** Add a rewrite rule to proxy `/sitemap.xml` to the edge function URL (e.g., in `vercel.json`).
+
+### SEO Checklist
+- [ ] `react-helmet-async` installed and `<HelmetProvider>` wrapping app
+- [ ] `<PageSEO>` on every public page with unique title/description/canonical
+- [ ] CMS pages inject `seo_*` and `og_*` fields from database
+- [ ] `JsonLdSchema` on homepage, contact, FAQ, team pages
+- [ ] `BlogPostJsonLd` + `BreadcrumbJsonLd` on blog post pages
+- [ ] `BreadcrumbJsonLd` on condition/service subpages
+- [ ] Branded OG image at `/images/og-default.jpg` (1200×630)
+- [ ] `robots.txt` with `Sitemap:` directive
+- [ ] Sitemap edge function deployed and accessible
+- [ ] No hardcoded canonical in `index.html` (Helmet handles it per-page)
 
 ---
 
@@ -238,7 +398,7 @@ Each section type maps to a `Dynamic*` component (DynamicHero, DynamicText, etc.
 8. [ ] Seed initial page rows (slug, template, content_json, status='published')
 9. [ ] Set up media storage bucket (public)
 10. [ ] Configure auth and invite system
-11. [ ] Add SEO: JsonLdSchema, meta tags, sitemap
+11. [ ] Add SEO: PageSEO on all pages, JsonLd schemas, sitemap edge function
 12. [ ] Test: edit in admin → save → verify public page updates
 
 ---
@@ -253,6 +413,10 @@ Each section type maps to a `Dynamic*` component (DynamicHero, DynamicText, etc.
 | `src/components/admin/TemplatePreviewRenderer.tsx` | Live preview in editor |
 | `src/components/admin/ImageUploadField.tsx` | Image upload with media library |
 | `src/components/sections/dynamic/index.tsx` | Section type → component mapper |
-| `src/components/seo/JsonLdSchema.tsx` | Structured data injection |
+| `src/components/seo/PageSEO.tsx` | Per-page title, meta, OG, canonical tags |
+| `src/components/seo/JsonLdSchema.tsx` | Clinic/Physician/FAQ structured data |
+| `src/components/seo/BlogPostJsonLd.tsx` | BlogPosting structured data |
+| `src/components/seo/BreadcrumbJsonLd.tsx` | Breadcrumb structured data |
+| `supabase/functions/sitemap/index.ts` | Dynamic XML sitemap generator |
 | `src/lib/activityLog.ts` | Audit trail helper |
 | `src/contexts/AuthContext.tsx` | Authentication state management |
