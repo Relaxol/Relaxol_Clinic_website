@@ -247,13 +247,22 @@ export interface FAQV1Content {
   cta: CTAContent;
 }
 
+// Re-export new schema types
+export type { ConditionV1Content, VitaminInfusionsV1Content, OurTeamV1Content } from './newSchemas';
+export { isConditionV1Content, isVitaminInfusionsV1Content, isOurTeamV1Content } from './newSchemas';
+
+import type { ConditionV1Content, VitaminInfusionsV1Content, OurTeamV1Content } from './newSchemas';
+
 // Union type for all content types
 export type TemplateContent = 
   | HomeV1Content 
   | KetamineV1Content 
   | SpravatoV1Content 
   | ContactV1Content 
-  | FAQV1Content;
+  | FAQV1Content
+  | ConditionV1Content
+  | VitaminInfusionsV1Content
+  | OurTeamV1Content;
 
 // Type guard functions
 export function isHomeV1Content(content: unknown): content is HomeV1Content {
