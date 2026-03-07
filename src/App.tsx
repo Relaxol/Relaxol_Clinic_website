@@ -43,6 +43,7 @@ import UsersList from "./pages/admin/users/UsersList";
 import Settings from "./pages/admin/settings/Settings";
 import License from "./pages/admin/license/License";
 import AcceptInvite from "./pages/admin/AcceptInvite";
+import ResetPassword from "./pages/admin/ResetPassword";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -83,6 +84,7 @@ const App = () => (
             {/* Admin routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/accept-invite" element={<AcceptInvite />} />
+            <Route path="/admin/reset-password" element={<ResetPassword />} />
             <Route path="/admin" element={
               <ProtectedRoute>
                 <AdminLayout />
