@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
+import { ImageUploadField } from '@/components/admin/ImageUploadField';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
@@ -315,16 +316,12 @@ function HomeTemplateEditor({
           disabled={disabled}
           rows={5}
         />
-        <TextField
-          label="Image URL"
+        <ImageUploadField
+          label="Image"
           value={content.about.imageUrl || ''}
           onChange={(v) => update('about', { ...content.about, imageUrl: v })}
-          disabled={disabled}
-        />
-        <TextField
-          label="Image Alt Text"
-          value={content.about.imageAlt || ''}
-          onChange={(v) => update('about', { ...content.about, imageAlt: v })}
+          altText={content.about.imageAlt || ''}
+          onAltChange={(v) => update('about', { ...content.about, imageAlt: v })}
           disabled={disabled}
         />
       </Panel>
@@ -397,7 +394,7 @@ function HomeTemplateEditor({
               <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
               <TextField label="Tag" value={item.tag || ''} onChange={(v) => updateItem({ tag: v })} disabled={disabled} />
               <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
-              <TextField label="Image URL" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
+              <ImageUploadField label="Image" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
               <div className="grid grid-cols-2 gap-4">
                 <TextField label="CTA Label" value={item.ctaLabel || ''} onChange={(v) => updateItem({ ctaLabel: v })} disabled={disabled} />
                 <TextField label="Link" value={item.href || ''} onChange={(v) => updateItem({ href: v })} disabled={disabled} />
@@ -421,8 +418,8 @@ function HomeTemplateEditor({
           disabled={disabled}
           required
         />
-        <TextField
-          label="Image URL"
+        <ImageUploadField
+          label="Image"
           value={content.doctor.imageUrl || ''}
           onChange={(v) => update('doctor', { ...content.doctor, imageUrl: v })}
           disabled={disabled}
@@ -464,7 +461,7 @@ function HomeTemplateEditor({
             <>
               <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
               <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
-              <TextField label="Image URL" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
+              <ImageUploadField label="Image" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
               <TextField label="Link" value={item.href || ''} onChange={(v) => updateItem({ href: v })} disabled={disabled} />
             </>
           )}
@@ -706,7 +703,7 @@ function KetamineTemplateEditor({
             <>
               <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
               <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
-              <TextField label="Image URL" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
+              <ImageUploadField label="Image" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
             </>
           )}
         />
@@ -778,8 +775,8 @@ function KetamineTemplateEditor({
             disabled={disabled}
           />
         </div>
-        <TextField
-          label="Image URL"
+        <ImageUploadField
+          label="Image"
           value={content.crossSell.imageUrl || ''}
           onChange={(v) => update('crossSell', { ...content.crossSell, imageUrl: v })}
           disabled={disabled}
@@ -1104,16 +1101,12 @@ function SpravatoTemplateEditor({
           disabled={disabled}
           rows={5}
         />
-        <TextField
-          label="Image URL"
+        <ImageUploadField
+          label="Image"
           value={content.trd.imageUrl || ''}
           onChange={(v) => update('trd', { ...content.trd, imageUrl: v })}
-          disabled={disabled}
-        />
-        <TextField
-          label="Image Alt"
-          value={content.trd.imageAlt || ''}
-          onChange={(v) => update('trd', { ...content.trd, imageAlt: v })}
+          altText={content.trd.imageAlt || ''}
+          onAltChange={(v) => update('trd', { ...content.trd, imageAlt: v })}
           disabled={disabled}
         />
       </Panel>
@@ -1170,8 +1163,8 @@ function SpravatoTemplateEditor({
           disabled={disabled}
           rows={5}
         />
-        <TextField
-          label="Image URL"
+        <ImageUploadField
+          label="Image"
           value={content.whatIs.imageUrl || ''}
           onChange={(v) => update('whatIs', { ...content.whatIs, imageUrl: v })}
           disabled={disabled}
@@ -1276,8 +1269,7 @@ function ConditionTemplateEditor({
           <TextField label="CTA Label" value={content.hero.ctaLabel || ''} onChange={(v) => update('hero', { ...content.hero, ctaLabel: v })} disabled={disabled} />
           <TextField label="CTA Link" value={content.hero.ctaHref || ''} onChange={(v) => update('hero', { ...content.hero, ctaHref: v })} disabled={disabled} />
         </div>
-        <TextField label="Image URL" value={content.hero.imageUrl || ''} onChange={(v) => update('hero', { ...content.hero, imageUrl: v })} disabled={disabled} />
-        <TextField label="Image Alt Text" value={content.hero.imageAlt || ''} onChange={(v) => update('hero', { ...content.hero, imageAlt: v })} disabled={disabled} />
+        <ImageUploadField label="Hero Image" value={content.hero.imageUrl || ''} onChange={(v) => update('hero', { ...content.hero, imageUrl: v })} altText={content.hero.imageAlt || ''} onAltChange={(v) => update('hero', { ...content.hero, imageAlt: v })} disabled={disabled} />
       </Panel>
 
       <Panel title="Main Content">
@@ -1383,7 +1375,7 @@ function VitaminInfusionsTemplateEditor({
               <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
               <TextField label="Short Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
               <TextAreaField label="Full Description (Modal)" value={item.fullDescription} onChange={(v) => updateItem({ fullDescription: v })} disabled={disabled} rows={4} />
-              <TextField label="Image URL" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
+              <ImageUploadField label="Image" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
               <TextField label="Ingredients" value={item.ingredients} onChange={(v) => updateItem({ ingredients: v })} disabled={disabled} />
               <TextField label="Duration" value={item.duration} onChange={(v) => updateItem({ duration: v })} disabled={disabled} />
               <ItemRepeater
@@ -1405,8 +1397,7 @@ function VitaminInfusionsTemplateEditor({
 
       <Panel title="Vitamin B12 Section">
         <TextField label="Title" value={content.b12.title} onChange={(v) => update('b12', { ...content.b12, title: v })} disabled={disabled} required />
-        <TextField label="Image URL" value={content.b12.imageUrl || ''} onChange={(v) => update('b12', { ...content.b12, imageUrl: v })} disabled={disabled} />
-        <TextField label="Image Alt" value={content.b12.imageAlt || ''} onChange={(v) => update('b12', { ...content.b12, imageAlt: v })} disabled={disabled} />
+        <ImageUploadField label="Image" value={content.b12.imageUrl || ''} onChange={(v) => update('b12', { ...content.b12, imageUrl: v })} altText={content.b12.imageAlt || ''} onAltChange={(v) => update('b12', { ...content.b12, imageAlt: v })} disabled={disabled} />
         <ItemRepeater
           label="Paragraphs"
           items={content.b12.paragraphs.map(p => ({ text: p }))}
@@ -1432,8 +1423,7 @@ function VitaminInfusionsTemplateEditor({
 
       <Panel title="NAD+ Section">
         <TextField label="Title" value={content.nad.title} onChange={(v) => update('nad', { ...content.nad, title: v })} disabled={disabled} required />
-        <TextField label="Image URL" value={content.nad.imageUrl || ''} onChange={(v) => update('nad', { ...content.nad, imageUrl: v })} disabled={disabled} />
-        <TextField label="Image Alt" value={content.nad.imageAlt || ''} onChange={(v) => update('nad', { ...content.nad, imageAlt: v })} disabled={disabled} />
+        <ImageUploadField label="Image" value={content.nad.imageUrl || ''} onChange={(v) => update('nad', { ...content.nad, imageUrl: v })} altText={content.nad.imageAlt || ''} onAltChange={(v) => update('nad', { ...content.nad, imageAlt: v })} disabled={disabled} />
         <ItemRepeater
           label="Paragraphs"
           items={content.nad.paragraphs.map(p => ({ text: p }))}
@@ -1488,8 +1478,7 @@ function OurTeamTemplateEditor({
       <Panel title="Doctor Section">
         <TextField label="Subtitle" value={content.doctor.subtitle || ''} onChange={(v) => update('doctor', { ...content.doctor, subtitle: v })} disabled={disabled} />
         <TextField label="Name" value={content.doctor.name} onChange={(v) => update('doctor', { ...content.doctor, name: v })} disabled={disabled} required />
-        <TextField label="Image URL" value={content.doctor.imageUrl || ''} onChange={(v) => update('doctor', { ...content.doctor, imageUrl: v })} disabled={disabled} />
-        <TextField label="Image Alt" value={content.doctor.imageAlt || ''} onChange={(v) => update('doctor', { ...content.doctor, imageAlt: v })} disabled={disabled} />
+        <ImageUploadField label="Image" value={content.doctor.imageUrl || ''} onChange={(v) => update('doctor', { ...content.doctor, imageUrl: v })} altText={content.doctor.imageAlt || ''} onAltChange={(v) => update('doctor', { ...content.doctor, imageAlt: v })} disabled={disabled} />
         <ItemRepeater
           label="Bio Paragraphs"
           items={content.doctor.bio.map(p => ({ text: p }))}
