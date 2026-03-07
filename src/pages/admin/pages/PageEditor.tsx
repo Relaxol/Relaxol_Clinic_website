@@ -34,6 +34,7 @@ import PagePreview from '@/components/admin/PagePreview';
 import SectionEditorDrawer, { validateSection } from '@/components/admin/SectionEditorDrawer';
 import TemplateFormEditor from '@/components/admin/TemplateFormEditor';
 import TemplatePreviewRenderer from '@/components/admin/TemplatePreviewRenderer';
+import ContentHistoryDrawer from '@/components/admin/ContentHistoryDrawer';
 import { v4 as uuidv4 } from 'uuid';
 import { 
   TemplateType, 
