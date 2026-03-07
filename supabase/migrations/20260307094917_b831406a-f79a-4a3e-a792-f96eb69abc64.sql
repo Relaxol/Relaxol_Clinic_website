@@ -1,0 +1,1 @@
+DELETE FROM pages WHERE title = 'SPRAVATO Treatment (Copy)' AND status = 'archived';
