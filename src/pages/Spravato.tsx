@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PageSEO } from "@/components/seo/PageSEO";
 import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -277,6 +278,11 @@ export default function Spravato() {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageSEO
+        title="SPRAVATO® Treatment"
+        description="FDA-approved SPRAVATO® (esketamine) nasal spray for treatment-resistant depression in Englewood Cliffs, NJ. Insurance accepted. REMS-certified clinic."
+        path="/spravato-Englewood"
+      />
       <Header />
       
       {/* 1. HERO - Text Left, Video Right */}

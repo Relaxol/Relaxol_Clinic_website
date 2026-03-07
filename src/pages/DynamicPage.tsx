@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SectionRenderer } from "@/components/sections/dynamic";
 import { AnySectionData } from "@/lib/sections/registry";
+import { PageSEO } from "@/components/seo/PageSEO";
 import NotFound from "./NotFound";
 
 // Dev-only fallback warning
@@ -128,6 +129,14 @@ export default function DynamicPage({ slug: propSlug, fallback: FallbackComponen
 
   return (
     <div className="min-h-screen bg-background">
+      <PageSEO
+        title={page.seo_title || page.title}
+        description={page.seo_description || page.hero_subheadline || ""}
+        path={`/p/${page.slug}`}
+        ogTitle={page.og_title || undefined}
+        ogDescription={page.og_description || undefined}
+        ogImage={page.og_image_url || undefined}
+      />
       <Header />
       <main>
         {sections.map((section) => (

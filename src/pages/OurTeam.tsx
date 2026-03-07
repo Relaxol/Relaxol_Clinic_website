@@ -6,6 +6,7 @@ import { usePageContent } from "@/hooks/usePageContent";
 import { OurTeamV1Content } from "@/lib/templates/newSchemas";
 import { defaultOurTeamContent } from "@/lib/templates/newDefaults";
 import { JsonLdSchema } from "@/components/seo/JsonLdSchema";
+import { PageSEO } from "@/components/seo/PageSEO";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Award,
@@ -28,6 +29,11 @@ const OurTeam = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageSEO
+        title="Our Team"
+        description="Meet Dr. Sangeet Khanna and the Relaxol Clinic team — experienced psychiatrists specializing in ketamine therapy and SPRAVATO® treatment."
+        path="/our-team"
+      />
       <JsonLdSchema type="physician" />
       <Header />
       <main>

@@ -16,6 +16,7 @@ import { ContactSection } from "@/components/sections/ContactSection";
 import { usePageContent } from "@/hooks/usePageContent";
 import { HomeV1Content } from "@/lib/templates/schemas";
 import { JsonLdSchema } from "@/components/seo/JsonLdSchema";
+import { PageSEO } from "@/components/seo/PageSEO";
 
 const Home = () => {
   const { content, loading } = usePageContent('home');
@@ -25,6 +26,11 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageSEO
+        title="Relaxol Clinic | Premier Ketamine & SPRAVATO® Treatment in New Jersey"
+        description="Leading provider of innovative mental health treatments including ketamine therapy, SPRAVATO®, and integrative medicine in Englewood Cliffs, NJ."
+        path="/"
+      />
       <JsonLdSchema type="clinic" />
       <Header />
       <main>

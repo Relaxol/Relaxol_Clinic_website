@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import { Link } from "react-router-dom";
 import { JsonLdSchema } from "@/components/seo/JsonLdSchema";
+import { PageSEO } from "@/components/seo/PageSEO";
 import { usePageContent } from "@/hooks/usePageContent";
 import { FAQV1Content } from "@/lib/templates/schemas";
 import { Loader2 } from "lucide-react";
@@ -128,6 +129,11 @@ const FAQPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageSEO
+        title="Ketamine Therapy FAQ"
+        description="Frequently asked questions about ketamine therapy, treatment process, safety, side effects, and eligibility at Relaxol Clinic."
+        path="/faq"
+      />
       <JsonLdSchema type="faq" faqItems={faqItems} />
       <Header />
       <main>

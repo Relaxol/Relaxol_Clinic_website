@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { PageSEO } from "@/components/seo/PageSEO";
+import { BlogPostJsonLd } from "@/components/seo/BlogPostJsonLd";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { useParams, Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -70,8 +73,6 @@ const BlogPost = () => {
         setNotFound(true);
       } else {
         setPost(data);
-        // Update document title for SEO
-        document.title = data.seo_title || data.title;
       }
       setLoading(false);
     };
@@ -193,6 +194,28 @@ const BlogPost = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageSEO
+        title={post.seo_title || post.title}
+        description={post.seo_description || post.excerpt || ""}
+        path={`/blog/${post.slug}`}
+        type="article"
+        publishedAt={post.published_at || undefined}
+        authorName={post.author?.name}
+        ogImage={post.hero_image || undefined}
+      />
+      <BlogPostJsonLd
+        title={post.title}
+        description={post.excerpt || ""}
+        url={`https://relaxolclinic.com/blog/${post.slug}`}
+        imageUrl={post.hero_image || undefined}
+        publishedAt={post.published_at || undefined}
+        authorName={post.author?.name}
+      />
+      <BreadcrumbJsonLd items={[
+        { name: "Home", href: "/" },
+        { name: "Blog", href: "/blog" },
+        { name: post.title, href: `/blog/${post.slug}` },
+      ]} />
       <Header />
       
       {/* Hero Section */}

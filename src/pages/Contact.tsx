@@ -16,6 +16,7 @@ import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { usePageContent } from "@/hooks/usePageContent";
 import { ContactV1Content } from "@/lib/templates/schemas";
 import { JsonLdSchema } from "@/components/seo/JsonLdSchema";
+import { PageSEO } from "@/components/seo/PageSEO";
 import { supabase } from "@/integrations/supabase/client";
 
 const TENANT_ID = '11111111-1111-1111-1111-111111111111';
@@ -81,6 +82,11 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageSEO
+        title="Contact Us"
+        description="Contact Relaxol Clinic in Englewood Cliffs, NJ. Schedule a free consultation for ketamine therapy, SPRAVATO®, or vitamin infusions."
+        path="/contact"
+      />
       <JsonLdSchema type="clinic" />
       <Header />
       

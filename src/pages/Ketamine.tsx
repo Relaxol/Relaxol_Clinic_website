@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PageSEO } from "@/components/seo/PageSEO";
 import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -461,6 +462,11 @@ const Ketamine = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageSEO
+        title="Ketamine Therapy"
+        description="Ketamine infusion therapy for depression, anxiety, PTSD, OCD, and chronic pain in Englewood Cliffs, NJ. Fast-acting relief with physician supervision."
+        path="/ketamine"
+      />
       <Header />
       <main>
         {/* SECTION 1 — HERO (Split layout + image + stats) */}
