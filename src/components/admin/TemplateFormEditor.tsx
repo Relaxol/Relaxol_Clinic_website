@@ -1398,7 +1398,7 @@ function VitaminInfusionsTemplateEditor({
               />
             </>
           )}
-          createItem={() => ({ title: '', description: '', fullDescription: '', benefits: [], ingredients: '', duration: '' })}
+          createItem={() => ({ title: '', description: '', fullDescription: '', imageUrl: '', benefits: [] as string[], ingredients: '', duration: '' })}
           disabled={disabled}
         />
       </Panel>
