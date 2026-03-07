@@ -350,7 +350,8 @@ export function createDefaultHomeContent(): HomeV1Content {
 export function createDefaultKetamineContent(): KetamineV1Content {
   return {
     hero: {
-      headline: 'Ketamine Therapy for Treatment-Resistant Depression',
+      headline: 'Ketamine Therapy:',
+      subtitle: 'Rapid Relief for a Range of Mood and Chronic Conditions',
       body: 'Personalized care for individuals who haven\'t found relief with traditional treatments.',
       ctaLabel: 'Book Consultation',
       ctaHref: '#eligibility',
@@ -365,7 +366,7 @@ export function createDefaultKetamineContent(): KetamineV1Content {
     },
     parallax: {
       title: 'Rapid Relief When Traditional Treatments Haven\'t Worked',
-      body: 'Ketamine therapy offers a different mechanism of action that can help patients who haven\'t responded to conventional antidepressants.',
+      body: 'Ketamine therapy offers a different mechanism of action that can help patients who haven\'t responded to conventional antidepressants experience meaningful improvement.',
       ctaLabel: 'Learn More',
     },
     services: {
@@ -376,7 +377,7 @@ export function createDefaultKetamineContent(): KetamineV1Content {
     eligibility: {
       subtitle: 'Start Your Journey',
       title: 'Take the Next Step Toward Relief',
-      body: 'If traditional treatments haven\'t worked, our care team can help.',
+      body: 'If traditional treatments haven\'t worked, our care team can help you understand whether ketamine therapy may be appropriate for you.',
       trustBullets: [
         'No obligation assessment',
         'Response within 48 hours',
@@ -387,13 +388,17 @@ export function createDefaultKetamineContent(): KetamineV1Content {
     },
     crossSell: {
       title: 'Also Offering SPRAVATO® Treatment',
-      body: 'FDA-approved esketamine therapy for treatment-resistant depression.',
-      ctaLabel: 'Learn More About SPRAVATO®',
+      body: 'SPRAVATO® (esketamine) is an FDA-approved nasal spray for treatment-resistant depression. It\'s administered in our clinic under medical supervision and may be covered by insurance.',
+      ctaLabel: 'Learn About SPRAVATO®',
       ctaHref: '/spravato-Englewood',
     },
     faq: {
       title: 'Safety & Side Effects',
-      items: [],
+      items: [
+        { question: 'Common Side Effects', answer: 'Temporary effects may include dissociation, dizziness, nausea, drowsiness, and changes in perception. These typically resolve within 1-2 hours after treatment ends.' },
+        { question: 'Monitoring Procedures', answer: 'Vital signs are checked before, during, and after each infusion. You\'ll remain in our clinic until effects have subsided.' },
+        { question: 'Safety Considerations', answer: 'Ketamine therapy is not suitable for everyone. A thorough evaluation ensures treatment is safe and appropriate for you.' },
+      ],
     },
   };
 }
@@ -401,7 +406,7 @@ export function createDefaultKetamineContent(): KetamineV1Content {
 export function createDefaultSpravatoContent(): SpravatoV1Content {
   return {
     hero: {
-      headline: 'SPRAVATO® Treatment for Depression That Hasn\'t Responded to Medication',
+      headline: 'Treatment for Depression That Hasn\'t Responded to Medication',
       subtitle: 'FDA-approved esketamine therapy administered in a medically supervised clinic',
       ctaLabel: 'Check Eligibility',
       ctaHref: '#eligibility-form',
@@ -417,31 +422,46 @@ export function createDefaultSpravatoContent(): SpravatoV1Content {
     },
     trd: {
       title: 'Treatment-Resistant Depression',
-      body: 'Depression is not as simple as just "sadness." Fortunately, SPRAVATO® is showing excellent results.',
+      body: 'Depression is not as simple as just "sadness." Sadness is a feeling that comes and goes with everyday life. Almost 300 million people suffer from depression worldwide, and despite a variety of depression treatments available, many continue to suffer without relief from these medications.\n\nFortunately, SPRAVATO® – the breakthrough FDA-approved esketamine nasal spray – is showing excellent results in relieving those symptoms of depression. As a SPRAVATO® REMS-certified treatment provider, our treatment team can alleviate even the most severe forms of treatment-resistant depression.',
     },
     benefits: {
       subtitle: 'Why SPRAVATO®',
       title: 'Benefits of SPRAVATO® Treatment',
-      items: [],
+      items: [
+        { title: 'Faster Relief', description: 'May improve symptoms within hours to days, unlike weeks with traditional antidepressants.' },
+        { title: 'Works Differently', description: 'Targets NMDA receptors and glutamate—a different brain pathway than standard medications.' },
+        { title: 'Treatment-Resistant Option', description: 'Specifically designed for patients who haven\'t responded to other antidepressants.' },
+        { title: 'Medical Supervision', description: 'Every session is administered and monitored by trained clinical staff.' },
+        { title: 'FDA-Approved', description: 'Rigorously tested and approved for treatment-resistant depression and MDD with suicidal ideation.' },
+      ],
     },
     whatIs: {
       subtitle: 'About the Treatment',
       title: 'What Is SPRAVATO®?',
-      body: 'SPRAVATO® is a prescription nasal spray derived from esketamine and approved by the FDA.',
+      body: 'SPRAVATO® is a prescription nasal spray derived from esketamine and approved by the FDA for treatment-resistant depression. It\'s used alongside an oral antidepressant for adults who haven\'t found relief from standard medications.\n\nUnlike traditional antidepressants that target serotonin or norepinephrine, SPRAVATO® works on the glutamate system—potentially restoring neural connections weakened by chronic depression.',
     },
     timeline: {
-      subtitle: 'Your Treatment Journey',
-      title: 'How SPRAVATO® Works',
-      items: [],
+      subtitle: 'The Process',
+      title: 'How the Treatment Works',
+      items: [
+        { step: '1', title: 'Evaluation & Eligibility', description: 'Comprehensive psychiatric assessment to determine candidacy.' },
+        { step: '2', title: 'In-Clinic Administration', description: 'Self-administer the nasal spray under clinical supervision.' },
+        { step: '3', title: 'Observation Period', description: 'Rest while our team monitors your response for ~2 hours.' },
+        { step: '4', title: 'Ongoing Care', description: 'Continue with personalized maintenance and support.' },
+      ],
     },
     faq: {
-      title: 'SPRAVATO® FAQ',
-      items: [],
+      title: 'Safety & Side Effects',
+      items: [
+        { question: 'Common Side Effects', answer: 'Temporary effects may include dissociation, dizziness, nausea, sedation, and temporary blood pressure changes. Most side effects resolve within a few hours of treatment.' },
+        { question: 'Monitoring Requirements', answer: 'Vital signs are checked before, during, and after each session. You\'ll remain in our clinic for approximately 2 hours post-administration under continuous observation.' },
+        { question: 'Safety Protocols', answer: 'SPRAVATO® is only available through certified REMS healthcare settings. Our trained psychiatric staff follows strict FDA-mandated protocols with emergency equipment readily available.' },
+      ],
     },
     contact: {
-      subtitle: 'GET STARTED',
-      title: 'Check Your SPRAVATO® Eligibility',
-      body: 'Take the first step toward relief.',
+      subtitle: 'Coverage',
+      title: 'Insurance & Access',
+      body: 'We work with many major insurance providers. Our team will verify your benefits and assist with prior authorization to help maximize your coverage.',
     },
   };
 }
