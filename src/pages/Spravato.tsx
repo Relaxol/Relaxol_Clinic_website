@@ -290,10 +290,10 @@ export default function Spravato() {
           <div className="lg:hidden space-y-6 mb-6">
             <h1 className="text-2xl sm:text-3xl font-bold text-background leading-tight">
               <span className="block">SPRAVATO®</span>
-              Treatment for Depression That Hasn't Responded to Medication
+              {heroHeadline}
             </h1>
             <h2 className="text-xl md:text-2xl text-background/80">
-              FDA-approved esketamine therapy administered in a medically supervised clinic
+              {heroSubtitle}
             </h2>
             
             {/* Video - shown on mobile right after the title */}
@@ -314,17 +314,17 @@ export default function Spravato() {
               <div className="hidden lg:block">
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-background leading-tight">
                   <span className="block">SPRAVATO®</span>
-                  Treatment for Depression That Hasn't Responded to Medication
+                  {heroHeadline}
                 </h1>
                 <h2 className="text-xl md:text-2xl text-background/80 mt-6">
-                  FDA-approved esketamine therapy administered in a medically supervised clinic
+                  {heroSubtitle}
                 </h2>
               </div>
               
               <div className="flex flex-wrap gap-4 pt-2">
                 <Button size="lg" className="group" asChild>
                   <Link to="/verify-coverage">
-                    Check Eligibility
+                    {heroCtaLabel}
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
