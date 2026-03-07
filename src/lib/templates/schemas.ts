@@ -129,6 +129,13 @@ export interface HomeV1Content {
     title: string;
     body?: string;
   };
+  environment?: {
+    subtitle?: string;
+    title?: string;
+    body?: string[];
+    imageUrl?: string;
+    imageAlt?: string;
+  };
 }
 
 // Ketamine Page Schema

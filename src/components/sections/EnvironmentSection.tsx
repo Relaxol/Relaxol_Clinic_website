@@ -1,6 +1,27 @@
 import treatmentRoom from "@/assets/treatment-room.jpg";
 
-export function EnvironmentSection() {
+interface EnvironmentContent {
+  subtitle?: string;
+  title?: string;
+  body?: string[];
+  imageUrl?: string;
+  imageAlt?: string;
+}
+
+interface EnvironmentSectionProps {
+  content?: EnvironmentContent;
+}
+
+export function EnvironmentSection({ content }: EnvironmentSectionProps) {
+  const subtitle = content?.subtitle || "YOUR COMFORT MATTERS";
+  const title = content?.title || "A Calm, Private Treatment Environment";
+  const imageUrl = content?.imageUrl || treatmentRoom;
+  const imageAlt = content?.imageAlt || "Comfortable treatment room with calming atmosphere";
+  const paragraphs = content?.body?.length ? content.body : [
+    "We know that seeking mental health treatment can feel vulnerable. That's why we've designed our clinic to feel more like a spa than a sterile medical office. From soft lighting to comfortable recliners, every detail is intended to help you relax during your session.",
+    "Each treatment room is private, ensuring confidentiality and peace of mind. Our staff is trained not only in clinical care but in creating a welcoming, judgment-free atmosphere where you can focus entirely on your healing.",
+  ];
+
   return (
     <section className="py-20 bg-cream-dark">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
@@ -8,37 +29,36 @@ export function EnvironmentSection() {
           {/* Content */}
           <div className="flex flex-col">
             <span className="section-label mb-4 inline-block">
-              YOUR COMFORT MATTERS
+              {subtitle}
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-6">
-              A Calm, Private Treatment Environment
+              {title}
             </h2>
             
             {/* Image - shows here on mobile, hidden on lg+ */}
             <div className="relative lg:hidden mb-6">
               <div className="image-card aspect-[3/4] sm:aspect-[4/3]">
                 <img
-                  src={treatmentRoom}
-                  alt="Comfortable treatment room with calming atmosphere"
+                  src={imageUrl}
+                  alt={imageAlt}
                   className="w-full h-full object-cover"
                 />
               </div>
             </div>
             
-            <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg sm:leading-relaxed mb-4">
-              We know that seeking mental health treatment can feel vulnerable. That's why we've designed our clinic to feel more like a spa than a sterile medical office. From soft lighting to comfortable recliners, every detail is intended to help you relax during your session.
-            </p>
-            <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg sm:leading-relaxed">
-              Each treatment room is private, ensuring confidentiality and peace of mind. Our staff is trained not only in clinical care but in creating a welcoming, judgment-free atmosphere where you can focus entirely on your healing.
-            </p>
+            {paragraphs.map((p, i) => (
+              <p key={i} className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg sm:leading-relaxed mb-4">
+                {p}
+              </p>
+            ))}
           </div>
 
           {/* Image - hidden on mobile, shows on lg+ */}
           <div className="relative hidden lg:block">
             <div className="image-card aspect-[4/3]">
               <img
-                src={treatmentRoom}
-                alt="Comfortable treatment room with calming atmosphere"
+                src={imageUrl}
+                alt={imageAlt}
                 className="w-full h-full object-cover"
               />
             </div>

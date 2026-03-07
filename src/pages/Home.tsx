@@ -33,7 +33,7 @@ const Home = () => {
         <VideoSection content={homeContent?.video} />
         <TreatmentsSection content={homeContent?.treatments} />
         <ConditionsSection content={homeContent?.conditions} />
-        <EnvironmentSection />
+        <EnvironmentSection content={homeContent?.environment} />
         
         <WhyChooseSection />
         <TestimonialsSection content={homeContent?.testimonials} />
