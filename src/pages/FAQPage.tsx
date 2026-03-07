@@ -9,9 +9,12 @@ import {
 } from "@/components/ui/accordion";
 import { Link } from "react-router-dom";
 import { JsonLdSchema } from "@/components/seo/JsonLdSchema";
+import { usePageContent } from "@/hooks/usePageContent";
+import { FAQV1Content } from "@/lib/templates/schemas";
+import { Loader2 } from "lucide-react";
 
-// FAQ Data from original Relaxol Clinic website
-const faqItems = [
+// FAQ Data from original Relaxol Clinic website (used as fallback)
+const defaultFaqItems = [
   {
     question: "What is Ketamine?",
     answer: "Ketamine, an FDA-approved anesthetic agent developed in 1962, has been primarily used as an induction agent for general anesthesia in surgeries involving children, adults, and animals. Its remarkable safety track record has made it a preferred choice in pediatric anesthesia. Recently, ketamine has been found to be highly effective in treating conditions such as depression, PTSD, fibromyalgia, and more."
@@ -95,6 +98,34 @@ const faqItems = [
 ];
 
 const FAQPage = () => {
+  const { content, loading } = usePageContent('faq');
+  
+  const cms = (content && typeof content === 'object' && 'cta' in content) 
+    ? content as FAQV1Content 
+    : null;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  const heroHeadline = cms?.hero?.headline || "Ketamine Therapy FAQ's";
+  const heroTagline = cms?.hero?.tagline || "Your Journey to Your Best Self";
+  const heroDescription = cms?.hero?.description || "Frequently asked questions about Ketamine Therapy. Every individual's case is unique, we encourage you to contact us for a free consultation to determine whether this is suitable for you.";
+
+  const faqItems = cms?.flatItems?.length ? cms.flatItems : defaultFaqItems;
+
+  const ctaTagline = cms?.cta?.body || "Your Journey to Your Best Self";
+  const ctaTitle = cms?.cta?.title || "Start Transforming Your Life";
+  const ctaLabel = cms?.cta?.ctaLabel || "Schedule a Free Consultation";
+  const ctaHref = cms?.cta?.ctaHref || "/contact";
+  const ctaPhone = cms?.cta?.contactPhone || "201-781-2101";
+  const ctaEmail = cms?.cta?.contactEmail || "info@relaxolclinic.com";
+  const ctaAddress = cms?.cta?.contactAddress || "560 Sylvan Avenue, Suite 2115, Englewood Cliffs, NJ 07632";
+
   return (
     <div className="min-h-screen bg-background">
       <JsonLdSchema type="faq" faqItems={faqItems} />
@@ -104,13 +135,13 @@ const FAQPage = () => {
         <section className="py-16 md:py-24 bg-gradient-to-b from-cream to-primary/10">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-              Ketamine Therapy FAQ's
+              {heroHeadline}
             </h1>
             <p className="text-xl md:text-2xl text-primary font-medium mb-4">
-              Your Journey to Your Best Self
+              {heroTagline}
             </p>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Frequently asked questions about Ketamine Therapy. Every individual's case is unique, we encourage you to contact us for a free consultation to determine whether this is suitable for you.
+              {heroDescription}
             </p>
           </div>
         </section>
@@ -164,10 +195,10 @@ const FAQPage = () => {
         <section className="py-16 md:py-24 bg-cream-dark">
           <div className="container mx-auto px-4 text-center">
             <p className="text-primary font-medium mb-4">
-              Your Journey to Your Best Self
+              {ctaTagline}
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
-              Start Transforming Your Life
+              {ctaTitle}
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button 
@@ -175,18 +206,18 @@ const FAQPage = () => {
                 className="bg-primary text-primary-foreground hover:bg-accent rounded-full px-8"
                 asChild
               >
-                <Link to="/contact">Schedule a Free Consultation</Link>
+                <Link to={ctaHref}>{ctaLabel}</Link>
               </Button>
             </div>
             <div className="text-muted-foreground">
               <p className="mb-2">Have a Question? Contact us:</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a href="tel:201-781-2101" className="hover:text-primary transition-colors">
-                  (201) 781-2101
+                <a href={`tel:${ctaPhone.replace(/[^\d]/g, '')}`} className="hover:text-primary transition-colors">
+                  ({ctaPhone.slice(0,3)}) {ctaPhone.slice(4)}
                 </a>
                 <span className="hidden sm:inline">•</span>
-                <a href="mailto:info@relaxolclinic.com" className="hover:text-primary transition-colors">
-                  info@relaxolclinic.com
+                <a href={`mailto:${ctaEmail}`} className="hover:text-primary transition-colors">
+                  {ctaEmail}
                 </a>
                 <span className="hidden sm:inline">•</span>
                 <a 
@@ -195,7 +226,7 @@ const FAQPage = () => {
                   rel="noopener noreferrer"
                   className="hover:text-primary transition-colors"
                 >
-                  560 Sylvan Avenue, Suite 2115, Englewood Cliffs, NJ 07632
+                  {ctaAddress}
                 </a>
               </div>
             </div>

@@ -1,13 +1,33 @@
 import { Link } from "react-router-dom";
 import { Shield, CheckCircle, Phone, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CoverageContent } from "@/lib/templates/schemas";
 
-export function CoverageSection() {
-  const coveragePoints = [
+interface CoverageSectionProps {
+  content?: CoverageContent;
+}
+
+export function CoverageSection({ content }: CoverageSectionProps) {
+  const subtitle = content?.subtitle || "INSURANCE & PAYMENT";
+  const title = content?.title || "Understanding Your Coverage";
+  const description = content?.description || "We believe cost shouldn't be a barrier to mental health care. Our team is here to help you navigate your insurance options.";
+  const cardTitle = content?.cardTitle || "Insurance Coverage for SPRAVATO® & Ketamine";
+  const cardBody = content?.cardBody || "Our dedicated team will verify your benefits and explain your out-of-pocket costs before you begin treatment.";
+  const ctaLabel = content?.ctaLabel || "Verify Your Coverage";
+  const ctaHref = content?.ctaHref || "/verify-coverage";
+  const phone = content?.phone || "201-781-2101";
+
+  const coveragePoints = content?.coveragePoints?.length ? content.coveragePoints : [
     "SPRAVATO® is FDA-approved and covered by most major insurance plans",
     "Medicare and Medicaid coverage available in many states",
     "We handle all prior authorizations for you",
     "Transparent cost information before your first visit",
+  ];
+
+  const quickFacts = content?.quickFacts?.length ? content.quickFacts : [
+    { title: "Major Insurance Accepted", description: "We work with Aetna, Blue Cross Blue Shield, Cigna, United Healthcare, Medicare, Medicaid, and many other providers." },
+    { title: "Prior Authorization Support", description: "Our team handles all the paperwork and prior authorizations required by your insurance company." },
+    { title: "Free Benefits Verification", description: "Not sure if you're covered? We'll check your benefits at no cost and explain your options." },
   ];
 
   return (
@@ -16,13 +36,13 @@ export function CoverageSection() {
         {/* Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
-            INSURANCE & PAYMENT
+            {subtitle}
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-5">
-            Understanding Your Coverage
+            {title}
           </h2>
           <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg sm:leading-relaxed">
-            We believe cost shouldn't be a barrier to mental health care. Our team is here to help you navigate your insurance options.
+            {description}
           </p>
         </div>
 
@@ -33,7 +53,7 @@ export function CoverageSection() {
               <Shield className="w-7 h-7" />
             </div>
             <h3 className="text-2xl font-bold text-foreground mb-6">
-              Insurance Coverage for SPRAVATO® & Ketamine
+              {cardTitle}
             </h3>
             
             <ul className="space-y-4 mb-8">
@@ -46,20 +66,20 @@ export function CoverageSection() {
             </ul>
 
             <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-base sm:leading-relaxed mb-6">
-              Our dedicated team will verify your benefits and explain your out-of-pocket costs before you begin treatment.
+              {cardBody}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/verify-coverage">
+              <Link to={ctaHref}>
                 <Button className="bg-primary text-white hover:bg-accent w-full sm:w-auto">
                   <FileText className="w-4 h-4 mr-2" />
-                  Verify Your Coverage
+                  {ctaLabel}
                 </Button>
               </Link>
-              <a href="tel:201-781-2101">
+              <a href={`tel:${phone.replace(/[^\d]/g, '')}`}>
                 <Button variant="outline" className="border-primary text-primary hover:bg-primary/10 w-full sm:w-auto">
                   <Phone className="w-4 h-4 mr-2" />
-                  Call (201) 781-2101
+                  Call ({phone.slice(0,3)}) {phone.slice(4)}
                 </Button>
               </a>
             </div>
@@ -67,26 +87,22 @@ export function CoverageSection() {
 
           {/* Right - Quick Facts */}
           <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-md border border-border/50">
-              <h4 className="text-lg font-semibold text-foreground mb-2">Major Insurance Accepted</h4>
-              <p className="text-muted-foreground text-sm">
-                We work with Aetna, Blue Cross Blue Shield, Cigna, United Healthcare, Medicare, Medicaid, and many other providers.
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-2xl p-6 shadow-md border border-border/50">
-              <h4 className="text-lg font-semibold text-foreground mb-2">Prior Authorization Support</h4>
-              <p className="text-muted-foreground text-sm">
-                Our team handles all the paperwork and prior authorizations required by your insurance company.
-              </p>
-            </div>
-            
-            <div className="bg-primary/10 rounded-2xl p-6 border border-primary/20">
-              <h4 className="text-lg font-semibold text-primary mb-2">Free Benefits Verification</h4>
-              <p className="text-foreground text-sm">
-                Not sure if you're covered? We'll check your benefits at no cost and explain your options.
-              </p>
-            </div>
+            {quickFacts.map((fact, index) => (
+              <div 
+                key={index} 
+                className={index === quickFacts.length - 1 
+                  ? "bg-primary/10 rounded-2xl p-6 border border-primary/20" 
+                  : "bg-white rounded-2xl p-6 shadow-md border border-border/50"
+                }
+              >
+                <h4 className={`text-lg font-semibold mb-2 ${index === quickFacts.length - 1 ? 'text-primary' : 'text-foreground'}`}>
+                  {fact.title}
+                </h4>
+                <p className={`text-sm ${index === quickFacts.length - 1 ? 'text-foreground' : 'text-muted-foreground'}`}>
+                  {fact.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

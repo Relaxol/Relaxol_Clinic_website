@@ -35,11 +35,11 @@ const Home = () => {
         <ConditionsSection content={homeContent?.conditions} />
         <EnvironmentSection content={homeContent?.environment} />
         
-        <WhyChooseSection />
+        <WhyChooseSection content={homeContent?.whyChoose} />
         <TestimonialsSection content={homeContent?.testimonials} />
         {/* <VideoTestimonialsSection /> */}
         <TimelineSection content={homeContent?.timeline} />
-        <CoverageSection />
+        <CoverageSection content={homeContent?.coverage} />
         <ContactSection content={homeContent?.contact} />
       </main>
       <Footer />

@@ -4,6 +4,7 @@ interface VideoContent {
   body?: string;
   embedUrl?: string;
   embedTitle?: string;
+  secondParagraph?: string;
 }
 
 interface VideoSectionProps {
@@ -16,6 +17,7 @@ export function VideoSection({ content }: VideoSectionProps) {
   const body = content?.body || "For many patients who've struggled with Depression, Anxiety, PTSD, or OCD, traditional treatments simply haven't worked. Ketamine and SPRAVATO® offer a different approach—targeting glutamate receptors in the brain to create new neural pathways and provide rapid relief.";
   const embedUrl = content?.embedUrl || "https://www.youtube.com/embed/e0mdOODbGNU";
   const embedTitle = content?.embedTitle || "Understanding Ketamine Therapy";
+  const secondParagraph = content?.secondParagraph || "Watch our video to learn more about how these breakthrough treatments work and whether they might be right for you.";
 
   return (
     <section className="py-20 bg-cream-dark">
@@ -63,7 +65,7 @@ export function VideoSection({ content }: VideoSectionProps) {
               {body}
             </p>
             <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg sm:leading-relaxed mb-8">
-              Watch our video to learn more about how these breakthrough treatments work and whether they might be right for you.
+              {secondParagraph}
             </p>
             <a
               href="#treatments"

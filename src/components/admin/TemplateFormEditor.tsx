@@ -373,6 +373,13 @@ function HomeTemplateEditor({
           onChange={(v) => update('video', { ...content.video, body: v })}
           disabled={disabled}
         />
+        <TextAreaField
+          label="Second Paragraph"
+          value={content.video.secondParagraph || ''}
+          onChange={(v) => update('video', { ...content.video, secondParagraph: v })}
+          placeholder="Watch our video to learn more about how these breakthrough treatments work..."
+          disabled={disabled}
+        />
         <TextField
           label="Embed URL"
           value={content.video.embedUrl}
@@ -633,6 +640,118 @@ function HomeTemplateEditor({
           disabled={disabled}
         />
       </Panel>
+
+      <Panel title="Why Choose Section">
+        <TextField
+          label="Title"
+          value={content.whyChoose?.title || ''}
+          onChange={(v) => update('whyChoose', { ...content.whyChoose, title: v })}
+          placeholder="Why Choose Relaxol Clinic"
+          disabled={disabled}
+        />
+        <TextAreaField
+          label="Description"
+          value={content.whyChoose?.description || ''}
+          onChange={(v) => update('whyChoose', { ...content.whyChoose, description: v })}
+          placeholder="Compassionate care backed by expertise and evidence."
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Reason Items"
+          items={content.whyChoose?.items || []}
+          onChange={(items) => update('whyChoose', { ...content.whyChoose, items })}
+          disabled={disabled}
+          createItem={() => ({ title: '', description: '' })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
+            </>
+          )}
+        />
+      </Panel>
+
+      <Panel title="Coverage Section">
+        <TextField
+          label="Subtitle"
+          value={content.coverage?.subtitle || ''}
+          onChange={(v) => update('coverage', { ...content.coverage, subtitle: v })}
+          placeholder="INSURANCE & PAYMENT"
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.coverage?.title || ''}
+          onChange={(v) => update('coverage', { ...content.coverage, title: v })}
+          placeholder="Understanding Your Coverage"
+          disabled={disabled}
+        />
+        <TextAreaField
+          label="Description"
+          value={content.coverage?.description || ''}
+          onChange={(v) => update('coverage', { ...content.coverage, description: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Card Title"
+          value={content.coverage?.cardTitle || ''}
+          onChange={(v) => update('coverage', { ...content.coverage, cardTitle: v })}
+          placeholder="Insurance Coverage for SPRAVATO® & Ketamine"
+          disabled={disabled}
+        />
+        <TextAreaField
+          label="Card Body"
+          value={content.coverage?.cardBody || ''}
+          onChange={(v) => update('coverage', { ...content.coverage, cardBody: v })}
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Coverage Points"
+          items={(content.coverage?.coveragePoints || []).map(t => ({ text: t }))}
+          onChange={(items) => update('coverage', { ...content.coverage, coveragePoints: items.map(i => i.text) })}
+          disabled={disabled}
+          createItem={() => ({ text: '' })}
+          renderItem={(item, _, updateItem) => (
+            <TextField label="Point" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} />
+          )}
+        />
+        <div className="grid grid-cols-2 gap-4">
+          <TextField
+            label="CTA Label"
+            value={content.coverage?.ctaLabel || ''}
+            onChange={(v) => update('coverage', { ...content.coverage, ctaLabel: v })}
+            placeholder="Verify Your Coverage"
+            disabled={disabled}
+          />
+          <TextField
+            label="CTA Link"
+            value={content.coverage?.ctaHref || ''}
+            onChange={(v) => update('coverage', { ...content.coverage, ctaHref: v })}
+            placeholder="/verify-coverage"
+            disabled={disabled}
+          />
+        </div>
+        <TextField
+          label="Phone Number"
+          value={content.coverage?.phone || ''}
+          onChange={(v) => update('coverage', { ...content.coverage, phone: v })}
+          placeholder="201-781-2101"
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Quick Facts"
+          items={content.coverage?.quickFacts || []}
+          onChange={(items) => update('coverage', { ...content.coverage, quickFacts: items })}
+          disabled={disabled}
+          createItem={() => ({ title: '', description: '' })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
+            </>
+          )}
+        />
+      </Panel>
     </div>
   );
 }
@@ -744,6 +863,45 @@ function KetamineTemplateEditor({
         />
       </Panel>
 
+      <Panel title="Understanding Ketamine Section">
+        <TextField
+          label="Subtitle"
+          value={content.understanding?.subtitle || ''}
+          onChange={(v) => update('understanding', { ...content.understanding, subtitle: v })}
+          placeholder="LEARN MORE"
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.understanding?.title || ''}
+          onChange={(v) => update('understanding', { ...content.understanding, title: v })}
+          placeholder="Understanding Ketamine Therapy"
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Content Cards"
+          items={content.understanding?.cards || []}
+          onChange={(cards) => update('understanding', { ...content.understanding, cards })}
+          disabled={disabled}
+          createItem={() => ({ title: '', paragraphs: [''] })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Card Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <ItemRepeater
+                label="Paragraphs"
+                items={item.paragraphs.map(p => ({ text: p }))}
+                onChange={(items) => updateItem({ paragraphs: items.map(i => i.text) })}
+                disabled={disabled}
+                createItem={() => ({ text: '' })}
+                renderItem={(p, __, updateP) => (
+                  <TextAreaField label="Paragraph" value={p.text} onChange={(v) => updateP({ text: v })} disabled={disabled} rows={4} />
+                )}
+              />
+            </>
+          )}
+        />
+      </Panel>
+
       <Panel title="Services">
         <TextField
           label="Title"
@@ -770,6 +928,58 @@ function KetamineTemplateEditor({
               <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
               <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
               <ImageUploadField label="Image" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
+            </>
+          )}
+        />
+      </Panel>
+
+      <Panel title="Conditions Section">
+        <TextField
+          label="Subtitle"
+          value={content.conditions?.subtitle || ''}
+          onChange={(v) => update('conditions', { ...content.conditions, subtitle: v })}
+          placeholder="Conditions We Treat"
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.conditions?.title || ''}
+          onChange={(v) => update('conditions', { ...content.conditions, title: v })}
+          placeholder="Ketamine Therapy"
+          disabled={disabled}
+        />
+        <TextAreaField
+          label="Description"
+          value={content.conditions?.description || ''}
+          onChange={(v) => update('conditions', { ...content.conditions, description: v })}
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Condition Items"
+          items={content.conditions?.items || []}
+          onChange={(items) => update('conditions', { ...content.conditions, items })}
+          disabled={disabled}
+          createItem={() => ({ id: `condition-${Date.now()}`, title: '', imageUrl: '', intro: '', quote: '', accordionItems: [] })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="ID (slug)" value={item.id} onChange={(v) => updateItem({ id: v })} disabled={disabled} required />
+              <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <ImageUploadField label="Image" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
+              <TextAreaField label="Intro" value={item.intro} onChange={(v) => updateItem({ intro: v })} disabled={disabled} rows={3} />
+              <TextAreaField label="Quote" value={item.quote} onChange={(v) => updateItem({ quote: v })} disabled={disabled} />
+              <ItemRepeater
+                label="Accordion Items"
+                items={item.accordionItems}
+                onChange={(accordionItems) => updateItem({ accordionItems })}
+                disabled={disabled}
+                createItem={() => ({ id: `item-${Date.now()}`, title: '', content: '' })}
+                renderItem={(ai, __, updateAi) => (
+                  <>
+                    <TextField label="Title" value={ai.title} onChange={(v) => updateAi({ title: v })} disabled={disabled} required />
+                    <TextAreaField label="Content" value={ai.content} onChange={(v) => updateAi({ content: v })} disabled={disabled} rows={4} />
+                  </>
+                )}
+              />
             </>
           )}
         />
@@ -1013,10 +1223,18 @@ function FAQTemplateEditor({
           disabled={disabled}
           required
         />
+        <TextField
+          label="Tagline"
+          value={content.hero.tagline || ''}
+          onChange={(v) => update('hero', { ...content.hero, tagline: v })}
+          placeholder="Your Journey to Your Best Self"
+          disabled={disabled}
+        />
         <TextAreaField
-          label="Body"
-          value={content.hero.body || ''}
-          onChange={(v) => update('hero', { ...content.hero, body: v })}
+          label="Description"
+          value={content.hero.description || ''}
+          onChange={(v) => update('hero', { ...content.hero, description: v })}
+          placeholder="Frequently asked questions about Ketamine Therapy..."
           disabled={disabled}
         />
         <ImageUploadField
@@ -1029,35 +1247,17 @@ function FAQTemplateEditor({
         />
       </Panel>
 
-      <Panel title="FAQ Sections">
+      <Panel title="FAQ Items">
         <ItemRepeater
-          label="Sections"
-          items={content.sections}
-          onChange={(sections) => update('sections', sections)}
+          label="FAQ Items"
+          items={content.flatItems || []}
+          onChange={(items) => update('flatItems', items)}
           disabled={disabled}
-          createItem={() => ({ id: `section-${Date.now()}`, title: '', items: [] })}
-          renderItem={(section, _, updateSection) => (
+          createItem={() => ({ question: '', answer: '' })}
+          renderItem={(item, _, updateItem) => (
             <>
-              <TextField
-                label="Section Title"
-                value={section.title}
-                onChange={(v) => updateSection({ title: v })}
-                disabled={disabled}
-                required
-              />
-              <ItemRepeater
-                label="Questions"
-                items={section.items}
-                onChange={(items) => updateSection({ items })}
-                disabled={disabled}
-                createItem={() => ({ question: '', answer: '' })}
-                renderItem={(item, __, updateItem) => (
-                  <>
-                    <TextField label="Question" value={item.question} onChange={(v) => updateItem({ question: v })} disabled={disabled} required />
-                    <TextAreaField label="Answer" value={item.answer} onChange={(v) => updateItem({ answer: v })} disabled={disabled} rows={4} />
-                  </>
-                )}
-              />
+              <TextField label="Question" value={item.question} onChange={(v) => updateItem({ question: v })} disabled={disabled} required />
+              <TextAreaField label="Answer" value={item.answer} onChange={(v) => updateItem({ answer: v })} disabled={disabled} rows={4} />
             </>
           )}
         />
@@ -1072,7 +1272,7 @@ function FAQTemplateEditor({
           required
         />
         <TextAreaField
-          label="Body"
+          label="Body / Tagline"
           value={content.cta.body || ''}
           onChange={(v) => update('cta', { ...content.cta, body: v })}
           disabled={disabled}
@@ -1091,6 +1291,27 @@ function FAQTemplateEditor({
             disabled={disabled}
           />
         </div>
+        <TextField
+          label="Contact Phone"
+          value={content.cta.contactPhone || ''}
+          onChange={(v) => update('cta', { ...content.cta, contactPhone: v })}
+          placeholder="201-781-2101"
+          disabled={disabled}
+        />
+        <TextField
+          label="Contact Email"
+          value={content.cta.contactEmail || ''}
+          onChange={(v) => update('cta', { ...content.cta, contactEmail: v })}
+          placeholder="info@relaxolclinic.com"
+          disabled={disabled}
+        />
+        <TextField
+          label="Contact Address"
+          value={content.cta.contactAddress || ''}
+          onChange={(v) => update('cta', { ...content.cta, contactAddress: v })}
+          placeholder="560 Sylvan Avenue, Suite 2115, Englewood Cliffs, NJ 07632"
+          disabled={disabled}
+        />
       </Panel>
     </div>
   );
@@ -1289,6 +1510,14 @@ function SpravatoTemplateEditor({
               <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
             </>
           )}
+        />
+        <TextAreaField
+          label="Mechanism Explanation Text"
+          value={content.timeline.mechanismText || ''}
+          onChange={(v) => update('timeline', { ...content.timeline, mechanismText: v })}
+          placeholder="SPRAVATO® targets NMDA receptors in the brain..."
+          disabled={disabled}
+          rows={3}
         />
       </Panel>
 
