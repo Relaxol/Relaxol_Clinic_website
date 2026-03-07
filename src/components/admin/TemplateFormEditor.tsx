@@ -1258,6 +1258,275 @@ function SpravatoTemplateEditor({
   );
 }
 
+// Condition Template Editor
+function ConditionTemplateEditor({ 
+  content, onChange, disabled 
+}: { content: ConditionV1Content; onChange: (c: ConditionV1Content) => void; disabled?: boolean }) {
+  const update = <K extends keyof ConditionV1Content>(key: K, value: ConditionV1Content[K]) => {
+    onChange({ ...content, [key]: value });
+  };
+
+  return (
+    <div className="space-y-4">
+      <Panel title="Hero Section" defaultOpen>
+        <TextField label="Subtitle" value={content.hero.subtitle || ''} onChange={(v) => update('hero', { ...content.hero, subtitle: v })} disabled={disabled} />
+        <TextField label="Headline" value={content.hero.headline} onChange={(v) => update('hero', { ...content.hero, headline: v })} disabled={disabled} required />
+        <TextAreaField label="Body" value={content.hero.body} onChange={(v) => update('hero', { ...content.hero, body: v })} disabled={disabled} rows={4} />
+        <div className="grid grid-cols-2 gap-4">
+          <TextField label="CTA Label" value={content.hero.ctaLabel || ''} onChange={(v) => update('hero', { ...content.hero, ctaLabel: v })} disabled={disabled} />
+          <TextField label="CTA Link" value={content.hero.ctaHref || ''} onChange={(v) => update('hero', { ...content.hero, ctaHref: v })} disabled={disabled} />
+        </div>
+        <TextField label="Image URL" value={content.hero.imageUrl || ''} onChange={(v) => update('hero', { ...content.hero, imageUrl: v })} disabled={disabled} />
+        <TextField label="Image Alt Text" value={content.hero.imageAlt || ''} onChange={(v) => update('hero', { ...content.hero, imageAlt: v })} disabled={disabled} />
+      </Panel>
+
+      <Panel title="Main Content">
+        <TextField label="Section Title" value={content.content.title} onChange={(v) => update('content', { ...content.content, title: v })} disabled={disabled} required />
+        <ItemRepeater
+          label="Paragraphs"
+          items={content.content.paragraphs.map(p => ({ text: p }))}
+          onChange={(items) => update('content', { ...content.content, paragraphs: items.map(i => i.text) })}
+          renderItem={(item, _, updateItem) => (
+            <TextAreaField label="Paragraph" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} rows={3} />
+          )}
+          createItem={() => ({ text: '' })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="Content Subsections">
+        <ItemRepeater
+          label="Subsections"
+          items={content.content.subsections}
+          onChange={(items) => update('content', { ...content.content, subsections: items })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <TextAreaField label="Body Text" value={item.body || ''} onChange={(v) => updateItem({ body: v })} disabled={disabled} rows={3} />
+              <ItemRepeater
+                label="Bullet Points"
+                items={(item.bullets || []).map(b => ({ text: b }))}
+                onChange={(bullets) => updateItem({ bullets: bullets.map(b => b.text) })}
+                renderItem={(b, _, updateB) => (
+                  <TextField label="Bullet" value={b.text} onChange={(v) => updateB({ text: v })} disabled={disabled} />
+                )}
+                createItem={() => ({ text: '' })}
+                disabled={disabled}
+              />
+            </>
+          )}
+          createItem={() => ({ title: '', body: '', bullets: [] })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="CTA Button">
+        <TextField label="Button Label" value={content.cta.label} onChange={(v) => update('cta', { ...content.cta, label: v })} disabled={disabled} required />
+        <TextField label="Button Link" value={content.cta.href} onChange={(v) => update('cta', { ...content.cta, href: v })} disabled={disabled} required />
+      </Panel>
+    </div>
+  );
+}
+
+// Vitamin Infusions Template Editor
+function VitaminInfusionsTemplateEditor({ 
+  content, onChange, disabled 
+}: { content: VitaminInfusionsV1Content; onChange: (c: VitaminInfusionsV1Content) => void; disabled?: boolean }) {
+  const update = <K extends keyof VitaminInfusionsV1Content>(key: K, value: VitaminInfusionsV1Content[K]) => {
+    onChange({ ...content, [key]: value });
+  };
+
+  return (
+    <div className="space-y-4">
+      <Panel title="Hero Section" defaultOpen>
+        <TextField label="Badge Text" value={content.hero.badge || ''} onChange={(v) => update('hero', { ...content.hero, badge: v })} disabled={disabled} />
+        <TextField label="Headline" value={content.hero.headline} onChange={(v) => update('hero', { ...content.hero, headline: v })} disabled={disabled} required />
+        <TextAreaField label="Body" value={content.hero.body} onChange={(v) => update('hero', { ...content.hero, body: v })} disabled={disabled} rows={4} />
+        <div className="grid grid-cols-2 gap-4">
+          <TextField label="CTA Label" value={content.hero.ctaLabel || ''} onChange={(v) => update('hero', { ...content.hero, ctaLabel: v })} disabled={disabled} />
+          <TextField label="CTA Link" value={content.hero.ctaHref || ''} onChange={(v) => update('hero', { ...content.hero, ctaHref: v })} disabled={disabled} />
+        </div>
+      </Panel>
+
+      <Panel title="About Section">
+        <TextField label="Subtitle" value={content.about.subtitle || ''} onChange={(v) => update('about', { ...content.about, subtitle: v })} disabled={disabled} />
+        <TextField label="Title" value={content.about.title} onChange={(v) => update('about', { ...content.about, title: v })} disabled={disabled} required />
+        <ItemRepeater
+          label="Paragraphs"
+          items={content.about.paragraphs.map(p => ({ text: p }))}
+          onChange={(items) => update('about', { ...content.about, paragraphs: items.map(i => i.text) })}
+          renderItem={(item, _, updateItem) => (
+            <TextAreaField label="Paragraph" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} rows={3} />
+          )}
+          createItem={() => ({ text: '' })}
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Benefits"
+          items={content.about.benefits.map(b => ({ text: b }))}
+          onChange={(items) => update('about', { ...content.about, benefits: items.map(i => i.text) })}
+          renderItem={(item, _, updateItem) => (
+            <TextField label="Benefit" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} />
+          )}
+          createItem={() => ({ text: '' })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="Infusion Types">
+        <ItemRepeater
+          label="Infusions"
+          items={content.infusions.items}
+          onChange={(items) => update('infusions', { ...content.infusions, items })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <TextField label="Short Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
+              <TextAreaField label="Full Description (Modal)" value={item.fullDescription} onChange={(v) => updateItem({ fullDescription: v })} disabled={disabled} rows={4} />
+              <TextField label="Image URL" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
+              <TextField label="Ingredients" value={item.ingredients} onChange={(v) => updateItem({ ingredients: v })} disabled={disabled} />
+              <TextField label="Duration" value={item.duration} onChange={(v) => updateItem({ duration: v })} disabled={disabled} />
+              <ItemRepeater
+                label="Benefits"
+                items={item.benefits.map(b => ({ text: b }))}
+                onChange={(benefits) => updateItem({ benefits: benefits.map(b => b.text) })}
+                renderItem={(b, _, updateB) => (
+                  <TextField label="Benefit" value={b.text} onChange={(v) => updateB({ text: v })} disabled={disabled} />
+                )}
+                createItem={() => ({ text: '' })}
+                disabled={disabled}
+              />
+            </>
+          )}
+          createItem={() => ({ title: '', description: '', fullDescription: '', benefits: [], ingredients: '', duration: '' })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="Vitamin B12 Section">
+        <TextField label="Title" value={content.b12.title} onChange={(v) => update('b12', { ...content.b12, title: v })} disabled={disabled} required />
+        <TextField label="Image URL" value={content.b12.imageUrl || ''} onChange={(v) => update('b12', { ...content.b12, imageUrl: v })} disabled={disabled} />
+        <TextField label="Image Alt" value={content.b12.imageAlt || ''} onChange={(v) => update('b12', { ...content.b12, imageAlt: v })} disabled={disabled} />
+        <ItemRepeater
+          label="Paragraphs"
+          items={content.b12.paragraphs.map(p => ({ text: p }))}
+          onChange={(items) => update('b12', { ...content.b12, paragraphs: items.map(i => i.text) })}
+          renderItem={(item, _, updateItem) => (
+            <TextAreaField label="Paragraph" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} rows={3} />
+          )}
+          createItem={() => ({ text: '' })}
+          disabled={disabled}
+        />
+        <TextAreaField label="Modal Description" value={content.b12.modalDescription} onChange={(v) => update('b12', { ...content.b12, modalDescription: v })} disabled={disabled} rows={4} />
+        <ItemRepeater
+          label="Modal Benefits"
+          items={content.b12.modalBenefits.map(b => ({ text: b }))}
+          onChange={(items) => update('b12', { ...content.b12, modalBenefits: items.map(i => i.text) })}
+          renderItem={(item, _, updateItem) => (
+            <TextField label="Benefit" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} />
+          )}
+          createItem={() => ({ text: '' })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="NAD+ Section">
+        <TextField label="Title" value={content.nad.title} onChange={(v) => update('nad', { ...content.nad, title: v })} disabled={disabled} required />
+        <TextField label="Image URL" value={content.nad.imageUrl || ''} onChange={(v) => update('nad', { ...content.nad, imageUrl: v })} disabled={disabled} />
+        <TextField label="Image Alt" value={content.nad.imageAlt || ''} onChange={(v) => update('nad', { ...content.nad, imageAlt: v })} disabled={disabled} />
+        <ItemRepeater
+          label="Paragraphs"
+          items={content.nad.paragraphs.map(p => ({ text: p }))}
+          onChange={(items) => update('nad', { ...content.nad, paragraphs: items.map(i => i.text) })}
+          renderItem={(item, _, updateItem) => (
+            <TextAreaField label="Paragraph" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} rows={3} />
+          )}
+          createItem={() => ({ text: '' })}
+          disabled={disabled}
+        />
+        <TextAreaField label="Modal Description" value={content.nad.modalDescription} onChange={(v) => update('nad', { ...content.nad, modalDescription: v })} disabled={disabled} rows={4} />
+        <TextAreaField label="Modal Sub-Description" value={content.nad.modalSubDescription || ''} onChange={(v) => update('nad', { ...content.nad, modalSubDescription: v })} disabled={disabled} rows={3} />
+        <ItemRepeater
+          label="Modal Benefits"
+          items={content.nad.modalBenefits.map(b => ({ text: b }))}
+          onChange={(items) => update('nad', { ...content.nad, modalBenefits: items.map(i => i.text) })}
+          renderItem={(item, _, updateItem) => (
+            <TextField label="Benefit" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} />
+          )}
+          createItem={() => ({ text: '' })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="Contact Section">
+        <TextField label="Title" value={content.contact.title} onChange={(v) => update('contact', { ...content.contact, title: v })} disabled={disabled} required />
+        <TextAreaField label="Body" value={content.contact.body} onChange={(v) => update('contact', { ...content.contact, body: v })} disabled={disabled} />
+        <TextField label="Phone" value={content.contact.phone} onChange={(v) => update('contact', { ...content.contact, phone: v })} disabled={disabled} />
+        <TextField label="Email" value={content.contact.email} onChange={(v) => update('contact', { ...content.contact, email: v })} disabled={disabled} />
+        <TextAreaField label="Address" value={content.contact.address} onChange={(v) => update('contact', { ...content.contact, address: v })} disabled={disabled} />
+      </Panel>
+    </div>
+  );
+}
+
+// Our Team Template Editor
+function OurTeamTemplateEditor({ 
+  content, onChange, disabled 
+}: { content: OurTeamV1Content; onChange: (c: OurTeamV1Content) => void; disabled?: boolean }) {
+  const update = <K extends keyof OurTeamV1Content>(key: K, value: OurTeamV1Content[K]) => {
+    onChange({ ...content, [key]: value });
+  };
+
+  return (
+    <div className="space-y-4">
+      <Panel title="Hero Section" defaultOpen>
+        <TextField label="Subtitle" value={content.hero.subtitle || ''} onChange={(v) => update('hero', { ...content.hero, subtitle: v })} disabled={disabled} />
+        <TextField label="Headline" value={content.hero.headline} onChange={(v) => update('hero', { ...content.hero, headline: v })} disabled={disabled} required />
+        <TextAreaField label="Body" value={content.hero.body} onChange={(v) => update('hero', { ...content.hero, body: v })} disabled={disabled} />
+      </Panel>
+
+      <Panel title="Doctor Section">
+        <TextField label="Subtitle" value={content.doctor.subtitle || ''} onChange={(v) => update('doctor', { ...content.doctor, subtitle: v })} disabled={disabled} />
+        <TextField label="Name" value={content.doctor.name} onChange={(v) => update('doctor', { ...content.doctor, name: v })} disabled={disabled} required />
+        <TextField label="Image URL" value={content.doctor.imageUrl || ''} onChange={(v) => update('doctor', { ...content.doctor, imageUrl: v })} disabled={disabled} />
+        <TextField label="Image Alt" value={content.doctor.imageAlt || ''} onChange={(v) => update('doctor', { ...content.doctor, imageAlt: v })} disabled={disabled} />
+        <ItemRepeater
+          label="Bio Paragraphs"
+          items={content.doctor.bio.map(p => ({ text: p }))}
+          onChange={(items) => update('doctor', { ...content.doctor, bio: items.map(i => i.text) })}
+          renderItem={(item, _, updateItem) => (
+            <TextAreaField label="Paragraph" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} rows={3} />
+          )}
+          createItem={() => ({ text: '' })}
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Credentials"
+          items={content.doctor.credentials}
+          onChange={(items) => update('doctor', { ...content.doctor, credentials: items })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Icon (e.g. Award, Clock, GraduationCap)" value={item.icon} onChange={(v) => updateItem({ icon: v })} disabled={disabled} />
+              <TextField label="Label" value={item.label} onChange={(v) => updateItem({ label: v })} disabled={disabled} />
+            </>
+          )}
+          createItem={() => ({ icon: 'Award', label: '' })}
+          disabled={disabled}
+        />
+      </Panel>
+
+      <Panel title="CTA Section">
+        <TextField label="Title" value={content.cta.title} onChange={(v) => update('cta', { ...content.cta, title: v })} disabled={disabled} required />
+        <TextAreaField label="Body" value={content.cta.body} onChange={(v) => update('cta', { ...content.cta, body: v })} disabled={disabled} />
+        <div className="grid grid-cols-2 gap-4">
+          <TextField label="CTA Label" value={content.cta.ctaLabel} onChange={(v) => update('cta', { ...content.cta, ctaLabel: v })} disabled={disabled} required />
+          <TextField label="CTA Link" value={content.cta.ctaHref} onChange={(v) => update('cta', { ...content.cta, ctaHref: v })} disabled={disabled} required />
+        </div>
+      </Panel>
+    </div>
+  );
+}
+
 // Main component
 export default function TemplateFormEditor({ template, content, onChange, disabled }: TemplateFormEditorProps) {
   switch (template) {
@@ -1271,6 +1540,12 @@ export default function TemplateFormEditor({ template, content, onChange, disabl
       return <ContactTemplateEditor content={content as ContactV1Content} onChange={onChange} disabled={disabled} />;
     case 'faq_v1':
       return <FAQTemplateEditor content={content as FAQV1Content} onChange={onChange} disabled={disabled} />;
+    case 'condition_v1':
+      return <ConditionTemplateEditor content={content as ConditionV1Content} onChange={onChange} disabled={disabled} />;
+    case 'vitamin_infusions_v1':
+      return <VitaminInfusionsTemplateEditor content={content as VitaminInfusionsV1Content} onChange={onChange} disabled={disabled} />;
+    case 'our_team_v1':
+      return <OurTeamTemplateEditor content={content as OurTeamV1Content} onChange={onChange} disabled={disabled} />;
     default:
       return <div className="text-muted-foreground">Unknown template type: {template}</div>;
   }
