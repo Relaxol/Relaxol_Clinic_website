@@ -959,7 +959,7 @@ function KetamineTemplateEditor({
           items={content.conditions?.items || []}
           onChange={(items) => update('conditions', { ...content.conditions, items })}
           disabled={disabled}
-          createItem={() => ({ id: `condition-${Date.now()}`, title: '', intro: '', quote: '', accordionItems: [] })}
+          createItem={() => ({ id: `condition-${Date.now()}`, title: '', imageUrl: '', intro: '', quote: '', accordionItems: [] })}
           renderItem={(item, _, updateItem) => (
             <>
               <TextField label="ID (slug)" value={item.id} onChange={(v) => updateItem({ id: v })} disabled={disabled} required />
