@@ -1155,33 +1155,11 @@ const PageEditor = () => {
             </div>
           </CardHeader>
           <CardContent className="p-0 h-[calc(100%-53px)] overflow-auto">
-            {isTemplatePage ? (
-              (() => {
-                const slugToRoute: Record<string, string> = {
-                  'home': '/',
-                  'ketamine': '/ketamine',
-                  'spravato-Englewood': '/spravato-Englewood',
-                  'contact': '/contact',
-                  'faq': '/faq',
-                  'our-team': '/our-team',
-                  'vitamin-infusion-englewood': '/vitamin-infusion-englewood',
-                  'conditions-depression': '/conditions/depression',
-                  'conditions-anxiety': '/conditions/anxiety',
-                  'conditions-ptsd': '/conditions/ptsd',
-                  'conditions-ocd': '/conditions/ocd',
-                  'conditions-pain-management': '/conditions/pain-management',
-                };
-                const route = slugToRoute[form.slug] || `/p/${form.slug}`;
-                return (
-                  <iframe
-                    key={form.slug}
-                    src={route}
-                    title="Page Preview"
-                    className="w-full h-full border-0"
-                    style={{ minHeight: 'calc(100vh - 260px)' }}
-                  />
-                );
-              })()
+            {isTemplatePage && form.content_json ? (
+              <TemplatePreviewRenderer
+                template={form.template!}
+                content={form.content_json}
+              />
             ) : (
               <PagePreview 
                 page={form} 
