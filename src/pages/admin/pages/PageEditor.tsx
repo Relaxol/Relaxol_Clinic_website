@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, Send, Eye, ArrowLeft, Plus, Trash2, GripVertical, ChevronDown, ChevronUp, Copy, Link, AlertCircle } from 'lucide-react';
+import { Loader2, Save, Send, Eye, ArrowLeft, Plus, Trash2, GripVertical, ChevronDown, ChevronUp, Copy, Link, AlertCircle, History } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -34,6 +34,7 @@ import PagePreview from '@/components/admin/PagePreview';
 import SectionEditorDrawer, { validateSection } from '@/components/admin/SectionEditorDrawer';
 import TemplateFormEditor from '@/components/admin/TemplateFormEditor';
 import TemplatePreviewRenderer from '@/components/admin/TemplatePreviewRenderer';
+import ContentHistoryDrawer from '@/components/admin/ContentHistoryDrawer';
 import { v4 as uuidv4 } from 'uuid';
 import { 
   TemplateType, 
@@ -132,6 +133,7 @@ const PageEditor = () => {
   const [editingSection, setEditingSection] = useState<Section | null>(null);
   const [validationErrors, setValidationErrors] = useState<ValidationError[]>([]);
   const [previewModeEnabled, setPreviewModeEnabled] = useState(true);
+  const [historyOpen, setHistoryOpen] = useState(false);
   
   // Store original content for comparison (to detect item removal)
   const [originalContentJson, setOriginalContentJson] = useState<TemplateContent | null>(null);
@@ -803,6 +805,17 @@ const PageEditor = () => {
             </Button>
           )}
 
+          {!isNew && isTemplatePage && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setHistoryOpen(true)}
+            >
+              <History className="h-4 w-4 mr-2" />
+              History
+            </Button>
+          )}
+
           {canEdit && (
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => handleSave()} disabled={saving}>
@@ -1280,6 +1293,18 @@ const PageEditor = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      {/* Content History Drawer */}
+      {!isNew && isTemplatePage && (
+        <ContentHistoryDrawer
+          open={historyOpen}
+          onOpenChange={setHistoryOpen}
+          pageId={id as string}
+          template={form.template}
+          onRevert={(content) => {
+            setForm(prev => ({ ...prev, content_json: content }));
+          }}
+        />
+      )}
     </div>
   );
 };
