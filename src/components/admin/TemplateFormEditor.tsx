@@ -1405,6 +1405,14 @@ function VitaminInfusionsTemplateEditor({
           <TextField label="CTA Label" value={content.hero.ctaLabel || ''} onChange={(v) => update('hero', { ...content.hero, ctaLabel: v })} disabled={disabled} />
           <TextField label="CTA Link" value={content.hero.ctaHref || ''} onChange={(v) => update('hero', { ...content.hero, ctaHref: v })} disabled={disabled} />
         </div>
+        <ImageUploadField
+          label="Hero Background Image"
+          value={content.hero.backgroundImageUrl || ''}
+          onChange={(v) => update('hero', { ...content.hero, backgroundImageUrl: v })}
+          altText=""
+          onAltChange={() => {}}
+          disabled={disabled}
+        />
       </Panel>
 
       <Panel title="About Section">
