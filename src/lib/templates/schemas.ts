@@ -1,9 +1,9 @@
 // Template schemas for core pages
 // These define the editable content structure for each template
 
-export type TemplateType = 'home_v1' | 'ketamine_v1' | 'spravato_v1' | 'contact_v1' | 'faq_v1';
+export type TemplateType = 'home_v1' | 'ketamine_v1' | 'spravato_v1' | 'contact_v1' | 'faq_v1' | 'condition_v1' | 'vitamin_infusions_v1' | 'our_team_v1';
 
-export const TEMPLATE_TYPES: TemplateType[] = ['home_v1', 'ketamine_v1', 'spravato_v1', 'contact_v1', 'faq_v1'];
+export const TEMPLATE_TYPES: TemplateType[] = ['home_v1', 'ketamine_v1', 'spravato_v1', 'contact_v1', 'faq_v1', 'condition_v1', 'vitamin_infusions_v1', 'our_team_v1'];
 
 export const TEMPLATE_LABELS: Record<TemplateType, string> = {
   home_v1: 'Home Page',
@@ -11,6 +11,9 @@ export const TEMPLATE_LABELS: Record<TemplateType, string> = {
   spravato_v1: 'SPRAVATO® Page',
   contact_v1: 'Contact Page',
   faq_v1: 'FAQ Page',
+  condition_v1: 'Condition Page',
+  vitamin_infusions_v1: 'Vitamin Infusions Page',
+  our_team_v1: 'Our Team Page',
 };
 
 // Common interfaces
@@ -244,13 +247,22 @@ export interface FAQV1Content {
   cta: CTAContent;
 }
 
+// Re-export new schema types
+export type { ConditionV1Content, VitaminInfusionsV1Content, OurTeamV1Content } from './newSchemas';
+export { isConditionV1Content, isVitaminInfusionsV1Content, isOurTeamV1Content } from './newSchemas';
+
+import type { ConditionV1Content, VitaminInfusionsV1Content, OurTeamV1Content } from './newSchemas';
+
 // Union type for all content types
 export type TemplateContent = 
   | HomeV1Content 
   | KetamineV1Content 
   | SpravatoV1Content 
   | ContactV1Content 
-  | FAQV1Content;
+  | FAQV1Content
+  | ConditionV1Content
+  | VitaminInfusionsV1Content
+  | OurTeamV1Content;
 
 // Type guard functions
 export function isHomeV1Content(content: unknown): content is HomeV1Content {
@@ -472,7 +484,21 @@ export function createDefaultFAQContent(): FAQV1Content {
   };
 }
 
-export function createDefaultContent(template: TemplateType): TemplateContent {
+import { defaultConditionContent, defaultVitaminInfusionsContent, defaultOurTeamContent } from './newDefaults';
+
+export function createDefaultConditionContent(slug?: string): ConditionV1Content {
+  return defaultConditionContent[slug || 'depression'] || defaultConditionContent.depression;
+}
+
+export function createDefaultVitaminInfusionsContent(): VitaminInfusionsV1Content {
+  return { ...defaultVitaminInfusionsContent };
+}
+
+export function createDefaultOurTeamContent(): OurTeamV1Content {
+  return { ...defaultOurTeamContent };
+}
+
+export function createDefaultContent(template: TemplateType, slug?: string): TemplateContent {
   switch (template) {
     case 'home_v1':
       return createDefaultHomeContent();
@@ -484,5 +510,11 @@ export function createDefaultContent(template: TemplateType): TemplateContent {
       return createDefaultContactContent();
     case 'faq_v1':
       return createDefaultFAQContent();
+    case 'condition_v1':
+      return createDefaultConditionContent(slug);
+    case 'vitamin_infusions_v1':
+      return createDefaultVitaminInfusionsContent();
+    case 'our_team_v1':
+      return createDefaultOurTeamContent();
   }
 }
