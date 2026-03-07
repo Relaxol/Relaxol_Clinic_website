@@ -7,6 +7,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { usePageContent } from "@/hooks/usePageContent";
+import { SpravatoV1Content } from "@/lib/templates/schemas";
+import { Loader2 } from "lucide-react";
 import abstractMedical from "@/assets/spravato-abstract-medical.jpg";
 import spravatoBrainMechanism from "@/assets/spravato-brain-mechanism.png";
 import spravatoMechanism from "@/assets/spravato-mechanism.png";
