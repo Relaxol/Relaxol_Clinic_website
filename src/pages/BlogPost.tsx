@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { PageSEO } from "@/components/seo/PageSEO";
+import { BlogPostJsonLd } from "@/components/seo/BlogPostJsonLd";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { useParams, Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";

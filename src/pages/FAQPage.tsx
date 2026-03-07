@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import { Link } from "react-router-dom";
 import { JsonLdSchema } from "@/components/seo/JsonLdSchema";
+import { PageSEO } from "@/components/seo/PageSEO";
 import { usePageContent } from "@/hooks/usePageContent";
 import { FAQV1Content } from "@/lib/templates/schemas";
 import { Loader2 } from "lucide-react";

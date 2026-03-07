@@ -6,6 +6,7 @@ import { usePageContent } from "@/hooks/usePageContent";
 import { OurTeamV1Content } from "@/lib/templates/newSchemas";
 import { defaultOurTeamContent } from "@/lib/templates/newDefaults";
 import { JsonLdSchema } from "@/components/seo/JsonLdSchema";
+import { PageSEO } from "@/components/seo/PageSEO";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Award,

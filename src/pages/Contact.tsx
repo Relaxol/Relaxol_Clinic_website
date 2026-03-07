@@ -16,6 +16,7 @@ import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { usePageContent } from "@/hooks/usePageContent";
 import { ContactV1Content } from "@/lib/templates/schemas";
 import { JsonLdSchema } from "@/components/seo/JsonLdSchema";
+import { PageSEO } from "@/components/seo/PageSEO";
 import { supabase } from "@/integrations/supabase/client";
 
 const TENANT_ID = '11111111-1111-1111-1111-111111111111';
