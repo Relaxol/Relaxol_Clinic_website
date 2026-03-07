@@ -222,8 +222,11 @@ function ItemRepeater<T extends object>({
         </div>
       </div>
       <div className="space-y-4">
-        {items.map((item, index) => (
-          <Card key={index} className="border-border/30">
+        {items.map((item, index) => {
+          // Generate a stable key from item content to avoid React reconciliation issues
+          const itemKey = JSON.stringify(item).slice(0, 100) + '-' + index;
+          return (
+          <Card key={itemKey} className="border-border/30">
             <CardContent className="pt-4 space-y-3">
               {renderItem(item, index, (updates) => updateItem(index, updates))}
               <Button
