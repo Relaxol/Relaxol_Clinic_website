@@ -89,10 +89,28 @@ interface CTAContent {
 }
 
 // Home Page Schema
+export interface WhyChooseItem {
+  title: string;
+  description: string;
+}
+
+export interface CoverageContent {
+  subtitle?: string;
+  title?: string;
+  description?: string;
+  cardTitle?: string;
+  cardBody?: string;
+  coveragePoints?: string[];
+  ctaLabel?: string;
+  ctaHref?: string;
+  phone?: string;
+  quickFacts?: { title: string; description: string }[];
+}
+
 export interface HomeV1Content {
   hero: HeroContent;
   about: AboutContent;
-  video: VideoContent;
+  video: VideoContent & { secondParagraph?: string };
   treatments: {
     subtitle?: string;
     title: string;
@@ -136,9 +154,30 @@ export interface HomeV1Content {
     imageUrl?: string;
     imageAlt?: string;
   };
+  whyChoose?: {
+    title?: string;
+    description?: string;
+    items?: WhyChooseItem[];
+  };
+  coverage?: CoverageContent;
 }
 
 // Ketamine Page Schema
+export interface KetamineConditionAccordionItem {
+  id: string;
+  title: string;
+  content: string;
+}
+
+export interface KetamineConditionData {
+  id: string;
+  title: string;
+  imageUrl?: string;
+  intro: string;
+  quote: string;
+  accordionItems: KetamineConditionAccordionItem[];
+}
+
 export interface KetamineV1Content {
   hero: HeroContent;
   stats: {
@@ -151,6 +190,14 @@ export interface KetamineV1Content {
     ctaLabel?: string;
     imageUrl?: string;
   };
+  understanding?: {
+    subtitle?: string;
+    title?: string;
+    cards?: {
+      title: string;
+      paragraphs: string[];
+    }[];
+  };
   services: {
     title: string;
     description?: string;
@@ -159,6 +206,12 @@ export interface KetamineV1Content {
       description: string;
       imageUrl?: string;
     }[];
+  };
+  conditions?: {
+    subtitle?: string;
+    title?: string;
+    description?: string;
+    items?: KetamineConditionData[];
   };
   eligibility: {
     subtitle?: string;
@@ -248,13 +301,21 @@ export interface ContactV1Content {
 
 // FAQ Page Schema
 export interface FAQV1Content {
-  hero: HeroContent;
+  hero: HeroContent & {
+    tagline?: string;
+    description?: string;
+  };
   sections: {
     id: string;
     title: string;
     items: FAQItem[];
   }[];
-  cta: CTAContent;
+  flatItems?: FAQItem[];
+  cta: CTAContent & {
+    contactPhone?: string;
+    contactEmail?: string;
+    contactAddress?: string;
+  };
 }
 
 // Re-export new schema types
