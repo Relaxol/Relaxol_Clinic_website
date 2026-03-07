@@ -863,6 +863,45 @@ function KetamineTemplateEditor({
         />
       </Panel>
 
+      <Panel title="Understanding Ketamine Section">
+        <TextField
+          label="Subtitle"
+          value={content.understanding?.subtitle || ''}
+          onChange={(v) => update('understanding', { ...content.understanding, subtitle: v })}
+          placeholder="LEARN MORE"
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.understanding?.title || ''}
+          onChange={(v) => update('understanding', { ...content.understanding, title: v })}
+          placeholder="Understanding Ketamine Therapy"
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Content Cards"
+          items={content.understanding?.cards || []}
+          onChange={(cards) => update('understanding', { ...content.understanding, cards })}
+          disabled={disabled}
+          createItem={() => ({ title: '', paragraphs: [''] })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Card Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <ItemRepeater
+                label="Paragraphs"
+                items={item.paragraphs.map(p => ({ text: p }))}
+                onChange={(items) => updateItem({ paragraphs: items.map(i => i.text) })}
+                disabled={disabled}
+                createItem={() => ({ text: '' })}
+                renderItem={(p, __, updateP) => (
+                  <TextAreaField label="Paragraph" value={p.text} onChange={(v) => updateP({ text: v })} disabled={disabled} rows={4} />
+                )}
+              />
+            </>
+          )}
+        />
+      </Panel>
+
       <Panel title="Services">
         <TextField
           label="Title"
@@ -889,6 +928,58 @@ function KetamineTemplateEditor({
               <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
               <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
               <ImageUploadField label="Image" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
+            </>
+          )}
+        />
+      </Panel>
+
+      <Panel title="Conditions Section">
+        <TextField
+          label="Subtitle"
+          value={content.conditions?.subtitle || ''}
+          onChange={(v) => update('conditions', { ...content.conditions, subtitle: v })}
+          placeholder="Conditions We Treat"
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.conditions?.title || ''}
+          onChange={(v) => update('conditions', { ...content.conditions, title: v })}
+          placeholder="Ketamine Therapy"
+          disabled={disabled}
+        />
+        <TextAreaField
+          label="Description"
+          value={content.conditions?.description || ''}
+          onChange={(v) => update('conditions', { ...content.conditions, description: v })}
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Condition Items"
+          items={content.conditions?.items || []}
+          onChange={(items) => update('conditions', { ...content.conditions, items })}
+          disabled={disabled}
+          createItem={() => ({ id: `condition-${Date.now()}`, title: '', intro: '', quote: '', accordionItems: [] })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="ID (slug)" value={item.id} onChange={(v) => updateItem({ id: v })} disabled={disabled} required />
+              <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <ImageUploadField label="Image" value={item.imageUrl || ''} onChange={(v) => updateItem({ imageUrl: v })} disabled={disabled} />
+              <TextAreaField label="Intro" value={item.intro} onChange={(v) => updateItem({ intro: v })} disabled={disabled} rows={3} />
+              <TextAreaField label="Quote" value={item.quote} onChange={(v) => updateItem({ quote: v })} disabled={disabled} />
+              <ItemRepeater
+                label="Accordion Items"
+                items={item.accordionItems}
+                onChange={(accordionItems) => updateItem({ accordionItems })}
+                disabled={disabled}
+                createItem={() => ({ id: `item-${Date.now()}`, title: '', content: '' })}
+                renderItem={(ai, __, updateAi) => (
+                  <>
+                    <TextField label="Title" value={ai.title} onChange={(v) => updateAi({ title: v })} disabled={disabled} required />
+                    <TextAreaField label="Content" value={ai.content} onChange={(v) => updateAi({ content: v })} disabled={disabled} rows={4} />
+                  </>
+                )}
+              />
             </>
           )}
         />
