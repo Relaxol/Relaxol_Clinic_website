@@ -15,6 +15,7 @@ import { CoverageSection } from "@/components/sections/CoverageSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { usePageContent } from "@/hooks/usePageContent";
 import { HomeV1Content } from "@/lib/templates/schemas";
+import { JsonLdSchema } from "@/components/seo/JsonLdSchema";
 
 const Home = () => {
   const { content, loading } = usePageContent('home');
@@ -24,6 +25,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLdSchema type="clinic" />
       <Header />
       <main>
         <HeroSection content={homeContent?.hero} />
