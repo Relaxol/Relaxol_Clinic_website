@@ -469,16 +469,16 @@ const Ketamine = () => {
             {/* Left column */}
             <div className="space-y-6">
               <h1 className="tracking-tight text-foreground">
-                <span className="block text-3xl sm:text-4xl lg:text-5xl font-bold">Ketamine Therapy:</span>
-                <span className="block text-xl sm:text-2xl lg:text-3xl font-medium text-muted-foreground mt-2">Rapid Relief for a Range of Mood and Chronic Conditions</span>
+                <span className="block text-3xl sm:text-4xl lg:text-5xl font-bold">{heroHeadline}</span>
+                <span className="block text-xl sm:text-2xl lg:text-3xl font-medium text-muted-foreground mt-2">{heroSubtitle}</span>
               </h1>
               <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
-                Personalized care for individuals who haven't found relief with traditional treatments.
+                {heroBody}
               </p>
               
               <div className="flex flex-wrap gap-4 pt-4">
                 <Button size="lg" onClick={() => scrollToId("eligibility")} className="px-10">
-                  Book Consultation
+                  {heroCtaLabel}
                 </Button>
                 <button 
                   onClick={() => scrollToId("how-it-works")}
@@ -502,7 +502,7 @@ const Ketamine = () => {
           {/* Stats row */}
           <div className="mx-auto max-w-6xl px-6 mt-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {statsItems.map((stat, index) => (
+              {(cmsStats || statsItems).map((stat, index) => (
                 <div key={index} className="rounded-2xl bg-muted/40 p-5">
                   <div className="text-2xl font-semibold text-foreground">{stat.value}</div>
                   <div className="text-sm text-muted-foreground">{stat.label}</div>
