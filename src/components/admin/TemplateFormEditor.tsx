@@ -640,6 +640,118 @@ function HomeTemplateEditor({
           disabled={disabled}
         />
       </Panel>
+
+      <Panel title="Why Choose Section">
+        <TextField
+          label="Title"
+          value={content.whyChoose?.title || ''}
+          onChange={(v) => update('whyChoose', { ...content.whyChoose, title: v })}
+          placeholder="Why Choose Relaxol Clinic"
+          disabled={disabled}
+        />
+        <TextAreaField
+          label="Description"
+          value={content.whyChoose?.description || ''}
+          onChange={(v) => update('whyChoose', { ...content.whyChoose, description: v })}
+          placeholder="Compassionate care backed by expertise and evidence."
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Reason Items"
+          items={content.whyChoose?.items || []}
+          onChange={(items) => update('whyChoose', { ...content.whyChoose, items })}
+          disabled={disabled}
+          createItem={() => ({ title: '', description: '' })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
+            </>
+          )}
+        />
+      </Panel>
+
+      <Panel title="Coverage Section">
+        <TextField
+          label="Subtitle"
+          value={content.coverage?.subtitle || ''}
+          onChange={(v) => update('coverage', { ...content.coverage, subtitle: v })}
+          placeholder="INSURANCE & PAYMENT"
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.coverage?.title || ''}
+          onChange={(v) => update('coverage', { ...content.coverage, title: v })}
+          placeholder="Understanding Your Coverage"
+          disabled={disabled}
+        />
+        <TextAreaField
+          label="Description"
+          value={content.coverage?.description || ''}
+          onChange={(v) => update('coverage', { ...content.coverage, description: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Card Title"
+          value={content.coverage?.cardTitle || ''}
+          onChange={(v) => update('coverage', { ...content.coverage, cardTitle: v })}
+          placeholder="Insurance Coverage for SPRAVATO® & Ketamine"
+          disabled={disabled}
+        />
+        <TextAreaField
+          label="Card Body"
+          value={content.coverage?.cardBody || ''}
+          onChange={(v) => update('coverage', { ...content.coverage, cardBody: v })}
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Coverage Points"
+          items={(content.coverage?.coveragePoints || []).map(t => ({ text: t }))}
+          onChange={(items) => update('coverage', { ...content.coverage, coveragePoints: items.map(i => i.text) })}
+          disabled={disabled}
+          createItem={() => ({ text: '' })}
+          renderItem={(item, _, updateItem) => (
+            <TextField label="Point" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} />
+          )}
+        />
+        <div className="grid grid-cols-2 gap-4">
+          <TextField
+            label="CTA Label"
+            value={content.coverage?.ctaLabel || ''}
+            onChange={(v) => update('coverage', { ...content.coverage, ctaLabel: v })}
+            placeholder="Verify Your Coverage"
+            disabled={disabled}
+          />
+          <TextField
+            label="CTA Link"
+            value={content.coverage?.ctaHref || ''}
+            onChange={(v) => update('coverage', { ...content.coverage, ctaHref: v })}
+            placeholder="/verify-coverage"
+            disabled={disabled}
+          />
+        </div>
+        <TextField
+          label="Phone Number"
+          value={content.coverage?.phone || ''}
+          onChange={(v) => update('coverage', { ...content.coverage, phone: v })}
+          placeholder="201-781-2101"
+          disabled={disabled}
+        />
+        <ItemRepeater
+          label="Quick Facts"
+          items={content.coverage?.quickFacts || []}
+          onChange={(items) => update('coverage', { ...content.coverage, quickFacts: items })}
+          disabled={disabled}
+          createItem={() => ({ title: '', description: '' })}
+          renderItem={(item, _, updateItem) => (
+            <>
+              <TextField label="Title" value={item.title} onChange={(v) => updateItem({ title: v })} disabled={disabled} required />
+              <TextAreaField label="Description" value={item.description} onChange={(v) => updateItem({ description: v })} disabled={disabled} />
+            </>
+          )}
+        />
+      </Panel>
     </div>
   );
 }
