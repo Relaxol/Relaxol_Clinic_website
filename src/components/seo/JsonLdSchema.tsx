@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+
 
 interface MedicalClinicJsonLdProps {
   type?: 'clinic' | 'faq' | 'physician';
