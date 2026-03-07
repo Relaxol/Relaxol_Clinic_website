@@ -484,7 +484,21 @@ export function createDefaultFAQContent(): FAQV1Content {
   };
 }
 
-export function createDefaultContent(template: TemplateType): TemplateContent {
+import { defaultConditionContent, defaultVitaminInfusionsContent, defaultOurTeamContent } from './newDefaults';
+
+export function createDefaultConditionContent(slug?: string): ConditionV1Content {
+  return defaultConditionContent[slug || 'depression'] || defaultConditionContent.depression;
+}
+
+export function createDefaultVitaminInfusionsContent(): VitaminInfusionsV1Content {
+  return { ...defaultVitaminInfusionsContent };
+}
+
+export function createDefaultOurTeamContent(): OurTeamV1Content {
+  return { ...defaultOurTeamContent };
+}
+
+export function createDefaultContent(template: TemplateType, slug?: string): TemplateContent {
   switch (template) {
     case 'home_v1':
       return createDefaultHomeContent();
@@ -496,5 +510,11 @@ export function createDefaultContent(template: TemplateType): TemplateContent {
       return createDefaultContactContent();
     case 'faq_v1':
       return createDefaultFAQContent();
+    case 'condition_v1':
+      return createDefaultConditionContent(slug);
+    case 'vitamin_infusions_v1':
+      return createDefaultVitaminInfusionsContent();
+    case 'our_team_v1':
+      return createDefaultOurTeamContent();
   }
 }
