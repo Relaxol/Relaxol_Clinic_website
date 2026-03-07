@@ -14,7 +14,8 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 const OurTeam = () => {
   const { content, loading } = usePageContent('our-team');
-  const c = (content as OurTeamV1Content) || defaultOurTeamContent;
+  const hasContent = content && Object.keys(content).length > 0 && (content as any).hero;
+  const c = (hasContent ? content : defaultOurTeamContent) as OurTeamV1Content;
 
   if (loading) {
     return (

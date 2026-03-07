@@ -44,7 +44,8 @@ const infusionImageMap: Record<string, string> = {
 
 const VitaminInfusions = () => {
   const { content, loading } = usePageContent('vitamin-infusions');
-  const c = (content as VitaminInfusionsV1Content) || defaultVitaminInfusionsContent;
+  const hasContent = content && Object.keys(content).length > 0 && (content as any).hero;
+  const c = (hasContent ? content : defaultVitaminInfusionsContent) as VitaminInfusionsV1Content;
 
   const [selectedInfusion, setSelectedInfusion] = useState<VitaminInfusionsV1Content['infusions']['items'][0] | null>(null);
   const [showB12Modal, setShowB12Modal] = useState(false);
