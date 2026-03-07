@@ -169,7 +169,9 @@ function ItemRepeater<T extends object>({
   };
 
   const removeItem = (index: number) => {
-    onChange(items.filter((_, i) => i !== index));
+    const newItems = [...items];
+    newItems.splice(index, 1);
+    onChange(newItems);
   };
 
   const resetToDefaults = () => {
@@ -226,16 +228,33 @@ function ItemRepeater<T extends object>({
           <Card key={index} className="border-border/30">
             <CardContent className="pt-4 space-y-3">
               {renderItem(item, index, (updates) => updateItem(index, updates))}
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={() => removeItem(index)}
-                disabled={disabled}
-                className="text-destructive hover:text-destructive"
-              >
-                <Trash2 className="h-4 w-4 mr-1" /> Remove
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    disabled={disabled}
+                    className="text-destructive hover:text-destructive"
+                  >
+                    <Trash2 className="h-4 w-4 mr-1" /> Remove
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Remove this item?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This will remove item #{index + 1} from {label.toLowerCase()}. You can undo this by not saving.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={() => removeItem(index)}>
+                      Remove
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </CardContent>
           </Card>
         ))}
