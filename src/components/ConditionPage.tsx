@@ -4,6 +4,8 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { usePageContent } from "@/hooks/usePageContent";
 import { ConditionV1Content } from "@/lib/templates/newSchemas";
+import { PageSEO } from "@/components/seo/PageSEO";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { Loader2 } from "lucide-react";
 
 interface ConditionPageProps {
@@ -30,6 +32,16 @@ const ConditionPage = ({ slug, fallbackImage, fallback }: ConditionPageProps) =>
 
   return (
     <div className="min-h-screen bg-background">
+      <PageSEO
+        title={`${c.hero.headline} Treatment`}
+        description={c.hero.body}
+        path={`/conditions/${slug}`}
+      />
+      <BreadcrumbJsonLd items={[
+        { name: "Home", href: "/" },
+        { name: "Conditions", href: "/" },
+        { name: c.hero.headline, href: `/conditions/${slug}` },
+      ]} />
       <Header />
       <main>
         {/* Hero Section */}
