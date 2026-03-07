@@ -1223,10 +1223,18 @@ function FAQTemplateEditor({
           disabled={disabled}
           required
         />
+        <TextField
+          label="Tagline"
+          value={content.hero.tagline || ''}
+          onChange={(v) => update('hero', { ...content.hero, tagline: v })}
+          placeholder="Your Journey to Your Best Self"
+          disabled={disabled}
+        />
         <TextAreaField
-          label="Body"
-          value={content.hero.body || ''}
-          onChange={(v) => update('hero', { ...content.hero, body: v })}
+          label="Description"
+          value={content.hero.description || ''}
+          onChange={(v) => update('hero', { ...content.hero, description: v })}
+          placeholder="Frequently asked questions about Ketamine Therapy..."
           disabled={disabled}
         />
         <ImageUploadField
@@ -1239,35 +1247,17 @@ function FAQTemplateEditor({
         />
       </Panel>
 
-      <Panel title="FAQ Sections">
+      <Panel title="FAQ Items">
         <ItemRepeater
-          label="Sections"
-          items={content.sections}
-          onChange={(sections) => update('sections', sections)}
+          label="FAQ Items"
+          items={content.flatItems || []}
+          onChange={(items) => update('flatItems', items)}
           disabled={disabled}
-          createItem={() => ({ id: `section-${Date.now()}`, title: '', items: [] })}
-          renderItem={(section, _, updateSection) => (
+          createItem={() => ({ question: '', answer: '' })}
+          renderItem={(item, _, updateItem) => (
             <>
-              <TextField
-                label="Section Title"
-                value={section.title}
-                onChange={(v) => updateSection({ title: v })}
-                disabled={disabled}
-                required
-              />
-              <ItemRepeater
-                label="Questions"
-                items={section.items}
-                onChange={(items) => updateSection({ items })}
-                disabled={disabled}
-                createItem={() => ({ question: '', answer: '' })}
-                renderItem={(item, __, updateItem) => (
-                  <>
-                    <TextField label="Question" value={item.question} onChange={(v) => updateItem({ question: v })} disabled={disabled} required />
-                    <TextAreaField label="Answer" value={item.answer} onChange={(v) => updateItem({ answer: v })} disabled={disabled} rows={4} />
-                  </>
-                )}
-              />
+              <TextField label="Question" value={item.question} onChange={(v) => updateItem({ question: v })} disabled={disabled} required />
+              <TextAreaField label="Answer" value={item.answer} onChange={(v) => updateItem({ answer: v })} disabled={disabled} rows={4} />
             </>
           )}
         />
@@ -1282,7 +1272,7 @@ function FAQTemplateEditor({
           required
         />
         <TextAreaField
-          label="Body"
+          label="Body / Tagline"
           value={content.cta.body || ''}
           onChange={(v) => update('cta', { ...content.cta, body: v })}
           disabled={disabled}
@@ -1301,6 +1291,27 @@ function FAQTemplateEditor({
             disabled={disabled}
           />
         </div>
+        <TextField
+          label="Contact Phone"
+          value={content.cta.contactPhone || ''}
+          onChange={(v) => update('cta', { ...content.cta, contactPhone: v })}
+          placeholder="201-781-2101"
+          disabled={disabled}
+        />
+        <TextField
+          label="Contact Email"
+          value={content.cta.contactEmail || ''}
+          onChange={(v) => update('cta', { ...content.cta, contactEmail: v })}
+          placeholder="info@relaxolclinic.com"
+          disabled={disabled}
+        />
+        <TextField
+          label="Contact Address"
+          value={content.cta.contactAddress || ''}
+          onChange={(v) => update('cta', { ...content.cta, contactAddress: v })}
+          placeholder="560 Sylvan Avenue, Suite 2115, Englewood Cliffs, NJ 07632"
+          disabled={disabled}
+        />
       </Panel>
     </div>
   );
