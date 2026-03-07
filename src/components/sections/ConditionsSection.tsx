@@ -70,7 +70,7 @@ export function ConditionsSection({ content }: ConditionsSectionProps) {
   // Map CMS items to display format, or use defaults
   const conditions = content?.items?.length ? content.items.map((item, index) => ({
     title: item.title,
-    image: item.imageUrl || defaultConditions[index]?.image || conditionDepression,
+    image: (item.imageUrl && item.imageUrl.trim() !== '') ? item.imageUrl : (defaultConditions[index]?.image || conditionDepression),
     imageAlt: item.imageAlt || defaultConditions[index]?.imageAlt || item.title,
     description: item.description,
     href: item.href || defaultConditions[index]?.href || "#",

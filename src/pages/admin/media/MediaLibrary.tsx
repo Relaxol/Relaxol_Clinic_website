@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -11,7 +11,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Upload, Trash2, Loader2, Image as ImageIcon, Copy, Search, DatabaseBackup } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Upload, Trash2, Loader2, Image as ImageIcon, Copy, Search, DatabaseBackup, ArrowUpDown } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface MediaItem {
@@ -28,7 +35,6 @@ interface MediaItem {
 
 // All existing site images to seed
 const SITE_IMAGES = [
-  // Assets
   'about-clinic.jpg',
   'condition-anxiety-new.jpg',
   'condition-depression-new.jpg',
@@ -75,7 +81,6 @@ const SITE_IMAGES = [
   'vitamin-b12-injection.jpg',
 ];
 
-// Public images (condition images referenced in CMS)
 const PUBLIC_IMAGES = [
   'condition-anxiety-v2.jpg',
   'condition-depression-v2.jpg',
@@ -84,9 +89,12 @@ const PUBLIC_IMAGES = [
   'condition-ptsd-v2.jpg',
 ];
 
+type SortOption = 'newest' | 'oldest' | 'name_asc' | 'name_desc' | 'size_asc' | 'size_desc' | 'dim_asc' | 'dim_desc';
+type TypeFilter = 'all' | 'jpg' | 'png' | 'svg' | 'other';
+
 function getImageDimensions(url: string): Promise<{ width: number; height: number }> {
   return new Promise((resolve, reject) => {
-    const img = new Image();
+    const img = new window.Image();
     img.onload = () => resolve({ width: img.naturalWidth, height: img.naturalHeight });
     img.onerror = () => reject(new Error(`Failed to load ${url}`));
     img.src = url;
@@ -110,6 +118,8 @@ const MediaLibrary = () => {
   const [seeding, setSeeding] = useState(false);
   const [seedProgress, setSeedProgress] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState<SortOption>('newest');
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>('all');
   const [selectedMedia, setSelectedMedia] = useState<MediaItem | null>(null);
   const [editingAlt, setEditingAlt] = useState('');
 
@@ -140,6 +150,42 @@ const MediaLibrary = () => {
     }
   };
 
+  const filteredAndSortedMedia = useMemo(() => {
+    let items = media.filter(item =>
+      item.filename.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.alt_text?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    // Type filter
+    if (typeFilter !== 'all') {
+      items = items.filter(item => {
+        const mime = item.mime_type?.toLowerCase() || '';
+        const ext = item.filename.split('.').pop()?.toLowerCase() || '';
+        switch (typeFilter) {
+          case 'jpg': return mime.includes('jpeg') || mime.includes('jpg') || ext === 'jpg' || ext === 'jpeg';
+          case 'png': return mime.includes('png') || ext === 'png';
+          case 'svg': return mime.includes('svg') || ext === 'svg';
+          case 'other': return !['jpg', 'jpeg', 'png', 'svg'].includes(ext);
+        }
+      });
+    }
+
+    // Sort
+    const sorted = [...items];
+    switch (sortBy) {
+      case 'newest': sorted.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()); break;
+      case 'oldest': sorted.sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()); break;
+      case 'name_asc': sorted.sort((a, b) => a.filename.localeCompare(b.filename)); break;
+      case 'name_desc': sorted.sort((a, b) => b.filename.localeCompare(a.filename)); break;
+      case 'size_asc': sorted.sort((a, b) => (a.size ?? 0) - (b.size ?? 0)); break;
+      case 'size_desc': sorted.sort((a, b) => (b.size ?? 0) - (a.size ?? 0)); break;
+      case 'dim_asc': sorted.sort((a, b) => ((a.width ?? 0) * (a.height ?? 0)) - ((b.width ?? 0) * (b.height ?? 0))); break;
+      case 'dim_desc': sorted.sort((a, b) => ((b.width ?? 0) * (b.height ?? 0)) - ((a.width ?? 0) * (a.height ?? 0))); break;
+    }
+
+    return sorted;
+  }, [media, searchQuery, sortBy, typeFilter]);
+
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0 || !canEdit) return;
@@ -152,18 +198,12 @@ const MediaLibrary = () => {
         
         const { error: uploadError } = await supabase.storage
           .from('media')
-          .upload(filePath, file, {
-            cacheControl: '3600',
-            upsert: false,
-          });
+          .upload(filePath, file, { cacheControl: '3600', upsert: false });
 
         if (uploadError) throw uploadError;
 
-        const { data: urlData } = supabase.storage
-          .from('media')
-          .getPublicUrl(filePath);
+        const { data: urlData } = supabase.storage.from('media').getPublicUrl(filePath);
 
-        // Get dimensions for images
         let width: number | null = null;
         let height: number | null = null;
         if (file.type.startsWith('image/')) {
@@ -195,9 +235,7 @@ const MediaLibrary = () => {
       toast({ title: 'Upload failed', description: error.message, variant: 'destructive' });
     } finally {
       setUploading(false);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
@@ -215,7 +253,6 @@ const MediaLibrary = () => {
     let failed = 0;
     const total = SITE_IMAGES.length + PUBLIC_IMAGES.length;
 
-    // Check which filenames already exist
     const existingFilenames = new Set(media.map(m => m.filename));
 
     const uploadImage = async (filename: string, sourceUrl: string) => {
@@ -228,10 +265,8 @@ const MediaLibrary = () => {
       try {
         setSeedProgress(`${uploaded + skipped + failed}/${total} — Uploading ${filename}...`);
 
-        // Fetch the image
         const { blob, size, type } = await fetchImageAsBlob(sourceUrl);
 
-        // Get dimensions
         let width: number | null = null;
         let height: number | null = null;
         try {
@@ -240,23 +275,15 @@ const MediaLibrary = () => {
           height = dims.height;
         } catch {}
 
-        // Upload to storage
         const storagePath = `${membership!.tenantId}/${filename}`;
         const { error: uploadError } = await supabase.storage
           .from('media')
-          .upload(storagePath, blob, {
-            cacheControl: '31536000',
-            upsert: true,
-            contentType: type,
-          });
+          .upload(storagePath, blob, { cacheControl: '31536000', upsert: true, contentType: type });
 
         if (uploadError) throw uploadError;
 
-        const { data: urlData } = supabase.storage
-          .from('media')
-          .getPublicUrl(storagePath);
+        const { data: urlData } = supabase.storage.from('media').getPublicUrl(storagePath);
 
-        // Generate alt text from filename
         const altText = filename
           .replace(/\.[^.]+$/, '')
           .replace(/[-_]/g, ' ')
@@ -264,7 +291,6 @@ const MediaLibrary = () => {
           .replace(/\s+/g, ' ')
           .trim();
 
-        // Insert into media table
         const { error: dbError } = await supabase.from('media').insert({
           tenant_id: membership!.tenantId,
           filename,
@@ -285,18 +311,13 @@ const MediaLibrary = () => {
       }
     };
 
-    // Process asset images (served from the app origin)
     for (const filename of SITE_IMAGES) {
       const sourceUrl = new URL(`/src/assets/${filename}`, window.location.origin).href;
       await uploadImage(filename, sourceUrl);
     }
 
-    // Process public images
     for (const filename of PUBLIC_IMAGES) {
-      if (existingFilenames.has(filename)) {
-        skipped++;
-        continue;
-      }
+      if (existingFilenames.has(filename)) { skipped++; continue; }
       const sourceUrl = new URL(`/images/${filename}`, window.location.origin).href;
       await uploadImage(filename, sourceUrl);
     }
@@ -358,17 +379,12 @@ const MediaLibrary = () => {
   };
 
   const formatBytes = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) return '0 B';
     const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const sizes = ['B', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
   };
-
-  const filteredMedia = media.filter(item => 
-    item.filename.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.alt_text?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   if (loading) {
     return (
@@ -383,39 +399,23 @@ const MediaLibrary = () => {
       <div className="flex flex-col sm:flex-row justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Media Library</h1>
-          <p className="text-muted-foreground">Manage your images and files</p>
+          <p className="text-muted-foreground">
+            {media.length} file{media.length !== 1 ? 's' : ''} 
+            {filteredAndSortedMedia.length !== media.length && ` · ${filteredAndSortedMedia.length} shown`}
+          </p>
         </div>
         <div className="flex gap-2">
           {isAdmin && (
-            <Button 
-              variant="outline" 
-              onClick={handleSeedImages} 
-              disabled={seeding || uploading}
-            >
-              {seeding ? (
-                <Loader2 className="h-4 w-4 animate-spin mr-2" />
-              ) : (
-                <DatabaseBackup className="h-4 w-4 mr-2" />
-              )}
+            <Button variant="outline" onClick={handleSeedImages} disabled={seeding || uploading}>
+              {seeding ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <DatabaseBackup className="h-4 w-4 mr-2" />}
               {seeding ? 'Seeding...' : 'Import Site Images'}
             </Button>
           )}
           {canEdit && (
             <>
-              <input
-                ref={fileInputRef}
-                type="file"
-                multiple
-                accept="image/*"
-                onChange={handleUpload}
-                className="hidden"
-              />
+              <input ref={fileInputRef} type="file" multiple accept="image/*" onChange={handleUpload} className="hidden" />
               <Button onClick={() => fileInputRef.current?.click()} disabled={uploading || seeding}>
-                {uploading ? (
-                  <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                ) : (
-                  <Upload className="h-4 w-4 mr-2" />
-                )}
+                {uploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Upload className="h-4 w-4 mr-2" />}
                 Upload
               </Button>
             </>
@@ -429,25 +429,56 @@ const MediaLibrary = () => {
         </div>
       )}
 
-      <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-        <Input
-          placeholder="Search files..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-9"
-        />
+      {/* Search + Filters Row */}
+      <div className="flex flex-col sm:flex-row gap-3">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Search files..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-9"
+          />
+        </div>
+        <Select value={typeFilter} onValueChange={(v) => setTypeFilter(v as TypeFilter)}>
+          <SelectTrigger className="w-full sm:w-[140px]">
+            <SelectValue placeholder="Type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Types</SelectItem>
+            <SelectItem value="jpg">JPEG</SelectItem>
+            <SelectItem value="png">PNG</SelectItem>
+            <SelectItem value="svg">SVG</SelectItem>
+            <SelectItem value="other">Other</SelectItem>
+          </SelectContent>
+        </Select>
+        <Select value={sortBy} onValueChange={(v) => setSortBy(v as SortOption)}>
+          <SelectTrigger className="w-full sm:w-[180px]">
+            <ArrowUpDown className="h-3.5 w-3.5 mr-1.5 text-muted-foreground" />
+            <SelectValue placeholder="Sort" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="newest">Newest first</SelectItem>
+            <SelectItem value="oldest">Oldest first</SelectItem>
+            <SelectItem value="name_asc">Name A → Z</SelectItem>
+            <SelectItem value="name_desc">Name Z → A</SelectItem>
+            <SelectItem value="size_desc">Largest first</SelectItem>
+            <SelectItem value="size_asc">Smallest first</SelectItem>
+            <SelectItem value="dim_desc">Highest res first</SelectItem>
+            <SelectItem value="dim_asc">Lowest res first</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
-      {filteredMedia.length === 0 ? (
+      {filteredAndSortedMedia.length === 0 ? (
         <div className="border-2 border-dashed rounded-lg p-12 text-center text-muted-foreground">
-          {searchQuery ? 'No files found' : 'No files uploaded yet'}
+          {searchQuery || typeFilter !== 'all' ? 'No files match your filters' : 'No files uploaded yet'}
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {filteredMedia.map((item) => (
-            <Card 
-              key={item.id} 
+          {filteredAndSortedMedia.map((item) => (
+            <Card
+              key={item.id}
               className="cursor-pointer hover:ring-2 hover:ring-primary transition-all overflow-hidden"
               onClick={() => {
                 setSelectedMedia(item);
@@ -456,8 +487,8 @@ const MediaLibrary = () => {
             >
               <CardContent className="p-0">
                 {item.mime_type?.startsWith('image/') ? (
-                  <img 
-                    src={item.url} 
+                  <img
+                    src={item.url}
                     alt={item.alt_text || item.filename}
                     className="w-full aspect-square object-cover"
                   />
@@ -466,13 +497,18 @@ const MediaLibrary = () => {
                     <ImageIcon className="h-12 w-12 text-muted-foreground" />
                   </div>
                 )}
-                <div className="p-2">
-                  <p className="text-xs truncate">{item.filename}</p>
-                  {item.width && item.height && (
-                    <p className="text-xs text-muted-foreground">{item.width} × {item.height}</p>
-                  )}
+                <div className="p-2 space-y-0.5">
+                  <p className="text-xs truncate font-medium">{item.filename}</p>
+                  <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                    {item.width && item.height && (
+                      <span>{item.width}×{item.height}</span>
+                    )}
+                    {item.size && (
+                      <span>{formatBytes(item.size)}</span>
+                    )}
+                  </div>
                   {!item.alt_text && (
-                    <p className="text-xs text-destructive">Missing alt text</p>
+                    <p className="text-[11px] text-destructive">Missing alt text</p>
                   )}
                 </div>
               </CardContent>
@@ -490,17 +526,17 @@ const MediaLibrary = () => {
           {selectedMedia && (
             <div className="space-y-4">
               {selectedMedia.mime_type?.startsWith('image/') && (
-                <img 
-                  src={selectedMedia.url} 
+                <img
+                  src={selectedMedia.url}
                   alt={selectedMedia.alt_text || selectedMedia.filename}
                   className="w-full max-h-64 object-contain bg-muted rounded"
                 />
               )}
-              
+
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
                 <div>
                   <p className="text-muted-foreground">Filename</p>
-                  <p className="font-medium">{selectedMedia.filename}</p>
+                  <p className="font-medium break-all">{selectedMedia.filename}</p>
                 </div>
                 <div>
                   <p className="text-muted-foreground">Size</p>
@@ -543,10 +579,7 @@ const MediaLibrary = () => {
 
               <div className="flex justify-between">
                 {isAdmin && (
-                  <Button 
-                    variant="destructive" 
-                    onClick={() => handleDelete(selectedMedia.id)}
-                  >
+                  <Button variant="destructive" onClick={() => handleDelete(selectedMedia.id)}>
                     <Trash2 className="h-4 w-4 mr-2" />
                     Delete
                   </Button>
