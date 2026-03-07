@@ -585,17 +585,17 @@ const Ketamine = () => {
         <section className="py-20 md:py-28">
           <div className="mx-auto max-w-6xl px-6">
             <div className="text-center mb-16">
-              <p className="text-sm font-medium uppercase tracking-widest text-primary mb-4">Conditions We Treat</p>
+              <p className="text-sm font-medium uppercase tracking-widest text-primary mb-4">{cms?.conditions?.subtitle || "Conditions We Treat"}</p>
               <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-                Ketamine Therapy
+                {cms?.conditions?.title || "Ketamine Therapy"}
               </h2>
               <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-                Discover how ketamine therapy can help with treatment-resistant conditions through its unique mechanism of action.
+                {cms?.conditions?.description || "Discover how ketamine therapy can help with treatment-resistant conditions through its unique mechanism of action."}
               </p>
             </div>
             
             <div className="space-y-16">
-              {conditionsData.map((condition, index) => (
+              {(cms?.conditions?.items?.length ? cms.conditions.items : conditionsData).map((condition, index) => (
                 <div 
                   key={condition.id}
                   id={condition.id}
@@ -606,7 +606,7 @@ const Ketamine = () => {
                   {/* Image side */}
                   <div className="rounded-2xl overflow-hidden bg-muted aspect-[4/3]">
                     <img 
-                      src={condition.image} 
+                      src={condition.imageUrl || ('image' in condition ? (condition as any).image : '')} 
                       alt={condition.title}
                       className="w-full h-full object-cover"
                     />
