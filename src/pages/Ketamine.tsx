@@ -672,46 +672,30 @@ const Ketamine = () => {
               {/* Left: CTA copy + trust bullets */}
               <div className="space-y-8">
                 <div className="space-y-4">
-                  <p className="text-sm font-medium uppercase tracking-widest text-primary">Start Your Journey</p>
+                  <p className="text-sm font-medium uppercase tracking-widest text-primary">{eligibilitySubtitle}</p>
                   <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground leading-tight">
-                    Take the Next Step Toward Relief
+                    {eligibilityTitle}
                   </h2>
                 </div>
                 <p className="text-muted-foreground text-lg leading-relaxed">
-                  If traditional treatments haven't worked, our care team can help you understand whether ketamine therapy may be appropriate for you.
+                  {eligibilityBody}
                 </p>
                 
                 <ul className="space-y-5 pt-4">
-                  <li className="flex items-start gap-4">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3.5 h-3.5 text-primary" />
-                    </div>
-                    <span className="text-foreground">No obligation assessment</span>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3.5 h-3.5 text-primary" />
-                    </div>
-                    <span className="text-foreground">Response within 48 hours</span>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3.5 h-3.5 text-primary" />
-                    </div>
-                    <span className="text-foreground">Confidential submission</span>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3.5 h-3.5 text-primary" />
-                    </div>
-                    <span className="text-foreground">Insurance verification available</span>
-                  </li>
+                  {eligibilityBullets.map((bullet, index) => (
+                    <li key={index} className="flex items-start gap-4">
+                      <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Check className="w-3.5 h-3.5 text-primary" />
+                      </div>
+                      <span className="text-foreground">{bullet}</span>
+                    </li>
+                  ))}
                 </ul>
                 
                 <div className="pt-6 border-t border-border/30">
                   <p className="text-muted-foreground text-sm">
                     Prefer to speak with someone? Call us directly at{" "}
-                    <a href="tel:201-781-2101" className="font-medium text-foreground hover:text-primary transition-colors">201-781-2101</a>
+                    <a href={`tel:${eligibilityPhone}`} className="font-medium text-foreground hover:text-primary transition-colors">{eligibilityPhone}</a>
                   </p>
                 </div>
               </div>
