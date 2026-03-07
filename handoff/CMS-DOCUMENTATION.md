@@ -288,24 +288,113 @@ New pages created via the admin use a section-based editor:
 
 ---
 
-## 10. SEO Controls
+## 10. SEO Implementation (Completed)
 
-### Standard SEO (all roles):
-- SEO Title
-- SEO Description
+A comprehensive, production-grade SEO system has been implemented across the entire site. This section documents the full scope of work.
 
-### Advanced SEO (admin role + `advanced_seo` plan feature):
-- Canonical URL
-- No Index toggle
-- Open Graph: OG Title, OG Description, OG Image URL
+### 10a. Per-Page Meta Tags (react-helmet-async)
 
-Available on both **pages** and **blog posts**.
+Every public page has unique, route-specific SEO tags injected via `react-helmet-async`:
 
-### Structured Data (JSON-LD):
-- `MedicalClinic` schema on the home page
-- `Physician` schema on the team page
-- `FAQPage` schema on the FAQ page
-- Automatically generated from page content
+| Page | Title | Description | Canonical |
+|---|---|---|---|
+| `/` | Relaxol Clinic \| Premier Ketamine & SPRAVATO® Treatment in New Jersey | Leading provider of innovative mental health treatments... | `https://relaxolclinic.com/` |
+| `/ketamine` | Ketamine Therapy \| Relaxol Clinic | Ketamine infusion therapy for depression, anxiety, PTSD... | `https://relaxolclinic.com/ketamine` |
+| `/spravato-Englewood` | SPRAVATO® Treatment \| Relaxol Clinic | FDA-approved SPRAVATO® (esketamine) nasal spray... | `https://relaxolclinic.com/spravato-Englewood` |
+| `/faq` | Ketamine Therapy FAQ \| Relaxol Clinic | Frequently asked questions about ketamine therapy... | `https://relaxolclinic.com/faq` |
+| `/contact` | Contact Us \| Relaxol Clinic | Contact Relaxol Clinic in Englewood Cliffs, NJ... | `https://relaxolclinic.com/contact` |
+| `/blog` | Blog \| Relaxol Clinic | Mental health insights, treatment breakthroughs... | `https://relaxolclinic.com/blog` |
+| `/blog/:slug` | *Dynamic from CMS* `seo_title` or `title` | *Dynamic from CMS* `seo_description` or `excerpt` | `https://relaxolclinic.com/blog/:slug` |
+| `/our-team` | Our Team \| Relaxol Clinic | Meet Dr. Sangeet Khanna and the Relaxol Clinic team... | `https://relaxolclinic.com/our-team` |
+| `/vitamin-infusion-englewood` | IV Vitamin Infusions \| Relaxol Clinic | Physician-supervised IV vitamin infusions... | `https://relaxolclinic.com/vitamin-infusion-englewood` |
+| `/conditions/*` | *Dynamic* e.g. "Depression Treatment \| Relaxol Clinic" | *From CMS content or fallback* | Per-condition canonical |
+| `/p/:slug` (Dynamic CMS pages) | *From `seo_title` or `title` field* | *From `seo_description` field* | `https://relaxolclinic.com/p/:slug` |
+
+Each page also includes per-page **Open Graph** and **Twitter Card** tags (title, description, image, URL).
+
+**Implementation:** `src/components/seo/PageSEO.tsx` — a reusable component that accepts `title`, `description`, `path`, `ogTitle`, `ogDescription`, `ogImage`, `type`, `publishedAt`, and `authorName` props.
+
+### 10b. Open Graph Image
+
+- **Branded OG image** generated at `public/images/og-relaxol-clinic.jpg` (1200×630) featuring the Relaxol Clinic logo on a warm gold gradient
+- Replaces the default Lovable placeholder image
+- Referenced in `index.html` as the fallback OG image
+- Individual blog posts can override with their own `hero_image`
+
+### 10c. Structured Data (JSON-LD)
+
+Four structured data components provide rich search engine results:
+
+| Component | Schema Type | Pages Using It |
+|---|---|---|
+| `JsonLdSchema` (type="clinic") | `MedicalClinic` | Home, Contact |
+| `JsonLdSchema` (type="physician") | `Physician` | Our Team |
+| `JsonLdSchema` (type="faq") | `FAQPage` | FAQ |
+| `BlogPostJsonLd` | `BlogPosting` | Individual blog posts (`/blog/:slug`) |
+| `BreadcrumbJsonLd` | `BreadcrumbList` | Blog posts, Condition pages |
+
+**MedicalClinic schema includes:** Clinic name, address, phone, email, geo coordinates, opening hours, medical specialties, available services (SPRAVATO®, Ketamine, IV Vitamins).
+
+**BlogPosting schema includes:** Headline, description, URL, image, published date, author (Person), publisher (Organization).
+
+**BreadcrumbList schema** provides navigation path context, e.g.:
+- Blog posts: Home → Blog → Post Title
+- Condition pages: Home → Conditions → Condition Name
+
+### 10d. Dynamic Sitemap (Edge Function)
+
+A `sitemap` edge function at `supabase/functions/sitemap/index.ts` generates a complete XML sitemap:
+
+**What it includes:**
+- **16 static routes** with assigned priorities (homepage at 1.0, service pages at 0.9, conditions at 0.8, etc.)
+- **All published blog posts** fetched from `blog_posts` table with `updated_at` as `lastmod`
+- **All published dynamic CMS pages** from `pages` table (served at `/p/:slug`)
+- Deduplication logic to skip CMS pages whose slugs overlap with static routes
+
+**Configuration:**
+- `verify_jwt = false` in `supabase/config.toml` (publicly accessible)
+- `robots.txt` includes `Sitemap: https://relaxolclinic.com/sitemap.xml`
+- Cache-Control header: `public, max-age=3600` (1-hour cache)
+
+### 10e. robots.txt
+
+Located at `public/robots.txt`:
+- Explicitly allows Googlebot, Bingbot, Twitterbot, facebookexternalhit, and all other crawlers
+- Includes `Sitemap:` directive pointing to the sitemap URL
+
+### 10f. Canonical Tags
+
+- **Removed** the hardcoded `<link rel="canonical" href="/" />` from `index.html` (which incorrectly set every page's canonical to the homepage)
+- Each page now sets its own canonical URL via `react-helmet-async`, ensuring correct self-referencing canonicals
+
+### 10g. CMS-Driven SEO Fields
+
+Both `pages` and `blog_posts` tables include SEO columns that are editable via the admin panel:
+
+| Field | Purpose | Available On |
+|---|---|---|
+| `seo_title` | Custom page title for search results | Pages, Blog Posts |
+| `seo_description` | Meta description for search results | Pages, Blog Posts |
+| `canonical_url` | Override canonical URL | Pages, Blog Posts |
+| `noindex` | Exclude from search engine indexing | Pages, Blog Posts |
+| `og_title` | Open Graph title for social sharing | Pages, Blog Posts |
+| `og_description` | Open Graph description for social sharing | Pages, Blog Posts |
+| `og_image_url` | Open Graph image for social sharing | Pages, Blog Posts |
+
+These fields are injected into page `<head>` tags automatically when present.
+
+### SEO Files Reference
+
+| File | Purpose |
+|---|---|
+| `src/components/seo/PageSEO.tsx` | Per-page title, meta, OG, canonical, Twitter Card tags |
+| `src/components/seo/JsonLdSchema.tsx` | MedicalClinic, Physician, FAQPage structured data |
+| `src/components/seo/BlogPostJsonLd.tsx` | BlogPosting structured data for blog posts |
+| `src/components/seo/BreadcrumbJsonLd.tsx` | BreadcrumbList navigation structured data |
+| `supabase/functions/sitemap/index.ts` | Dynamic XML sitemap generator (edge function) |
+| `public/robots.txt` | Crawler directives with sitemap reference |
+| `public/images/og-relaxol-clinic.jpg` | Branded Open Graph share image (1200×630) |
+| `index.html` | Fallback OG tags and viewport meta |
 
 ---
 
@@ -405,8 +494,10 @@ All tables have **Row-Level Security (RLS)** policies. Key patterns:
 | `create-invite` | `/functions/v1/create-invite` | Creates invite token, stores in `invites` table |
 | `accept-invite` | `/functions/v1/accept-invite` | Validates token, creates auth user, adds `tenant_members` row |
 | `validate-invite` | `/functions/v1/validate-invite` | Checks if invite token is valid and not expired |
+| `create-user` | `/functions/v1/create-user` | Directly creates a user with password (no email invite needed) |
+| `sitemap` | `/functions/v1/sitemap` | Generates dynamic XML sitemap from published pages and blog posts |
 
-All three functions have `verify_jwt = false` (accessible without auth token).
+All functions have `verify_jwt = false` (accessible without auth token).
 
 ---
 
@@ -454,8 +545,7 @@ Edge functions also use these secrets (configured in Supabase dashboard):
 6. **Analytics Dashboard**
    - Add page view tracking or integrate with Google Analytics. Show traffic stats on the admin dashboard.
 
-7. **SEO Sitemap Generation**
-   - Auto-generate `sitemap.xml` from published pages and blog posts for better search engine indexing.
+7. **~~SEO Sitemap Generation~~** ✅ **COMPLETED** — Dynamic sitemap edge function deployed, per-page meta tags, JSON-LD structured data, branded OG image, and canonical tags all implemented.
 
 8. **Blog Comment System**
    - If patient engagement is desired, a moderated comment system could be added to blog posts.
