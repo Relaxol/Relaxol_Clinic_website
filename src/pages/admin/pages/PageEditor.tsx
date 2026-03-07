@@ -17,6 +17,7 @@ import {
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Save, Send, Eye, ArrowLeft, Plus, Trash2, GripVertical, ChevronDown, ChevronUp, Copy, Link, AlertCircle, History } from 'lucide-react';
+import { logActivity } from '@/lib/activityLog';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -579,6 +580,16 @@ const PageEditor = () => {
 
         if (error) throw error;
 
+        logActivity({
+          tenantId: membership!.tenantId,
+          userId: user?.id,
+          userEmail: user?.email,
+          action: 'create',
+          entityType: 'page',
+          entityId: data.id,
+          entityTitle: form.title,
+        });
+
         toast({ title: 'Page created successfully' });
         navigate(`/admin/pages/${data.id}`);
       } else {
@@ -588,6 +599,17 @@ const PageEditor = () => {
           .eq('id', id);
 
         if (error) throw error;
+
+        const action = newStatus === 'published' ? 'publish' : newStatus === 'draft' && form.status === 'published' ? 'unpublish' : 'update';
+        logActivity({
+          tenantId: membership!.tenantId,
+          userId: user?.id,
+          userEmail: user?.email,
+          action,
+          entityType: 'page',
+          entityId: id,
+          entityTitle: form.title,
+        });
 
         toast({ title: 'Page saved successfully' });
         // Update original content reference after successful save

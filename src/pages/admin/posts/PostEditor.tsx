@@ -17,6 +17,7 @@ import {
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Save, Send, Clock, Eye, ArrowLeft, ExternalLink } from 'lucide-react';
+import { logActivity } from '@/lib/activityLog';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import PostPreview from '@/components/admin/PostPreview';
 
@@ -227,6 +228,16 @@ const PostEditor = () => {
 
         if (error) throw error;
 
+        logActivity({
+          tenantId: membership!.tenantId,
+          userId: user?.id,
+          userEmail: user?.email,
+          action: 'create',
+          entityType: 'post',
+          entityId: data.id,
+          entityTitle: form.title,
+        });
+
         toast({ title: 'Post created successfully' });
         navigate(`/admin/posts/${data.id}`);
       } else {
@@ -236,6 +247,17 @@ const PostEditor = () => {
           .eq('id', id);
 
         if (error) throw error;
+
+        const action = newStatus === 'published' ? 'publish' : newStatus === 'draft' && form.status === 'published' ? 'unpublish' : 'update';
+        logActivity({
+          tenantId: membership!.tenantId,
+          userId: user?.id,
+          userEmail: user?.email,
+          action,
+          entityType: 'post',
+          entityId: id,
+          entityTitle: form.title,
+        });
 
         toast({ title: 'Post saved successfully' });
         if (newStatus) {
