@@ -17,7 +17,8 @@ import {
   X,
   Lock,
   Eye,
-  Globe
+  Globe,
+  Activity
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -48,6 +49,7 @@ const AdminLayout = () => {
     { to: '/admin/authors', icon: Users, label: 'Authors' },
     { to: '/admin/media', icon: Image, label: 'Media' },
     { to: '/admin/users', icon: Users, label: 'Users', adminOnly: true },
+    { to: '/admin/activity', icon: Activity, label: 'Activity Log' },
     { to: '/admin/settings', icon: Settings, label: 'Settings' },
     { to: '/admin/license', icon: CreditCard, label: 'License' },
   ];

@@ -42,6 +42,7 @@ import MediaLibrary from "./pages/admin/media/MediaLibrary";
 import UsersList from "./pages/admin/users/UsersList";
 import Settings from "./pages/admin/settings/Settings";
 import License from "./pages/admin/license/License";
+import ActivityLog from "./pages/admin/activity/ActivityLog";
 import AcceptInvite from "./pages/admin/AcceptInvite";
 import ResetPassword from "./pages/admin/ResetPassword";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
@@ -101,6 +102,7 @@ const App = () => (
               <Route path="media" element={<MediaLibrary />} />
               <Route path="users" element={<UsersList />} />
               <Route path="settings" element={<Settings />} />
+              <Route path="activity" element={<ActivityLog />} />
               <Route path="license" element={<License />} />
             </Route>
             
