@@ -318,6 +318,14 @@ function HomeTemplateEditor({
             disabled={disabled}
           />
         </div>
+        <ImageUploadField
+          label="Hero Background Image"
+          value={content.hero.heroImageUrl || ''}
+          onChange={(v) => update('hero', { ...content.hero, heroImageUrl: v })}
+          altText={content.hero.heroImageAlt || ''}
+          onAltChange={(v) => update('hero', { ...content.hero, heroImageAlt: v })}
+          disabled={disabled}
+        />
       </Panel>
 
       <Panel title="About Section">
@@ -650,6 +658,14 @@ function KetamineTemplateEditor({
             disabled={disabled}
           />
         </div>
+        <ImageUploadField
+          label="Hero Background Image"
+          value={content.hero.heroImageUrl || ''}
+          onChange={(v) => update('hero', { ...content.hero, heroImageUrl: v })}
+          altText={content.hero.heroImageAlt || ''}
+          onAltChange={(v) => update('hero', { ...content.hero, heroImageAlt: v })}
+          disabled={disabled}
+        />
       </Panel>
 
       <Panel title="Stats">
@@ -865,6 +881,14 @@ function ContactTemplateEditor({
           onChange={(v) => update('hero', { ...content.hero, body: v })}
           disabled={disabled}
         />
+        <ImageUploadField
+          label="Hero Background Image"
+          value={content.hero.heroImageUrl || ''}
+          onChange={(v) => update('hero', { ...content.hero, heroImageUrl: v })}
+          altText={content.hero.heroImageAlt || ''}
+          onAltChange={(v) => update('hero', { ...content.hero, heroImageAlt: v })}
+          disabled={disabled}
+        />
       </Panel>
 
       <Panel title="Clinic Information">
@@ -1077,6 +1101,14 @@ function SpravatoTemplateEditor({
             disabled={disabled}
           />
         </div>
+        <ImageUploadField
+          label="Hero Background Image"
+          value={content.hero.heroImageUrl || ''}
+          onChange={(v) => update('hero', { ...content.hero, heroImageUrl: v })}
+          altText={content.hero.heroImageAlt || ''}
+          onAltChange={(v) => update('hero', { ...content.hero, heroImageAlt: v })}
+          disabled={disabled}
+        />
       </Panel>
 
       <Panel title="Eligibility Form Section">
