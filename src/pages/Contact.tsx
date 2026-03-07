@@ -82,6 +82,11 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageSEO
+        title="Contact Us"
+        description="Contact Relaxol Clinic in Englewood Cliffs, NJ. Schedule a free consultation for ketamine therapy, SPRAVATO®, or vitamin infusions."
+        path="/contact"
+      />
       <JsonLdSchema type="clinic" />
       <Header />
       

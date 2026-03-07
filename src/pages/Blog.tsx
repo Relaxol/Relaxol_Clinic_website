@@ -66,6 +66,11 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageSEO
+        title="Blog"
+        description="Mental health insights, treatment breakthroughs, and wellness tips from the Relaxol Clinic team."
+        path="/blog"
+      />
       <Header />
       
       {/* Hero Section with Parallax */}

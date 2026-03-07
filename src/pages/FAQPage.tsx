@@ -129,6 +129,11 @@ const FAQPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageSEO
+        title="Ketamine Therapy FAQ"
+        description="Frequently asked questions about ketamine therapy, treatment process, safety, side effects, and eligibility at Relaxol Clinic."
+        path="/faq"
+      />
       <JsonLdSchema type="faq" faqItems={faqItems} />
       <Header />
       <main>

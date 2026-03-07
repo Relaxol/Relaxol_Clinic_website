@@ -196,6 +196,28 @@ const BlogPost = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageSEO
+        title={post.seo_title || post.title}
+        description={post.seo_description || post.excerpt || ""}
+        path={`/blog/${post.slug}`}
+        type="article"
+        publishedAt={post.published_at || undefined}
+        authorName={post.author?.name}
+        ogImage={post.hero_image || undefined}
+      />
+      <BlogPostJsonLd
+        title={post.title}
+        description={post.excerpt || ""}
+        url={`https://relaxolclinic.com/blog/${post.slug}`}
+        imageUrl={post.hero_image || undefined}
+        publishedAt={post.published_at || undefined}
+        authorName={post.author?.name}
+      />
+      <BreadcrumbJsonLd items={[
+        { name: "Home", href: "/" },
+        { name: "Blog", href: "/blog" },
+        { name: post.title, href: `/blog/${post.slug}` },
+      ]} />
       <Header />
       
       {/* Hero Section */}

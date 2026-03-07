@@ -66,6 +66,11 @@ const VitaminInfusions = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <PageSEO
+        title="IV Vitamin Infusions"
+        description="Physician-supervised IV vitamin infusions for energy, immunity, recovery, and hydration in Englewood Cliffs, NJ. B12 injections and NAD+ therapy available."
+        path="/vitamin-infusion-englewood"
+      />
       <Header />
       
       {/* Infusion Detail Modal */}

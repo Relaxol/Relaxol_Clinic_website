@@ -278,6 +278,11 @@ export default function Spravato() {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageSEO
+        title="SPRAVATO® Treatment"
+        description="FDA-approved SPRAVATO® (esketamine) nasal spray for treatment-resistant depression in Englewood Cliffs, NJ. Insurance accepted. REMS-certified clinic."
+        path="/spravato-Englewood"
+      />
       <Header />
       
       {/* 1. HERO - Text Left, Video Right */}
