@@ -421,20 +421,26 @@ export default function Spravato() {
             {/* Right: Text Content */}
             <div className="space-y-5 text-white">
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
-                Treatment-Resistant Depression
+                {trdTitle}
               </h2>
               
-              <p className="text-white/90 leading-relaxed text-base md:text-lg">
-                Depression is not as simple as just "sadness." Sadness is a feeling that comes and goes with 
-                everyday life. Almost 300 million people suffer from depression worldwide, and despite a variety 
-                of depression treatments available, many continue to suffer without relief from these medications.
-              </p>
-              
-              <p className="text-white/90 leading-relaxed text-base md:text-lg">
-                Fortunately, SPRAVATO® – the breakthrough FDA-approved esketamine nasal spray – is showing 
-                excellent results in relieving those symptoms of depression. As a SPRAVATO® REMS-certified 
-                treatment provider, our treatment team can alleviate even the most severe forms of treatment-resistant depression.
-              </p>
+              {trdBody ? (
+                <p className="text-white/90 leading-relaxed text-base md:text-lg">{trdBody}</p>
+              ) : (
+                <>
+                  <p className="text-white/90 leading-relaxed text-base md:text-lg">
+                    Depression is not as simple as just "sadness." Sadness is a feeling that comes and goes with 
+                    everyday life. Almost 300 million people suffer from depression worldwide, and despite a variety 
+                    of depression treatments available, many continue to suffer without relief from these medications.
+                  </p>
+                  
+                  <p className="text-white/90 leading-relaxed text-base md:text-lg">
+                    Fortunately, SPRAVATO® – the breakthrough FDA-approved esketamine nasal spray – is showing 
+                    excellent results in relieving those symptoms of depression. As a SPRAVATO® REMS-certified 
+                    treatment provider, our treatment team can alleviate even the most severe forms of treatment-resistant depression.
+                  </p>
+                </>
+              )}
             </div>
           </div>
         </div>
