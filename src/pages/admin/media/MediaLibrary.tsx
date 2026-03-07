@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Upload, Trash2, Loader2, Image as ImageIcon, Copy, Search } from 'lucide-react';
+import { Upload, Trash2, Loader2, Image as ImageIcon, Copy, Search, DatabaseBackup } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface MediaItem {
@@ -21,7 +21,83 @@ interface MediaItem {
   alt_text: string | null;
   size: number | null;
   mime_type: string | null;
+  width: number | null;
+  height: number | null;
   created_at: string;
+}
+
+// All existing site images to seed
+const SITE_IMAGES = [
+  // Assets
+  'about-clinic.jpg',
+  'condition-anxiety-new.jpg',
+  'condition-depression-new.jpg',
+  'condition-ocd-new.jpg',
+  'condition-pain-v4.jpg',
+  'condition-ptsd-new.jpg',
+  'doctor-portrait.jpg',
+  'dr-sangeet-khanna.jpg',
+  'hero-background.jpg',
+  'infusion-alleviate-v3.jpg',
+  'infusion-beauty-new.jpg',
+  'infusion-energy.jpg',
+  'infusion-immunity-new.jpg',
+  'infusion-quench-new.jpg',
+  'infusion-recovery-new.jpg',
+  'ketamine-directory-badge.png',
+  'ketamine-mechanism.jpg',
+  'ketamine-personalized.jpg',
+  'ketamine-rapid-relief.jpg',
+  'ketamine-supervised.jpg',
+  'nad-infusion.jpg',
+  'relaxol-logo-2025.png',
+  'relaxol-logo-footer.png',
+  'relaxol-logo-header.png',
+  'relaxol-logo-transparent.png',
+  'service-anxiety.jpg',
+  'service-depression.jpg',
+  'service-ketamine-infusion.jpg',
+  'service-maintenance.jpg',
+  'service-pain.jpg',
+  'service-ptsd.jpg',
+  'spravato-abstract-medical.jpg',
+  'spravato-brain-mechanism-new.png',
+  'spravato-clinic-interior.jpg',
+  'spravato-device-official.png',
+  'spravato-mechanism.png',
+  'spravato-nasal-spray.png',
+  'treatment-ketamine-new.jpg',
+  'treatment-pain-management-v2.png',
+  'treatment-pain-management.jpg',
+  'treatment-room.jpg',
+  'treatment-spravato.jpg',
+  'treatment-telehealth.jpg',
+  'vitamin-b12-injection.jpg',
+];
+
+// Public images (condition images referenced in CMS)
+const PUBLIC_IMAGES = [
+  'condition-anxiety-v2.jpg',
+  'condition-depression-v2.jpg',
+  'condition-ocd-v2.jpg',
+  'condition-pain-v4.jpg',
+  'condition-ptsd-v2.jpg',
+];
+
+function getImageDimensions(url: string): Promise<{ width: number; height: number }> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve({ width: img.naturalWidth, height: img.naturalHeight });
+    img.onerror = () => reject(new Error(`Failed to load ${url}`));
+    img.src = url;
+  });
+}
+
+async function fetchImageAsBlob(url: string): Promise<{ blob: Blob; size: number; type: string }> {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
+  const blob = await res.blob();
+  return { blob, size: blob.size, type: blob.type };
 }
 
 const MediaLibrary = () => {
@@ -31,6 +107,8 @@ const MediaLibrary = () => {
   const [media, setMedia] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [seeding, setSeeding] = useState(false);
+  const [seedProgress, setSeedProgress] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedMedia, setSelectedMedia] = useState<MediaItem | null>(null);
   const [editingAlt, setEditingAlt] = useState('');
@@ -54,7 +132,7 @@ const MediaLibrary = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setMedia(data || []);
+      setMedia((data as any[]) || []);
     } catch (error) {
       console.error('Error fetching media:', error);
     } finally {
@@ -70,10 +148,8 @@ const MediaLibrary = () => {
     
     try {
       for (const file of Array.from(files)) {
-        // Generate a unique path: tenantId/timestamp-filename
         const filePath = `${membership!.tenantId}/${Date.now()}-${file.name}`;
         
-        // Upload to Supabase Storage
         const { error: uploadError } = await supabase.storage
           .from('media')
           .upload(filePath, file, {
@@ -83,12 +159,21 @@ const MediaLibrary = () => {
 
         if (uploadError) throw uploadError;
 
-        // Get the public URL
         const { data: urlData } = supabase.storage
           .from('media')
           .getPublicUrl(filePath);
 
-        // Save metadata to the media table
+        // Get dimensions for images
+        let width: number | null = null;
+        let height: number | null = null;
+        if (file.type.startsWith('image/')) {
+          try {
+            const dims = await getImageDimensions(urlData.publicUrl);
+            width = dims.width;
+            height = dims.height;
+          } catch {}
+        }
+
         const { error: dbError } = await supabase.from('media').insert({
           tenant_id: membership!.tenantId,
           filename: file.name,
@@ -97,7 +182,9 @@ const MediaLibrary = () => {
           mime_type: file.type,
           uploaded_by: user?.id,
           alt_text: null,
-        });
+          width,
+          height,
+        } as any);
 
         if (dbError) throw dbError;
       }
@@ -112,6 +199,115 @@ const MediaLibrary = () => {
         fileInputRef.current.value = '';
       }
     }
+  };
+
+  const handleSeedImages = async () => {
+    if (!isAdmin || !membership?.tenantId) return;
+    
+    const confirmed = confirm(
+      `This will upload ${SITE_IMAGES.length + PUBLIC_IMAGES.length} existing site images to the media library. Continue?`
+    );
+    if (!confirmed) return;
+
+    setSeeding(true);
+    let uploaded = 0;
+    let skipped = 0;
+    let failed = 0;
+    const total = SITE_IMAGES.length + PUBLIC_IMAGES.length;
+
+    // Check which filenames already exist
+    const existingFilenames = new Set(media.map(m => m.filename));
+
+    const uploadImage = async (filename: string, sourceUrl: string) => {
+      if (existingFilenames.has(filename)) {
+        skipped++;
+        setSeedProgress(`${uploaded + skipped + failed}/${total} — Skipped ${filename} (exists)`);
+        return;
+      }
+
+      try {
+        setSeedProgress(`${uploaded + skipped + failed}/${total} — Uploading ${filename}...`);
+
+        // Fetch the image
+        const { blob, size, type } = await fetchImageAsBlob(sourceUrl);
+
+        // Get dimensions
+        let width: number | null = null;
+        let height: number | null = null;
+        try {
+          const dims = await getImageDimensions(sourceUrl);
+          width = dims.width;
+          height = dims.height;
+        } catch {}
+
+        // Upload to storage
+        const storagePath = `${membership!.tenantId}/${filename}`;
+        const { error: uploadError } = await supabase.storage
+          .from('media')
+          .upload(storagePath, blob, {
+            cacheControl: '31536000',
+            upsert: true,
+            contentType: type,
+          });
+
+        if (uploadError) throw uploadError;
+
+        const { data: urlData } = supabase.storage
+          .from('media')
+          .getPublicUrl(storagePath);
+
+        // Generate alt text from filename
+        const altText = filename
+          .replace(/\.[^.]+$/, '')
+          .replace(/[-_]/g, ' ')
+          .replace(/\b(v\d+|new|\d{8}b?)\b/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+
+        // Insert into media table
+        const { error: dbError } = await supabase.from('media').insert({
+          tenant_id: membership!.tenantId,
+          filename,
+          url: urlData.publicUrl,
+          size,
+          mime_type: type,
+          uploaded_by: user?.id,
+          alt_text: altText || null,
+          width,
+          height,
+        } as any);
+
+        if (dbError) throw dbError;
+        uploaded++;
+      } catch (err) {
+        console.error(`Failed to seed ${filename}:`, err);
+        failed++;
+      }
+    };
+
+    // Process asset images (served from the app origin)
+    for (const filename of SITE_IMAGES) {
+      const sourceUrl = new URL(`/src/assets/${filename}`, window.location.origin).href;
+      await uploadImage(filename, sourceUrl);
+    }
+
+    // Process public images
+    for (const filename of PUBLIC_IMAGES) {
+      if (existingFilenames.has(filename)) {
+        skipped++;
+        continue;
+      }
+      const sourceUrl = new URL(`/images/${filename}`, window.location.origin).href;
+      await uploadImage(filename, sourceUrl);
+    }
+
+    setSeeding(false);
+    setSeedProgress('');
+    toast({
+      title: 'Seed complete',
+      description: `Uploaded: ${uploaded} | Skipped: ${skipped} | Failed: ${failed}`,
+    });
+    fetchMedia();
   };
 
   const handleUpdateAlt = async () => {
@@ -137,10 +333,8 @@ const MediaLibrary = () => {
     if (!confirm('Are you sure you want to delete this file?')) return;
     
     try {
-      // Find the media item to get its storage path
       const item = media.find(m => m.id === id);
       if (item?.url) {
-        // Extract the storage path from the public URL
         const urlParts = item.url.split('/media/');
         if (urlParts.length > 1) {
           const storagePath = decodeURIComponent(urlParts[urlParts.length - 1]);
@@ -191,27 +385,49 @@ const MediaLibrary = () => {
           <h1 className="text-2xl font-bold tracking-tight">Media Library</h1>
           <p className="text-muted-foreground">Manage your images and files</p>
         </div>
-        {canEdit && (
-          <div>
-            <input
-              ref={fileInputRef}
-              type="file"
-              multiple
-              accept="image/*"
-              onChange={handleUpload}
-              className="hidden"
-            />
-            <Button onClick={() => fileInputRef.current?.click()} disabled={uploading}>
-              {uploading ? (
+        <div className="flex gap-2">
+          {isAdmin && (
+            <Button 
+              variant="outline" 
+              onClick={handleSeedImages} 
+              disabled={seeding || uploading}
+            >
+              {seeding ? (
                 <Loader2 className="h-4 w-4 animate-spin mr-2" />
               ) : (
-                <Upload className="h-4 w-4 mr-2" />
+                <DatabaseBackup className="h-4 w-4 mr-2" />
               )}
-              Upload
+              {seeding ? 'Seeding...' : 'Import Site Images'}
             </Button>
-          </div>
-        )}
+          )}
+          {canEdit && (
+            <>
+              <input
+                ref={fileInputRef}
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={handleUpload}
+                className="hidden"
+              />
+              <Button onClick={() => fileInputRef.current?.click()} disabled={uploading || seeding}>
+                {uploading ? (
+                  <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                ) : (
+                  <Upload className="h-4 w-4 mr-2" />
+                )}
+                Upload
+              </Button>
+            </>
+          )}
+        </div>
       </div>
+
+      {seeding && seedProgress && (
+        <div className="bg-muted rounded-lg p-3 text-sm text-muted-foreground animate-pulse">
+          {seedProgress}
+        </div>
+      )}
 
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -252,6 +468,9 @@ const MediaLibrary = () => {
                 )}
                 <div className="p-2">
                   <p className="text-xs truncate">{item.filename}</p>
+                  {item.width && item.height && (
+                    <p className="text-xs text-muted-foreground">{item.width} × {item.height}</p>
+                  )}
                   {!item.alt_text && (
                     <p className="text-xs text-destructive">Missing alt text</p>
                   )}
@@ -278,7 +497,7 @@ const MediaLibrary = () => {
                 />
               )}
               
-              <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
                 <div>
                   <p className="text-muted-foreground">Filename</p>
                   <p className="font-medium">{selectedMedia.filename}</p>
@@ -286,6 +505,18 @@ const MediaLibrary = () => {
                 <div>
                   <p className="text-muted-foreground">Size</p>
                   <p className="font-medium">{selectedMedia.size ? formatBytes(selectedMedia.size) : '-'}</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground">Dimensions</p>
+                  <p className="font-medium">
+                    {selectedMedia.width && selectedMedia.height
+                      ? `${selectedMedia.width} × ${selectedMedia.height}px`
+                      : '-'}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground">Type</p>
+                  <p className="font-medium">{selectedMedia.mime_type || '-'}</p>
                 </div>
               </div>
 
