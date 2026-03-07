@@ -70,21 +70,36 @@ const MediaLibrary = () => {
     
     try {
       for (const file of Array.from(files)) {
-        // For now, we'll store a placeholder URL since storage bucket isn't set up
-        // In production, you'd upload to Supabase Storage
-        const url = URL.createObjectURL(file);
+        // Generate a unique path: tenantId/timestamp-filename
+        const filePath = `${membership!.tenantId}/${Date.now()}-${file.name}`;
         
-        const { error } = await supabase.from('media').insert({
+        // Upload to Supabase Storage
+        const { error: uploadError } = await supabase.storage
+          .from('media')
+          .upload(filePath, file, {
+            cacheControl: '3600',
+            upsert: false,
+          });
+
+        if (uploadError) throw uploadError;
+
+        // Get the public URL
+        const { data: urlData } = supabase.storage
+          .from('media')
+          .getPublicUrl(filePath);
+
+        // Save metadata to the media table
+        const { error: dbError } = await supabase.from('media').insert({
           tenant_id: membership!.tenantId,
           filename: file.name,
-          url: url, // In production: use storage bucket URL
+          url: urlData.publicUrl,
           size: file.size,
           mime_type: file.type,
           uploaded_by: user?.id,
-          alt_text: null
+          alt_text: null,
         });
 
-        if (error) throw error;
+        if (dbError) throw dbError;
       }
       
       toast({ title: 'Files uploaded successfully' });
