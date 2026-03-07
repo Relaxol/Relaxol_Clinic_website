@@ -1155,12 +1155,32 @@ const PageEditor = () => {
           </CardHeader>
           <CardContent className="p-0 h-[calc(100%-53px)] overflow-auto">
             {isTemplatePage ? (
-              <div className="p-4 text-center text-muted-foreground">
-                <p>Preview not available for template pages.</p>
-                <p className="text-sm mt-2">
-                  View the live page at: <a href={`/${form.slug}`} target="_blank" className="text-primary underline">/{form.slug}</a>
-                </p>
-              </div>
+              (() => {
+                const slugToRoute: Record<string, string> = {
+                  'home': '/',
+                  'ketamine': '/ketamine',
+                  'spravato-Englewood': '/spravato-Englewood',
+                  'contact': '/contact',
+                  'faq': '/faq',
+                  'our-team': '/our-team',
+                  'vitamin-infusion-englewood': '/vitamin-infusion-englewood',
+                  'conditions-depression': '/conditions/depression',
+                  'conditions-anxiety': '/conditions/anxiety',
+                  'conditions-ptsd': '/conditions/ptsd',
+                  'conditions-ocd': '/conditions/ocd',
+                  'conditions-pain-management': '/conditions/pain-management',
+                };
+                const route = slugToRoute[form.slug] || `/p/${form.slug}`;
+                return (
+                  <iframe
+                    key={form.slug}
+                    src={route}
+                    title="Page Preview"
+                    className="w-full h-full border-0"
+                    style={{ minHeight: 'calc(100vh - 260px)' }}
+                  />
+                );
+              })()
             ) : (
               <PagePreview 
                 page={form} 
