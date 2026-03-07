@@ -76,7 +76,7 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
         title: item.title,
         tag: item.tag ?? null,
         description: item.description,
-        image: item.imageUrl || defaultTreatments[index]?.image || treatmentSpravato,
+        image: (item.imageUrl && item.imageUrl.trim() !== '') ? item.imageUrl : (defaultTreatments[index]?.image || treatmentSpravato),
         cta: item.ctaLabel || "Learn More",
         href: item.href || defaultTreatments[index]?.href || "/contact",
       }))
