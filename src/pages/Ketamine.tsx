@@ -715,14 +715,14 @@ const Ketamine = () => {
               {/* Left: Text */}
               <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-                  Also Offering SPRAVATO® Treatment
+                  {crossSellTitle}
                 </h2>
                 <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
-                  SPRAVATO® (esketamine) is an FDA-approved nasal spray for treatment-resistant depression. It's administered in our clinic under medical supervision and may be covered by insurance.
+                  {crossSellBody}
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Button asChild>
-                    <Link to="/spravato-Englewood">Learn About SPRAVATO®</Link>
+                    <Link to={crossSellCtaHref}>{crossSellCtaLabel}</Link>
                   </Button>
                   <Button variant="outline" asChild>
                     <Link to="/verify-coverage">Check Eligibility</Link>
