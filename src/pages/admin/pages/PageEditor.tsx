@@ -805,7 +805,17 @@ const PageEditor = () => {
             </Button>
           )}
 
-          {canEdit && (
+          {!isNew && isTemplatePage && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setHistoryOpen(true)}
+            >
+              <History className="h-4 w-4 mr-2" />
+              History
+            </Button>
+          )}
+
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => handleSave()} disabled={saving}>
                 {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
