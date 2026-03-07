@@ -142,6 +142,7 @@ export interface KetamineV1Content {
     title: string;
     body: string;
     ctaLabel?: string;
+    imageUrl?: string;
   };
   services: {
     title: string;
