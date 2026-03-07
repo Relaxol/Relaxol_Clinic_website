@@ -1,9 +1,9 @@
 // Template schemas for core pages
 // These define the editable content structure for each template
 
-export type TemplateType = 'home_v1' | 'ketamine_v1' | 'spravato_v1' | 'contact_v1' | 'faq_v1';
+export type TemplateType = 'home_v1' | 'ketamine_v1' | 'spravato_v1' | 'contact_v1' | 'faq_v1' | 'condition_v1' | 'vitamin_infusions_v1' | 'our_team_v1';
 
-export const TEMPLATE_TYPES: TemplateType[] = ['home_v1', 'ketamine_v1', 'spravato_v1', 'contact_v1', 'faq_v1'];
+export const TEMPLATE_TYPES: TemplateType[] = ['home_v1', 'ketamine_v1', 'spravato_v1', 'contact_v1', 'faq_v1', 'condition_v1', 'vitamin_infusions_v1', 'our_team_v1'];
 
 export const TEMPLATE_LABELS: Record<TemplateType, string> = {
   home_v1: 'Home Page',
@@ -11,6 +11,9 @@ export const TEMPLATE_LABELS: Record<TemplateType, string> = {
   spravato_v1: 'SPRAVATO® Page',
   contact_v1: 'Contact Page',
   faq_v1: 'FAQ Page',
+  condition_v1: 'Condition Page',
+  vitamin_infusions_v1: 'Vitamin Infusions Page',
+  our_team_v1: 'Our Team Page',
 };
 
 // Common interfaces
