@@ -711,6 +711,14 @@ function KetamineTemplateEditor({
           onChange={(v) => update('parallax', { ...content.parallax, ctaLabel: v })}
           disabled={disabled}
         />
+        <ImageUploadField
+          label="Background Image"
+          value={content.parallax.imageUrl || ''}
+          onChange={(v) => update('parallax', { ...content.parallax, imageUrl: v })}
+          altText=""
+          onAltChange={() => {}}
+          disabled={disabled}
+        />
       </Panel>
 
       <Panel title="Services">
@@ -986,6 +994,14 @@ function FAQTemplateEditor({
           label="Body"
           value={content.hero.body || ''}
           onChange={(v) => update('hero', { ...content.hero, body: v })}
+          disabled={disabled}
+        />
+        <ImageUploadField
+          label="Hero Background Image"
+          value={content.hero.heroImageUrl || ''}
+          onChange={(v) => update('hero', { ...content.hero, heroImageUrl: v })}
+          altText={content.hero.heroImageAlt || ''}
+          onAltChange={(v) => update('hero', { ...content.hero, heroImageAlt: v })}
           disabled={disabled}
         />
       </Panel>
