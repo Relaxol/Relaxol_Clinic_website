@@ -73,8 +73,6 @@ const BlogPost = () => {
         setNotFound(true);
       } else {
         setPost(data);
-        // Update document title for SEO
-        document.title = data.seo_title || data.title;
       }
       setLoading(false);
     };
