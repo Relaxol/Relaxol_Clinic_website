@@ -235,6 +235,46 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
 }
 
 export default function Spravato() {
+  const { content, loading } = usePageContent('spravato-Englewood');
+  
+  // Cast CMS content or use null
+  const cms = (content && typeof content === 'object' && 'hero' in content && 'trd' in content) 
+    ? content as SpravatoV1Content 
+    : null;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  // CMS-driven text with hardcoded fallbacks
+  const heroHeadline = cms?.hero?.headline || "Treatment for Depression That Hasn't Responded to Medication";
+  const heroSubtitle = cms?.hero?.subtitle || "FDA-approved esketamine therapy administered in a medically supervised clinic";
+  const heroCtaLabel = cms?.hero?.ctaLabel || "Check Eligibility";
+
+  const trdTitle = cms?.trd?.title || "Treatment-Resistant Depression";
+  const trdBody = cms?.trd?.body || null;
+
+  const whatIsSubtitle = cms?.whatIs?.subtitle || "About the Treatment";
+  const whatIsTitle = cms?.whatIs?.title || "What Is SPRAVATO®?";
+  const whatIsBody = cms?.whatIs?.body || null;
+
+  const benefitsSubtitle = cms?.benefits?.subtitle || "Why SPRAVATO®";
+  const benefitsTitle = cms?.benefits?.title || "Benefits of SPRAVATO® Treatment";
+
+  const timelineSubtitle = cms?.timeline?.subtitle || "The Process";
+  const timelineTitle = cms?.timeline?.title || "How the Treatment Works";
+
+  const faqTitle = cms?.faq?.title || "Safety & Side Effects";
+  const faqItems = cms?.faq?.items?.length ? cms.faq.items : null;
+
+  const contactSubtitle = cms?.contact?.subtitle || "Coverage";
+  const contactTitle = cms?.contact?.title || "Insurance & Access";
+  const contactBody = cms?.contact?.body || "We work with many major insurance providers. Our team will verify your benefits and assist with prior authorization to help maximize your coverage.";
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
