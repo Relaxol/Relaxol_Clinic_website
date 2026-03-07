@@ -610,6 +610,29 @@ function HomeTemplateEditor({
           disabled={disabled}
         />
       </Panel>
+
+      <Panel title="Environment Section">
+        <TextField
+          label="Subtitle"
+          value={content.environment?.subtitle || ''}
+          onChange={(v) => update('environment', { ...content.environment, subtitle: v })}
+          disabled={disabled}
+        />
+        <TextField
+          label="Title"
+          value={content.environment?.title || ''}
+          onChange={(v) => update('environment', { ...content.environment, title: v })}
+          disabled={disabled}
+        />
+        <ImageUploadField
+          label="Image"
+          value={content.environment?.imageUrl || ''}
+          onChange={(v) => update('environment', { ...content.environment, imageUrl: v })}
+          altText={content.environment?.imageAlt || ''}
+          onAltChange={(v) => update('environment', { ...content.environment, imageAlt: v })}
+          disabled={disabled}
+        />
+      </Panel>
     </div>
   );
 }
