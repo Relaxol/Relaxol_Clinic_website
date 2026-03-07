@@ -570,7 +570,7 @@ const Ketamine = () => {
           {/* Parallax background image - replace src later */}
           <div 
             className="absolute inset-0 bg-cover bg-center bg-fixed"
-            style={{ backgroundImage: `url(${treatmentKetamine})` }}
+            style={{ backgroundImage: `url(${cms?.parallax?.imageUrl || treatmentKetamine})` }}
           />
           {/* Dark overlay for text readability */}
           <div className="absolute inset-0 bg-black/60" />
