@@ -505,9 +505,7 @@ export default function Spravato() {
           {/* Mechanism explanation */}
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-muted-foreground leading-relaxed">
-              SPRAVATO® targets NMDA receptors in the brain, increasing glutamate release which 
-              helps restore synaptic connections affected by depression. This mechanism differs 
-              from traditional antidepressants and may provide relief when other treatments haven't worked.
+              {cms?.timeline?.mechanismText || "SPRAVATO® targets NMDA receptors in the brain, increasing glutamate release which helps restore synaptic connections affected by depression. This mechanism differs from traditional antidepressants and may provide relief when other treatments haven't worked."}
             </p>
           </div>
         </div>

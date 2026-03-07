@@ -269,6 +269,7 @@ export interface SpravatoV1Content {
     subtitle?: string;
     title: string;
     items: TimelineItem[];
+    mechanismText?: string;
   };
   faq: {
     title: string;
