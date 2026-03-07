@@ -8,6 +8,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Link } from "react-router-dom";
+import { JsonLdSchema } from "@/components/seo/JsonLdSchema";
 
 // FAQ Data from original Relaxol Clinic website
 const faqItems = [
@@ -96,6 +97,7 @@ const faqItems = [
 const FAQPage = () => {
   return (
     <div className="min-h-screen bg-background">
+      <JsonLdSchema type="faq" faqItems={faqItems} />
       <Header />
       <main>
         {/* Hero Section */}

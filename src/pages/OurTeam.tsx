@@ -5,6 +5,7 @@ import doctorPortrait from "@/assets/dr-sangeet-khanna.jpg";
 import { usePageContent } from "@/hooks/usePageContent";
 import { OurTeamV1Content } from "@/lib/templates/newSchemas";
 import { defaultOurTeamContent } from "@/lib/templates/newDefaults";
+import { JsonLdSchema } from "@/components/seo/JsonLdSchema";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Award,
@@ -27,6 +28,7 @@ const OurTeam = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLdSchema type="physician" />
       <Header />
       <main>
         {/* Hero Section */}
