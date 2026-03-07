@@ -384,8 +384,8 @@ export default function Spravato() {
             {/* Right: Official SPRAVATO Device Image */}
             <div className="flex justify-center items-center">
               <img 
-                src={spravatoDeviceOfficial} 
-                alt="SPRAVATO nasal spray device"
+                src={cms?.whatIs?.imageUrl || spravatoDeviceOfficial} 
+                alt={cms?.whatIs?.imageAlt || "SPRAVATO nasal spray device"}
                 className="max-w-full h-auto"
               />
             </div>
@@ -400,8 +400,8 @@ export default function Spravato() {
             {/* Left: Image */}
             <div className="flex justify-center">
               <img 
-                src={spravatoMechanism}
-                alt="SPRAVATO brain mechanism - NMDA receptor antagonist"
+                src={cms?.trd?.imageUrl || spravatoMechanism}
+                alt={cms?.trd?.imageAlt || "SPRAVATO brain mechanism - NMDA receptor antagonist"}
                 className="max-w-[450px] w-full h-auto"
               />
             </div>

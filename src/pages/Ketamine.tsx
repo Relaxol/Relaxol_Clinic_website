@@ -733,7 +733,7 @@ const Ketamine = () => {
               {/* Right: Image */}
               <div className="rounded-2xl overflow-hidden bg-muted aspect-[4/3]">
                 <img 
-                  src={spravato} 
+                  src={cms?.crossSell?.imageUrl || spravato} 
                   alt="SPRAVATO treatment"
                   className="w-full h-full object-cover"
                 />
