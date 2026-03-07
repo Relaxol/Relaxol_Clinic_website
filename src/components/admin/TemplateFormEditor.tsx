@@ -318,6 +318,14 @@ function HomeTemplateEditor({
             disabled={disabled}
           />
         </div>
+        <ImageUploadField
+          label="Hero Background Image"
+          value={content.hero.heroImageUrl || ''}
+          onChange={(v) => update('hero', { ...content.hero, heroImageUrl: v })}
+          altText={content.hero.heroImageAlt || ''}
+          onAltChange={(v) => update('hero', { ...content.hero, heroImageAlt: v })}
+          disabled={disabled}
+        />
       </Panel>
 
       <Panel title="About Section">
@@ -650,6 +658,14 @@ function KetamineTemplateEditor({
             disabled={disabled}
           />
         </div>
+        <ImageUploadField
+          label="Hero Background Image"
+          value={content.hero.heroImageUrl || ''}
+          onChange={(v) => update('hero', { ...content.hero, heroImageUrl: v })}
+          altText={content.hero.heroImageAlt || ''}
+          onAltChange={(v) => update('hero', { ...content.hero, heroImageAlt: v })}
+          disabled={disabled}
+        />
       </Panel>
 
       <Panel title="Stats">
@@ -693,6 +709,14 @@ function KetamineTemplateEditor({
           label="CTA Label"
           value={content.parallax.ctaLabel || ''}
           onChange={(v) => update('parallax', { ...content.parallax, ctaLabel: v })}
+          disabled={disabled}
+        />
+        <ImageUploadField
+          label="Background Image"
+          value={content.parallax.imageUrl || ''}
+          onChange={(v) => update('parallax', { ...content.parallax, imageUrl: v })}
+          altText=""
+          onAltChange={() => {}}
           disabled={disabled}
         />
       </Panel>
@@ -865,6 +889,14 @@ function ContactTemplateEditor({
           onChange={(v) => update('hero', { ...content.hero, body: v })}
           disabled={disabled}
         />
+        <ImageUploadField
+          label="Hero Background Image"
+          value={content.hero.heroImageUrl || ''}
+          onChange={(v) => update('hero', { ...content.hero, heroImageUrl: v })}
+          altText={content.hero.heroImageAlt || ''}
+          onAltChange={(v) => update('hero', { ...content.hero, heroImageAlt: v })}
+          disabled={disabled}
+        />
       </Panel>
 
       <Panel title="Clinic Information">
@@ -962,6 +994,14 @@ function FAQTemplateEditor({
           label="Body"
           value={content.hero.body || ''}
           onChange={(v) => update('hero', { ...content.hero, body: v })}
+          disabled={disabled}
+        />
+        <ImageUploadField
+          label="Hero Background Image"
+          value={content.hero.heroImageUrl || ''}
+          onChange={(v) => update('hero', { ...content.hero, heroImageUrl: v })}
+          altText={content.hero.heroImageAlt || ''}
+          onAltChange={(v) => update('hero', { ...content.hero, heroImageAlt: v })}
           disabled={disabled}
         />
       </Panel>
@@ -1077,6 +1117,14 @@ function SpravatoTemplateEditor({
             disabled={disabled}
           />
         </div>
+        <ImageUploadField
+          label="Hero Background Image"
+          value={content.hero.heroImageUrl || ''}
+          onChange={(v) => update('hero', { ...content.hero, heroImageUrl: v })}
+          altText={content.hero.heroImageAlt || ''}
+          onAltChange={(v) => update('hero', { ...content.hero, heroImageAlt: v })}
+          disabled={disabled}
+        />
       </Panel>
 
       <Panel title="Eligibility Form Section">
@@ -1357,6 +1405,14 @@ function VitaminInfusionsTemplateEditor({
           <TextField label="CTA Label" value={content.hero.ctaLabel || ''} onChange={(v) => update('hero', { ...content.hero, ctaLabel: v })} disabled={disabled} />
           <TextField label="CTA Link" value={content.hero.ctaHref || ''} onChange={(v) => update('hero', { ...content.hero, ctaHref: v })} disabled={disabled} />
         </div>
+        <ImageUploadField
+          label="Hero Background Image"
+          value={content.hero.backgroundImageUrl || ''}
+          onChange={(v) => update('hero', { ...content.hero, backgroundImageUrl: v })}
+          altText=""
+          onAltChange={() => {}}
+          disabled={disabled}
+        />
       </Panel>
 
       <Panel title="About Section">

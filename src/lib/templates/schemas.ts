@@ -23,6 +23,8 @@ interface HeroContent {
   body?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  heroImageUrl?: string;
+  heroImageAlt?: string;
 }
 
 interface AboutContent {
@@ -140,6 +142,7 @@ export interface KetamineV1Content {
     title: string;
     body: string;
     ctaLabel?: string;
+    imageUrl?: string;
   };
   services: {
     title: string;

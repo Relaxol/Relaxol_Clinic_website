@@ -492,8 +492,8 @@ const Ketamine = () => {
             {/* Right column - Hero image */}
             <div className="rounded-3xl overflow-hidden bg-muted aspect-[4/3]">
               <img 
-                src={treatmentRoom} 
-                alt="Comfortable ketamine treatment room"
+                src={cms?.hero?.heroImageUrl || treatmentRoom} 
+                alt={cms?.hero?.heroImageAlt || "Comfortable ketamine treatment room"}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -570,7 +570,7 @@ const Ketamine = () => {
           {/* Parallax background image - replace src later */}
           <div 
             className="absolute inset-0 bg-cover bg-center bg-fixed"
-            style={{ backgroundImage: `url(${treatmentKetamine})` }}
+            style={{ backgroundImage: `url(${cms?.parallax?.imageUrl || treatmentKetamine})` }}
           />
           {/* Dark overlay for text readability */}
           <div className="absolute inset-0 bg-black/60" />

@@ -38,6 +38,7 @@ export default function Contact() {
   const heroSubtitle = contactContent?.hero?.subtitle ?? "Get In Touch";
   const heroHeadline = contactContent?.hero?.headline ?? "Contact Us";
   const heroBody = contactContent?.hero?.body ?? "We're here to answer your questions and help you begin your journey to wellness.";
+  const heroImageUrl = contactContent?.hero?.heroImageUrl || 'https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=1920&q=80';
   const formSubtitle = contactContent?.form?.subtitle ?? "SEND US A MESSAGE";
   const formTitle = contactContent?.form?.title ?? "Schedule a Consultation";
   const formBody = contactContent?.form?.body ?? "Fill out the form below and we'll contact you within one business day.";
@@ -88,7 +89,7 @@ export default function Contact() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=1920&q=80')`,
+            backgroundImage: `url('${heroImageUrl}')`,
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#5C4A3A]/85 to-[#4A3C32]/90" />
