@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/select';
 import { Upload, Trash2, Loader2, Image as ImageIcon, Copy, Search, DatabaseBackup, ArrowUpDown } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { logActivity } from '@/lib/activityLog';
 
 interface MediaItem {
   id: string;
@@ -229,6 +230,16 @@ const MediaLibrary = () => {
         if (dbError) throw dbError;
       }
       
+      for (const file of Array.from(files)) {
+        logActivity({
+          tenantId: membership!.tenantId,
+          userId: user?.id,
+          userEmail: user?.email,
+          action: 'upload',
+          entityType: 'media',
+          entityTitle: file.name,
+        });
+      }
       toast({ title: 'Files uploaded successfully' });
       fetchMedia();
     } catch (error: any) {
@@ -365,6 +376,15 @@ const MediaLibrary = () => {
 
       const { error } = await supabase.from('media').delete().eq('id', id);
       if (error) throw error;
+      logActivity({
+        tenantId: membership!.tenantId,
+        userId: user?.id,
+        userEmail: user?.email,
+        action: 'delete',
+        entityType: 'media',
+        entityId: id,
+        entityTitle: item?.filename,
+      });
       toast({ title: 'File deleted' });
       setSelectedMedia(null);
       fetchMedia();
