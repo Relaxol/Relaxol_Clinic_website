@@ -414,6 +414,51 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
 }
 
 const Ketamine = () => {
+  const { content, loading } = usePageContent('ketamine');
+  
+  // Cast CMS content or use null
+  const cms = (content && typeof content === 'object' && 'hero' in content && 'stats' in content && 'services' in content) 
+    ? content as KetamineV1Content 
+    : null;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  // CMS-driven text with hardcoded fallbacks
+  const heroHeadline = cms?.hero?.headline || "Ketamine Therapy:";
+  const heroBody = cms?.hero?.body || "Personalized care for individuals who haven't found relief with traditional treatments.";
+  const heroCtaLabel = cms?.hero?.ctaLabel || "Book Consultation";
+  const heroSubtitle = cms?.hero?.subtitle || "Rapid Relief for a Range of Mood and Chronic Conditions";
+
+  const cmsStats = cms?.stats?.items?.length ? cms.stats.items : null;
+
+  const parallaxTitle = cms?.parallax?.title || "Rapid Relief When Traditional Treatments Haven't Worked";
+  const parallaxBody = cms?.parallax?.body || "Ketamine therapy offers a different mechanism of action that can help patients who haven't responded to conventional antidepressants experience meaningful improvement.";
+
+  const eligibilitySubtitle = cms?.eligibility?.subtitle || "Start Your Journey";
+  const eligibilityTitle = cms?.eligibility?.title || "Take the Next Step Toward Relief";
+  const eligibilityBody = cms?.eligibility?.body || "If traditional treatments haven't worked, our care team can help you understand whether ketamine therapy may be appropriate for you.";
+  const eligibilityBullets = cms?.eligibility?.trustBullets?.length ? cms.eligibility.trustBullets : [
+    "No obligation assessment",
+    "Response within 48 hours",
+    "Confidential submission",
+    "Insurance verification available",
+  ];
+  const eligibilityPhone = cms?.eligibility?.phone || "201-781-2101";
+
+  const crossSellTitle = cms?.crossSell?.title || "Also Offering SPRAVATO® Treatment";
+  const crossSellBody = cms?.crossSell?.body || "SPRAVATO® (esketamine) is an FDA-approved nasal spray for treatment-resistant depression. It's administered in our clinic under medical supervision and may be covered by insurance.";
+  const crossSellCtaLabel = cms?.crossSell?.ctaLabel || "Learn About SPRAVATO®";
+  const crossSellCtaHref = cms?.crossSell?.ctaHref || "/spravato-Englewood";
+
+  const faqTitle = cms?.faq?.title || "Safety & Side Effects";
+  const faqItems = cms?.faq?.items?.length ? cms.faq.items : null;
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
