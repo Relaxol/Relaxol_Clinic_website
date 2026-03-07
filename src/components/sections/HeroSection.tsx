@@ -13,6 +13,8 @@ interface HeroContent {
   body?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  heroImageUrl?: string;
+  heroImageAlt?: string;
 }
 
 interface HeroSectionProps {
@@ -25,6 +27,7 @@ export function HeroSection({ content }: HeroSectionProps) {
   const body = content?.body ?? "Advanced, clinician-led treatments for Depression, Anxiety, PTSD, OCD and Chronic Pain.";
   const ctaLabel = content?.ctaLabel ?? "Book Your Free Consultation Today!";
   const ctaHref = content?.ctaHref ?? "#contact";
+  const bgImage = content?.heroImageUrl || heroBackground;
 
   return (
     <section className="relative min-h-[80vh] flex items-start md:items-center overflow-hidden">
@@ -32,9 +35,11 @@ export function HeroSection({ content }: HeroSectionProps) {
       <div 
         className="absolute inset-0 bg-cover bg-no-repeat bg-fixed"
         style={{ 
-          backgroundImage: `url(${heroBackground})`, 
+          backgroundImage: `url(${bgImage})`, 
           backgroundPosition: '50% 50%',
         }}
+        role="img"
+        aria-label={content?.heroImageAlt || 'Hero background'}
       >
         {/* Dark overlay for better text contrast */}
         <div className="absolute inset-0 bg-black/40" />
