@@ -451,10 +451,10 @@ export default function Spravato() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-primary font-semibold text-sm uppercase tracking-widest">
-              Why SPRAVATO®
+              {benefitsSubtitle}
             </span>
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4">
-              Benefits of SPRAVATO® Treatment
+              {benefitsTitle}
             </h2>
           </div>
           
@@ -483,10 +483,10 @@ export default function Spravato() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-primary font-semibold text-sm uppercase tracking-widest">
-              The Process
+              {timelineSubtitle}
             </span>
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4">
-              How the Treatment Works
+              {timelineTitle}
             </h2>
           </div>
           
@@ -535,7 +535,7 @@ export default function Spravato() {
                 Safety Information
               </span>
               <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4">
-                Safety & Side Effects
+                {faqTitle}
               </h2>
             </div>
             
