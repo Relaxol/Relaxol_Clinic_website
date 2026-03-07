@@ -373,6 +373,13 @@ function HomeTemplateEditor({
           onChange={(v) => update('video', { ...content.video, body: v })}
           disabled={disabled}
         />
+        <TextAreaField
+          label="Second Paragraph"
+          value={content.video.secondParagraph || ''}
+          onChange={(v) => update('video', { ...content.video, secondParagraph: v })}
+          placeholder="Watch our video to learn more about how these breakthrough treatments work..."
+          disabled={disabled}
+        />
         <TextField
           label="Embed URL"
           value={content.video.embedUrl}
