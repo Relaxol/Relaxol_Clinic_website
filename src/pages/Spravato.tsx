@@ -7,6 +7,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { usePageContent } from "@/hooks/usePageContent";
+import { SpravatoV1Content } from "@/lib/templates/schemas";
+import { Loader2 } from "lucide-react";
 import abstractMedical from "@/assets/spravato-abstract-medical.jpg";
 import spravatoBrainMechanism from "@/assets/spravato-brain-mechanism.png";
 import spravatoMechanism from "@/assets/spravato-mechanism.png";
@@ -232,6 +235,46 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
 }
 
 export default function Spravato() {
+  const { content, loading } = usePageContent('spravato-Englewood');
+  
+  // Cast CMS content or use null
+  const cms = (content && typeof content === 'object' && 'hero' in content && 'trd' in content) 
+    ? content as SpravatoV1Content 
+    : null;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  // CMS-driven text with hardcoded fallbacks
+  const heroHeadline = cms?.hero?.headline || "Treatment for Depression That Hasn't Responded to Medication";
+  const heroSubtitle = cms?.hero?.subtitle || "FDA-approved esketamine therapy administered in a medically supervised clinic";
+  const heroCtaLabel = cms?.hero?.ctaLabel || "Check Eligibility";
+
+  const trdTitle = cms?.trd?.title || "Treatment-Resistant Depression";
+  const trdBody = cms?.trd?.body || null;
+
+  const whatIsSubtitle = cms?.whatIs?.subtitle || "About the Treatment";
+  const whatIsTitle = cms?.whatIs?.title || "What Is SPRAVATO®?";
+  const whatIsBody = cms?.whatIs?.body || null;
+
+  const benefitsSubtitle = cms?.benefits?.subtitle || "Why SPRAVATO®";
+  const benefitsTitle = cms?.benefits?.title || "Benefits of SPRAVATO® Treatment";
+
+  const timelineSubtitle = cms?.timeline?.subtitle || "The Process";
+  const timelineTitle = cms?.timeline?.title || "How the Treatment Works";
+
+  const faqTitle = cms?.faq?.title || "Safety & Side Effects";
+  const faqItems = cms?.faq?.items?.length ? cms.faq.items : null;
+
+  const contactSubtitle = cms?.contact?.subtitle || "Coverage";
+  const contactTitle = cms?.contact?.title || "Insurance & Access";
+  const contactBody = cms?.contact?.body || "We work with many major insurance providers. Our team will verify your benefits and assist with prior authorization to help maximize your coverage.";
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -247,10 +290,10 @@ export default function Spravato() {
           <div className="lg:hidden space-y-6 mb-6">
             <h1 className="text-2xl sm:text-3xl font-bold text-background leading-tight">
               <span className="block">SPRAVATO®</span>
-              Treatment for Depression That Hasn't Responded to Medication
+              {heroHeadline}
             </h1>
             <h2 className="text-xl md:text-2xl text-background/80">
-              FDA-approved esketamine therapy administered in a medically supervised clinic
+              {heroSubtitle}
             </h2>
             
             {/* Video - shown on mobile right after the title */}
@@ -271,17 +314,17 @@ export default function Spravato() {
               <div className="hidden lg:block">
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-background leading-tight">
                   <span className="block">SPRAVATO®</span>
-                  Treatment for Depression That Hasn't Responded to Medication
+                  {heroHeadline}
                 </h1>
                 <h2 className="text-xl md:text-2xl text-background/80 mt-6">
-                  FDA-approved esketamine therapy administered in a medically supervised clinic
+                  {heroSubtitle}
                 </h2>
               </div>
               
               <div className="flex flex-wrap gap-4 pt-2">
                 <Button size="lg" className="group" asChild>
                   <Link to="/verify-coverage">
-                    Check Eligibility
+                    {heroCtaLabel}
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
@@ -325,23 +368,29 @@ export default function Spravato() {
             {/* Left: Text */}
             <div className="space-y-6">
               <span className="text-primary font-semibold text-sm uppercase tracking-widest">
-                About the Treatment
+                {whatIsSubtitle}
               </span>
               <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-                What Is SPRAVATO®?
+                {whatIsTitle}
               </h2>
               
-              <p className="text-muted-foreground leading-relaxed">
-                SPRAVATO® is a prescription nasal spray derived from esketamine and approved 
-                by the FDA for treatment-resistant depression. It's used alongside an oral 
-                antidepressant for adults who haven't found relief from standard medications.
-              </p>
-              
-              <p className="text-muted-foreground leading-relaxed">
-                Unlike traditional antidepressants that target serotonin or norepinephrine, 
-                SPRAVATO® works on the glutamate system—potentially restoring neural connections 
-                weakened by chronic depression.
-              </p>
+              {whatIsBody ? (
+                <p className="text-muted-foreground leading-relaxed">{whatIsBody}</p>
+              ) : (
+                <>
+                  <p className="text-muted-foreground leading-relaxed">
+                    SPRAVATO® is a prescription nasal spray derived from esketamine and approved 
+                    by the FDA for treatment-resistant depression. It's used alongside an oral 
+                    antidepressant for adults who haven't found relief from standard medications.
+                  </p>
+                  
+                  <p className="text-muted-foreground leading-relaxed">
+                    Unlike traditional antidepressants that target serotonin or norepinephrine, 
+                    SPRAVATO® works on the glutamate system—potentially restoring neural connections 
+                    weakened by chronic depression.
+                  </p>
+                </>
+              )}
             </div>
             
             {/* Right: Official SPRAVATO Device Image */}
@@ -372,20 +421,26 @@ export default function Spravato() {
             {/* Right: Text Content */}
             <div className="space-y-5 text-white">
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
-                Treatment-Resistant Depression
+                {trdTitle}
               </h2>
               
-              <p className="text-white/90 leading-relaxed text-base md:text-lg">
-                Depression is not as simple as just "sadness." Sadness is a feeling that comes and goes with 
-                everyday life. Almost 300 million people suffer from depression worldwide, and despite a variety 
-                of depression treatments available, many continue to suffer without relief from these medications.
-              </p>
-              
-              <p className="text-white/90 leading-relaxed text-base md:text-lg">
-                Fortunately, SPRAVATO® – the breakthrough FDA-approved esketamine nasal spray – is showing 
-                excellent results in relieving those symptoms of depression. As a SPRAVATO® REMS-certified 
-                treatment provider, our treatment team can alleviate even the most severe forms of treatment-resistant depression.
-              </p>
+              {trdBody ? (
+                <p className="text-white/90 leading-relaxed text-base md:text-lg">{trdBody}</p>
+              ) : (
+                <>
+                  <p className="text-white/90 leading-relaxed text-base md:text-lg">
+                    Depression is not as simple as just "sadness." Sadness is a feeling that comes and goes with 
+                    everyday life. Almost 300 million people suffer from depression worldwide, and despite a variety 
+                    of depression treatments available, many continue to suffer without relief from these medications.
+                  </p>
+                  
+                  <p className="text-white/90 leading-relaxed text-base md:text-lg">
+                    Fortunately, SPRAVATO® – the breakthrough FDA-approved esketamine nasal spray – is showing 
+                    excellent results in relieving those symptoms of depression. As a SPRAVATO® REMS-certified 
+                    treatment provider, our treatment team can alleviate even the most severe forms of treatment-resistant depression.
+                  </p>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -396,10 +451,10 @@ export default function Spravato() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-primary font-semibold text-sm uppercase tracking-widest">
-              Why SPRAVATO®
+              {benefitsSubtitle}
             </span>
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4">
-              Benefits of SPRAVATO® Treatment
+              {benefitsTitle}
             </h2>
           </div>
           
@@ -428,10 +483,10 @@ export default function Spravato() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-primary font-semibold text-sm uppercase tracking-widest">
-              The Process
+              {timelineSubtitle}
             </span>
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4">
-              How the Treatment Works
+              {timelineTitle}
             </h2>
           </div>
           
@@ -480,7 +535,7 @@ export default function Spravato() {
                 Safety Information
               </span>
               <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4">
-                Safety & Side Effects
+                {faqTitle}
               </h2>
             </div>
             
@@ -489,17 +544,17 @@ export default function Spravato() {
             </p>
             
             <Accordion type="single" collapsible className="space-y-4">
-              {safetyAccordionItems.map((item) => (
+              {(faqItems || safetyAccordionItems).map((item, index) => (
                 <AccordionItem 
-                  key={item.id} 
-                  value={item.id}
+                  key={'id' in item ? item.id : `faq-${index}`} 
+                  value={'id' in item ? item.id : `faq-${index}`}
                   className="bg-background rounded-xl px-6 border-none shadow-sm"
                 >
                   <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-5">
-                    {item.title}
+                    {'question' in item ? item.question : item.title}
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
-                    {item.content}
+                    {'answer' in item ? item.answer : item.content}
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -517,14 +572,13 @@ export default function Spravato() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <span className="text-primary font-semibold text-sm uppercase tracking-widest">
-              Coverage
+              {contactSubtitle}
             </span>
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground mt-4 mb-6">
-              Insurance & Access
+              {contactTitle}
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              We work with many major insurance providers. Our team will verify your benefits 
-              and assist with prior authorization to help maximize your coverage.
+              {contactBody}
             </p>
             
             <Button size="lg" variant="outline" className="group" asChild>

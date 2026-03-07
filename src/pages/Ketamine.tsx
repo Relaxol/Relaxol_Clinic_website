@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { usePageContent } from "@/hooks/usePageContent";
+import { KetamineV1Content } from "@/lib/templates/schemas";
+import { Loader2 } from "lucide-react";
 import treatmentKetamine from "@/assets/treatment-ketamine.jpg";
 import treatmentRoom from "@/assets/treatment-room.jpg";
 import drSangeetKhanna from "@/assets/dr-sangeet-khanna.jpg";
@@ -411,6 +414,51 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
 }
 
 const Ketamine = () => {
+  const { content, loading } = usePageContent('ketamine');
+  
+  // Cast CMS content or use null
+  const cms = (content && typeof content === 'object' && 'hero' in content && 'stats' in content && 'services' in content) 
+    ? content as KetamineV1Content 
+    : null;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  // CMS-driven text with hardcoded fallbacks
+  const heroHeadline = cms?.hero?.headline || "Ketamine Therapy:";
+  const heroBody = cms?.hero?.body || "Personalized care for individuals who haven't found relief with traditional treatments.";
+  const heroCtaLabel = cms?.hero?.ctaLabel || "Book Consultation";
+  const heroSubtitle = cms?.hero?.subtitle || "Rapid Relief for a Range of Mood and Chronic Conditions";
+
+  const cmsStats = cms?.stats?.items?.length ? cms.stats.items : null;
+
+  const parallaxTitle = cms?.parallax?.title || "Rapid Relief When Traditional Treatments Haven't Worked";
+  const parallaxBody = cms?.parallax?.body || "Ketamine therapy offers a different mechanism of action that can help patients who haven't responded to conventional antidepressants experience meaningful improvement.";
+
+  const eligibilitySubtitle = cms?.eligibility?.subtitle || "Start Your Journey";
+  const eligibilityTitle = cms?.eligibility?.title || "Take the Next Step Toward Relief";
+  const eligibilityBody = cms?.eligibility?.body || "If traditional treatments haven't worked, our care team can help you understand whether ketamine therapy may be appropriate for you.";
+  const eligibilityBullets = cms?.eligibility?.trustBullets?.length ? cms.eligibility.trustBullets : [
+    "No obligation assessment",
+    "Response within 48 hours",
+    "Confidential submission",
+    "Insurance verification available",
+  ];
+  const eligibilityPhone = cms?.eligibility?.phone || "201-781-2101";
+
+  const crossSellTitle = cms?.crossSell?.title || "Also Offering SPRAVATO® Treatment";
+  const crossSellBody = cms?.crossSell?.body || "SPRAVATO® (esketamine) is an FDA-approved nasal spray for treatment-resistant depression. It's administered in our clinic under medical supervision and may be covered by insurance.";
+  const crossSellCtaLabel = cms?.crossSell?.ctaLabel || "Learn About SPRAVATO®";
+  const crossSellCtaHref = cms?.crossSell?.ctaHref || "/spravato-Englewood";
+
+  const faqTitle = cms?.faq?.title || "Safety & Side Effects";
+  const faqItems = cms?.faq?.items?.length ? cms.faq.items : null;
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -421,16 +469,16 @@ const Ketamine = () => {
             {/* Left column */}
             <div className="space-y-6">
               <h1 className="tracking-tight text-foreground">
-                <span className="block text-3xl sm:text-4xl lg:text-5xl font-bold">Ketamine Therapy:</span>
-                <span className="block text-xl sm:text-2xl lg:text-3xl font-medium text-muted-foreground mt-2">Rapid Relief for a Range of Mood and Chronic Conditions</span>
+                <span className="block text-3xl sm:text-4xl lg:text-5xl font-bold">{heroHeadline}</span>
+                <span className="block text-xl sm:text-2xl lg:text-3xl font-medium text-muted-foreground mt-2">{heroSubtitle}</span>
               </h1>
               <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
-                Personalized care for individuals who haven't found relief with traditional treatments.
+                {heroBody}
               </p>
               
               <div className="flex flex-wrap gap-4 pt-4">
                 <Button size="lg" onClick={() => scrollToId("eligibility")} className="px-10">
-                  Book Consultation
+                  {heroCtaLabel}
                 </Button>
                 <button 
                   onClick={() => scrollToId("how-it-works")}
@@ -454,7 +502,7 @@ const Ketamine = () => {
           {/* Stats row */}
           <div className="mx-auto max-w-6xl px-6 mt-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {statsItems.map((stat, index) => (
+              {(cmsStats || statsItems).map((stat, index) => (
                 <div key={index} className="rounded-2xl bg-muted/40 p-5">
                   <div className="text-2xl font-semibold text-foreground">{stat.value}</div>
                   <div className="text-sm text-muted-foreground">{stat.label}</div>
@@ -529,10 +577,10 @@ const Ketamine = () => {
           
           <div className="relative z-10 mx-auto max-w-4xl px-6 text-center space-y-6">
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white">
-              Rapid Relief When Traditional Treatments Haven't Worked
+              {parallaxTitle}
             </h2>
             <p className="text-base md:text-lg leading-relaxed text-white/80 max-w-2xl mx-auto">
-              Ketamine therapy offers a different mechanism of action that can help patients who haven't responded to conventional antidepressants experience meaningful improvement.
+              {parallaxBody}
             </p>
           </div>
         </section>
@@ -624,46 +672,30 @@ const Ketamine = () => {
               {/* Left: CTA copy + trust bullets */}
               <div className="space-y-8">
                 <div className="space-y-4">
-                  <p className="text-sm font-medium uppercase tracking-widest text-primary">Start Your Journey</p>
+                  <p className="text-sm font-medium uppercase tracking-widest text-primary">{eligibilitySubtitle}</p>
                   <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground leading-tight">
-                    Take the Next Step Toward Relief
+                    {eligibilityTitle}
                   </h2>
                 </div>
                 <p className="text-muted-foreground text-lg leading-relaxed">
-                  If traditional treatments haven't worked, our care team can help you understand whether ketamine therapy may be appropriate for you.
+                  {eligibilityBody}
                 </p>
                 
                 <ul className="space-y-5 pt-4">
-                  <li className="flex items-start gap-4">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3.5 h-3.5 text-primary" />
-                    </div>
-                    <span className="text-foreground">No obligation assessment</span>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3.5 h-3.5 text-primary" />
-                    </div>
-                    <span className="text-foreground">Response within 48 hours</span>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3.5 h-3.5 text-primary" />
-                    </div>
-                    <span className="text-foreground">Confidential submission</span>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3.5 h-3.5 text-primary" />
-                    </div>
-                    <span className="text-foreground">Insurance verification available</span>
-                  </li>
+                  {eligibilityBullets.map((bullet, index) => (
+                    <li key={index} className="flex items-start gap-4">
+                      <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Check className="w-3.5 h-3.5 text-primary" />
+                      </div>
+                      <span className="text-foreground">{bullet}</span>
+                    </li>
+                  ))}
                 </ul>
                 
                 <div className="pt-6 border-t border-border/30">
                   <p className="text-muted-foreground text-sm">
                     Prefer to speak with someone? Call us directly at{" "}
-                    <a href="tel:201-781-2101" className="font-medium text-foreground hover:text-primary transition-colors">201-781-2101</a>
+                    <a href={`tel:${eligibilityPhone}`} className="font-medium text-foreground hover:text-primary transition-colors">{eligibilityPhone}</a>
                   </p>
                 </div>
               </div>
@@ -683,14 +715,14 @@ const Ketamine = () => {
               {/* Left: Text */}
               <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-                  Also Offering SPRAVATO® Treatment
+                  {crossSellTitle}
                 </h2>
                 <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
-                  SPRAVATO® (esketamine) is an FDA-approved nasal spray for treatment-resistant depression. It's administered in our clinic under medical supervision and may be covered by insurance.
+                  {crossSellBody}
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Button asChild>
-                    <Link to="/spravato-Englewood">Learn About SPRAVATO®</Link>
+                    <Link to={crossSellCtaHref}>{crossSellCtaLabel}</Link>
                   </Button>
                   <Button variant="outline" asChild>
                     <Link to="/verify-coverage">Check Eligibility</Link>
