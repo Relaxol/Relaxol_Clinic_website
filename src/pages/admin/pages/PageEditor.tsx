@@ -111,6 +111,13 @@ const PageEditor = () => {
       'spravato-Englewood': 'spravato_v1',
       contact: 'contact_v1',
       faq: 'faq_v1',
+      'conditions-depression': 'condition_v1',
+      'conditions-anxiety': 'condition_v1',
+      'conditions-ptsd': 'condition_v1',
+      'conditions-ocd': 'condition_v1',
+      'conditions-pain-management': 'condition_v1',
+      'vitamin-infusions': 'vitamin_infusions_v1',
+      'our-team': 'our_team_v1',
     };
     return map[slug] ?? null;
   };
