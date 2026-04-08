@@ -1,19 +1,36 @@
 // Template schemas for core pages
 // These define the editable content structure for each template
 
-export type TemplateType = 'home_v1' | 'ketamine_v1' | 'spravato_v1' | 'contact_v1' | 'faq_v1' | 'condition_v1' | 'vitamin_infusions_v1' | 'our_team_v1';
+export type TemplateType =
+  | "home_v1"
+  | "ketamine_v1"
+  | "spravato_v1"
+  | "contact_v1"
+  | "faq_v1"
+  | "condition_v1"
+  | "vitamin_infusions_v1"
+  | "our_team_v1";
 
-export const TEMPLATE_TYPES: TemplateType[] = ['home_v1', 'ketamine_v1', 'spravato_v1', 'contact_v1', 'faq_v1', 'condition_v1', 'vitamin_infusions_v1', 'our_team_v1'];
+export const TEMPLATE_TYPES: TemplateType[] = [
+  "home_v1",
+  "ketamine_v1",
+  "spravato_v1",
+  "contact_v1",
+  "faq_v1",
+  "condition_v1",
+  "vitamin_infusions_v1",
+  "our_team_v1",
+];
 
 export const TEMPLATE_LABELS: Record<TemplateType, string> = {
-  home_v1: 'Home Page',
-  ketamine_v1: 'Ketamine Page',
-  spravato_v1: 'SPRAVATO® Page',
-  contact_v1: 'Contact Page',
-  faq_v1: 'FAQ Page',
-  condition_v1: 'Condition Page',
-  vitamin_infusions_v1: 'Vitamin Infusions Page',
-  our_team_v1: 'Our Team Page',
+  home_v1: "Home Page",
+  ketamine_v1: "Ketamine Page",
+  spravato_v1: "SPRAVATO® Page",
+  contact_v1: "Contact Page",
+  faq_v1: "FAQ Page",
+  condition_v1: "Condition Page",
+  vitamin_infusions_v1: "Vitamin Infusions Page",
+  our_team_v1: "Our Team Page",
 };
 
 // Common interfaces
@@ -320,17 +337,29 @@ export interface FAQV1Content {
 }
 
 // Re-export new schema types
-export type { ConditionV1Content, VitaminInfusionsV1Content, OurTeamV1Content } from './newSchemas';
-export { isConditionV1Content, isVitaminInfusionsV1Content, isOurTeamV1Content } from './newSchemas';
+export type {
+  ConditionV1Content,
+  VitaminInfusionsV1Content,
+  OurTeamV1Content,
+} from "./newSchemas";
+export {
+  isConditionV1Content,
+  isVitaminInfusionsV1Content,
+  isOurTeamV1Content,
+} from "./newSchemas";
 
-import type { ConditionV1Content, VitaminInfusionsV1Content, OurTeamV1Content } from './newSchemas';
+import type {
+  ConditionV1Content,
+  VitaminInfusionsV1Content,
+  OurTeamV1Content,
+} from "./newSchemas";
 
 // Union type for all content types
-export type TemplateContent = 
-  | HomeV1Content 
-  | KetamineV1Content 
-  | SpravatoV1Content 
-  | ContactV1Content 
+export type TemplateContent =
+  | HomeV1Content
+  | KetamineV1Content
+  | SpravatoV1Content
+  | ContactV1Content
   | FAQV1Content
   | ConditionV1Content
   | VitaminInfusionsV1Content
@@ -338,83 +367,122 @@ export type TemplateContent =
 
 // Type guard functions
 export function isHomeV1Content(content: unknown): content is HomeV1Content {
-  return typeof content === 'object' && content !== null && 'hero' in content && 'about' in content && 'treatments' in content;
+  return (
+    typeof content === "object" &&
+    content !== null &&
+    "hero" in content &&
+    "about" in content &&
+    "treatments" in content
+  );
 }
 
-export function isKetamineV1Content(content: unknown): content is KetamineV1Content {
-  return typeof content === 'object' && content !== null && 'hero' in content && 'stats' in content && 'services' in content;
+export function isKetamineV1Content(
+  content: unknown,
+): content is KetamineV1Content {
+  return (
+    typeof content === "object" &&
+    content !== null &&
+    "hero" in content &&
+    "stats" in content &&
+    "services" in content
+  );
 }
 
-export function isSpravatoV1Content(content: unknown): content is SpravatoV1Content {
-  return typeof content === 'object' && content !== null && 'hero' in content && 'trd' in content && 'benefits' in content;
+export function isSpravatoV1Content(
+  content: unknown,
+): content is SpravatoV1Content {
+  return (
+    typeof content === "object" &&
+    content !== null &&
+    "hero" in content &&
+    "trd" in content &&
+    "benefits" in content
+  );
 }
 
-export function isContactV1Content(content: unknown): content is ContactV1Content {
-  return typeof content === 'object' && content !== null && 'hero' in content && 'clinicInfo' in content && 'form' in content;
+export function isContactV1Content(
+  content: unknown,
+): content is ContactV1Content {
+  return (
+    typeof content === "object" &&
+    content !== null &&
+    "hero" in content &&
+    "clinicInfo" in content &&
+    "form" in content
+  );
 }
 
 export function isFAQV1Content(content: unknown): content is FAQV1Content {
-  return typeof content === 'object' && content !== null && 'hero' in content && 'sections' in content && 'cta' in content;
+  return (
+    typeof content === "object" &&
+    content !== null &&
+    "hero" in content &&
+    "sections" in content &&
+    "cta" in content
+  );
 }
 
 // Default content creators
 export function createDefaultHomeContent(): HomeV1Content {
   return {
     hero: {
-      subtitle: 'FIND HOPE AND RELIEF TODAY',
-      headline: "New Jersey's Premier Ketamine & SPRAVATO® Clinic",
-      body: 'Advanced, clinician-led treatments for depression, anxiety, PTSD, and chronic pain.',
-      ctaLabel: 'Book Your Free Consultation Today!',
-      ctaHref: '#contact',
+      subtitle: "FIND HOPE AND RELIEF TODAY",
+      headline: "New Jersey's Premier Ketamine & SPRAVATO® Wellness Center",
+      body: "Advanced, clinician-led treatments for depression, anxiety, PTSD, and chronic pain.",
+      ctaLabel: "Book Your Free Consultation Today!",
+      ctaHref: "#contact",
     },
     about: {
-      title: 'A New Standard in Mental Health Care',
-      bodyHtml: '<p>At Relaxol Clinic, we believe mental health treatment should be personalized, compassionate, and effective.</p>',
-      imageUrl: '',
-      imageAlt: 'Modern treatment facility interior',
+      title: "A New Standard in Mental Health Care",
+      bodyHtml:
+        "<p>At Relaxol Clinic, we believe mental health treatment should be personalized, compassionate, and effective.</p>",
+      imageUrl: "",
+      imageAlt: "Modern treatment facility interior",
     },
     video: {
-      subtitle: 'LEARN MORE',
-      title: 'Treatment Can Help',
-      body: 'See how our advanced treatments are helping patients find relief.',
-      embedUrl: 'https://www.youtube.com/embed/e0mdOODbGNU',
-      embedTitle: 'Treatment Overview',
+      subtitle: "LEARN MORE",
+      title: "Treatment Can Help",
+      body: "See how our advanced treatments are helping patients find relief.",
+      embedUrl: "https://www.youtube.com/embed/e0mdOODbGNU",
+      embedTitle: "Treatment Overview",
     },
     treatments: {
-      subtitle: 'Our Treatments',
-      title: 'Treatment Options',
-      description: 'Evidence-based therapies tailored to your needs.',
+      subtitle: "Our Treatments",
+      title: "Treatment Options",
+      description: "Evidence-based therapies tailored to your needs.",
       items: [],
     },
     doctor: {
-      subtitle: 'CLINICAL PSYCHIATRIST',
-      name: 'Dr. Khanna',
-      imageUrl: '',
-      bio: ['Dr. Khanna is a board-certified psychiatrist with expertise in treatment-resistant conditions.'],
+      subtitle: "CLINICAL PSYCHIATRIST",
+      name: "Dr. Khanna",
+      imageUrl: "",
+      bio: [
+        "Dr. Khanna is a board-certified psychiatrist with expertise in treatment-resistant conditions.",
+      ],
     },
     conditions: {
-      subtitle: 'WHAT WE TREAT',
-      title: 'Conditions We Treat',
+      subtitle: "WHAT WE TREAT",
+      title: "Conditions We Treat",
       items: [],
     },
     testimonials: {
-      subtitle: 'PATIENT STORIES',
-      title: 'What Our Patients Say',
+      subtitle: "PATIENT STORIES",
+      title: "What Our Patients Say",
       items: [],
     },
     timeline: {
-      subtitle: 'YOUR JOURNEY',
-      title: 'What to Expect',
+      subtitle: "YOUR JOURNEY",
+      title: "What to Expect",
       items: [],
     },
     faq: {
-      title: 'Frequently Asked Questions',
+      title: "Frequently Asked Questions",
       items: [],
     },
     contact: {
-      subtitle: 'SCHEDULE A CONSULTATION',
-      title: 'Ready to Explore Your Treatment Options?',
-      body: 'Take the first step toward relief.',
+      subtitle: "SCHEDULE A CONSULTATION",
+      title: "Ready to Explore Your Treatment Options?",
+      body: "Take the first step toward relief.",
     },
   };
 }
@@ -422,54 +490,67 @@ export function createDefaultHomeContent(): HomeV1Content {
 export function createDefaultKetamineContent(): KetamineV1Content {
   return {
     hero: {
-      headline: 'Ketamine Therapy:',
-      subtitle: 'Rapid Relief for a Range of Mood and Chronic Conditions',
-      body: 'Personalized care for individuals who haven\'t found relief with traditional treatments.',
-      ctaLabel: 'Book Consultation',
-      ctaHref: '#eligibility',
+      headline: "Ketamine Therapy:",
+      subtitle: "Rapid Relief for a Range of Mood and Chronic Conditions",
+      body: "Personalized care for individuals who haven't found relief with traditional treatments.",
+      ctaLabel: "Book Consultation",
+      ctaHref: "#eligibility",
     },
     stats: {
       items: [
-        { value: '470+', label: 'Patients helped' },
-        { value: '98%', label: 'Patient satisfaction' },
-        { value: '15+', label: 'Years experience' },
-        { value: '1000+', label: 'Treatments delivered' },
+        { value: "470+", label: "Patients helped" },
+        { value: "98%", label: "Patient satisfaction" },
+        { value: "15+", label: "Years experience" },
+        { value: "1000+", label: "Treatments delivered" },
       ],
     },
     parallax: {
-      title: 'Rapid Relief When Traditional Treatments Haven\'t Worked',
-      body: 'Ketamine therapy offers a different mechanism of action that can help patients who haven\'t responded to conventional antidepressants experience meaningful improvement.',
-      ctaLabel: 'Learn More',
+      title: "Rapid Relief When Traditional Treatments Haven't Worked",
+      body: "Ketamine therapy offers a different mechanism of action that can help patients who haven't responded to conventional antidepressants experience meaningful improvement.",
+      ctaLabel: "Learn More",
     },
     services: {
-      title: 'Our Services',
-      description: 'Comprehensive ketamine therapy programs tailored to your needs.',
+      title: "Our Services",
+      description:
+        "Comprehensive ketamine therapy programs tailored to your needs.",
       items: [],
     },
     eligibility: {
-      subtitle: 'Start Your Journey',
-      title: 'Take the Next Step Toward Relief',
-      body: 'If traditional treatments haven\'t worked, our care team can help you understand whether ketamine therapy may be appropriate for you.',
+      subtitle: "Start Your Journey",
+      title: "Take the Next Step Toward Relief",
+      body: "If traditional treatments haven't worked, our care team can help you understand whether ketamine therapy may be appropriate for you.",
       trustBullets: [
-        'No obligation assessment',
-        'Response within 48 hours',
-        'Confidential submission',
-        'Insurance verification available',
+        "No obligation assessment",
+        "Response within 48 hours",
+        "Confidential submission",
+        "Insurance verification available",
       ],
-      phone: '201-781-2101',
+      phone: "201-781-2101",
     },
     crossSell: {
-      title: 'Also Offering SPRAVATO® Treatment',
-      body: 'SPRAVATO® (esketamine) is an FDA-approved nasal spray for treatment-resistant depression. It\'s administered in our clinic under medical supervision and may be covered by insurance.',
-      ctaLabel: 'Learn About SPRAVATO®',
-      ctaHref: '/spravato-Englewood',
+      title: "Also Offering SPRAVATO® Treatment",
+      body: "SPRAVATO® (esketamine) is an FDA-approved nasal spray for treatment-resistant depression. It's administered in our clinic under medical supervision and may be covered by insurance.",
+      ctaLabel: "Learn About SPRAVATO®",
+      ctaHref: "/spravato-Englewood",
     },
     faq: {
-      title: 'Safety & Side Effects',
+      title: "Safety & Side Effects",
       items: [
-        { question: 'Common Side Effects', answer: 'Temporary effects may include dissociation, dizziness, nausea, drowsiness, and changes in perception. These typically resolve within 1-2 hours after treatment ends.' },
-        { question: 'Monitoring Procedures', answer: 'Vital signs are checked before, during, and after each infusion. You\'ll remain in our clinic until effects have subsided.' },
-        { question: 'Safety Considerations', answer: 'Ketamine therapy is not suitable for everyone. A thorough evaluation ensures treatment is safe and appropriate for you.' },
+        {
+          question: "Common Side Effects",
+          answer:
+            "Temporary effects may include dissociation, dizziness, nausea, drowsiness, and changes in perception. These typically resolve within 1-2 hours after treatment ends.",
+        },
+        {
+          question: "Monitoring Procedures",
+          answer:
+            "Vital signs are checked before, during, and after each infusion. You'll remain in our clinic until effects have subsided.",
+        },
+        {
+          question: "Safety Considerations",
+          answer:
+            "Ketamine therapy is not suitable for everyone. A thorough evaluation ensures treatment is safe and appropriate for you.",
+        },
       ],
     },
   };
@@ -478,62 +559,114 @@ export function createDefaultKetamineContent(): KetamineV1Content {
 export function createDefaultSpravatoContent(): SpravatoV1Content {
   return {
     hero: {
-      headline: 'Treatment for Depression That Hasn\'t Responded to Medication',
-      subtitle: 'FDA-approved esketamine therapy administered in a medically supervised clinic',
-      ctaLabel: 'Check Eligibility',
-      ctaHref: '#eligibility-form',
+      headline: "Treatment for Depression That Hasn't Responded to Medication",
+      subtitle:
+        "FDA-approved esketamine therapy administered in a medically supervised clinic",
+      ctaLabel: "Check Eligibility",
+      ctaHref: "#eligibility-form",
     },
     eligibilityForm: {
-      title: 'Find Out If You\'re a Candidate',
-      body: 'SPRAVATO® is specifically designed for adults with treatment-resistant depression.',
+      title: "Find Out If You're a Candidate",
+      body: "SPRAVATO® is specifically designed for adults with treatment-resistant depression.",
       trustBullets: [
-        'No obligation—we simply assess eligibility',
-        'Response within 48 hours from our care team',
-        'Insurance verification included',
+        "No obligation—we simply assess eligibility",
+        "Response within 48 hours from our care team",
+        "Insurance verification included",
       ],
     },
     trd: {
-      title: 'Treatment-Resistant Depression',
+      title: "Treatment-Resistant Depression",
       body: 'Depression is not as simple as just "sadness." Sadness is a feeling that comes and goes with everyday life. Almost 300 million people suffer from depression worldwide, and despite a variety of depression treatments available, many continue to suffer without relief from these medications.\n\nFortunately, SPRAVATO® – the breakthrough FDA-approved esketamine nasal spray – is showing excellent results in relieving those symptoms of depression. As a SPRAVATO® REMS-certified treatment provider, our treatment team can alleviate even the most severe forms of treatment-resistant depression.',
     },
     benefits: {
-      subtitle: 'Why SPRAVATO®',
-      title: 'Benefits of SPRAVATO® Treatment',
+      subtitle: "Why SPRAVATO®",
+      title: "Benefits of SPRAVATO® Treatment",
       items: [
-        { title: 'Faster Relief', description: 'May improve symptoms within hours to days, unlike weeks with traditional antidepressants.' },
-        { title: 'Works Differently', description: 'Targets NMDA receptors and glutamate—a different brain pathway than standard medications.' },
-        { title: 'Treatment-Resistant Option', description: 'Specifically designed for patients who haven\'t responded to other antidepressants.' },
-        { title: 'Medical Supervision', description: 'Every session is administered and monitored by trained clinical staff.' },
-        { title: 'FDA-Approved', description: 'Rigorously tested and approved for treatment-resistant depression and MDD with suicidal ideation.' },
+        {
+          title: "Faster Relief",
+          description:
+            "May improve symptoms within hours to days, unlike weeks with traditional antidepressants.",
+        },
+        {
+          title: "Works Differently",
+          description:
+            "Targets NMDA receptors and glutamate—a different brain pathway than standard medications.",
+        },
+        {
+          title: "Treatment-Resistant Option",
+          description:
+            "Specifically designed for patients who haven't responded to other antidepressants.",
+        },
+        {
+          title: "Medical Supervision",
+          description:
+            "Every session is administered and monitored by trained clinical staff.",
+        },
+        {
+          title: "FDA-Approved",
+          description:
+            "Rigorously tested and approved for treatment-resistant depression and MDD with suicidal ideation.",
+        },
       ],
     },
     whatIs: {
-      subtitle: 'About the Treatment',
-      title: 'What Is SPRAVATO®?',
-      body: 'SPRAVATO® is a prescription nasal spray derived from esketamine and approved by the FDA for treatment-resistant depression. It\'s used alongside an oral antidepressant for adults who haven\'t found relief from standard medications.\n\nUnlike traditional antidepressants that target serotonin or norepinephrine, SPRAVATO® works on the glutamate system—potentially restoring neural connections weakened by chronic depression.',
+      subtitle: "About the Treatment",
+      title: "What Is SPRAVATO®?",
+      body: "SPRAVATO® is a prescription nasal spray derived from esketamine and approved by the FDA for treatment-resistant depression. It's used alongside an oral antidepressant for adults who haven't found relief from standard medications.\n\nUnlike traditional antidepressants that target serotonin or norepinephrine, SPRAVATO® works on the glutamate system—potentially restoring neural connections weakened by chronic depression.",
     },
     timeline: {
-      subtitle: 'The Process',
-      title: 'How the Treatment Works',
+      subtitle: "The Process",
+      title: "How the Treatment Works",
       items: [
-        { step: '1', title: 'Evaluation & Eligibility', description: 'Comprehensive psychiatric assessment to determine candidacy.' },
-        { step: '2', title: 'In-Clinic Administration', description: 'Self-administer the nasal spray under clinical supervision.' },
-        { step: '3', title: 'Observation Period', description: 'Rest while our team monitors your response for ~2 hours.' },
-        { step: '4', title: 'Ongoing Care', description: 'Continue with personalized maintenance and support.' },
+        {
+          step: "1",
+          title: "Evaluation & Eligibility",
+          description:
+            "Comprehensive psychiatric assessment to determine candidacy.",
+        },
+        {
+          step: "2",
+          title: "In-Clinic Administration",
+          description:
+            "Self-administer the nasal spray under clinical supervision.",
+        },
+        {
+          step: "3",
+          title: "Observation Period",
+          description:
+            "Rest while our team monitors your response for ~2 hours.",
+        },
+        {
+          step: "4",
+          title: "Ongoing Care",
+          description: "Continue with personalized maintenance and support.",
+        },
       ],
     },
     faq: {
-      title: 'Safety & Side Effects',
+      title: "Safety & Side Effects",
       items: [
-        { question: 'Common Side Effects', answer: 'Temporary effects may include dissociation, dizziness, nausea, sedation, and temporary blood pressure changes. Most side effects resolve within a few hours of treatment.' },
-        { question: 'Monitoring Requirements', answer: 'Vital signs are checked before, during, and after each session. You\'ll remain in our clinic for approximately 2 hours post-administration under continuous observation.' },
-        { question: 'Safety Protocols', answer: 'SPRAVATO® is only available through certified REMS healthcare settings. Our trained psychiatric staff follows strict FDA-mandated protocols with emergency equipment readily available.' },
+        {
+          question: "Common Side Effects",
+          answer:
+            "Temporary effects may include dissociation, dizziness, nausea, sedation, and temporary blood pressure changes. Most side effects resolve within a few hours of treatment.",
+        },
+        {
+          question: "Monitoring Requirements",
+          answer:
+            "Vital signs are checked before, during, and after each session. You'll remain in our clinic for approximately 2 hours post-administration under continuous observation.",
+        },
+        {
+          question: "Safety Protocols",
+          answer:
+            "SPRAVATO® is only available through certified REMS healthcare settings. Our trained psychiatric staff follows strict FDA-mandated protocols with emergency equipment readily available.",
+        },
       ],
     },
     contact: {
-      subtitle: 'Coverage',
-      title: 'Insurance & Access',
-      body: 'We work with many major insurance providers. Our team will verify your benefits and assist with prior authorization to help maximize your coverage.',
+      subtitle: "Coverage",
+      title: "Insurance & Access",
+      body: "We work with many major insurance providers. Our team will verify your benefits and assist with prior authorization to help maximize your coverage.",
     },
   };
 }
@@ -541,21 +674,21 @@ export function createDefaultSpravatoContent(): SpravatoV1Content {
 export function createDefaultContactContent(): ContactV1Content {
   return {
     hero: {
-      subtitle: 'Get In Touch',
-      headline: 'Contact Us',
-      body: 'We\'re here to answer your questions and help you begin your journey to wellness.',
+      subtitle: "Get In Touch",
+      headline: "Contact Us",
+      body: "We're here to answer your questions and help you begin your journey to wellness.",
     },
     clinicInfo: {
-      name: 'Relaxol Clinic',
-      address: '560 Sylvan Avenue, Suite 2115\nEnglewood Cliffs, NJ 07632',
-      phone: '201-781-2101',
-      email: 'info@relaxolclinic.com',
-      hours: 'Monday – Friday: 9:00 AM – 5:00 PM\nSaturday – Sunday: Closed',
+      name: "Relaxol Clinic",
+      address: "560 Sylvan Avenue, Suite 2115\nEnglewood Cliffs, NJ 07632",
+      phone: "201-781-2101",
+      email: "info@relaxolclinic.com",
+      hours: "Monday – Friday: 9:00 AM – 5:00 PM\nSaturday – Sunday: Closed",
     },
     form: {
-      subtitle: 'SEND US A MESSAGE',
-      title: 'Schedule a Consultation',
-      body: 'Fill out the form below and we\'ll contact you within one business day.',
+      subtitle: "SEND US A MESSAGE",
+      title: "Schedule a Consultation",
+      body: "Fill out the form below and we'll contact you within one business day.",
     },
   };
 }
@@ -563,23 +696,32 @@ export function createDefaultContactContent(): ContactV1Content {
 export function createDefaultFAQContent(): FAQV1Content {
   return {
     hero: {
-      headline: 'Frequently Asked Questions',
-      body: 'Clear answers about ketamine therapy, SPRAVATO®, safety, and the treatment process.',
+      headline: "Frequently Asked Questions",
+      body: "Clear answers about ketamine therapy, SPRAVATO®, safety, and the treatment process.",
     },
     sections: [],
     cta: {
-      title: 'Still Have Questions? We\'re Here to Help.',
-      body: 'Our team is ready to answer any additional questions.',
-      ctaLabel: 'Schedule a Consultation',
-      ctaHref: '/contact',
+      title: "Still Have Questions? We're Here to Help.",
+      body: "Our team is ready to answer any additional questions.",
+      ctaLabel: "Schedule a Consultation",
+      ctaHref: "/contact",
     },
   };
 }
 
-import { defaultConditionContent, defaultVitaminInfusionsContent, defaultOurTeamContent } from './newDefaults';
+import {
+  defaultConditionContent,
+  defaultVitaminInfusionsContent,
+  defaultOurTeamContent,
+} from "./newDefaults";
 
-export function createDefaultConditionContent(slug?: string): ConditionV1Content {
-  return defaultConditionContent[slug || 'depression'] || defaultConditionContent.depression;
+export function createDefaultConditionContent(
+  slug?: string,
+): ConditionV1Content {
+  return (
+    defaultConditionContent[slug || "depression"] ||
+    defaultConditionContent.depression
+  );
 }
 
 export function createDefaultVitaminInfusionsContent(): VitaminInfusionsV1Content {
@@ -590,23 +732,26 @@ export function createDefaultOurTeamContent(): OurTeamV1Content {
   return { ...defaultOurTeamContent };
 }
 
-export function createDefaultContent(template: TemplateType, slug?: string): TemplateContent {
+export function createDefaultContent(
+  template: TemplateType,
+  slug?: string,
+): TemplateContent {
   switch (template) {
-    case 'home_v1':
+    case "home_v1":
       return createDefaultHomeContent();
-    case 'ketamine_v1':
+    case "ketamine_v1":
       return createDefaultKetamineContent();
-    case 'spravato_v1':
+    case "spravato_v1":
       return createDefaultSpravatoContent();
-    case 'contact_v1':
+    case "contact_v1":
       return createDefaultContactContent();
-    case 'faq_v1':
+    case "faq_v1":
       return createDefaultFAQContent();
-    case 'condition_v1':
+    case "condition_v1":
       return createDefaultConditionContent(slug);
-    case 'vitamin_infusions_v1':
+    case "vitamin_infusions_v1":
       return createDefaultVitaminInfusionsContent();
-    case 'our_team_v1':
+    case "our_team_v1":
       return createDefaultOurTeamContent();
   }
 }
