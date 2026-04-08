@@ -17,7 +17,6 @@ const hours = [
   { day: "Sunday", time: "Closed" },
 ];
 
-
 export function Footer() {
   return (
     <footer className="bg-[#2a241e] text-background">
@@ -25,16 +24,20 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 items-start">
           {/* Logo */}
           <div className="col-span-2 md:col-span-1 lg:col-span-1">
-            <img src={relaxolLogo} alt="Relaxol Clinic" className="max-w-[180px] h-auto mb-2" />
-            <a 
-              href="https://ketaminedirectory.com" 
-              target="_blank" 
+            <img
+              src={relaxolLogo}
+              alt="Relaxol Clinic"
+              className="max-w-[180px] h-auto mb-2"
+            />
+            <a
+              href="https://ketaminedirectory.com"
+              target="_blank"
               rel="noopener noreferrer"
               className="inline-block"
             >
-              <img 
-                src={ketamineDirectoryBadge} 
-                alt="Verified Provider" 
+              <img
+                src={ketamineDirectoryBadge}
+                alt="Verified Provider"
                 className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
               />
             </a>
@@ -46,7 +49,10 @@ export function Footer() {
             <ul className="space-y-0.5 text-xs">
               {navLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-background/70 hover:text-primary transition-colors">
+                  <a
+                    href={link.href}
+                    className="text-background/70 hover:text-primary transition-colors"
+                  >
                     {link.label}
                   </a>
                 </li>
@@ -60,7 +66,8 @@ export function Footer() {
             <ul className="space-y-0.5 text-xs">
               {hours.map((item) => (
                 <li key={item.day} className="text-background/70">
-                  {item.day}: <span className="text-background/90">{item.time}</span>
+                  {item.day}:{" "}
+                  <span className="text-background/90">{item.time}</span>
                 </li>
               ))}
             </ul>
@@ -71,13 +78,19 @@ export function Footer() {
             <h3 className="text-sm font-semibold mb-2">CONTACT</h3>
             <ul className="space-y-1 text-xs">
               <li>
-                <a href="tel:201-781-2101" className="flex items-center gap-2 text-background/70 hover:text-primary transition-colors">
+                <a
+                  href="tel:201-781-2101"
+                  className="flex items-center gap-2 text-background/70 hover:text-primary transition-colors"
+                >
                   <Phone className="w-3 h-3" />
                   <span>201-781-2101</span>
                 </a>
               </li>
               <li>
-                <a href="mailto:info@relaxolclinic.com" className="flex items-center gap-2 text-background/70 hover:text-primary transition-colors">
+                <a
+                  href="mailto:info@relaxolclinic.com"
+                  className="flex items-center gap-2 text-background/70 hover:text-primary transition-colors"
+                >
                   <Mail className="w-3 h-3" />
                   <span>info@relaxolclinic.com</span>
                 </a>
@@ -90,12 +103,11 @@ export function Footer() {
                   className="flex items-start gap-2 text-background/70 hover:text-primary transition-colors"
                 >
                   <MapPin className="w-3 h-3 mt-0.5 flex-shrink-0" />
-                  <span>560 Sylvan Ave, Suite 2115, Englewood Cliffs, NJ</span>
+                  <span>560 Sylvan Ave, Suite 21156, Englewood Cliffs, NJ</span>
                 </a>
               </li>
             </ul>
           </div>
-
         </div>
       </div>
 
@@ -105,8 +117,18 @@ export function Footer() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-background/60">
             <p>© 2025 Relaxol Clinic. All rights reserved.</p>
             <div className="flex items-center gap-4">
-              <a href="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</a>
-              <a href="/terms-of-service" className="hover:text-primary transition-colors">Terms of Service</a>
+              <a
+                href="/privacy-policy"
+                className="hover:text-primary transition-colors"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href="/terms-of-service"
+                className="hover:text-primary transition-colors"
+              >
+                Terms of Service
+              </a>
             </div>
           </div>
         </div>
