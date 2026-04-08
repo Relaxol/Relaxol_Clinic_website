@@ -103,7 +103,9 @@ export function Footer() {
                   className="flex items-start gap-2 text-background/70 hover:text-primary transition-colors"
                 >
                   <MapPin className="w-3 h-3 mt-0.5 flex-shrink-0" />
-                  <span>560 Sylvan Ave, Suite 21156, Englewood Cliffs, NJ</span>
+                  <span>
+                    560 Sylvan Ave, Suite 2115, Englewood Cliffs, NJ 07632
+                  </span>
                 </a>
               </li>
             </ul>
