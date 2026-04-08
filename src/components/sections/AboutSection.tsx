@@ -19,7 +19,7 @@ export function AboutSection({ content }: AboutSectionProps) {
   const title = content?.title || "A New Standard in Mental Health Care";
   const imageUrl = content?.imageUrl || aboutClinic;
   const imageAlt = content?.imageAlt || "Modern treatment facility interior";
-  
+
   // Default body paragraphs - refined for premium medical aesthetic
   const defaultBody = `<p>At Relaxol Clinic, we combine advanced psychiatric expertise with FDA-approved treatments like SPRAVATO® and ketamine infusion therapy. Our approach is grounded in evidence-based medicine while remaining attentive to each patient's unique journey. Whether you're struggling with treatment-resistant Depression, Chronic Anxiety, PTSD, or OCD, our team is here to provide compassionate, clinician-led care.</p><p>We believe mental health care should be accessible, personalized, and delivered in an environment that feels safe. That's why our clinic offers private treatment rooms, flexible scheduling, and support navigating insurance—because healing shouldn't feel like a hurdle.</p>`;
   const bodyHtml = content?.bodyHtml ?? defaultBody;
@@ -34,8 +34,13 @@ export function AboutSection({ content }: AboutSectionProps) {
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold">
             {title.includes("Mental Health Care") ? (
-              <>A New Standard in <span className="text-primary">Mental Health Care</span></>
-            ) : title}
+              <>
+                Interventional Psychiatry
+                <span className="text-primary">The New Standard of Care</span>
+              </>
+            ) : (
+              title
+            )}
           </h2>
         </div>
 
@@ -64,9 +69,9 @@ export function AboutSection({ content }: AboutSectionProps) {
 
           {/* Content */}
           <div>
-            <div 
+            <div
               className="prose prose-lg max-w-none [&>p]:text-muted-foreground [&>p]:font-light [&>p]:tracking-wide [&>p]:text-[15px] [&>p]:leading-[1.65] [&>p]:mb-5 sm:[&>p]:text-lg sm:[&>p]:font-normal sm:[&>p]:tracking-normal sm:[&>p]:leading-relaxed sm:[&>p]:mb-6 [&>p:last-of-type]:mb-8"
-              dangerouslySetInnerHTML={{ __html: bodyHtml }} 
+              dangerouslySetInnerHTML={{ __html: bodyHtml }}
             />
             <Link to="/contact">
               <Button className="bg-[#D09B3C] hover:bg-[#C48A25] text-white px-8 py-6 text-base rounded-full">
