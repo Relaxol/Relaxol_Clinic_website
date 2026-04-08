@@ -35,8 +35,8 @@ export function AboutSection({ content }: AboutSectionProps) {
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold">
             {title.includes("Mental Health Care") ? (
               <>
-                Interventional Psychiatry -
-                <span className="text-primary">The New Way of Care</span>
+                The New Way of Care is
+                <span className="text-primary">Interventional Psychiatry</span>
               </>
             ) : (
               title
