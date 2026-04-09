@@ -16,13 +16,13 @@ export function VideoSection({ content }: VideoSectionProps) {
   const title = content?.title || "A New Approach to Treatment";
   const body =
     content?.body ||
-    "For many patients who've struggled with Depression, Anxiety, PTSD, or OCD, traditional treatments simply haven't worked. Ketamine and SPRAVATO® offer a different approach—targeting glutamate receptors in the brain to create new neural pathways and provide rapid relief.";
+    "Ketamine—originally used in anesthesia for surgical procedures—has been shown in recent research to rapidly affect brain chemistry linked to depression. Unlike traditional antidepressants, it targets glutamate receptors, helping the brain form new neural connections that support improved mood and cognitive function. SPRAVATO® works in a similar pathway and is FDA-approved specifically for treatment-resistant depression.";
   const embedUrl =
     content?.embedUrl || "https://www.youtube.com/embed/e0mdOODbGNU";
   const embedTitle = content?.embedTitle || "Understanding Ketamine Therapy";
   const secondParagraph =
     content?.secondParagraph ||
-    "Watch our video to learn more about how these breakthrough treatments work and whether they might be right for you.";
+    "These treatments are administered under medical supervision and are designed to provide relief for patients who have not responded to standard therapies.";
 
   return (
     <section className="py-20 bg-cream-dark">
