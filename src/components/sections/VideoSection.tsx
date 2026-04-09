@@ -12,12 +12,17 @@ interface VideoSectionProps {
 }
 
 export function VideoSection({ content }: VideoSectionProps) {
-  const subtitle = content?.subtitle || "LEARN MORE";
-  const title = content?.title || "Treatment Can Help";
-  const body = content?.body || "For many patients who've struggled with Depression, Anxiety, PTSD, or OCD, traditional treatments simply haven't worked. Ketamine and SPRAVATO® offer a different approach—targeting glutamate receptors in the brain to create new neural pathways and provide rapid relief.";
-  const embedUrl = content?.embedUrl || "https://www.youtube.com/embed/e0mdOODbGNU";
+  const subtitle = content?.subtitle || "HOW IT WORKS";
+  const title = content?.title || "A New Approach to Treatment";
+  const body =
+    content?.body ||
+    "For many patients who've struggled with Depression, Anxiety, PTSD, or OCD, traditional treatments simply haven't worked. Ketamine and SPRAVATO® offer a different approach—targeting glutamate receptors in the brain to create new neural pathways and provide rapid relief.";
+  const embedUrl =
+    content?.embedUrl || "https://www.youtube.com/embed/e0mdOODbGNU";
   const embedTitle = content?.embedTitle || "Understanding Ketamine Therapy";
-  const secondParagraph = content?.secondParagraph || "Watch our video to learn more about how these breakthrough treatments work and whether they might be right for you.";
+  const secondParagraph =
+    content?.secondParagraph ||
+    "Watch our video to learn more about how these breakthrough treatments work and whether they might be right for you.";
 
   return (
     <section className="py-20 bg-cream-dark">
@@ -29,8 +34,12 @@ export function VideoSection({ content }: VideoSectionProps) {
           </p>
           <h2 className="text-3xl md:text-4xl text-foreground font-bold">
             {title.includes("Can Help") ? (
-              <>Treatment <span className="text-primary">Can Help</span></>
-            ) : title}
+              <>
+                Treatment <span className="text-primary">Can Help</span>
+              </>
+            ) : (
+              title
+            )}
           </h2>
         </div>
 
@@ -57,8 +66,12 @@ export function VideoSection({ content }: VideoSectionProps) {
               </p>
               <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-6">
                 {title.includes("Can Help") ? (
-                  <>Treatment <span className="text-primary">Can Help</span></>
-                ) : title}
+                  <>
+                    Treatment <span className="text-primary">Can Help</span>
+                  </>
+                ) : (
+                  title
+                )}
               </h2>
             </div>
             <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg sm:leading-relaxed mb-6">
