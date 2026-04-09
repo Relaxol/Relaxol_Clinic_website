@@ -440,8 +440,8 @@ export function createDefaultHomeContent(): HomeV1Content {
       imageAlt: "Modern treatment facility interior",
     },
     video: {
-      subtitle: "LEARN MORE",
-      title: "Treatment Can Help",
+      subtitle: "HOW IT WORKS",
+      title: "A New Approach to Treatment",
       body: "See how our advanced treatments are helping patients find relief.",
       embedUrl: "https://www.youtube.com/embed/e0mdOODbGNU",
       embedTitle: "Treatment Overview",
