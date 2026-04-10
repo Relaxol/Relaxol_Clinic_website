@@ -399,17 +399,18 @@ export const defaultOurTeamContent: OurTeamV1Content = {
     ],
   },
   doctor2: {
-    subtitle: "PSYCHIATRIC NURSE PRACTITIONER",
-    name: "Dr. Jane Smith",
-    imageAlt: "Dr. Jane Smith, Psychiatric Nurse Practitioner",
+    subtitle: "BOARD-CERTIFIED PSYCHIATRIST",
+    name: "Dr. Bennett Cohen, MD",
+    imageAlt: "Dr. Bennett Cohen, Board-Certified Psychiatrist",
     bio: [
-      "Dr. Smith brings a wealth of experience in psychiatric care and a passion for innovative treatments. She specializes in ketamine-assisted therapy and works closely with patients to develop personalized treatment plans.",
-      "With a background in both emergency medicine and psychiatry, Dr. Smith offers a unique perspective on mental health treatment, combining clinical expertise with genuine compassion for every patient she serves.",
+      "Dr. Bennett Cohen is a board-certified psychiatrist with over 25 years of experience supporting adults through a wide range of mental health challenges, including anxiety, depression, ADHD, OCD, trauma, and mood disorders.",
+      "He takes a thoughtful, personalized approach to care, combining careful evaluation with treatment plans tailored to each patient's needs. His work may include psychotherapy, medication management, and interventional psychiatry when appropriate.",
+      "Dr. Cohen offers both in-person appointments and secure telehealth visits, providing convenient and confidential access to professional psychiatric care.",
     ],
     credentials: [
       { icon: "Award", label: "Board Certified" },
-      { icon: "Clock", label: "10+ Years Experience" },
-      { icon: "GraduationCap", label: "Advanced Training" },
+      { icon: "Clock", label: "25+ Years Experience" },
+      { icon: "GraduationCap", label: "MD" },
     ],
   },
   cta: {

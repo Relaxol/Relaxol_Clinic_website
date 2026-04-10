@@ -2,6 +2,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Award, Clock, GraduationCap, Loader2 } from "lucide-react";
 import doctorPortrait from "@/assets/dr-sangeet-khanna.jpg";
+import doctor2Portrait from "@/assets/dr-bennett-cohen.jpg";
 import { usePageContent } from "@/hooks/usePageContent";
 import { OurTeamV1Content } from "@/lib/templates/newSchemas";
 import { defaultOurTeamContent } from "@/lib/templates/newDefaults";
