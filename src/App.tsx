@@ -10,7 +10,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Home from "./pages/Home";
 import Spravato from "./pages/Spravato";
 import Ketamine from "./pages/Ketamine";
-import VitaminInfusions from "./pages/VitaminInfusions";
+import Evaluations from "./pages/Evaluations";
 import FAQPage from "./pages/FAQPage";
 import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -64,10 +64,7 @@ const App = () => (
             <Route path="/" element={<Home />} />
             <Route path="/spravato-Englewood" element={<Spravato />} />
             <Route path="/ketamine" element={<Ketamine />} />
-            <Route
-              path="/vitamin-infusion-englewood"
-              element={<VitaminInfusions />}
-            />
+            <Route path="/evaluations" element={<Evaluations />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
