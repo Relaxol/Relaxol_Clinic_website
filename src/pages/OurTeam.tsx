@@ -144,7 +144,7 @@ const OurTeam = () => {
                     <div className="absolute inset-0 rounded-full border-4 border-primary/20 transform scale-110" />
                     <div className="w-80 h-80 md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] rounded-full overflow-hidden border-8 border-white shadow-hero">
                       <img
-                        src={c.doctor2.imageUrl || doctorPortrait}
+                        src={c.doctor2.imageUrl || doctor2Portrait}
                         alt={c.doctor2.imageAlt || c.doctor2.name}
                         className="w-full h-full object-cover"
                       />
