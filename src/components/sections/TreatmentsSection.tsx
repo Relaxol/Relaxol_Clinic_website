@@ -34,10 +34,10 @@ const defaultTreatments = [
   {
     title: "Comprehensive Evaluations",
     tag: "Assessment",
-    description: "Recharge your body with our physician-supervised IV vitamin drips. Whether you need an energy boost, immune support, or hydration recovery, experience 100% nutrient absorption for optimal wellness.",
+    description: "A comprehensive psychiatric evaluation is the first step in understanding your symptoms, history, and treatment goals. Personalized, thoughtful, clinician-led care.",
     image: infusionEnergy,
     cta: "Learn More",
-    href: "/vitamin-infusion-englewood",
+    href: "/evaluations",
   },
 ];
 

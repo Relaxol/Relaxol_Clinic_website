@@ -50,8 +50,8 @@ export function JsonLdSchema({ type = 'clinic', faqItems }: MedicalClinicJsonLdP
       },
       {
         '@type': 'MedicalTherapy',
-        name: 'IV Vitamin Infusion Therapy',
-        description: 'Physician-supervised IV vitamin drips for energy, immunity, and recovery.',
+        name: 'Comprehensive Psychiatric Evaluation',
+        description: 'Individualized, evidence-based psychiatric evaluations for personalized treatment planning.',
       },
     ],
     sameAs: [],
