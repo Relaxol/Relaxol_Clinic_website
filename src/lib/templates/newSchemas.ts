@@ -95,14 +95,6 @@ export interface OurTeamV1Content {
     bio: string[];
     credentials: { icon: string; label: string }[];
   };
-  doctor2?: {
-    subtitle?: string;
-    name: string;
-    imageUrl?: string;
-    imageAlt?: string;
-    bio: string[];
-    credentials: { icon: string; label: string }[];
-  };
   cta: {
     title: string;
     body: string;
@@ -123,5 +115,5 @@ export function isVitaminInfusionsV1Content(content: unknown): content is Vitami
 
 export function isOurTeamV1Content(content: unknown): content is OurTeamV1Content {
   return typeof content === 'object' && content !== null && 'hero' in content && 'doctor' in content &&
-    typeof (content as any).doctor === 'object' && 'name' in (content as any).doctor;
+    typeof (content as any).doctor === 'object' && 'credentials' in (content as any).doctor;
 }
