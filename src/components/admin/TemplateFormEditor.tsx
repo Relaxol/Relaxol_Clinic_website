@@ -1831,6 +1831,41 @@ function OurTeamTemplateEditor({
         />
       </Panel>
 
+      <Panel title="Doctor 2 Section (Dr. Cohen)">
+        {(() => {
+          const doc2 = content.doctor2 || { subtitle: '', name: '', bio: [''], credentials: [{ icon: 'Award', label: '' }] };
+          const updateDoc2 = (val: typeof doc2) => onChange({ ...content, doctor2: val });
+          return (
+            <>
+              <TextField label="Subtitle" value={doc2.subtitle || ''} onChange={(v) => updateDoc2({ ...doc2, subtitle: v })} disabled={disabled} />
+              <TextField label="Name" value={doc2.name} onChange={(v) => updateDoc2({ ...doc2, name: v })} disabled={disabled} required />
+              <ImageUploadField label="Image" value={doc2.imageUrl || ''} onChange={(v) => updateDoc2({ ...doc2, imageUrl: v })} altText={doc2.imageAlt || ''} onAltChange={(v) => updateDoc2({ ...doc2, imageAlt: v })} disabled={disabled} />
+              <ItemRepeater
+                label="Bio Paragraphs"
+                items={doc2.bio.map(p => ({ text: p }))}
+                onChange={(items) => updateDoc2({ ...doc2, bio: items.map(i => i.text) })}
+                renderItem={(item, _, updateItem) => (
+                  <TextAreaField label="Paragraph" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} rows={3} />
+                )}
+                createItem={() => ({ text: '' })}
+                disabled={disabled}
+              />
+              <ItemRepeater
+                label="Credentials"
+                items={doc2.credentials}
+                onChange={(items) => updateDoc2({ ...doc2, credentials: items })}
+                renderItem={(item, _, updateItem) => (
+                  <>
+                    <TextField label="Icon (e.g. Award, Clock, GraduationCap)" value={item.icon} onChange={(v) => updateItem({ icon: v })} disabled={disabled} />
+                    <TextField label="Label" value={item.label} onChange={(v) => updateItem({ label: v })} disabled={disabled} />
+                  </>
+                )}
+                createItem={() => ({ icon: 'Award', label: '' })}
+                disabled={disabled}
+              />
+            </>
+          );
+        })()}
       <Panel title="CTA Section">
         <TextField label="Title" value={content.cta.title} onChange={(v) => update('cta', { ...content.cta, title: v })} disabled={disabled} required />
         <TextAreaField label="Body" value={content.cta.body} onChange={(v) => update('cta', { ...content.cta, body: v })} disabled={disabled} />
