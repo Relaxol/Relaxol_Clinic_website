@@ -4,6 +4,7 @@ import {
   ConditionV1Content,
   VitaminInfusionsV1Content,
   OurTeamV1Content,
+  EvaluationsV1Content,
 } from "./newSchemas";
 
 // ── Condition defaults (keyed by slug suffix) ────────────────────────
