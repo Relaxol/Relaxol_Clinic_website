@@ -111,6 +111,32 @@ export interface OurTeamV1Content {
   };
 }
 
+// Evaluations Page Schema
+export interface EvaluationsV1Content {
+  hero: {
+    subtitle?: string;
+    headline: string;
+  };
+  content: {
+    paragraphs: string[];
+    prioritiesTitle: string;
+    priorities: string[];
+    closingParagraph: string;
+    disclaimer?: string;
+  };
+  cta: {
+    title: string;
+    body: string;
+    ctaLabel: string;
+    ctaHref: string;
+  };
+}
+
+export function isEvaluationsV1Content(content: unknown): content is EvaluationsV1Content {
+  return typeof content === 'object' && content !== null && 'hero' in content && 'content' in content &&
+    typeof (content as any).content === 'object' && 'priorities' in (content as any).content;
+}
+
 // Type guards
 export function isConditionV1Content(content: unknown): content is ConditionV1Content {
   return typeof content === 'object' && content !== null && 'hero' in content && 'content' in content && 'cta' in content &&

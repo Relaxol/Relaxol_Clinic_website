@@ -121,6 +121,7 @@ const PageEditor = () => {
       'conditions-pain-management': 'condition_v1',
       'vitamin-infusions': 'vitamin_infusions_v1',
       'our-team': 'our_team_v1',
+      'evaluations': 'evaluations_v1',
     };
     return map[slug] ?? null;
   };

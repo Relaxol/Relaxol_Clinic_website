@@ -1,16 +1,24 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PageSEO } from "@/components/seo/PageSEO";
-import { Check } from "lucide-react";
-
-const priorities = [
-  "Thorough, individualized assessments",
-  "Clear diagnostic understanding",
-  "Evidence-based treatment recommendations",
-  "Open communication and patient education",
-];
+import { Check, Loader2 } from "lucide-react";
+import { usePageContent } from "@/hooks/usePageContent";
+import { EvaluationsV1Content } from "@/lib/templates/newSchemas";
+import { defaultEvaluationsContent } from "@/lib/templates/newDefaults";
 
 const Evaluations = () => {
+  const { content, loading } = usePageContent('evaluations');
+  const hasContent = content && Object.keys(content).length > 0 && (content as any).hero;
+  const c = (hasContent ? content : defaultEvaluationsContent) as EvaluationsV1Content;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <PageSEO
@@ -24,10 +32,10 @@ const Evaluations = () => {
         <section className="py-16 lg:py-24 bg-cream-band">
           <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
             <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
-              Comprehensive Evaluation
+              {c.hero.subtitle || 'Comprehensive Evaluation'}
             </p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl text-foreground font-bold mb-6">
-              Personalized. Thoughtful. Clinician-Led.
+              {c.hero.headline}
             </h1>
           </div>
         </section>
@@ -36,24 +44,18 @@ const Evaluations = () => {
         <section className="py-16 lg:py-24 bg-background">
           <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12">
             <div className="prose prose-lg max-w-none">
-              <p className="text-muted-foreground leading-relaxed text-lg mb-6">
-                A comprehensive psychiatric evaluation is the first step in understanding your
-                symptoms, history, and treatment goals. At Relaxol Clinic, we take an individualized,
-                evidence-based approach to ensure each patient receives care that is appropriate for
-                their needs.
-              </p>
+              {c.content.paragraphs.map((p, i) => (
+                <p key={i} className="text-muted-foreground leading-relaxed text-lg mb-6">
+                  {p}
+                </p>
+              ))}
 
-              <p className="text-muted-foreground leading-relaxed text-lg mb-6">
-                During the evaluation, our providers assess your mental health history, current
-                concerns, and prior treatments to develop a clear clinical picture. Based on this, we
-                provide personalized recommendations, which may include interventional psychiatry
-                options when clinically appropriate.
-              </p>
-
-              <h2 className="text-2xl font-bold text-foreground mt-12 mb-6">We prioritize:</h2>
+              <h2 className="text-2xl font-bold text-foreground mt-12 mb-6">
+                {c.content.prioritiesTitle}
+              </h2>
 
               <ul className="space-y-4 mb-10">
-                {priorities.map((item) => (
+                {c.content.priorities.map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                     <span className="text-muted-foreground text-lg">{item}</span>
@@ -62,13 +64,14 @@ const Evaluations = () => {
               </ul>
 
               <p className="text-muted-foreground leading-relaxed text-lg mb-6">
-                Our goal is to provide clarity, direction, and a foundation for effective care—so you can
-                move forward with confidence.
+                {c.content.closingParagraph}
               </p>
 
-              <p className="text-muted-foreground italic text-base mb-12">
-                Individual results may vary.
-              </p>
+              {c.content.disclaimer && (
+                <p className="text-muted-foreground italic text-base mb-12">
+                  {c.content.disclaimer}
+                </p>
+              )}
             </div>
           </div>
         </section>
@@ -77,17 +80,16 @@ const Evaluations = () => {
         <section className="py-16 bg-cream-band">
           <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-              Start with an Evaluation
+              {c.cta.title}
             </h2>
             <p className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto">
-              If you're considering medication or looking to optimize your current treatment, our team
-              is here to help.
+              {c.cta.body}
             </p>
             <a
-              href="/contact"
+              href={c.cta.ctaHref}
               className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-primary text-primary-foreground font-semibold text-lg hover:bg-accent transition-all duration-300 shadow-glow"
             >
-              Schedule an Appointment
+              {c.cta.ctaLabel}
             </a>
           </div>
         </section>

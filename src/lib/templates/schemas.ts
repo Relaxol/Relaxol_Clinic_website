@@ -9,7 +9,8 @@ export type TemplateType =
   | "faq_v1"
   | "condition_v1"
   | "vitamin_infusions_v1"
-  | "our_team_v1";
+  | "our_team_v1"
+  | "evaluations_v1";
 
 export const TEMPLATE_TYPES: TemplateType[] = [
   "home_v1",
@@ -20,6 +21,7 @@ export const TEMPLATE_TYPES: TemplateType[] = [
   "condition_v1",
   "vitamin_infusions_v1",
   "our_team_v1",
+  "evaluations_v1",
 ];
 
 export const TEMPLATE_LABELS: Record<TemplateType, string> = {
@@ -31,6 +33,7 @@ export const TEMPLATE_LABELS: Record<TemplateType, string> = {
   condition_v1: "Condition Page",
   vitamin_infusions_v1: "Vitamin Infusions Page",
   our_team_v1: "Our Team Page",
+  evaluations_v1: "Evaluations Page",
 };
 
 // Common interfaces
@@ -346,12 +349,14 @@ export {
   isConditionV1Content,
   isVitaminInfusionsV1Content,
   isOurTeamV1Content,
+  isEvaluationsV1Content,
 } from "./newSchemas";
 
 import type {
   ConditionV1Content,
   VitaminInfusionsV1Content,
   OurTeamV1Content,
+  EvaluationsV1Content,
 } from "./newSchemas";
 
 // Union type for all content types
@@ -363,7 +368,8 @@ export type TemplateContent =
   | FAQV1Content
   | ConditionV1Content
   | VitaminInfusionsV1Content
-  | OurTeamV1Content;
+  | OurTeamV1Content
+  | EvaluationsV1Content;
 
 // Type guard functions
 export function isHomeV1Content(content: unknown): content is HomeV1Content {
@@ -713,6 +719,7 @@ import {
   defaultConditionContent,
   defaultVitaminInfusionsContent,
   defaultOurTeamContent,
+  defaultEvaluationsContent,
 } from "./newDefaults";
 
 export function createDefaultConditionContent(
@@ -730,6 +737,10 @@ export function createDefaultVitaminInfusionsContent(): VitaminInfusionsV1Conten
 
 export function createDefaultOurTeamContent(): OurTeamV1Content {
   return { ...defaultOurTeamContent };
+}
+
+export function createDefaultEvaluationsContent(): EvaluationsV1Content {
+  return { ...defaultEvaluationsContent };
 }
 
 export function createDefaultContent(
@@ -753,5 +764,7 @@ export function createDefaultContent(
       return createDefaultVitaminInfusionsContent();
     case "our_team_v1":
       return createDefaultOurTeamContent();
+    case "evaluations_v1":
+      return createDefaultEvaluationsContent();
   }
 }
