@@ -10,7 +10,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Home from "./pages/Home";
 import Spravato from "./pages/Spravato";
 import Ketamine from "./pages/Ketamine";
-import Evaluations from "./pages/Evaluations";
+import Evaluations from "./pages/Evaluations"; // evaluations page
 import FAQPage from "./pages/FAQPage";
 import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
