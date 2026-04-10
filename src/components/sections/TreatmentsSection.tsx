@@ -71,7 +71,7 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
   const title = content?.title || "Treatment Options";
   const description = content?.description || "Evidence-based therapies designed to provide lasting relief and restore your quality of life.";
   
-  const treatments = content?.items?.length 
+  const rawTreatments = content?.items?.length 
     ? content.items.map((item, index) => ({
         title: item.title,
         tag: item.tag ?? null,
@@ -81,6 +81,20 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
         href: item.href || defaultTreatments[index]?.href || "/contact",
       }))
     : defaultTreatments;
+
+  // Replace any legacy vitamin infusion references with Evaluations
+  const treatments = rawTreatments.map(t => {
+    if (t.href?.includes('vitamin-infusion') || t.title?.toLowerCase().includes('vitamin infusion')) {
+      return {
+        ...t,
+        title: "Comprehensive Evaluations",
+        tag: "Assessment",
+        description: "A comprehensive psychiatric evaluation is the first step in understanding your symptoms, history, and treatment goals. Personalized, thoughtful, clinician-led care.",
+        href: "/evaluations",
+      };
+    }
+    return t;
+  });
 
   useEffect(() => {
     // Header observer
