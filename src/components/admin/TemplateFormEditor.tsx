@@ -1866,6 +1866,8 @@ function OurTeamTemplateEditor({
             </>
           );
         })()}
+      </Panel>
+
       <Panel title="CTA Section">
         <TextField label="Title" value={content.cta.title} onChange={(v) => update('cta', { ...content.cta, title: v })} disabled={disabled} required />
         <TextAreaField label="Body" value={content.cta.body} onChange={(v) => update('cta', { ...content.cta, body: v })} disabled={disabled} />
