@@ -1881,6 +1881,59 @@ function OurTeamTemplateEditor({
   );
 }
 
+// Evaluations Template Editor
+function EvaluationsTemplateEditor({
+  content, onChange, disabled
+}: { content: EvaluationsV1Content; onChange: (c: EvaluationsV1Content) => void; disabled?: boolean }) {
+  const update = <K extends keyof EvaluationsV1Content>(key: K, value: EvaluationsV1Content[K]) => {
+    onChange({ ...content, [key]: value });
+  };
+
+  return (
+    <div className="space-y-4">
+      <Panel title="Hero Section" defaultOpen>
+        <TextField label="Subtitle" value={content.hero.subtitle || ''} onChange={(v) => update('hero', { ...content.hero, subtitle: v })} disabled={disabled} />
+        <TextField label="Headline" value={content.hero.headline} onChange={(v) => update('hero', { ...content.hero, headline: v })} disabled={disabled} required />
+      </Panel>
+
+      <Panel title="Content Section">
+        <ItemRepeater
+          label="Paragraphs"
+          items={content.content.paragraphs.map(p => ({ text: p }))}
+          onChange={(items) => update('content', { ...content.content, paragraphs: items.map(i => i.text) })}
+          renderItem={(item, _, updateItem) => (
+            <TextAreaField label="Paragraph" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} rows={3} />
+          )}
+          createItem={() => ({ text: '' })}
+          disabled={disabled}
+        />
+        <TextField label="Priorities Title" value={content.content.prioritiesTitle} onChange={(v) => update('content', { ...content.content, prioritiesTitle: v })} disabled={disabled} />
+        <ItemRepeater
+          label="Priorities"
+          items={content.content.priorities.map(p => ({ text: p }))}
+          onChange={(items) => update('content', { ...content.content, priorities: items.map(i => i.text) })}
+          renderItem={(item, _, updateItem) => (
+            <TextField label="Priority" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} />
+          )}
+          createItem={() => ({ text: '' })}
+          disabled={disabled}
+        />
+        <TextAreaField label="Closing Paragraph" value={content.content.closingParagraph} onChange={(v) => update('content', { ...content.content, closingParagraph: v })} disabled={disabled} rows={3} />
+        <TextField label="Disclaimer" value={content.content.disclaimer || ''} onChange={(v) => update('content', { ...content.content, disclaimer: v })} disabled={disabled} />
+      </Panel>
+
+      <Panel title="CTA Section">
+        <TextField label="Title" value={content.cta.title} onChange={(v) => update('cta', { ...content.cta, title: v })} disabled={disabled} required />
+        <TextAreaField label="Body" value={content.cta.body} onChange={(v) => update('cta', { ...content.cta, body: v })} disabled={disabled} />
+        <div className="grid grid-cols-2 gap-4">
+          <TextField label="CTA Label" value={content.cta.ctaLabel} onChange={(v) => update('cta', { ...content.cta, ctaLabel: v })} disabled={disabled} required />
+          <TextField label="CTA Link" value={content.cta.ctaHref} onChange={(v) => update('cta', { ...content.cta, ctaHref: v })} disabled={disabled} required />
+        </div>
+      </Panel>
+    </div>
+  );
+}
+
 // Main component
 export default function TemplateFormEditor({ template, content, onChange, disabled }: TemplateFormEditorProps) {
   switch (template) {
