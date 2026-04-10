@@ -10,7 +10,7 @@ export function JsonLdSchema({ type = 'clinic', faqItems }: MedicalClinicJsonLdP
     '@context': 'https://schema.org',
     '@type': 'MedicalClinic',
     name: 'Relaxol Clinic',
-    description: 'Relaxol Clinic offers FDA-approved SPRAVATO® (esketamine), ketamine infusion therapy, and IV vitamin infusions for treatment-resistant depression, anxiety, PTSD, OCD, and chronic pain management in Englewood Cliffs, NJ.',
+    description: 'Relaxol Clinic offers FDA-approved SPRAVATO® (esketamine), ketamine infusion therapy, and comprehensive psychiatric evaluations for treatment-resistant depression, anxiety, PTSD, OCD, and chronic pain management in Englewood Cliffs, NJ.',
     url: 'https://relaxolclinic.com',
     telephone: '201-781-2101',
     email: 'info@relaxolclinic.com',

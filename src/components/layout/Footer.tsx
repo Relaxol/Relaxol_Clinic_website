@@ -6,7 +6,7 @@ const navLinks = [
   { label: "Home", href: "/" },
   { label: "Ketamine", href: "/ketamine" },
   { label: "SPRAVATO®", href: "/spravato-Englewood" },
-  { label: "Vitamin Infusions", href: "/vitamin-infusion-englewood" },
+  { label: "Evaluations", href: "/evaluations" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ];

@@ -32,8 +32,8 @@ const defaultTreatments = [
     href: "/conditions/pain-management",
   },
   {
-    title: "IV Vitamin Infusion Therapy",
-    tag: "Wellness",
+    title: "Comprehensive Evaluations",
+    tag: "Assessment",
     description: "Recharge your body with our physician-supervised IV vitamin drips. Whether you need an energy boost, immune support, or hydration recovery, experience 100% nutrient absorption for optimal wellness.",
     image: infusionEnergy,
     cta: "Learn More",
