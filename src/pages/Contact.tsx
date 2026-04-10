@@ -84,7 +84,7 @@ export default function Contact() {
     <div className="min-h-screen bg-background">
       <PageSEO
         title="Contact Us"
-        description="Contact Relaxol Clinic in Englewood Cliffs, NJ. Schedule a free consultation for ketamine therapy, SPRAVATO®, or vitamin infusions."
+        description="Contact Relaxol Clinic in Englewood Cliffs, NJ. Schedule a free consultation for ketamine therapy, SPRAVATO®, or psychiatric evaluations."
         path="/contact"
       />
       <JsonLdSchema type="clinic" />
@@ -281,7 +281,7 @@ export default function Contact() {
                     <SelectContent>
                       <SelectItem value="spravato">SPRAVATO® Treatment</SelectItem>
                       <SelectItem value="ketamine">Ketamine Infusion Therapy</SelectItem>
-                      <SelectItem value="vitamin">Vitamin Infusions</SelectItem>
+                      <SelectItem value="evaluation">Comprehensive Evaluation</SelectItem>
                       <SelectItem value="pain">Pain Management</SelectItem>
                       <SelectItem value="consultation">General Consultation</SelectItem>
                       <SelectItem value="other">Other / Not Sure</SelectItem>
