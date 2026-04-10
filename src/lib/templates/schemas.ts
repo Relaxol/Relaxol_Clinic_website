@@ -9,7 +9,8 @@ export type TemplateType =
   | "faq_v1"
   | "condition_v1"
   | "vitamin_infusions_v1"
-  | "our_team_v1";
+  | "our_team_v1"
+  | "evaluations_v1";
 
 export const TEMPLATE_TYPES: TemplateType[] = [
   "home_v1",
@@ -20,6 +21,7 @@ export const TEMPLATE_TYPES: TemplateType[] = [
   "condition_v1",
   "vitamin_infusions_v1",
   "our_team_v1",
+  "evaluations_v1",
 ];
 
 export const TEMPLATE_LABELS: Record<TemplateType, string> = {
@@ -31,6 +33,7 @@ export const TEMPLATE_LABELS: Record<TemplateType, string> = {
   condition_v1: "Condition Page",
   vitamin_infusions_v1: "Vitamin Infusions Page",
   our_team_v1: "Our Team Page",
+  evaluations_v1: "Evaluations Page",
 };
 
 // Common interfaces
