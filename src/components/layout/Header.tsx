@@ -27,7 +27,7 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isConditionsOpen, setIsConditionsOpen] = useState(false);
   const [mobileConditionsOpen, setMobileConditionsOpen] = useState(false);
-  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navigate = useNavigate();
 
   const handleHashNavigation = (href: string) => {
