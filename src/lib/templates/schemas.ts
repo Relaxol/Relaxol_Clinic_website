@@ -719,6 +719,7 @@ import {
   defaultConditionContent,
   defaultVitaminInfusionsContent,
   defaultOurTeamContent,
+  defaultEvaluationsContent,
 } from "./newDefaults";
 
 export function createDefaultConditionContent(
@@ -736,6 +737,10 @@ export function createDefaultVitaminInfusionsContent(): VitaminInfusionsV1Conten
 
 export function createDefaultOurTeamContent(): OurTeamV1Content {
   return { ...defaultOurTeamContent };
+}
+
+export function createDefaultEvaluationsContent(): EvaluationsV1Content {
+  return { ...defaultEvaluationsContent };
 }
 
 export function createDefaultContent(
@@ -759,5 +764,7 @@ export function createDefaultContent(
       return createDefaultVitaminInfusionsContent();
     case "our_team_v1":
       return createDefaultOurTeamContent();
+    case "evaluations_v1":
+      return createDefaultEvaluationsContent();
   }
 }
