@@ -31,6 +31,7 @@ import {
   ConditionV1Content,
   VitaminInfusionsV1Content,
   OurTeamV1Content,
+  EvaluationsV1Content,
 } from '@/lib/templates/newSchemas';
 import {
   defaultTreatmentItems,
@@ -1899,6 +1900,8 @@ export default function TemplateFormEditor({ template, content, onChange, disabl
       return <VitaminInfusionsTemplateEditor content={content as VitaminInfusionsV1Content} onChange={onChange} disabled={disabled} />;
     case 'our_team_v1':
       return <OurTeamTemplateEditor content={content as OurTeamV1Content} onChange={onChange} disabled={disabled} />;
+    case 'evaluations_v1':
+      return <EvaluationsTemplateEditor content={content as EvaluationsV1Content} onChange={onChange} disabled={disabled} />;
     default:
       return <div className="text-muted-foreground">Unknown template type: {template}</div>;
   }
