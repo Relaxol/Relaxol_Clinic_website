@@ -95,6 +95,14 @@ export interface OurTeamV1Content {
     bio: string[];
     credentials: { icon: string; label: string }[];
   };
+  doctor2?: {
+    subtitle?: string;
+    name: string;
+    imageUrl?: string;
+    imageAlt?: string;
+    bio: string[];
+    credentials: { icon: string; label: string }[];
+  };
   cta: {
     title: string;
     body: string;
