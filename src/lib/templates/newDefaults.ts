@@ -398,9 +398,23 @@ export const defaultOurTeamContent: OurTeamV1Content = {
       { icon: "GraduationCap", label: "Fellowship Trained" },
     ],
   },
+  doctor2: {
+    subtitle: "PSYCHIATRIC NURSE PRACTITIONER",
+    name: "Dr. Jane Smith",
+    imageAlt: "Dr. Jane Smith, Psychiatric Nurse Practitioner",
+    bio: [
+      "Dr. Smith brings a wealth of experience in psychiatric care and a passion for innovative treatments. She specializes in ketamine-assisted therapy and works closely with patients to develop personalized treatment plans.",
+      "With a background in both emergency medicine and psychiatry, Dr. Smith offers a unique perspective on mental health treatment, combining clinical expertise with genuine compassion for every patient she serves.",
+    ],
+    credentials: [
+      { icon: "Award", label: "Board Certified" },
+      { icon: "Clock", label: "10+ Years Experience" },
+      { icon: "GraduationCap", label: "Advanced Training" },
+    ],
+  },
   cta: {
     title: "Ready to Start Your Journey?",
-    body: "Schedule a consultation with Dr. Khanna and take the first step toward mental wellness.",
+    body: "Schedule a consultation with our team and take the first step toward mental wellness.",
     ctaLabel: "Schedule Your Consultation",
     ctaHref: "/contact",
   },
