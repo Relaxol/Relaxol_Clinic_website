@@ -64,7 +64,10 @@ const App = () => (
             <Route path="/" element={<Home />} />
             <Route path="/spravato-Englewood" element={<Spravato />} />
             <Route path="/ketamine" element={<Ketamine />} />
-            <Route path="/vitamin-infusion-englewood" element={<VitaminInfusions />} />
+            <Route
+              path="/vitamin-infusion-englewood"
+              element={<VitaminInfusions />}
+            />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
@@ -75,22 +78,31 @@ const App = () => (
             <Route path="/conditions/anxiety" element={<Anxiety />} />
             <Route path="/conditions/ptsd" element={<PTSD />} />
             <Route path="/conditions/ocd" element={<OCD />} />
-            <Route path="/conditions/pain-management" element={<PainManagement />} />
+            <Route
+              path="/conditions/pain-management"
+              element={<PainManagement />}
+            />
             <Route path="/our-team" element={<OurTeam />} />
-            <Route path="/verify-coverage" element={<InsuranceVerification />} />
-            
+            <Route
+              path="/verify-coverage"
+              element={<InsuranceVerification />}
+            />
+
             {/* Dynamic CMS pages - for NEW pages created via admin */}
             <Route path="/p/:slug" element={<DynamicPage />} />
-            
+
             {/* Admin routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/accept-invite" element={<AcceptInvite />} />
             <Route path="/admin/reset-password" element={<ResetPassword />} />
-            <Route path="/admin" element={
-              <ProtectedRoute>
-                <AdminLayout />
-              </ProtectedRoute>
-            }>
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <AdminLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<AdminDashboard />} />
               <Route path="posts" element={<PostsList />} />
               <Route path="posts/:id" element={<PostEditor />} />
@@ -105,7 +117,7 @@ const App = () => (
               <Route path="activity" element={<ActivityLog />} />
               <Route path="license" element={<License />} />
             </Route>
-            
+
             {/* Catch-all */}
             <Route path="*" element={<NotFound />} />
           </Routes>
