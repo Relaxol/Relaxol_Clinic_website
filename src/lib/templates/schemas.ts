@@ -349,12 +349,14 @@ export {
   isConditionV1Content,
   isVitaminInfusionsV1Content,
   isOurTeamV1Content,
+  isEvaluationsV1Content,
 } from "./newSchemas";
 
 import type {
   ConditionV1Content,
   VitaminInfusionsV1Content,
   OurTeamV1Content,
+  EvaluationsV1Content,
 } from "./newSchemas";
 
 // Union type for all content types
@@ -366,7 +368,8 @@ export type TemplateContent =
   | FAQV1Content
   | ConditionV1Content
   | VitaminInfusionsV1Content
-  | OurTeamV1Content;
+  | OurTeamV1Content
+  | EvaluationsV1Content;
 
 // Type guard functions
 export function isHomeV1Content(content: unknown): content is HomeV1Content {
