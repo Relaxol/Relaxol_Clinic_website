@@ -421,3 +421,33 @@ export const defaultOurTeamContent: OurTeamV1Content = {
     ctaHref: "/contact",
   },
 };
+
+// ── Evaluations defaults ─────────────────────────────────────────────
+
+export const defaultEvaluationsContent: EvaluationsV1Content = {
+  hero: {
+    subtitle: "Comprehensive Evaluation",
+    headline: "Personalized. Thoughtful. Clinician-Led.",
+  },
+  content: {
+    paragraphs: [
+      "A comprehensive psychiatric evaluation is the first step in understanding your symptoms, history, and treatment goals. At Relaxol Clinic, we take an individualized, evidence-based approach to ensure each patient receives care that is appropriate for their needs.",
+      "During the evaluation, our providers assess your mental health history, current concerns, and prior treatments to develop a clear clinical picture. Based on this, we provide personalized recommendations, which may include interventional psychiatry options when clinically appropriate.",
+    ],
+    prioritiesTitle: "We prioritize:",
+    priorities: [
+      "Thorough, individualized assessments",
+      "Clear diagnostic understanding",
+      "Evidence-based treatment recommendations",
+      "Open communication and patient education",
+    ],
+    closingParagraph: "Our goal is to provide clarity, direction, and a foundation for effective care—so you can move forward with confidence.",
+    disclaimer: "Individual results may vary.",
+  },
+  cta: {
+    title: "Start with an Evaluation",
+    body: "If you're considering medication or looking to optimize your current treatment, our team is here to help.",
+    ctaLabel: "Schedule an Appointment",
+    ctaHref: "/contact",
+  },
+};
