@@ -17,7 +17,12 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 const OurTeam = () => {
   const { content, loading } = usePageContent('our-team');
   const hasContent = content && Object.keys(content).length > 0 && (content as any).hero;
-  const c = (hasContent ? content : defaultOurTeamContent) as OurTeamV1Content;
+  const raw = (hasContent ? content : defaultOurTeamContent) as OurTeamV1Content;
+  // Merge in default doctor2 if DB content doesn't have it yet
+  const c: OurTeamV1Content = {
+    ...raw,
+    doctor2: raw.doctor2 || defaultOurTeamContent.doctor2,
+  };
 
   if (loading) {
     return (
