@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { defaultConditionContent, defaultVitaminInfusionsContent, defaultOurTeamContent, defaultEvaluationsContent } from '@/lib/templates/newDefaults';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, CheckCircle, AlertTriangle, XCircle, Database, Code } from 'lucide-react';
+import { Loader2, CheckCircle, AlertTriangle, XCircle, Database, Code, Upload } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-
+import { toast } from 'sonner';
 // Map of slug → hardcoded default content
 const KNOWN_DEFAULTS: Record<string, object> = {
   'evaluations': defaultEvaluationsContent,
