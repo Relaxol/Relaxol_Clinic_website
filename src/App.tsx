@@ -114,6 +114,7 @@ const App = () => (
               <Route path="settings" element={<Settings />} />
               <Route path="activity" element={<ActivityLog />} />
               <Route path="license" element={<License />} />
+              <Route path="content-audit" element={<ContentAudit />} />
             </Route>
 
             {/* Catch-all */}
