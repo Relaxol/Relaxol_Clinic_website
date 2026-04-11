@@ -19,7 +19,7 @@ interface Props {
 export function DynamicTimeline({ data }: Props) {
   return (
     <section 
-      className="py-20 bg-background"
+      className="py-20 bg-cream"
       data-section-id={data.sectionId}
       data-section-type={data.type}
     >
