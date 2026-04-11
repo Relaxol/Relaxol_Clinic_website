@@ -183,7 +183,7 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
               <div className="absolute inset-0 rounded-2xl transition-shadow duration-500 group-hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)]" />
               
               {/* Image Container */}
-              <div className="relative h-72 sm:h-80 md:h-96 overflow-hidden">
+              <div className="relative h-44 sm:h-48 md:h-52 overflow-hidden">
                 <img
                   src={treatment.image}
                   alt={treatment.title}
