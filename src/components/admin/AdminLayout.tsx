@@ -50,6 +50,7 @@ const AdminLayout = () => {
     { to: '/admin/media', icon: Image, label: 'Media' },
     { to: '/admin/users', icon: Users, label: 'Users', adminOnly: true },
     { to: '/admin/activity', icon: Activity, label: 'Activity Log' },
+    { to: '/admin/content-audit', icon: Eye, label: 'Content Audit' },
     { to: '/admin/settings', icon: Settings, label: 'Settings' },
     { to: '/admin/license', icon: CreditCard, label: 'License' },
   ];
