@@ -46,6 +46,7 @@ import ActivityLog from "./pages/admin/activity/ActivityLog";
 import AcceptInvite from "./pages/admin/AcceptInvite";
 import ResetPassword from "./pages/admin/ResetPassword";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
+import ContentAudit from "./pages/admin/ContentAudit";
 
 const queryClient = new QueryClient();
 
