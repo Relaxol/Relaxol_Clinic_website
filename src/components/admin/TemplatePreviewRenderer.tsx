@@ -186,11 +186,6 @@ function HomePreview({ content }: { content: HomeV1Content }) {
         </div>
         {content.treatments.items.length === 0 && <p className="text-xs text-muted-foreground text-center">No treatments (defaults will show)</p>}
       </PreviewSection>
-      <PreviewSection title={content.doctor.name} subtitle={content.doctor.subtitle} bg="bg-muted/30">
-        {content.doctor.bio.map((p, i) => (
-          <p key={i} className="text-xs text-muted-foreground mb-2">{p}</p>
-        ))}
-      </PreviewSection>
       <PreviewSection title={content.conditions.title} subtitle={content.conditions.subtitle}>
         <div className="grid grid-cols-2 gap-3">
           {content.conditions.items.map((item, i) => (
@@ -204,9 +199,6 @@ function HomePreview({ content }: { content: HomeV1Content }) {
       </PreviewSection>
       <PreviewSection title={content.timeline.title} subtitle={content.timeline.subtitle}>
         <PreviewTimeline items={content.timeline.items} />
-      </PreviewSection>
-      <PreviewSection title={content.faq.title} bg="bg-muted/30">
-        <PreviewFAQ items={content.faq.items} />
       </PreviewSection>
       <PreviewCTA title={content.contact.title} body={content.contact.body} />
     </>
