@@ -46,6 +46,7 @@ import ActivityLog from "./pages/admin/activity/ActivityLog";
 import AcceptInvite from "./pages/admin/AcceptInvite";
 import ResetPassword from "./pages/admin/ResetPassword";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
+import ContentAudit from "./pages/admin/ContentAudit";
 
 const queryClient = new QueryClient();
 
@@ -113,6 +114,7 @@ const App = () => (
               <Route path="settings" element={<Settings />} />
               <Route path="activity" element={<ActivityLog />} />
               <Route path="license" element={<License />} />
+              <Route path="content-audit" element={<ContentAudit />} />
             </Route>
 
             {/* Catch-all */}
