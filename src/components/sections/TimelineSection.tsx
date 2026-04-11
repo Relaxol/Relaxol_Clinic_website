@@ -55,7 +55,7 @@ export function TimelineSection({ content }: TimelineSectionProps) {
   })) : defaultSteps;
 
   return (
-    <section className="py-20 bg-cream">
+    <section className="py-20 bg-cream-dark">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
         {/* Header */}
         <div className="text-center mb-16">
