@@ -139,7 +139,7 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
   }, []);
 
   return (
-    <section id="treatments" className="relative py-16 md:py-28 lg:py-36 overflow-hidden">
+    <section id="treatments" className="relative py-12 md:py-16 lg:py-20 overflow-hidden">
       {/* Premium warm gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-cream via-cream-dark/40 to-cream" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
@@ -148,18 +148,18 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
         {/* Elegant Centered Header */}
         <div 
           ref={headerRef}
-          className={`text-center mb-20 md:mb-24 transition-all duration-1000 ${
+          className={`text-center mb-10 md:mb-14 transition-all duration-1000 ${
             headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-5">
+          <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-3">
             {subtitle}
           </p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl text-foreground font-bold mb-8 leading-[1.1]">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4 leading-[1.1]">
             {title}
           </h2>
-          <div className="w-20 h-0.5 bg-primary/60 mx-auto mb-8" />
-          <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-lg md:sm:text-xl sm:leading-relaxed max-w-2xl mx-auto">
+          <div className="w-16 h-0.5 bg-primary/60 mx-auto mb-4" />
+          <p className="text-muted-foreground font-light tracking-wide text-[15px] leading-[1.65] sm:font-normal sm:tracking-normal sm:text-base sm:leading-relaxed max-w-2xl mx-auto">
             {description}
           </p>
         </div>
@@ -183,7 +183,7 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
               <div className="absolute inset-0 rounded-2xl transition-shadow duration-500 group-hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)]" />
               
               {/* Image Container */}
-              <div className="relative h-72 sm:h-80 md:h-96 overflow-hidden">
+              <div className="relative h-44 sm:h-48 md:h-52 overflow-hidden">
                 <img
                   src={treatment.image}
                   alt={treatment.title}
