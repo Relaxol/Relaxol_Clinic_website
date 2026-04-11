@@ -439,37 +439,6 @@ function HomeTemplateEditor({
         />
       </Panel>
 
-      <Panel title="Doctor Section">
-        <TextField
-          label="Subtitle"
-          value={content.doctor.subtitle || ''}
-          onChange={(v) => update('doctor', { ...content.doctor, subtitle: v })}
-          disabled={disabled}
-        />
-        <TextField
-          label="Name"
-          value={content.doctor.name}
-          onChange={(v) => update('doctor', { ...content.doctor, name: v })}
-          disabled={disabled}
-          required
-        />
-        <ImageUploadField
-          label="Image"
-          value={content.doctor.imageUrl || ''}
-          onChange={(v) => update('doctor', { ...content.doctor, imageUrl: v })}
-          disabled={disabled}
-        />
-        <ItemRepeater
-          label="Bio Paragraphs"
-          items={content.doctor.bio.map(text => ({ text }))}
-          onChange={(items) => update('doctor', { ...content.doctor, bio: items.map(i => i.text) })}
-          disabled={disabled}
-          createItem={() => ({ text: '' })}
-          renderItem={(item, _, updateItem) => (
-            <TextAreaField label="Paragraph" value={item.text} onChange={(v) => updateItem({ text: v })} disabled={disabled} />
-          )}
-        />
-      </Panel>
 
       <Panel title="Conditions Section">
         <TextField
@@ -573,29 +542,6 @@ function HomeTemplateEditor({
         />
       </Panel>
 
-      <Panel title="FAQ Section">
-        <TextField
-          label="Title"
-          value={content.faq.title}
-          onChange={(v) => update('faq', { ...content.faq, title: v })}
-          disabled={disabled}
-          required
-        />
-        <ItemRepeater
-          label="FAQ Items"
-          items={content.faq.items}
-          onChange={(items) => update('faq', { ...content.faq, items })}
-          disabled={disabled}
-          defaultItems={defaultFaqItems}
-          createItem={() => ({ question: '', answer: '' })}
-          renderItem={(item, _, updateItem) => (
-            <>
-              <TextField label="Question" value={item.question} onChange={(v) => updateItem({ question: v })} disabled={disabled} required />
-              <TextAreaField label="Answer" value={item.answer} onChange={(v) => updateItem({ answer: v })} disabled={disabled} rows={4} />
-            </>
-          )}
-        />
-      </Panel>
 
       <Panel title="Contact Section">
         <TextField
