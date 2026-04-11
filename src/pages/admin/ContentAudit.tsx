@@ -236,7 +236,41 @@ export default function ContentAudit() {
         </p>
       </div>
 
-      {/* Summary */}
+      {/* Home page cleanup */}
+      {(() => {
+        const homePage = pages.find(p => p.slug === 'home');
+        const orphaned = homePage?.content_json
+          ? Object.keys(homePage.content_json).filter(k => !HOME_RENDERED_KEYS.includes(k))
+          : [];
+        return orphaned.length > 0 ? (
+          <Card className="border-amber-200 bg-amber-50/50">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-medium text-amber-800">
+                    <AlertTriangle className="inline h-4 w-4 mr-1" />
+                    Home page has {orphaned.length} orphaned section{orphaned.length > 1 ? 's' : ''} in DB
+                  </p>
+                  <p className="text-sm text-amber-700 mt-1">
+                    Keys not rendered by Home.tsx: <code>{orphaned.join(', ')}</code>
+                  </p>
+                </div>
+                <Button
+                  size="sm"
+                  variant="destructive"
+                  onClick={cleanHomeOrphanedKeys}
+                  disabled={cleaning}
+                >
+                  {cleaning ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <XCircle className="h-4 w-4 mr-1" />}
+                  Remove Orphaned Keys
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ) : null;
+      })()}
+
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardContent className="pt-6 text-center">
