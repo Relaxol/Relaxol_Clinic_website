@@ -137,12 +137,6 @@ export interface HomeV1Content {
     description?: string;
     items: TreatmentItem[];
   };
-  doctor: {
-    subtitle?: string;
-    name: string;
-    imageUrl?: string;
-    bio: string[];
-  };
   conditions: {
     subtitle?: string;
     title: string;
@@ -157,10 +151,6 @@ export interface HomeV1Content {
     subtitle?: string;
     title: string;
     items: TimelineItem[];
-  };
-  faq: {
-    title: string;
-    items: FAQItem[];
   };
   contact: {
     subtitle?: string;
@@ -458,14 +448,6 @@ export function createDefaultHomeContent(): HomeV1Content {
       description: "Evidence-based therapies tailored to your needs.",
       items: [],
     },
-    doctor: {
-      subtitle: "CLINICAL PSYCHIATRIST",
-      name: "Dr. Khanna",
-      imageUrl: "",
-      bio: [
-        "Dr. Khanna is a board-certified psychiatrist with expertise in treatment-resistant conditions.",
-      ],
-    },
     conditions: {
       subtitle: "WHAT WE TREAT",
       title: "Conditions We Treat",
@@ -479,10 +461,6 @@ export function createDefaultHomeContent(): HomeV1Content {
     timeline: {
       subtitle: "YOUR JOURNEY",
       title: "What to Expect",
-      items: [],
-    },
-    faq: {
-      title: "Frequently Asked Questions",
       items: [],
     },
     contact: {
