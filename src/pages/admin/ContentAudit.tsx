@@ -139,6 +139,42 @@ export default function ContentAudit() {
   const [error, setError] = useState<string | null>(null);
 
   const [syncing, setSyncing] = useState<string | null>(null);
+  const [cleaning, setCleaning] = useState(false);
+
+  const cleanHomeOrphanedKeys = async () => {
+    const homePage = pages.find(p => p.slug === 'home');
+    if (!homePage?.content_json) {
+      toast.error('No home page content found in DB');
+      return;
+    }
+    setCleaning(true);
+    try {
+      const currentKeys = Object.keys(homePage.content_json);
+      const orphanedKeys = currentKeys.filter(k => !HOME_RENDERED_KEYS.includes(k));
+      if (orphanedKeys.length === 0) {
+        toast.info('No orphaned keys found — home page content is clean');
+        setCleaning(false);
+        return;
+      }
+      const cleaned: Record<string, unknown> = {};
+      for (const key of HOME_RENDERED_KEYS) {
+        if (homePage.content_json[key] !== undefined) {
+          cleaned[key] = homePage.content_json[key];
+        }
+      }
+      const { error: e } = await supabase
+        .from('pages')
+        .update({ content_json: cleaned as any })
+        .eq('slug', 'home');
+      if (e) throw e;
+      toast.success(`Removed orphaned keys: ${orphanedKeys.join(', ')}`);
+      await fetchPages();
+    } catch (err: any) {
+      toast.error(`Failed: ${err.message}`);
+    } finally {
+      setCleaning(false);
+    }
+  };
 
   const fetchPages = async () => {
     const { data, error: e } = await supabase
