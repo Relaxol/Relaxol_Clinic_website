@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { defaultConditionContent, defaultVitaminInfusionsContent, defaultOurTeamContent, defaultEvaluationsContent } from '@/lib/templates/newDefaults';
+import {
+  createDefaultHomeContent,
+  createDefaultKetamineContent,
+  createDefaultSpravatoContent,
+  createDefaultContactContent,
+  createDefaultFAQContent,
+} from '@/lib/templates/schemas';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,6 +16,11 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { toast } from 'sonner';
 // Map of slug → hardcoded default content
 const KNOWN_DEFAULTS: Record<string, object> = {
+  'home': createDefaultHomeContent(),
+  'ketamine': createDefaultKetamineContent(),
+  'spravato-Englewood': createDefaultSpravatoContent(),
+  'contact': createDefaultContactContent(),
+  'faq': createDefaultFAQContent(),
   'evaluations': defaultEvaluationsContent,
   'our-team': defaultOurTeamContent,
   'vitamin-infusions': defaultVitaminInfusionsContent,
