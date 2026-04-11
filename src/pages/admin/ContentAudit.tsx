@@ -119,21 +119,44 @@ export default function ContentAudit() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    (async () => {
-      const { data, error: e } = await supabase
-        .from('pages')
-        .select('id, slug, title, template, content_json, status')
-        .order('slug');
+  const [syncing, setSyncing] = useState<string | null>(null);
 
-      if (e) {
-        setError(e.message);
-      } else {
-        setPages((data as unknown as PageRow[]) || []);
-      }
-      setLoading(false);
-    })();
+  const fetchPages = async () => {
+    const { data, error: e } = await supabase
+      .from('pages')
+      .select('id, slug, title, template, content_json, status')
+      .order('slug');
+
+    if (e) {
+      setError(e.message);
+    } else {
+      setPages((data as unknown as PageRow[]) || []);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchPages();
   }, []);
+
+  const pushDefaultsToDB = async (slug: string) => {
+    const defaults = KNOWN_DEFAULTS[slug];
+    if (!defaults) return;
+    setSyncing(slug);
+    try {
+      const { error: e } = await supabase
+        .from('pages')
+        .update({ content_json: defaults as any })
+        .eq('slug', slug);
+      if (e) throw e;
+      toast.success(`Pushed defaults to "${slug}"`);
+      await fetchPages();
+    } catch (err: any) {
+      toast.error(`Failed: ${err.message}`);
+    } finally {
+      setSyncing(null);
+    }
+  };
 
   if (loading) {
     return (
