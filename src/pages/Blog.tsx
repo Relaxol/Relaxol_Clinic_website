@@ -47,7 +47,7 @@ const Blog = () => {
       if (error) {
         console.error("Error fetching blog posts:", error);
       } else {
-        setPosts(data || []);
+        setPosts((data || []) as any);
       }
       setLoading(false);
     };

@@ -72,7 +72,7 @@ const BlogPost = () => {
       } else if (!data) {
         setNotFound(true);
       } else {
-        setPost(data);
+        setPost(data as any);
       }
       setLoading(false);
     };
