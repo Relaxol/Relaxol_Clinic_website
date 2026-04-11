@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { defaultConditionContent, defaultVitaminInfusionsContent, defaultOurTeamContent, defaultEvaluationsContent } from '@/lib/templates/newDefaults';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, CheckCircle, AlertTriangle, XCircle, Database, Code } from 'lucide-react';
+import { Loader2, CheckCircle, AlertTriangle, XCircle, Database, Code, Upload } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-
+import { toast } from 'sonner';
 // Map of slug → hardcoded default content
 const KNOWN_DEFAULTS: Record<string, object> = {
   'evaluations': defaultEvaluationsContent,
@@ -118,21 +119,44 @@ export default function ContentAudit() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    (async () => {
-      const { data, error: e } = await supabase
-        .from('pages')
-        .select('id, slug, title, template, content_json, status')
-        .order('slug');
+  const [syncing, setSyncing] = useState<string | null>(null);
 
-      if (e) {
-        setError(e.message);
-      } else {
-        setPages((data as unknown as PageRow[]) || []);
-      }
-      setLoading(false);
-    })();
+  const fetchPages = async () => {
+    const { data, error: e } = await supabase
+      .from('pages')
+      .select('id, slug, title, template, content_json, status')
+      .order('slug');
+
+    if (e) {
+      setError(e.message);
+    } else {
+      setPages((data as unknown as PageRow[]) || []);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchPages();
   }, []);
+
+  const pushDefaultsToDB = async (slug: string) => {
+    const defaults = KNOWN_DEFAULTS[slug];
+    if (!defaults) return;
+    setSyncing(slug);
+    try {
+      const { error: e } = await supabase
+        .from('pages')
+        .update({ content_json: defaults as any })
+        .eq('slug', slug);
+      if (e) throw e;
+      toast.success(`Pushed defaults to "${slug}"`);
+      await fetchPages();
+    } catch (err: any) {
+      toast.error(`Failed: ${err.message}`);
+    } finally {
+      setSyncing(null);
+    }
+  };
 
   if (loading) {
     return (
@@ -250,9 +274,14 @@ export default function ContentAudit() {
                       <AlertTriangle className="inline h-4 w-4 mr-1" />
                       DB has no content — currently falling back to hardcoded defaults.
                     </p>
-                    <p className="text-muted-foreground">
-                      To populate DB: copy the default content into the page's <code>content_json</code> via admin editor or SQL.
-                    </p>
+                    <Button
+                      size="sm"
+                      onClick={() => pushDefaultsToDB(slug)}
+                      disabled={syncing === slug}
+                    >
+                      {syncing === slug ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <Upload className="h-4 w-4 mr-1" />}
+                      Push Defaults to DB
+                    </Button>
                   </div>
                 )}
                 {status === 'db-only' && (
@@ -268,9 +297,20 @@ export default function ContentAudit() {
                 )}
                 {status === 'conflicts' && (
                   <div className="space-y-2 py-2">
-                    <p className="text-sm text-muted-foreground mb-3">
-                      Differences found between DB content and hardcoded defaults. DB is source of truth.
-                    </p>
+                    <div className="flex items-center justify-between mb-3">
+                      <p className="text-sm text-muted-foreground">
+                        Differences found between DB content and hardcoded defaults. DB is source of truth.
+                      </p>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => pushDefaultsToDB(slug)}
+                        disabled={syncing === slug}
+                      >
+                        {syncing === slug ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <Upload className="h-4 w-4 mr-1" />}
+                        Overwrite DB with Defaults
+                      </Button>
+                    </div>
                     <div className="space-y-1 max-h-96 overflow-y-auto">
                       {diffs.map((d, i) => (
                         <div key={i} className="text-xs border rounded p-2 bg-muted/30">
