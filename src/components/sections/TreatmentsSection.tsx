@@ -197,7 +197,7 @@ export function TreatmentsSection({ content }: TreatmentsSectionProps) {
                 
                 {/* Tag Badge */}
                 {treatment.tag && (
-                  <span className="absolute top-6 left-6 px-4 py-2 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider rounded-full shadow-md">
+                  <span className="absolute bottom-4 left-6 px-4 py-2 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider rounded-full shadow-md z-10">
                     {treatment.tag}
                   </span>
                 )}
