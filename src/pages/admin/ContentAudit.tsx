@@ -14,6 +14,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, CheckCircle, AlertTriangle, XCircle, Database, Code, Upload } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { toast } from 'sonner';
+
+// Keys that Home.tsx actually renders
+const HOME_RENDERED_KEYS = [
+  'hero', 'about', 'video', 'treatments', 'environment',
+  'conditions', 'whyChoose', 'testimonials', 'timeline', 'coverage', 'contact'
+];
+
 // Map of slug → hardcoded default content
 const KNOWN_DEFAULTS: Record<string, object> = {
   'home': createDefaultHomeContent(),
