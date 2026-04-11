@@ -14,6 +14,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, CheckCircle, AlertTriangle, XCircle, Database, Code, Upload } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { toast } from 'sonner';
+
+// Keys that Home.tsx actually renders
+const HOME_RENDERED_KEYS = [
+  'hero', 'about', 'video', 'treatments', 'environment',
+  'conditions', 'whyChoose', 'testimonials', 'timeline', 'coverage', 'contact'
+];
+
 // Map of slug → hardcoded default content
 const KNOWN_DEFAULTS: Record<string, object> = {
   'home': createDefaultHomeContent(),
@@ -132,6 +139,42 @@ export default function ContentAudit() {
   const [error, setError] = useState<string | null>(null);
 
   const [syncing, setSyncing] = useState<string | null>(null);
+  const [cleaning, setCleaning] = useState(false);
+
+  const cleanHomeOrphanedKeys = async () => {
+    const homePage = pages.find(p => p.slug === 'home');
+    if (!homePage?.content_json) {
+      toast.error('No home page content found in DB');
+      return;
+    }
+    setCleaning(true);
+    try {
+      const currentKeys = Object.keys(homePage.content_json);
+      const orphanedKeys = currentKeys.filter(k => !HOME_RENDERED_KEYS.includes(k));
+      if (orphanedKeys.length === 0) {
+        toast.info('No orphaned keys found — home page content is clean');
+        setCleaning(false);
+        return;
+      }
+      const cleaned: Record<string, unknown> = {};
+      for (const key of HOME_RENDERED_KEYS) {
+        if (homePage.content_json[key] !== undefined) {
+          cleaned[key] = homePage.content_json[key];
+        }
+      }
+      const { error: e } = await supabase
+        .from('pages')
+        .update({ content_json: cleaned as any })
+        .eq('slug', 'home');
+      if (e) throw e;
+      toast.success(`Removed orphaned keys: ${orphanedKeys.join(', ')}`);
+      await fetchPages();
+    } catch (err: any) {
+      toast.error(`Failed: ${err.message}`);
+    } finally {
+      setCleaning(false);
+    }
+  };
 
   const fetchPages = async () => {
     const { data, error: e } = await supabase
@@ -193,7 +236,41 @@ export default function ContentAudit() {
         </p>
       </div>
 
-      {/* Summary */}
+      {/* Home page cleanup */}
+      {(() => {
+        const homePage = pages.find(p => p.slug === 'home');
+        const orphaned = homePage?.content_json
+          ? Object.keys(homePage.content_json).filter(k => !HOME_RENDERED_KEYS.includes(k))
+          : [];
+        return orphaned.length > 0 ? (
+          <Card className="border-amber-200 bg-amber-50/50">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-medium text-amber-800">
+                    <AlertTriangle className="inline h-4 w-4 mr-1" />
+                    Home page has {orphaned.length} orphaned section{orphaned.length > 1 ? 's' : ''} in DB
+                  </p>
+                  <p className="text-sm text-amber-700 mt-1">
+                    Keys not rendered by Home.tsx: <code>{orphaned.join(', ')}</code>
+                  </p>
+                </div>
+                <Button
+                  size="sm"
+                  variant="destructive"
+                  onClick={cleanHomeOrphanedKeys}
+                  disabled={cleaning}
+                >
+                  {cleaning ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <XCircle className="h-4 w-4 mr-1" />}
+                  Remove Orphaned Keys
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ) : null;
+      })()}
+
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardContent className="pt-6 text-center">
