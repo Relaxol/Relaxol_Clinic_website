@@ -38,8 +38,8 @@ const Home = () => {
         <AboutSection content={homeContent?.about} />
         <VideoSection content={homeContent?.video} />
         <TreatmentsSection content={homeContent?.treatments} />
-        <ConditionsSection content={homeContent?.conditions} />
         <EnvironmentSection content={homeContent?.environment} />
+        <ConditionsSection content={homeContent?.conditions} />
         
         <WhyChooseSection content={homeContent?.whyChoose} />
         <TestimonialsSection content={homeContent?.testimonials} />
