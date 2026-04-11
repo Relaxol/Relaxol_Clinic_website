@@ -297,9 +297,20 @@ export default function ContentAudit() {
                 )}
                 {status === 'conflicts' && (
                   <div className="space-y-2 py-2">
-                    <p className="text-sm text-muted-foreground mb-3">
-                      Differences found between DB content and hardcoded defaults. DB is source of truth.
-                    </p>
+                    <div className="flex items-center justify-between mb-3">
+                      <p className="text-sm text-muted-foreground">
+                        Differences found between DB content and hardcoded defaults. DB is source of truth.
+                      </p>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => pushDefaultsToDB(slug)}
+                        disabled={syncing === slug}
+                      >
+                        {syncing === slug ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <Upload className="h-4 w-4 mr-1" />}
+                        Overwrite DB with Defaults
+                      </Button>
+                    </div>
                     <div className="space-y-1 max-h-96 overflow-y-auto">
                       {diffs.map((d, i) => (
                         <div key={i} className="text-xs border rounded p-2 bg-muted/30">
