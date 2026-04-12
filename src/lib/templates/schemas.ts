@@ -76,6 +76,7 @@ interface ConditionItem {
   title: string;
   description: string;
   imageUrl?: string;
+  imageAlt?: string;
   href?: string;
 }
 
@@ -436,7 +437,6 @@ export function createDefaultHomeContent(): HomeV1Content {
       title: "A New Standard in Mental Health Care",
       bodyHtml:
         "<p>At Relaxol Clinic, we specialize in advanced psychiatric care with a focus on interventional psychiatry, pain management and FDA-approved treatments for treatment-resistant depression, including SPRAVATO® and medically supervised ketamine therapy. Care begins with a comprehensive evaluation, followed by personalized treatment when appropriate.</p><p>Our approach is evidence-based and tailored to each patient. We support individuals experiencing depression, anxiety, PTSD, and OCD with compassionate, clinician-led care in a safe, comfortable setting with flexible scheduling and insurance support.</p>",
-      imageUrl: "",
       imageAlt: "Modern treatment facility interior",
     },
     video: {
@@ -463,11 +463,11 @@ export function createDefaultHomeContent(): HomeV1Content {
       title: "Specialized Care for Complex Conditions",
       description: "Our treatments are designed for patients who haven't found relief through traditional approaches.",
       items: [
-        { title: "Depression", description: "When traditional antidepressants fall short, ketamine and SPRAVATO® offer rapid relief—often within hours, not weeks.", href: "/conditions/depression" },
-        { title: "Anxiety", description: "For persistent anxiety that hasn't responded to conventional therapies, our treatments target the glutamate system for faster relief.", href: "/conditions/anxiety" },
-        { title: "PTSD", description: "Ketamine therapy helps process traumatic memories and reduce PTSD symptoms in a safe, supportive environment.", href: "/conditions/ptsd" },
-        { title: "OCD", description: "For medication-resistant OCD, ketamine-based therapies may help interrupt intrusive thoughts and compulsive behaviors.", href: "/conditions/ocd" },
-        { title: "Chronic Pain", description: "Ketamine infusions offer relief for chronic pain conditions including CRPS, fibromyalgia, and neuropathic pain.", href: "/conditions/pain-management" },
+        { title: "Depression", description: "When traditional antidepressants fall short, ketamine and SPRAVATO® offer rapid relief—often within hours, not weeks.", imageAlt: "Woman with hands covering face experiencing depression", href: "/conditions/depression" },
+        { title: "Anxiety", description: "For persistent anxiety that hasn't responded to conventional therapies, our treatments target the glutamate system for faster relief.", imageAlt: "Woman with hands on head experiencing anxiety", href: "/conditions/anxiety" },
+        { title: "PTSD", description: "Ketamine therapy helps process traumatic memories and reduce PTSD symptoms in a safe, supportive environment.", imageAlt: "Man in military clothing experiencing PTSD symptoms", href: "/conditions/ptsd" },
+        { title: "OCD", description: "For medication-resistant OCD, ketamine-based therapies may help interrupt intrusive thoughts and compulsive behaviors.", imageAlt: "Woman arranging items in precise order representing OCD", href: "/conditions/ocd" },
+        { title: "Chronic Pain", description: "Ketamine infusions offer relief for chronic pain conditions including CRPS, fibromyalgia, and neuropathic pain.", imageAlt: "Man experiencing chronic pain holding his back", href: "/conditions/pain-management" },
       ],
     },
     whyChoose: {
