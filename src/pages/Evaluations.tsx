@@ -68,31 +68,48 @@ const Evaluations = () => {
           </div>
         </section>
 
-        {/* Full-width: priorities, closing, disclaimer */}
-        <section className="py-16 lg:py-20 bg-background">
-          <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12">
-            <h2 className="text-2xl font-bold text-foreground mb-6">
+        {/* Full-width: priorities as badge cards */}
+        <section className="py-16 lg:py-20 bg-muted/30">
+          <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10 text-center">
               {c.content.prioritiesTitle}
             </h2>
 
-            <ul className="space-y-4 mb-10">
-              {c.content.priorities.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground text-lg">{item}</span>
-                </li>
-              ))}
-            </ul>
+            {(() => {
+              const icons = [Check, Users, FileText, MapPin, Pill, Languages, Check];
+              return (
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {c.content.priorities.map((item, i) => {
+                    const Icon = icons[i % icons.length];
+                    return (
+                      <div
+                        key={item}
+                        className="bg-card rounded-xl p-6 flex flex-col gap-4 shadow-sm border border-border/40"
+                      >
+                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                          <Icon className="w-5 h-5 text-primary" />
+                        </div>
+                        <p className="text-foreground font-medium leading-snug">
+                          {item}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })()}
 
-            <p className="text-muted-foreground leading-relaxed text-lg mb-6">
-              {c.content.closingParagraph}
-            </p>
-
-            {c.content.disclaimer && (
-              <p className="text-muted-foreground italic text-base">
-                {c.content.disclaimer}
+            <div className="mt-12 max-w-3xl mx-auto text-center">
+              <p className="text-muted-foreground leading-relaxed text-lg mb-6">
+                {c.content.closingParagraph}
               </p>
-            )}
+
+              {c.content.disclaimer && (
+                <p className="text-muted-foreground italic text-base">
+                  {c.content.disclaimer}
+                </p>
+              )}
+            </div>
           </div>
         </section>
 
