@@ -56,40 +56,43 @@ const Evaluations = () => {
                 </div>
               </div>
 
-              {/* Text Content */}
+              {/* Intro paragraphs only */}
               <div className="order-2">
-                <div className="prose prose-lg max-w-none">
-                  {c.content.paragraphs.map((p, i) => (
-                    <p key={i} className="text-muted-foreground leading-relaxed text-lg mb-6">
-                      {p}
-                    </p>
-                  ))}
-
-                  <h2 className="text-2xl font-bold text-foreground mt-8 mb-6">
-                    {c.content.prioritiesTitle}
-                  </h2>
-
-                  <ul className="space-y-4 mb-10">
-                    {c.content.priorities.map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                        <span className="text-muted-foreground text-lg">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <p className="text-muted-foreground leading-relaxed text-lg mb-6">
-                    {c.content.closingParagraph}
+                {c.content.paragraphs.map((p, i) => (
+                  <p key={i} className="text-muted-foreground leading-relaxed text-lg mb-6">
+                    {p}
                   </p>
-
-                  {c.content.disclaimer && (
-                    <p className="text-muted-foreground italic text-base">
-                      {c.content.disclaimer}
-                    </p>
-                  )}
-                </div>
+                ))}
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Full-width: priorities, closing, disclaimer */}
+        <section className="py-16 lg:py-20 bg-background">
+          <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12">
+            <h2 className="text-2xl font-bold text-foreground mb-6">
+              {c.content.prioritiesTitle}
+            </h2>
+
+            <ul className="space-y-4 mb-10">
+              {c.content.priorities.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <Check className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                  <span className="text-muted-foreground text-lg">{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <p className="text-muted-foreground leading-relaxed text-lg mb-6">
+              {c.content.closingParagraph}
+            </p>
+
+            {c.content.disclaimer && (
+              <p className="text-muted-foreground italic text-base">
+                {c.content.disclaimer}
+              </p>
+            )}
           </div>
         </section>
 
