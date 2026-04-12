@@ -402,6 +402,7 @@ export const defaultOurTeamContent: OurTeamV1Content = {
   doctor2: {
     subtitle: "BOARD-CERTIFIED PSYCHIATRIST",
     name: "Dr. Bennett Cohen, MD",
+    imageUrl: "https://lstivrvcekiqqqmsczfy.supabase.co/storage/v1/object/public/media/b2c3d4e5-f6a7-8901-bcde-f12345678901/1775952091994-Dr.%20Bennett%20Cohen.jpg",
     imageAlt: "Dr. Bennett Cohen, Board-Certified Psychiatrist",
     bio: [
       "Dr. Bennett Cohen is a board-certified psychiatrist with over 25 years of experience supporting adults through a wide range of mental health challenges, including anxiety, depression, ADHD, OCD, trauma, and mood disorders.",
