@@ -5,7 +5,7 @@ export const defaultTreatmentItems = [
   {
     title: "SPRAVATO® (Esketamine Nasal Spray)",
     tag: "FDA-Approved",
-    description: "FDA-approved nasal spray for treatment-resistant depression. Provides clinically proven relief when traditional antidepressants haven't worked. Administered under medical supervision for safety and comfort.",
+    description: "FDA‑approved treatment for resistant depression, offering proven relief when standard antidepressants fail. It is administered under medical supervision for safety.",
     imageUrl: "",
     ctaLabel: "Learn More",
     href: "/spravato",
