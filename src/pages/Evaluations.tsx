@@ -5,6 +5,7 @@ import { Check, Loader2 } from "lucide-react";
 import { usePageContent } from "@/hooks/usePageContent";
 import { EvaluationsV1Content } from "@/lib/templates/newSchemas";
 import { defaultEvaluationsContent } from "@/lib/templates/newDefaults";
+import evaluationsImage from "@/assets/evaluations-hero.jpg";
 
 const Evaluations = () => {
   const { content, loading } = usePageContent('evaluations');
@@ -40,38 +41,54 @@ const Evaluations = () => {
           </div>
         </section>
 
-        {/* Content */}
+        {/* Content with Image */}
         <section className="py-16 lg:py-24 bg-background">
-          <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div className="prose prose-lg max-w-none">
-              {c.content.paragraphs.map((p, i) => (
-                <p key={i} className="text-muted-foreground leading-relaxed text-lg mb-6">
-                  {p}
-                </p>
-              ))}
+          <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+              {/* Image */}
+              <div className="relative order-1">
+                <div className="rounded-2xl overflow-hidden shadow-lg">
+                  <img
+                    src={evaluationsImage}
+                    alt="Clinician-led psychiatric evaluation session"
+                    className="w-full h-auto object-cover aspect-[4/3]"
+                  />
+                </div>
+              </div>
 
-              <h2 className="text-2xl font-bold text-foreground mt-12 mb-6">
-                {c.content.prioritiesTitle}
-              </h2>
+              {/* Text Content */}
+              <div className="order-2">
+                <div className="prose prose-lg max-w-none">
+                  {c.content.paragraphs.map((p, i) => (
+                    <p key={i} className="text-muted-foreground leading-relaxed text-lg mb-6">
+                      {p}
+                    </p>
+                  ))}
 
-              <ul className="space-y-4 mb-10">
-                {c.content.priorities.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <span className="text-muted-foreground text-lg">{item}</span>
-                  </li>
-                ))}
-              </ul>
+                  <h2 className="text-2xl font-bold text-foreground mt-8 mb-6">
+                    {c.content.prioritiesTitle}
+                  </h2>
 
-              <p className="text-muted-foreground leading-relaxed text-lg mb-6">
-                {c.content.closingParagraph}
-              </p>
+                  <ul className="space-y-4 mb-10">
+                    {c.content.priorities.map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <Check className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-muted-foreground text-lg">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-              {c.content.disclaimer && (
-                <p className="text-muted-foreground italic text-base mb-12">
-                  {c.content.disclaimer}
-                </p>
-              )}
+                  <p className="text-muted-foreground leading-relaxed text-lg mb-6">
+                    {c.content.closingParagraph}
+                  </p>
+
+                  {c.content.disclaimer && (
+                    <p className="text-muted-foreground italic text-base">
+                      {c.content.disclaimer}
+                    </p>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </section>
