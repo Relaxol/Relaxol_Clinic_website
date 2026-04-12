@@ -10,18 +10,7 @@ import evaluationsImage from "@/assets/evaluations-hero.jpg";
 const Evaluations = () => {
   const { content, loading } = usePageContent('evaluations');
   const hasContent = content && Object.keys(content).length > 0 && (content as any).hero;
-  const raw = (hasContent ? content : defaultEvaluationsContent) as EvaluationsV1Content;
-  
-  // Ensure the two additional priorities are always present
-  const extraPriorities = ["Safety-focused approach", "Careful medical screening"];
-  const mergedPriorities = [
-    ...raw.content.priorities,
-    ...extraPriorities.filter(p => !raw.content.priorities.includes(p)),
-  ];
-  const c: EvaluationsV1Content = {
-    ...raw,
-    content: { ...raw.content, priorities: mergedPriorities },
-  };
+  const c = (hasContent ? content : defaultEvaluationsContent) as EvaluationsV1Content;
 
   if (loading) {
     return (
