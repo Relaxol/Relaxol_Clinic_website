@@ -440,6 +440,8 @@ export const defaultEvaluationsContent: EvaluationsV1Content = {
       "Clear diagnostic understanding",
       "Evidence-based treatment recommendations",
       "Open communication and patient education",
+      "Safety-focused approach",
+      "Careful medical screening",
     ],
     closingParagraph: "Our goal is to provide clarity, direction, and a foundation for effective care—so you can move forward with confidence.",
     disclaimer: "Individual results may vary.",
