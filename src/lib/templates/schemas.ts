@@ -48,6 +48,7 @@ interface HeroContent {
 }
 
 interface AboutContent {
+  subtitle?: string;
   title: string;
   bodyHtml: string;
   imageUrl?: string;
@@ -140,11 +141,13 @@ export interface HomeV1Content {
   conditions: {
     subtitle?: string;
     title: string;
+    description?: string;
     items: ConditionItem[];
   };
   testimonials: {
     subtitle?: string;
     title: string;
+    description?: string;
     items: TestimonialItem[];
   };
   timeline: {
@@ -423,50 +426,89 @@ export function createDefaultHomeContent(): HomeV1Content {
   return {
     hero: {
       subtitle: "FIND HOPE AND RELIEF TODAY",
-      headline: "New Jersey's Premier Ketamine & SPRAVATO® Wellness Center",
-      body: "Advanced, clinician-led treatments for depression, anxiety, PTSD, and chronic pain.",
+      headline: "New Jersey's Premier Ketamine & SPRAVATO® Clinic",
+      body: "Advanced, clinician-led treatments for Depression, Anxiety, PTSD, OCD and Chronic Pain.",
       ctaLabel: "Book Your Free Consultation Today!",
       ctaHref: "#contact",
     },
     about: {
+      subtitle: "WHY RELAXOL CLINIC",
       title: "A New Standard in Mental Health Care",
       bodyHtml:
-        "<p>At Relaxol Clinic, we believe mental health treatment should be personalized, compassionate, and effective.</p>",
+        "<p>At Relaxol Clinic, we specialize in advanced psychiatric care with a focus on interventional psychiatry, pain management and FDA-approved treatments for treatment-resistant depression, including SPRAVATO® and medically supervised ketamine therapy. Care begins with a comprehensive evaluation, followed by personalized treatment when appropriate.</p><p>Our approach is evidence-based and tailored to each patient. We support individuals experiencing depression, anxiety, PTSD, and OCD with compassionate, clinician-led care in a safe, comfortable setting with flexible scheduling and insurance support.</p>",
       imageUrl: "",
       imageAlt: "Modern treatment facility interior",
     },
     video: {
       subtitle: "HOW IT WORKS",
       title: "A New Approach to Treatment",
-      body: "See how our advanced treatments are helping patients find relief.",
+      body: "Ketamine—originally used in anesthesia for surgical procedures—has been shown in recent research to rapidly affect brain chemistry linked to depression. Unlike traditional antidepressants, it targets glutamate receptors, helping the brain form new neural connections that support improved mood and cognitive function. SPRAVATO® works in a similar pathway and is FDA-approved specifically for treatment-resistant depression.",
       embedUrl: "https://www.youtube.com/embed/e0mdOODbGNU",
-      embedTitle: "Treatment Overview",
+      embedTitle: "Understanding Ketamine Therapy",
+      secondParagraph: "These treatments are administered under medical supervision and are designed to provide relief for patients who have not responded to standard therapies.",
     },
     treatments: {
-      subtitle: "Our Treatments",
-      title: "Treatment Options",
-      description: "Evidence-based therapies tailored to your needs.",
+      subtitle: "OUR TREATMENTS",
+      title: "Evidence-Based Treatment Options",
+      description: "We offer a range of clinician-led treatments tailored to your needs.",
       items: [],
     },
     conditions: {
-      subtitle: "WHAT WE TREAT",
-      title: "Conditions We Treat",
+      subtitle: "CONDITIONS WE TREAT",
+      title: "Specialized Care for Complex Conditions",
+      description: "Our treatments are designed for patients who haven't found relief through traditional approaches.",
+      items: [],
+    },
+    whyChoose: {
+      title: "Why Choose Relaxol Clinic",
+      description: "Compassionate care backed by expertise and evidence.",
       items: [],
     },
     testimonials: {
-      subtitle: "PATIENT STORIES",
-      title: "What Our Patients Say",
+      subtitle: "PATIENT EXPERIENCES",
+      title: "What Our Patients Are Saying",
+      description: "Real stories from patients who found relief through our treatments.",
       items: [],
     },
     timeline: {
-      subtitle: "YOUR JOURNEY",
-      title: "What to Expect",
+      subtitle: "HOW IT WORKS",
+      title: "Your Path to Feeling Better",
       items: [],
     },
+    coverage: {
+      subtitle: "INSURANCE & PAYMENT",
+      title: "Understanding Your Coverage",
+      description: "We believe cost shouldn't be a barrier to mental health care. Our team is here to help you navigate your insurance options.",
+      cardTitle: "Insurance Coverage for SPRAVATO® & Ketamine",
+      cardBody: "Our dedicated team will verify your benefits and explain your out-of-pocket costs before you begin treatment.",
+      ctaLabel: "Verify Your Coverage",
+      ctaHref: "/verify-coverage",
+      phone: "201-781-2101",
+      coveragePoints: [
+        "SPRAVATO® is FDA-approved and covered by most major insurance plans",
+        "Medicare and Medicaid coverage available in many states",
+        "We handle all prior authorizations for you",
+        "Transparent cost information before your first visit",
+      ],
+      quickFacts: [
+        { title: "Major Insurance Accepted", description: "We work with Aetna, Blue Cross Blue Shield, Cigna, United Healthcare, Medicare, Medicaid, and many other providers." },
+        { title: "Prior Authorization Support", description: "Our team handles all the paperwork and prior authorizations required by your insurance company." },
+        { title: "Free Benefits Verification", description: "Not sure if you're covered? We'll check your benefits at no cost and explain your options." },
+      ],
+    },
     contact: {
-      subtitle: "SCHEDULE A CONSULTATION",
-      title: "Ready to Explore Your Treatment Options?",
-      body: "Take the first step toward relief.",
+      subtitle: "GET IN TOUCH",
+      title: "Start Your Journey Today",
+      body: "Ready to take the first step toward feeling better? Fill out the form below or call us to schedule your consultation.",
+    },
+    environment: {
+      subtitle: "YOUR COMFORT MATTERS",
+      title: "A Calm, Private Treatment Environment",
+      body: [
+        "We know that seeking mental health treatment can feel vulnerable. That's why we've designed our clinic to feel more like a spa than a sterile medical office. From soft lighting to comfortable recliners, every detail is intended to help you relax during your session.",
+        "Each treatment room is private, ensuring confidentiality and peace of mind. Our staff is trained not only in clinical care but in creating a welcoming, judgment-free atmosphere where you can focus entirely on your healing.",
+      ],
+      imageAlt: "Comfortable treatment room with calming atmosphere",
     },
   };
 }
