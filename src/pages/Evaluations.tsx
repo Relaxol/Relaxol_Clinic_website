@@ -1,7 +1,7 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PageSEO } from "@/components/seo/PageSEO";
-import { Check, Loader2 } from "lucide-react";
+import { Check, Users, FileText, MapPin, Pill, Languages, Loader2 } from "lucide-react";
 import { usePageContent } from "@/hooks/usePageContent";
 import { EvaluationsV1Content } from "@/lib/templates/newSchemas";
 import { defaultEvaluationsContent } from "@/lib/templates/newDefaults";
