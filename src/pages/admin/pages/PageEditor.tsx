@@ -867,65 +867,183 @@ const PageEditor = () => {
           {isTemplatePage ? (
             // Template-based editing
             <div className="space-y-4">
+              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="content">Content</TabsTrigger>
+                  <TabsTrigger value="seo">SEO</TabsTrigger>
+                </TabsList>
 
-              {/* Basic info */}
-              <Card>
-                <CardHeader className="py-3">
-                  <CardTitle className="text-sm">Page Settings</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="title">Page Title *</Label>
-                    <Input
-                      id="title"
-                      value={form.title}
-                      onChange={(e) => handleTitleChange(e.target.value)}
-                      placeholder="Page title"
+                <TabsContent value="content" className="space-y-4 mt-4">
+                  {/* Basic info */}
+                  <Card>
+                    <CardHeader className="py-3">
+                      <CardTitle className="text-sm">Page Settings</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="title">Page Title *</Label>
+                        <Input
+                          id="title"
+                          value={form.title}
+                          onChange={(e) => handleTitleChange(e.target.value)}
+                          placeholder="Page title"
+                          disabled={!canEdit}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="slug">Slug *</Label>
+                        <Input
+                          id="slug"
+                          value={form.slug}
+                          onChange={(e) => setForm(prev => ({ ...prev, slug: e.target.value }))}
+                          placeholder="page-url-slug"
+                          disabled={!canEdit || (form.status === 'published' && !isAdmin)}
+                        />
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Template content editor */}
+                  {form.template && form.content_json && (
+                    <TemplateFormEditor
+                      template={form.template}
+                      content={form.content_json}
+                      onChange={handleTemplateContentChange}
                       disabled={!canEdit}
                     />
+                  )}
+
+                  {/* Initialize content if empty */}
+                  {form.template && !form.content_json && canEdit && (
+                    <Card>
+                      <CardContent className="py-6 text-center">
+                        <p className="text-muted-foreground mb-4">
+                          This page has no content yet. Initialize it with default content?
+                        </p>
+                        <Button
+                          onClick={() => {
+                            const defaultContent = createDefaultContent(form.template!);
+                            setForm(prev => ({ ...prev, content_json: defaultContent }));
+                          }}
+                        >
+                          Initialize Content
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  )}
+                </TabsContent>
+
+                <TabsContent value="seo" className="space-y-4 mt-4">
+                  {/* Google Search Preview */}
+                  <Card>
+                    <CardHeader className="py-3">
+                      <CardTitle className="text-sm">Google Search Preview</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="p-4 border rounded-lg bg-muted/50">
+                        <p className="text-blue-600 text-lg font-medium truncate">
+                          {form.seo_title || form.title || 'Page Title'}
+                        </p>
+                        <p className="text-green-700 text-sm truncate">
+                          relaxolclinic.com/{form.slug || 'slug'}
+                        </p>
+                        <p className="text-sm text-muted-foreground line-clamp-2 mt-1">
+                          {form.seo_description || 'Meta description will appear here...'}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="seo_title">SEO Title</Label>
+                    <Input
+                      id="seo_title"
+                      value={form.seo_title}
+                      onChange={(e) => setForm(prev => ({ ...prev, seo_title: e.target.value }))}
+                      placeholder="SEO-optimized title (max 60 chars)"
+                      maxLength={60}
+                      disabled={!canEdit}
+                    />
+                    <p className="text-xs text-muted-foreground">{form.seo_title.length}/60 characters</p>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="slug">Slug *</Label>
-                    <Input
-                      id="slug"
-                      value={form.slug}
-                      onChange={(e) => setForm(prev => ({ ...prev, slug: e.target.value }))}
-                      placeholder="page-url-slug"
-                      disabled={!canEdit || (form.status === 'published' && !isAdmin)}
+                    <Label htmlFor="seo_description">SEO Description</Label>
+                    <Textarea
+                      id="seo_description"
+                      value={form.seo_description}
+                      onChange={(e) => setForm(prev => ({ ...prev, seo_description: e.target.value }))}
+                      placeholder="Meta description (max 160 chars)"
+                      maxLength={160}
+                      rows={3}
+                      disabled={!canEdit}
                     />
+                    <p className="text-xs text-muted-foreground">{form.seo_description.length}/160 characters</p>
                   </div>
-                </CardContent>
-              </Card>
 
-              {/* Template content editor */}
-              {form.template && form.content_json && (
-                <TemplateFormEditor
-                  template={form.template}
-                  content={form.content_json}
-                  onChange={handleTemplateContentChange}
-                  disabled={!canEdit}
-                />
-              )}
+                  {showAdvancedSeo && (
+                    <div className="pt-4 border-t space-y-4">
+                      <h3 className="font-medium">Advanced SEO</h3>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="canonical_url_t">Canonical URL</Label>
+                        <Input
+                          id="canonical_url_t"
+                          value={form.canonical_url}
+                          onChange={(e) => setForm(prev => ({ ...prev, canonical_url: e.target.value }))}
+                          placeholder="https://..."
+                          disabled={!canEdit}
+                        />
+                      </div>
 
-              {/* Initialize content if empty */}
-              {form.template && !form.content_json && canEdit && (
-                <Card>
-                  <CardContent className="py-6 text-center">
-                    <p className="text-muted-foreground mb-4">
-                      This page has no content yet. Initialize it with default content?
-                    </p>
-                    <Button
-                      onClick={() => {
-                        const defaultContent = createDefaultContent(form.template!);
-                        setForm(prev => ({ ...prev, content_json: defaultContent }));
-                      }}
-                    >
-                      Initialize Content
-                    </Button>
-                  </CardContent>
-                </Card>
-              )}
+                      <div className="flex items-center space-x-2">
+                        <Switch
+                          id="noindex_t"
+                          checked={form.noindex}
+                          onCheckedChange={(checked) => setForm(prev => ({ ...prev, noindex: checked }))}
+                          disabled={!canEdit}
+                        />
+                        <Label htmlFor="noindex_t">No Index (hide from search engines)</Label>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="og_title_t">OG Title</Label>
+                        <Input
+                          id="og_title_t"
+                          value={form.og_title}
+                          onChange={(e) => setForm(prev => ({ ...prev, og_title: e.target.value }))}
+                          placeholder="Open Graph title"
+                          disabled={!canEdit}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="og_description_t">OG Description</Label>
+                        <Textarea
+                          id="og_description_t"
+                          value={form.og_description}
+                          onChange={(e) => setForm(prev => ({ ...prev, og_description: e.target.value }))}
+                          placeholder="Open Graph description"
+                          rows={2}
+                          disabled={!canEdit}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="og_image_url_t">OG Image URL</Label>
+                        <Input
+                          id="og_image_url_t"
+                          value={form.og_image_url}
+                          onChange={(e) => setForm(prev => ({ ...prev, og_image_url: e.target.value }))}
+                          placeholder="https://..."
+                          disabled={!canEdit}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </TabsContent>
+              </Tabs>
             </div>
           ) : (
             // Generic section-based editing
