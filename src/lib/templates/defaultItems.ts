@@ -8,31 +8,31 @@ export const defaultTreatmentItems = [
     description: "FDA‑approved treatment for resistant depression, offering proven relief when standard antidepressants fail. It is administered under medical supervision for safety.",
     imageUrl: "",
     ctaLabel: "Learn More",
-    href: "/spravato",
+    href: "/spravato-Englewood",
   },
   {
     title: "Ketamine Infusion Therapy for Relief",
     tag: "",
-    description: "Precisely controlled IV ketamine therapy offering rapid relief for depression, anxiety, PTSD, and OCD. Ideal for patients who haven't responded to standard treatments.",
+    description: "Precisely controlled IV ketamine therapy offering rapid relief for Depression, Anxiety, PTSD, and OCD. Ideal for patients who haven't responded to standard treatments.",
     imageUrl: "",
     ctaLabel: "Learn More",
-    href: "#contact",
+    href: "/ketamine",
   },
   {
     title: "Chronic Pain Management Solutions",
     tag: "",
-    description: "Comprehensive pain management solutions including ketamine infusions for chronic pain conditions. Our approach targets pain at its source for lasting relief.",
+    description: "Comprehensive pain management solutions including ketamine infusions for Chronic Pain conditions. Our approach targets pain at its source for lasting relief.",
     imageUrl: "",
     ctaLabel: "Learn More",
     href: "/conditions/pain-management",
   },
   {
-    title: "Ongoing Care & Telehealth Support",
-    tag: "",
-    description: "Comprehensive follow-up support including psychiatric consultations, medication management, and telehealth check-ins to ensure long-term wellness.",
+    title: "Comprehensive Evaluations",
+    tag: "Assessment",
+    description: "A comprehensive psychiatric evaluation is the first step in understanding your symptoms, history, and treatment goals. Personalized, thoughtful, clinician-led care.",
     imageUrl: "",
     ctaLabel: "Learn More",
-    href: "#contact",
+    href: "/evaluations",
   },
 ];
 
@@ -40,26 +40,37 @@ export const defaultConditionItems = [
   {
     title: "Depression",
     description: "When traditional antidepressants fall short, ketamine and SPRAVATO® offer rapid relief—often within hours, not weeks.",
+    imageAlt: "Woman with hands covering face experiencing depression",
     imageUrl: "",
     href: "/conditions/depression",
   },
   {
     title: "Anxiety",
     description: "For persistent anxiety that hasn't responded to conventional therapies, our treatments target the glutamate system for faster relief.",
+    imageAlt: "Woman with hands on head experiencing anxiety",
     imageUrl: "",
     href: "/conditions/anxiety",
   },
   {
     title: "PTSD",
     description: "Ketamine therapy helps process traumatic memories and reduce PTSD symptoms in a safe, supportive environment.",
+    imageAlt: "Man in military clothing experiencing PTSD symptoms",
     imageUrl: "",
     href: "/conditions/ptsd",
   },
   {
     title: "OCD",
     description: "For medication-resistant OCD, ketamine-based therapies may help interrupt intrusive thoughts and compulsive behaviors.",
+    imageAlt: "Woman arranging items in precise order representing OCD",
     imageUrl: "",
     href: "/conditions/ocd",
+  },
+  {
+    title: "Chronic Pain",
+    description: "Ketamine infusions offer relief for chronic pain conditions including CRPS, fibromyalgia, and neuropathic pain.",
+    imageAlt: "Man experiencing chronic pain holding his back",
+    imageUrl: "",
+    href: "/conditions/pain-management",
   },
 ];
 
@@ -87,23 +98,28 @@ export const defaultTestimonialItems = [
 export const defaultTimelineItems = [
   {
     step: "1",
-    title: "Initial Consultation",
-    description: "Meet with our team to discuss your history, symptoms, and treatment goals. We'll determine if ketamine or SPRAVATO® therapy is right for you.",
+    title: "Consultation",
+    description: "During your initial consultation, we'll review your medical history, discuss your symptoms, and determine whether ketamine or SPRAVATO® therapy is right for you.",
   },
   {
     step: "2",
-    title: "Medical Evaluation",
-    description: "A thorough evaluation ensures your safety and helps us create a personalized treatment plan tailored to your specific needs.",
+    title: "Insurance Check",
+    description: "Our team will verify your insurance coverage for SPRAVATO® (which is often covered) and explain any out-of-pocket costs for ketamine infusions.",
   },
   {
     step: "3",
-    title: "Treatment Sessions",
-    description: "Receive your treatments in our comfortable, medically supervised clinic with our caring staff by your side.",
+    title: "Treatment",
+    description: "You'll receive your treatment in a private, comfortable room under the supervision of our clinical staff. Sessions typically last 1–2 hours depending on the therapy.",
   },
   {
     step: "4",
-    title: "Ongoing Support",
-    description: "Continue your care with follow-up sessions, medication management, and telehealth check-ins to maintain your progress.",
+    title: "Follow-Up",
+    description: "After your session, we'll check in to monitor your response and adjust your care plan as needed. Follow-up appointments can often be done via telehealth.",
+  },
+  {
+    step: "5",
+    title: "Long-Term Care",
+    description: "Mental health is a journey. We offer ongoing support, including maintenance treatments and psychiatric follow-ups, to help you sustain your progress over time.",
   },
 ];
 
