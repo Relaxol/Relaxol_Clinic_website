@@ -48,6 +48,7 @@ interface HeroContent {
 }
 
 interface AboutContent {
+  subtitle?: string;
   title: string;
   bodyHtml: string;
   imageUrl?: string;
@@ -140,11 +141,13 @@ export interface HomeV1Content {
   conditions: {
     subtitle?: string;
     title: string;
+    description?: string;
     items: ConditionItem[];
   };
   testimonials: {
     subtitle?: string;
     title: string;
+    description?: string;
     items: TestimonialItem[];
   };
   timeline: {
