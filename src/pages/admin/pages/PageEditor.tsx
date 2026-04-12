@@ -1198,6 +1198,20 @@ const PageEditor = () => {
               </TabsContent>
 
               <TabsContent value="seo" className="space-y-4 mt-4">
+                {/* Google Search Preview */}
+                <div className="p-4 border rounded-lg bg-muted/50">
+                  <p className="text-xs text-muted-foreground mb-1">Google Search Preview</p>
+                  <p className="text-blue-600 text-lg font-medium truncate">
+                    {form.seo_title || form.title || 'Page Title'}
+                  </p>
+                  <p className="text-green-700 text-sm truncate">
+                    relaxolclinic.com/{form.slug || 'slug'}
+                  </p>
+                  <p className="text-sm text-muted-foreground line-clamp-2 mt-1">
+                    {form.seo_description || 'Meta description will appear here...'}
+                  </p>
+                </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="seo_title">SEO Title</Label>
                   <Input
@@ -1208,6 +1222,7 @@ const PageEditor = () => {
                     maxLength={60}
                     disabled={!canEdit}
                   />
+                  <p className="text-xs text-muted-foreground">{form.seo_title.length}/60 characters</p>
                 </div>
 
                 <div className="space-y-2">
@@ -1221,6 +1236,7 @@ const PageEditor = () => {
                     rows={3}
                     disabled={!canEdit}
                   />
+                  <p className="text-xs text-muted-foreground">{form.seo_description.length}/160 characters</p>
                 </div>
 
                 {showAdvancedSeo && (
