@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import treatmentSpravato from "@/assets/treatment-spravato.jpg";
 import treatmentKetamine from "@/assets/treatment-ketamine-new.jpg";
 import treatmentPainManagement from "@/assets/treatment-pain-management-v2.png";
-import infusionEnergy from "@/assets/infusion-energy.jpg";
+import evaluationsImage from "@/assets/evaluations.jpg";
 
 const defaultTreatments = [
   {
@@ -35,7 +35,7 @@ const defaultTreatments = [
     title: "Comprehensive Evaluations",
     tag: "Assessment",
     description: "A comprehensive psychiatric evaluation is the first step in understanding your symptoms, history, and treatment goals. Personalized, thoughtful, clinician-led care.",
-    image: infusionEnergy,
+    image: evaluationsImage,
     cta: "Learn More",
     href: "/evaluations",
   },
