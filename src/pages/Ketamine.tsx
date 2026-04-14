@@ -432,9 +432,9 @@ const Ketamine = () => {
 
   // CMS-driven text with hardcoded fallbacks
   const heroHeadline = cms?.hero?.headline || "Ketamine Therapy:";
-  const heroBody = cms?.hero?.body || "Personalized care for individuals who haven't found relief with traditional treatments.";
+  const heroBody = cms?.hero?.body || "Personalized, innovative care for individuals who haven't found relief with traditional treatments. Ketamine therapy is part of interventional psychiatry and may be considered for individuals who have not found relief with traditional treatments. Administered under medical supervision, it works differently from standard antidepressants and is recommended based on a clinical evaluation.";
   const heroCtaLabel = cms?.hero?.ctaLabel || "Book Consultation";
-  const heroSubtitle = cms?.hero?.subtitle || "Rapid Relief for a Range of Mood and Chronic Conditions";
+  const heroSubtitle = cms?.hero?.subtitle || "A New Approach for a Range of Mood and Chronic Conditions";
 
   const cmsStats = cms?.stats?.items?.length ? cms.stats.items : null;
 
