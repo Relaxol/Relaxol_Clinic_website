@@ -17,84 +17,108 @@ import { Loader2 } from "lucide-react";
 // FAQ Data from original Relaxol Clinic website (used as fallback)
 const defaultFaqItems = [
   {
-    question: "What is Ketamine?",
-    answer: "Ketamine, an FDA-approved anesthetic agent developed in 1962, has been primarily used as an induction agent for general anesthesia in surgeries involving children, adults, and animals. Its remarkable safety track record has made it a preferred choice in pediatric anesthesia. Recently, ketamine has been found to be highly effective in treating conditions such as depression, PTSD, fibromyalgia, and more."
+    question: "What is ketamine therapy?",
+    answer: "Ketamine therapy is a treatment option that may be used for individuals with depression who have not found sufficient relief with traditional approaches."
   },
   {
-    question: "What is the success rate in treating depression?",
-    answer: "Research studies indicate that ketamine infusions can effectively treat depression in 60-80% of individuals. While the effects of ketamine typically last for several weeks, some people may remain free from depression for months."
+    question: "What conditions can ketamine therapy help with?",
+    answer: "It is most commonly considered for treatment-resistant depression and may also be part of care for anxiety, PTSD, and related conditions."
   },
   {
-    question: "What is the minimum age for treatment?",
-    answer: "18 years old."
+    question: "What is treatment-resistant depression?",
+    answer: "This refers to depression that has not improved after trying at least two standard treatments, such as antidepressant medications."
   },
   {
-    question: "How does it help treat depression?",
-    answer: "Ketamine's mechanism of action is entirely different from that of any other antidepressant medication. The exact process by which ketamine alleviates depression is complex and still under investigation. What we do know is that it acts on a neurotransmitter called glutamate, which leads to the production of an important growth factor that helps the brain repair neurons damaged by stress and mental illness. Consequently, ketamine can improve mood within hours or days and promote the regeneration of nerve cells over time."
+    question: "How can ketamine therapy help?",
+    answer: "Ketamine may support changes in brain pathways involved in mood. Some individuals experience improvements in mood, energy, and overall functioning."
   },
   {
-    question: "What disorders can ketamine infusions treat?",
-    answer: "At Relaxol Clinic, we utilize evidence-based research to administer ketamine infusion therapy to our patients. Our primary goal is to treat mental illness and offer an alternative for those who have not found success with traditional medications or psychotherapy. Promising data has shown robust effects in treating severe, chronic, treatment-resistant depression. Therefore, individuals diagnosed with major depression, bipolar depression, postpartum depression, or dysthymia may benefit from ketamine infusions. Research has also indicated that ketamine can be effective in treating fibromyalgia, post-traumatic stress disorder (PTSD), and suicidal ideation. Additionally, ketamine shows promise in alleviating symptoms of obsessive-compulsive disorder (OCD) and various anxiety disorders."
+    question: "How often is treatment given?",
+    answer: "Treatment is typically provided as a series of sessions, often once or twice per week for several weeks, depending on your provider's recommendation."
   },
   {
-    question: "Are there any specific medical conditions that would prevent me from receiving treatment?",
-    answer: "Ketamine infusion therapy is not recommended for patients diagnosed with psychosis. If you have high blood pressure, cardiac, or pulmonary issues, it may be necessary for your primary care physician to provide medical clearance before beginning ketamine infusions."
+    question: "How soon can I feel better?",
+    answer: "Some individuals notice changes within hours or days, while others may require multiple sessions to experience improvement."
   },
   {
-    question: "Can I eat and/or drink prior to my infusion?",
-    answer: "Please refrain from consuming any solid foods or milk for 6 hours before your ketamine infusion. You may drink clear liquids (such as water, fruit juices without pulp, carbonated beverages, clear tea, and black coffee) up until 2 hours before your infusion. It is crucial to avoid alcohol and any illicit drugs, as these substances can be extremely dangerous when combined with ketamine."
+    question: "What is the goal of treatment?",
+    answer: "The goal is to reduce symptoms and support better daily functioning as part of a comprehensive mental health plan."
   },
   {
-    question: "Will I be asleep during the procedure?",
-    answer: "No, the dose of ketamine you will receive will not cause any loss of consciousness."
+    question: "What should I expect during a session?",
+    answer: "You will be in a calm, supervised setting where your care team monitors you throughout the treatment."
   },
   {
-    question: "Is this treatment legal?",
-    answer: "Ketamine is FDA-approved as an anesthetic, which is why its use for pain treatment can sometimes be covered by insurance. In 2019, the S-form of ketamine was approved to treat depression as a nasal spray called Spravato®. Our medical professionals use Spravato® and the R-form of ketamine, which is legal to prescribe but not FDA-approved and considered 'off-label.' According to WebMD, over 20% of prescriptions in the US are for off-label therapies."
+    question: "Will I be asleep during treatment?",
+    answer: "No. You remain awake, although you may feel relaxed or notice temporary changes in perception."
   },
   {
-    question: "What administration methods are used for Ketamine Therapy?",
-    answer: "Ketamine Infusion: Administered intravenously (IV), this method delivers the medication directly into the bloodstream for rapid and effective relief. Intranasal Sprays: Es-Ketamine, a derivative of Ketamine, is administered via a nasal spray, offering a convenient and non-invasive option. Oral Tablets: Although less common, Ketamine can also be taken in pill form for those who prefer this method."
+    question: "What does the experience feel like?",
+    answer: "Some people describe feeling detached or deeply relaxed during treatment. These effects are temporary and monitored by staff."
   },
   {
-    question: "What is involved in a ketamine infusion?",
-    answer: "Patients will usually receive infusion therapy in a private room with constant mechanical monitoring of heart rate, pulse, blood oxygen saturation percentages and blood pressure. Infusion therapy means an IV will be placed and an appropriate dose of ketamine will be administered over a 40-minute time frame or longer. Practitioners can see a patient's vital signs from the monitors at all times from the nursing station. However, patients will notice that a practitioner will enter the patient treatment room several times during the active phase of the infusion to monitor the depth of sedation and ensure patient comfort. Most patients report a relaxing and peaceful experience. Patients will most likely experience changes in vision and their ability to clearly focus on objects or people, speech will be slurred or slowed, and most will have an experience of floating or being disconnected. Patients on average should expect to spend 90 to 120 minutes in the office allowing for the check in procedure, the active phase of infusion, and recovery time. Patients will need a trusted friend or family member to drive you home after your infusion. Patient may drive and return to work the next day. Patients may have a friend or family member in the treatment room during infusion, but this is not necessary."
+    question: "What happens after treatment?",
+    answer: "You will be observed until you are ready to leave. You may feel tired afterward and will need someone to drive you home."
   },
   {
-    question: "Is Ketamine therapy addictive?",
-    answer: "No. Not one of our patients has displayed or reported any symptoms of addiction."
+    question: "Are there side effects?",
+    answer: "Possible side effects may include nausea, dizziness, or temporary increases in blood pressure. These are usually short-lived."
   },
   {
-    question: "What are the risks of Ketamine?",
-    answer: "The dose used for treating mood and anxiety disorders is very low and safe. During ketamine treatments, blood pressure and heart rate may increase, but these are closely monitored to ensure your safety."
+    question: "Is ketamine therapy safe?",
+    answer: "When provided in a medical setting with proper screening and monitoring, ketamine therapy is generally considered safe."
   },
   {
-    question: "Will I require Ketamine therapy for the rest of my life?",
-    answer: "No. Some patients experience long-term relief after just one series of infusions. Others find that infusions enhance the effectiveness of antidepressants or provide initial relief that is then maintained with oral medications, other therapies, and lifestyle changes. If ketamine therapy is your primary solution, you may be able to space your infusions 3-6 months apart. Once the initial series of infusions restores the brain to a healthy balance, maintaining that balance is generally easier than achieving it initially. Follow-up or 'booster' infusions are available on an as-needed basis for maintenance."
+    question: "Is ketamine addictive?",
+    answer: "While ketamine has potential for misuse, treatment in a supervised clinical setting is carefully managed to reduce risk."
   },
   {
-    question: "How do I know if the infusion worked? How soon will I begin to feel better?",
-    answer: "Some patients begin to feel better within an hour of their first infusion. Those with thoughts of self-harm or suicidal ideation often notice these thoughts and feelings dissipate almost immediately, experiencing dramatic relief from dread and hopelessness. Other patients may not see mood improvements until the day after their second infusion, and some may require a third infusion before feeling significantly better. It's important to note that while Ketamine's effects can be sudden and dramatic, they are not always so. More commonly, patients experience gradual, subtle improvements, with functional improvements sometimes preceding mood enhancements."
+    question: "How long do results last?",
+    answer: "Some individuals experience relief for days or weeks, while others may require ongoing or maintenance treatments."
   },
   {
-    question: "What should I expect after my ketamine treatment?",
-    answer: "Many patients recover within 20-30 minutes after the infusion. You may feel a bit tired, experience mild difficulty walking, or have 'cloudy thinking' for a few hours afterward. We recommend taking it easy and having a relaxing day following the infusion. We will ensure you are ready and safe before you go home."
+    question: "Will I need long-term treatment?",
+    answer: "This varies by individual. Your provider will adjust your plan based on how you respond over time."
   },
   {
-    question: "What is the goal for Ketamine therapy?",
-    answer: "Our goal is to significantly improve your mood disorder. As your symptoms decrease, you can expect to increase your activity level and enhance your overall quality of life."
+    question: "Can I continue my current medications?",
+    answer: "In many cases, yes. Your provider will review your medications to ensure safety and compatibility."
   },
   {
-    question: "Does Ketamine cause hallucination?",
-    answer: "Ketamine can cause hallucinations when administered alone. To minimize this side effect, we use midazolam, a highly effective benzodiazepine. It is very rare for a patient to discontinue treatment due to ketamine's side effects."
+    question: "Can I eat or drink before treatment?",
+    answer: "You will receive specific instructions, but you may be asked to avoid eating for several hours before your session."
   },
   {
-    question: "Will I be treated as an outpatient?",
-    answer: "Yes. This is outpatient Ketamine treatment."
+    question: "Are there conditions that may prevent treatment?",
+    answer: "Certain medical or psychiatric conditions may affect eligibility. A full evaluation is required before starting treatment."
   },
   {
-    question: "What is your Privacy Policy?",
-    answer: "All patient's information is confidential. Under the State regulation we do not sale, release or share the patient information without your written Consent."
+    question: "Is ketamine therapy legal?",
+    answer: "Yes. Ketamine is an FDA-approved medication that may be used by licensed providers as part of a treatment plan."
+  },
+  {
+    question: "Is this an outpatient treatment?",
+    answer: "Yes. Treatment is typically provided in an outpatient setting, and patients return home the same day."
+  },
+  {
+    question: "What is SPRAVATO®?",
+    answer: "SPRAVATO® is an FDA-approved nasal spray (esketamine) used for treatment-resistant depression in combination with an oral antidepressant."
+  },
+  {
+    question: "How is SPRAVATO® different from ketamine therapy?",
+    answer: "SPRAVATO® is a specific form of ketamine delivered as a nasal spray and administered under a structured, FDA-regulated program."
+  },
+  {
+    question: "How is SPRAVATO® administered?",
+    answer: "It is given in the clinic under supervision, followed by a required observation period according to a protocol to ensure safety."
+  },
+  {
+    question: "Who may be a candidate for SPRAVATO®?",
+    answer: "Adults with treatment-resistant depression may be eligible after a clinical evaluation."
+  },
+  {
+    question: "Does insurance cover SPRAVATO®?",
+    answer: "SPRAVATO® is often covered by insurance for eligible patients. Coverage varies, and our team can help verify your benefits."
   },
 ];
 
