@@ -47,6 +47,7 @@ import AcceptInvite from "./pages/admin/AcceptInvite";
 import ResetPassword from "./pages/admin/ResetPassword";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 import ContentAudit from "./pages/admin/ContentAudit";
+import SubmissionsList from "./pages/admin/submissions/SubmissionsList";
 
 const queryClient = new QueryClient();
 
@@ -115,6 +116,7 @@ const App = () => (
               <Route path="activity" element={<ActivityLog />} />
               <Route path="license" element={<License />} />
               <Route path="content-audit" element={<ContentAudit />} />
+              <Route path="submissions" element={<SubmissionsList />} />
             </Route>
 
             {/* Catch-all */}

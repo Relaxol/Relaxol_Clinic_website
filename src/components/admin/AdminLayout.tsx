@@ -18,7 +18,8 @@ import {
   Lock,
   Eye,
   Globe,
-  Activity
+  Activity,
+  Inbox
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -42,6 +43,7 @@ const AdminLayout = () => {
 
   const navItems = [
     { to: '/admin', icon: LayoutDashboard, label: 'Dashboard', end: true },
+    { to: '/admin/submissions', icon: Inbox, label: 'Submissions' },
     { to: '/admin/posts', icon: FileText, label: 'Blog Posts', locked: !canAccessBlog },
     { to: '/admin/pages', icon: FolderOpen, label: 'Pages', locked: !canAccessPages },
     { to: '/admin/categories', icon: FolderOpen, label: 'Categories' },
