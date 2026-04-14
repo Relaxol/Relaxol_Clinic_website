@@ -25,7 +25,7 @@ export function CoverageSection({ content }: CoverageSectionProps) {
   ];
 
   const quickFacts = content?.quickFacts?.length ? content.quickFacts : [
-    { title: "Major Insurance Accepted", description: "We work with Aetna, Blue Cross Blue Shield, Cigna, United Healthcare, Medicare, Medicaid, and many other providers." },
+    { title: "We Accept Most Insurance Plans", description: "We work with Aetna, Blue Cross Blue Shield, Cigna, United Healthcare, Medicare, Medicaid, and many other providers." },
     { title: "Prior Authorization Support", description: "Our team handles all the paperwork and prior authorizations required by your insurance company." },
     { title: "Free Benefits Verification", description: "Not sure if you're covered? We'll check your benefits at no cost and explain your options." },
   ];
