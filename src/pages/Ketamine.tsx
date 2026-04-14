@@ -438,8 +438,8 @@ const Ketamine = () => {
 
   const cmsStats = cms?.stats?.items?.length ? cms.stats.items : null;
 
-  const parallaxTitle = cms?.parallax?.title || "Rapid Relief When Traditional Treatments Haven't Worked";
-  const parallaxBody = cms?.parallax?.body || "Ketamine therapy offers a different mechanism of action that can help patients who haven't responded to conventional antidepressants experience meaningful improvement.";
+  const parallaxTitle = cms?.parallax?.title || "When Traditional Treatments Haven't Provided Enough Relief";
+  const parallaxBody = cms?.parallax?.body || "Ketamine therapy may be an option for individuals who have not responded to traditional medications.";
 
   const eligibilitySubtitle = cms?.eligibility?.subtitle || "Start Your Journey";
   const eligibilityTitle = cms?.eligibility?.title || "Take the Next Step Toward Relief";
