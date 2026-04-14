@@ -1,5 +1,5 @@
 import { Phone, Mail, MapPin } from "lucide-react";
-import relaxolLogo from "@/assets/relaxol-logo-footer.png";
+import relaxolLogo from "@/assets/relaxol-logo-header.png";
 import ketamineDirectoryBadge from "@/assets/ketamine-directory-badge.png";
 
 const navLinks = [
