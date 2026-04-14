@@ -115,7 +115,7 @@ const FAQPage = () => {
 
   const heroHeadline = cms?.hero?.headline || "Ketamine Therapy FAQ's";
   const heroTagline = cms?.hero?.tagline || "Your Journey to Your Best Self";
-  const heroDescription = cms?.hero?.description || "Frequently asked questions about Ketamine Therapy. Every individual's case is unique, we encourage you to contact us for a free consultation to determine whether this is suitable for you.";
+  const heroDescription = cms?.hero?.description || "Find answers to common questions about ketamine therapy, often considered when traditional depression treatments haven't been effective. It may also be used as part of care for anxiety, PTSD, and related conditions. Individual evaluation is required to determine if this treatment is appropriate.";
 
   const faqItems = cms?.flatItems?.length ? cms.flatItems : defaultFaqItems;
 
