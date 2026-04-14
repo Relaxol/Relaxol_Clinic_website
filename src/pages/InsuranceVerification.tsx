@@ -4,7 +4,13 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
 import { Shield, CheckCircle, Clock, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -36,31 +42,18 @@ const benefits = [
 
 const InsuranceVerification = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [consentChecked, setConsentChecked] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     phone: '',
     email: '',
-    dob: '',
-    insuranceProvider: '',
-    memberId: '',
-    groupId: '',
-    message: '',
+    interest: '',
+    comments: '',
+    consent: false,
   });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    if (!consentChecked) {
-      toast({
-        title: "Consent Required",
-        description: "Please check the consent box to continue.",
-        variant: "destructive",
-      });
-      return;
-    }
-    
     setIsSubmitting(true);
     
     try {
@@ -72,11 +65,8 @@ const InsuranceVerification = () => {
           last_name: formData.lastName,
           phone: formData.phone,
           email: formData.email,
-          date_of_birth: formData.dob,
-          insurance_provider: formData.insuranceProvider,
-          member_id: formData.memberId,
-          group_id: formData.groupId,
-          message: formData.message,
+          interest: formData.interest,
+          comments: formData.comments,
         },
       });
 
@@ -86,8 +76,7 @@ const InsuranceVerification = () => {
         title: "Request Submitted",
         description: "We'll verify your coverage and contact you within 1-2 business days.",
       });
-      setFormData({ firstName: '', lastName: '', phone: '', email: '', dob: '', insuranceProvider: '', memberId: '', groupId: '', message: '' });
-      setConsentChecked(false);
+      setFormData({ firstName: '', lastName: '', phone: '', email: '', interest: '', comments: '', consent: false });
     } catch (error) {
       console.error('Form submission error:', error);
       toast({
@@ -150,115 +139,124 @@ const InsuranceVerification = () => {
                 Complete the form for a free insurance check.
               </h2>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <Input
-                    type="text"
-                    placeholder="First Name *"
-                    required
-                    maxLength={100}
-                    value={formData.firstName}
-                    onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
-                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Last Name *"
-                    required
-                    maxLength={100}
-                    value={formData.lastName}
-                    onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
-                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
+              <form onSubmit={handleSubmit} className="max-w-2xl mx-auto">
+                <div className="grid sm:grid-cols-2 gap-5 mb-5">
+                  <div>
+                    <label htmlFor="firstName" className="block text-sm font-medium text-foreground mb-2">
+                      First Name *
+                    </label>
+                    <Input
+                      id="firstName"
+                      type="text"
+                      required
+                      maxLength={100}
+                      value={formData.firstName}
+                      onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
+                      className="h-12 rounded-xl border-border/50 bg-cream-light/30 focus:border-primary focus:bg-white transition-colors"
+                      placeholder="Enter first name"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="lastName" className="block text-sm font-medium text-foreground mb-2">
+                      Last Name *
+                    </label>
+                    <Input
+                      id="lastName"
+                      type="text"
+                      required
+                      maxLength={100}
+                      value={formData.lastName}
+                      onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
+                      className="h-12 rounded-xl border-border/50 bg-cream-light/30 focus:border-primary focus:bg-white transition-colors"
+                      placeholder="Enter last name"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-5 mb-5">
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
+                      Phone *
+                    </label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      required
+                      maxLength={20}
+                      value={formData.phone}
+                      onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                      className="h-12 rounded-xl border-border/50 bg-cream-light/30 focus:border-primary focus:bg-white transition-colors"
+                      placeholder="(555) 123-4567"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                      Email *
+                    </label>
+                    <Input
+                      id="email"
+                      type="email"
+                      required
+                      maxLength={255}
+                      value={formData.email}
+                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                      className="h-12 rounded-xl border-border/50 bg-cream-light/30 focus:border-primary focus:bg-white transition-colors"
+                      placeholder="email@example.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-5">
+                  <label htmlFor="interest" className="block text-sm font-medium text-foreground mb-2">
+                    I'm interested in *
+                  </label>
+                  <Select value={formData.interest} onValueChange={(v) => setFormData(prev => ({ ...prev, interest: v }))}>
+                    <SelectTrigger className="h-12 rounded-xl border-border/50 bg-cream-light/30 focus:border-primary">
+                      <SelectValue placeholder="Select a treatment" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="spravato">SPRAVATO® Treatment</SelectItem>
+                      <SelectItem value="ketamine">Ketamine Infusion Therapy</SelectItem>
+                      <SelectItem value="evaluation">Comprehensive Evaluation</SelectItem>
+                      <SelectItem value="pain">Pain Management</SelectItem>
+                      <SelectItem value="consultation">General Consultation</SelectItem>
+                      <SelectItem value="other">Other / Not Sure</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="mb-5">
+                  <label htmlFor="comments" className="block text-sm font-medium text-foreground mb-2">
+                    Tell us about your situation
+                  </label>
+                  <Textarea
+                    id="comments"
+                    maxLength={1000}
+                    value={formData.comments}
+                    onChange={(e) => setFormData(prev => ({ ...prev, comments: e.target.value }))}
+                    className="min-h-[120px] rounded-xl border-border/50 bg-cream-light/30 focus:border-primary focus:bg-white transition-colors resize-none"
+                    placeholder="Share anything you'd like us to know..."
                   />
                 </div>
 
-                <div className="grid sm:grid-cols-3 gap-4">
-                  <Input
-                    type="tel"
-                    placeholder="Phone Number"
-                    maxLength={20}
-                    value={formData.phone}
-                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
-                  />
-                  <Input
-                    type="email"
-                    placeholder="Email Address *"
-                    required
-                    maxLength={255}
-                    value={formData.email}
-                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Date of Birth"
-                    value={formData.dob}
-                    onChange={(e) => setFormData(prev => ({ ...prev, dob: e.target.value }))}
-                    onFocus={(e) => (e.target.type = "date")}
-                    onBlur={(e) => {
-                      if (!e.target.value) e.target.type = "text";
-                    }}
-                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
-                  />
-                </div>
-
-                <div className="grid sm:grid-cols-3 gap-4">
-                  <Input
-                    type="text"
-                    placeholder="Insurance Provider *"
-                    required
-                    maxLength={100}
-                    value={formData.insuranceProvider}
-                    onChange={(e) => setFormData(prev => ({ ...prev, insuranceProvider: e.target.value }))}
-                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Member ID Number *"
-                    required
-                    maxLength={50}
-                    value={formData.memberId}
-                    onChange={(e) => setFormData(prev => ({ ...prev, memberId: e.target.value }))}
-                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Group ID Number"
-                    maxLength={50}
-                    value={formData.groupId}
-                    onChange={(e) => setFormData(prev => ({ ...prev, groupId: e.target.value }))}
-                    className="h-12 rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors"
-                  />
-                </div>
-
-                <Textarea
-                  placeholder="Message"
-                  maxLength={1000}
-                  value={formData.message}
-                  onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
-                  className="min-h-[120px] rounded-lg border-border bg-cream-dark/30 focus:border-primary focus:bg-white transition-colors resize-none"
-                />
-
-                <div className="flex items-start gap-3">
-                  <Checkbox
-                    id="consent"
-                    checked={consentChecked}
-                    onCheckedChange={(checked) => setConsentChecked(checked as boolean)}
-                    className="mt-1"
-                  />
-                  <label htmlFor="consent" className="text-sm text-muted-foreground leading-relaxed cursor-pointer">
-                    By checking this box, you agree to receive text messages for conversational purposes from Relaxol Clinic. Message and Data Rates may apply. Messaging frequency varies. You can STOP messaging by sending STOP and get more help by sending HELP.{" "}
-                    <a href="/privacy-policy" className="text-primary hover:underline">
-                      View our Privacy Policy
-                    </a>
+                <div className="mb-6">
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formData.consent}
+                      onChange={(e) => setFormData(prev => ({ ...prev, consent: e.target.checked }))}
+                      className="w-5 h-5 rounded border-border text-primary mt-0.5"
+                    />
+                    <span className="text-sm text-muted-foreground">
+                      I consent to receive communications from Relaxol Clinic. Message frequency varies. Reply STOP to unsubscribe.
+                    </span>
                   </label>
                 </div>
 
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full h-14 bg-foreground hover:bg-foreground/90 text-background font-semibold text-lg rounded-lg"
+                  className="w-full h-14 btn-primary text-lg"
                 >
                   {isSubmitting ? "Submitting..." : "Submit"}
                 </Button>
