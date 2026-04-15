@@ -442,7 +442,7 @@ export function createDefaultHomeContent(): HomeV1Content {
     video: {
       subtitle: "HOW IT WORKS",
       title: "A New Approach to Treatment",
-      body: "Ketamine—originally used in anesthesia for surgical procedures—has been shown in recent research to rapidly affect brain chemistry linked to depression. Unlike traditional antidepressants, it targets glutamate receptors, helping the brain form new neural connections that support improved mood and cognitive function. SPRAVATO® works in a similar pathway and is FDA-approved specifically for treatment-resistant depression.",
+      body: "Ketamine - originally used in anesthesia for surgical procedures - has been shown in recent research to rapidly affect brain chemistry linked to depression. Unlike traditional antidepressants, it targets glutamate receptors, helping the brain form new neural connections that support improved mood and cognitive function. SPRAVATO® works in a similar pathway and is FDA-approved specifically for treatment-resistant depression.",
       embedUrl: "https://www.youtube.com/embed/qMjc_RMfQXw",
       embedTitle: "Understanding Ketamine Therapy",
       secondParagraph:
