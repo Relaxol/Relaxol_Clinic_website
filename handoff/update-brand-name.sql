@@ -33,15 +33,15 @@ WHERE content_json::text LIKE '%info@Jersey Serenity Minds%';
 
 -- Also update the blog_posts table if blog posts reference the brand
 UPDATE public.blog_posts
-SET content = REPLACE(content, 'Relaxol Clinic', 'Jersey Serenity Minds')
-WHERE content LIKE '%Relaxol Clinic%';
+SET content_json = REPLACE(content_json::text, 'Relaxol Clinic', 'Jersey Serenity Minds')::jsonb
+WHERE content_json::text LIKE '%Relaxol Clinic%';
 
 UPDATE public.blog_posts
-SET content = REPLACE(
-  REPLACE(content, 'Relaxol', 'Jersey Serenity Minds'),
+SET content_json = REPLACE(
+  REPLACE(content_json::text, 'Relaxol', 'Jersey Serenity Minds'),
   'Jersey Serenity Mindsclinic.com', 'relaxolclinic.com'
-)
-WHERE content LIKE '%Relaxol%';
+)::jsonb
+WHERE content_json::text LIKE '%Relaxol%';
 
 UPDATE public.blog_posts
 SET excerpt = REPLACE(excerpt, 'Relaxol Clinic', 'Jersey Serenity Minds')
