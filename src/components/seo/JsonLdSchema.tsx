@@ -9,8 +9,8 @@ export function JsonLdSchema({ type = 'clinic', faqItems }: MedicalClinicJsonLdP
   const clinicSchema = {
     '@context': 'https://schema.org',
     '@type': 'MedicalClinic',
-    name: 'Relaxol Clinic',
-    description: 'Relaxol Clinic offers FDA-approved SPRAVATO® (esketamine), ketamine infusion therapy, and comprehensive psychiatric evaluations for treatment-resistant depression, anxiety, PTSD, OCD, and chronic pain management in Englewood Cliffs, NJ.',
+    name: 'Jersey Serenity Minds',
+    description: 'Jersey Serenity Minds offers FDA-approved SPRAVATO® (esketamine), ketamine infusion therapy, and comprehensive psychiatric evaluations for treatment-resistant depression, anxiety, PTSD, OCD, and chronic pain management in Englewood Cliffs, NJ.',
     url: 'https://relaxolclinic.com',
     telephone: '201-781-2101',
     email: 'info@relaxolclinic.com',
@@ -65,7 +65,7 @@ export function JsonLdSchema({ type = 'clinic', faqItems }: MedicalClinicJsonLdP
     medicalSpecialty: 'Psychiatry',
     worksFor: {
       '@type': 'MedicalClinic',
-      name: 'Relaxol Clinic',
+      name: 'Jersey Serenity Minds',
     },
     address: clinicSchema.address,
   };

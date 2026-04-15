@@ -96,7 +96,7 @@ export function Header() {
           <div className="flex items-center justify-between">
             {/* Logo - Left */}
             <Link to="/" className="flex items-center flex-shrink-0">
-              <img src={relaxolLogo} alt="Relaxol Clinic" className="h-[85px] w-auto object-contain" />
+              <img src={relaxolLogo} alt="Jersey Serenity Minds" className="h-[85px] w-auto object-contain" />
             </Link>
 
             {/* Right side container */}

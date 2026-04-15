@@ -31,7 +31,7 @@ export function BlogPostJsonLd({
     }),
     publisher: {
       "@type": "Organization",
-      name: "Relaxol Clinic",
+      name: "Jersey Serenity Minds",
       url: "https://relaxolclinic.com",
     },
   };

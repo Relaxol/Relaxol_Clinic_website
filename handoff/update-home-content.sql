@@ -13,9 +13,9 @@ SET content_json = '{
     "ctaHref": "#contact"
   },
   "about": {
-    "subtitle": "WHY RELAXOL CLINIC",
+    "subtitle": "WHY JERSEY SERENITY MINDS",
     "title": "A New Standard in Mental Health Care",
-    "bodyHtml": "<p>At Relaxol Clinic, we specialize in advanced psychiatric care with a focus on interventional psychiatry, pain management and FDA-approved treatments for treatment-resistant depression, including SPRAVATO® and medically supervised ketamine therapy. Care begins with a comprehensive evaluation, followed by personalized treatment when appropriate.</p><p>Our approach is evidence-based and tailored to each patient. We support individuals experiencing depression, anxiety, PTSD, and OCD with compassionate, clinician-led care in a safe, comfortable setting with flexible scheduling and insurance support.</p>",
+    "bodyHtml": "<p>At Jersey Serenity Minds, we specialize in advanced psychiatric care with a focus on interventional psychiatry, pain management and FDA-approved treatments for treatment-resistant depression, including SPRAVATO® and medically supervised ketamine therapy. Care begins with a comprehensive evaluation, followed by personalized treatment when appropriate.</p><p>Our approach is evidence-based and tailored to each patient. We support individuals experiencing depression, anxiety, PTSD, and OCD with compassionate, clinician-led care in a safe, comfortable setting with flexible scheduling and insurance support.</p>",
     "imageAlt": "Modern treatment facility interior"
   },
   "video": {
@@ -106,7 +106,7 @@ SET content_json = '{
     ]
   },
   "whyChoose": {
-    "title": "Why Choose Relaxol Clinic",
+    "title": "Why Choose Jersey Serenity Minds",
     "description": "Compassionate care backed by expertise and evidence.",
     "items": [
       {

@@ -26,7 +26,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1 lg:col-span-1">
             <img
               src={relaxolLogo}
-              alt="Relaxol Clinic"
+              alt="Jersey Serenity Minds"
               className="max-w-[180px] h-auto mb-2"
             />
             <a
@@ -117,7 +117,7 @@ export function Footer() {
       <div className="border-t border-background/10">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-3">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-background/60">
-            <p>© 2025 Relaxol Clinic. All rights reserved.</p>
+            <p>© 2025 Jersey Serenity Minds. All rights reserved.</p>
             <div className="flex items-center gap-4">
               <a
                 href="/privacy-policy"

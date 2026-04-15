@@ -433,10 +433,10 @@ export function createDefaultHomeContent(): HomeV1Content {
       ctaHref: "#contact",
     },
     about: {
-      subtitle: "WHY RELAXOL CLINIC",
+      subtitle: "WHY JERSEY SERENITY MINDS",
       title: "A New Standard in Mental Health Care",
       bodyHtml:
-        "<p>At Relaxol Clinic, we specialize in advanced psychiatric care with a focus on interventional psychiatry, pain management and FDA-approved treatments for treatment-resistant depression, including SPRAVATO® and medically supervised ketamine therapy. Care begins with a comprehensive evaluation, followed by personalized treatment when appropriate.</p><p>Our approach is evidence-based and tailored to each patient. We support individuals experiencing depression, anxiety, PTSD, and OCD with compassionate, clinician-led care in a safe, comfortable setting with flexible scheduling and insurance support.</p>",
+        "<p>At Jersey Serenity Minds, we specialize in advanced psychiatric care with a focus on interventional psychiatry, pain management and FDA-approved treatments for treatment-resistant depression, including SPRAVATO® and medically supervised ketamine therapy. Care begins with a comprehensive evaluation, followed by personalized treatment when appropriate.</p><p>Our approach is evidence-based and tailored to each patient. We support individuals experiencing depression, anxiety, PTSD, and OCD with compassionate, clinician-led care in a safe, comfortable setting with flexible scheduling and insurance support.</p>",
       imageAlt: "Modern treatment facility interior",
     },
     video: {
@@ -471,7 +471,7 @@ export function createDefaultHomeContent(): HomeV1Content {
       ],
     },
     whyChoose: {
-      title: "Why Choose Relaxol Clinic",
+      title: "Why Choose Jersey Serenity Minds",
       description: "Compassionate care backed by expertise and evidence.",
       items: [
         { title: "Clinician-Led Care", description: "Every treatment is administered and monitored by board-certified psychiatric professionals. You're never just a number—you're a patient under the direct care of experienced clinicians." },
@@ -731,7 +731,7 @@ export function createDefaultContactContent(): ContactV1Content {
       body: "We're here to answer your questions and help you begin your journey to wellness.",
     },
     clinicInfo: {
-      name: "Relaxol Clinic",
+      name: "Jersey Serenity Minds",
       address: "560 Sylvan Avenue, Suite 2115\nEnglewood Cliffs, NJ 07632",
       phone: "201-781-2101",
       email: "info@relaxolclinic.com",
