@@ -44,7 +44,7 @@ interface FAQSectionProps {
 }
 
 export function FAQSection({ content }: FAQSectionProps) {
-  const title = content?.title || "Frequently Asked Questions";
+  const title = content?.title || "Ketamine Therapy FAQs";
   const description = content?.description || "Get answers to common questions about our treatments and process.";
   const faqs = content?.items?.length ? content.items : defaultFaqs;
 

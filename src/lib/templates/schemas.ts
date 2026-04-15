@@ -639,7 +639,7 @@ export function createDefaultHomeContent(): HomeV1Content {
       ],
       quickFacts: [
         {
-          title: "Major Insurance Accepted",
+          title: "We Accept Most Insurance Plans",
           description:
             "We work with Aetna, Blue Cross Blue Shield, Cigna, United Healthcare, Medicare, Medicaid, and many other providers.",
         },
@@ -676,8 +676,8 @@ export function createDefaultKetamineContent(): KetamineV1Content {
   return {
     hero: {
       headline: "Ketamine Therapy:",
-      subtitle: "Rapid Relief for a Range of Mood and Chronic Conditions",
-      body: "Personalized care for individuals who haven't found relief with traditional treatments.",
+      subtitle: "A New Approach for a Range of Mood and Chronic Conditions",
+      body: "Personalized, innovative care for individuals who haven't found relief with traditional treatments. Ketamine therapy is part of interventional psychiatry and may be considered for individuals who have not found relief with traditional treatments. Administered under medical supervision, it works differently from standard antidepressants and is recommended based on a clinical evaluation.",
       ctaLabel: "Book Consultation",
       ctaHref: "#eligibility",
     },
@@ -690,8 +690,8 @@ export function createDefaultKetamineContent(): KetamineV1Content {
       ],
     },
     parallax: {
-      title: "Rapid Relief When Traditional Treatments Haven't Worked",
-      body: "Ketamine therapy offers a different mechanism of action that can help patients who haven't responded to conventional antidepressants experience meaningful improvement.",
+      title: "When Traditional Treatments Haven't Provided Enough Relief",
+      body: "Ketamine therapy may be an option for individuals who have not responded to traditional medications.",
       ctaLabel: "Learn More",
     },
     services: {
@@ -881,7 +881,7 @@ export function createDefaultContactContent(): ContactV1Content {
 export function createDefaultFAQContent(): FAQV1Content {
   return {
     hero: {
-      headline: "Frequently Asked Questions",
+      headline: "Ketamine Therapy FAQs",
       body: "Clear answers about ketamine therapy, SPRAVATO®, safety, and the treatment process.",
     },
     sections: [],
