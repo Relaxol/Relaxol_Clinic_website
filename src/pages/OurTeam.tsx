@@ -37,7 +37,7 @@ const OurTeam = () => {
     <div className="min-h-screen bg-background">
       <PageSEO
         title="Our Team"
-        description="Meet Dr. Sangeet Khanna and the Relaxol Clinic team — experienced psychiatrists specializing in ketamine therapy and SPRAVATO® treatment."
+        description="Meet Dr. Sangeet Khanna and the Jersey Serenity Minds team — experienced psychiatrists specializing in ketamine therapy and SPRAVATO® treatment."
         path="/our-team"
       />
       <JsonLdSchema type="physician" />

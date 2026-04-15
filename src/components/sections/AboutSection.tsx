@@ -15,13 +15,13 @@ interface AboutSectionProps {
 }
 
 export function AboutSection({ content }: AboutSectionProps) {
-  const subtitle = content?.subtitle || "WHY RELAXOL CLINIC";
+  const subtitle = content?.subtitle || "WHY JERSEY SERENITY MINDS";
   const title = content?.title || "A New Standard in Mental Health Care";
   const imageUrl = content?.imageUrl || aboutClinic;
   const imageAlt = content?.imageAlt || "Modern treatment facility interior";
 
   // Default body paragraphs - refined for premium medical aesthetic
-  const defaultBody = `<p>At Relaxol Clinic, we specialize in advanced psychiatric care with a focus on interventional psychiatry, pain management and FDA-approved treatments for treatment-resistant depression, including SPRAVATO® and medically supervised ketamine therapy. Care begins with a comprehensive evaluation, followed by personalized treatment when appropriate.</p><p>Our approach is evidence-based and tailored to each patient. We support individuals experiencing depression, anxiety, PTSD, and OCD with compassionate, clinician-led care in a safe, comfortable setting with flexible scheduling and insurance support.</p>`;
+  const defaultBody = `<p>At Jersey Serenity Minds, we specialize in advanced psychiatric care with a focus on interventional psychiatry, pain management and FDA-approved treatments for treatment-resistant depression, including SPRAVATO® and medically supervised ketamine therapy. Care begins with a comprehensive evaluation, followed by personalized treatment when appropriate.</p><p>Our approach is evidence-based and tailored to each patient. We support individuals experiencing depression, anxiety, PTSD, and OCD with compassionate, clinician-led care in a safe, comfortable setting with flexible scheduling and insurance support.</p>`;
   const bodyHtml = content?.bodyHtml ?? defaultBody;
 
   return (

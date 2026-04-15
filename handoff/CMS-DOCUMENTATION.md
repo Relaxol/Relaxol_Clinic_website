@@ -1,7 +1,7 @@
 # Eleration CMS — Backend & Admin Documentation
 
 > **Last updated:** March 2026  
-> **Project:** Relaxol Clinic Website + Eleration CMS  
+> **Project:** Jersey Serenity Minds Website + Eleration CMS  
 > **Stack:** React + Vite + Tailwind CSS + Supabase (Auth, Database, Edge Functions, Storage)
 
 ---
@@ -298,16 +298,16 @@ Every public page has unique, route-specific SEO tags injected via `react-helmet
 
 | Page | Title | Description | Canonical |
 |---|---|---|---|
-| `/` | Relaxol Clinic \| Premier Ketamine & SPRAVATO® Treatment in New Jersey | Leading provider of innovative mental health treatments... | `https://relaxolclinic.com/` |
-| `/ketamine` | Ketamine Therapy \| Relaxol Clinic | Ketamine infusion therapy for depression, anxiety, PTSD... | `https://relaxolclinic.com/ketamine` |
-| `/spravato-Englewood` | SPRAVATO® Treatment \| Relaxol Clinic | FDA-approved SPRAVATO® (esketamine) nasal spray... | `https://relaxolclinic.com/spravato-Englewood` |
-| `/faq` | Ketamine Therapy FAQ \| Relaxol Clinic | Frequently asked questions about ketamine therapy... | `https://relaxolclinic.com/faq` |
-| `/contact` | Contact Us \| Relaxol Clinic | Contact Relaxol Clinic in Englewood Cliffs, NJ... | `https://relaxolclinic.com/contact` |
-| `/blog` | Blog \| Relaxol Clinic | Mental health insights, treatment breakthroughs... | `https://relaxolclinic.com/blog` |
+| `/` | Jersey Serenity Minds \| Premier Ketamine & SPRAVATO® Treatment in New Jersey | Leading provider of innovative mental health treatments... | `https://relaxolclinic.com/` |
+| `/ketamine` | Ketamine Therapy \| Jersey Serenity Minds | Ketamine infusion therapy for depression, anxiety, PTSD... | `https://relaxolclinic.com/ketamine` |
+| `/spravato-Englewood` | SPRAVATO® Treatment \| Jersey Serenity Minds | FDA-approved SPRAVATO® (esketamine) nasal spray... | `https://relaxolclinic.com/spravato-Englewood` |
+| `/faq` | Ketamine Therapy FAQ \| Jersey Serenity Minds | Frequently asked questions about ketamine therapy... | `https://relaxolclinic.com/faq` |
+| `/contact` | Contact Us \| Jersey Serenity Minds | Contact Jersey Serenity Minds in Englewood Cliffs, NJ... | `https://relaxolclinic.com/contact` |
+| `/blog` | Blog \| Jersey Serenity Minds | Mental health insights, treatment breakthroughs... | `https://relaxolclinic.com/blog` |
 | `/blog/:slug` | *Dynamic from CMS* `seo_title` or `title` | *Dynamic from CMS* `seo_description` or `excerpt` | `https://relaxolclinic.com/blog/:slug` |
-| `/our-team` | Our Team \| Relaxol Clinic | Meet Dr. Sangeet Khanna and the Relaxol Clinic team... | `https://relaxolclinic.com/our-team` |
-| `/vitamin-infusion-englewood` | IV Vitamin Infusions \| Relaxol Clinic | Physician-supervised IV vitamin infusions... | `https://relaxolclinic.com/vitamin-infusion-englewood` |
-| `/conditions/*` | *Dynamic* e.g. "Depression Treatment \| Relaxol Clinic" | *From CMS content or fallback* | Per-condition canonical |
+| `/our-team` | Our Team \| Jersey Serenity Minds | Meet Dr. Sangeet Khanna and the Jersey Serenity Minds team... | `https://relaxolclinic.com/our-team` |
+| `/vitamin-infusion-englewood` | IV Vitamin Infusions \| Jersey Serenity Minds | Physician-supervised IV vitamin infusions... | `https://relaxolclinic.com/vitamin-infusion-englewood` |
+| `/conditions/*` | *Dynamic* e.g. "Depression Treatment \| Jersey Serenity Minds" | *From CMS content or fallback* | Per-condition canonical |
 | `/p/:slug` (Dynamic CMS pages) | *From `seo_title` or `title` field* | *From `seo_description` field* | `https://relaxolclinic.com/p/:slug` |
 
 Each page also includes per-page **Open Graph** and **Twitter Card** tags (title, description, image, URL).
@@ -316,7 +316,7 @@ Each page also includes per-page **Open Graph** and **Twitter Card** tags (title
 
 ### 10b. Open Graph Image
 
-- **Branded OG image** generated at `public/images/og-relaxol-clinic.jpg` (1200×630) featuring the Relaxol Clinic logo on a warm gold gradient
+- **Branded OG image** generated at `public/images/og-relaxol-clinic.jpg` (1200×630) featuring the Jersey Serenity Minds logo on a warm gold gradient
 - Replaces the default Lovable placeholder image
 - Referenced in `index.html` as the fallback OG image
 - Individual blog posts can override with their own `hero_image`

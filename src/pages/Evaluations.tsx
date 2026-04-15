@@ -24,7 +24,7 @@ const Evaluations = () => {
     <div className="min-h-screen flex flex-col">
       <PageSEO
         title="Comprehensive Evaluation"
-        description="Personalized, clinician-led psychiatric evaluations at Relaxol Clinic. Thorough assessments for anxiety, depression, ADHD, OCD, trauma, and mood disorders."
+        description="Personalized, clinician-led psychiatric evaluations at Jersey Serenity Minds. Thorough assessments for anxiety, depression, ADHD, OCD, trauma, and mood disorders."
         path="/evaluations"
       />
       <Header />

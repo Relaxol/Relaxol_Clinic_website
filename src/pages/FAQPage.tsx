@@ -14,7 +14,7 @@ import { usePageContent } from "@/hooks/usePageContent";
 import { FAQV1Content } from "@/lib/templates/schemas";
 import { Loader2 } from "lucide-react";
 
-// FAQ Data from original Relaxol Clinic website (used as fallback)
+// FAQ Data from original Jersey Serenity Minds website (used as fallback)
 const defaultFaqItems = [
   {
     question: "What is ketamine therapy?",
@@ -155,7 +155,7 @@ const FAQPage = () => {
     <div className="min-h-screen bg-background">
       <PageSEO
         title="Ketamine Therapy FAQ"
-        description="Frequently asked questions about ketamine therapy, treatment process, safety, side effects, and eligibility at Relaxol Clinic."
+        description="Frequently asked questions about ketamine therapy, treatment process, safety, side effects, and eligibility at Jersey Serenity Minds."
         path="/faq"
       />
       <JsonLdSchema type="faq" faqItems={faqItems} />

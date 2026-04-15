@@ -593,7 +593,7 @@ function HomeTemplateEditor({
           label="Title"
           value={content.whyChoose?.title || ''}
           onChange={(v) => update('whyChoose', { ...content.whyChoose, title: v })}
-          placeholder="Why Choose Relaxol Clinic"
+          placeholder="Why Choose Jersey Serenity Minds"
           disabled={disabled}
         />
         <TextAreaField

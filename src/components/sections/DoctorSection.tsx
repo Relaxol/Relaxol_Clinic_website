@@ -23,7 +23,7 @@ export function DoctorSection({ content }: DoctorSectionProps) {
   const name = content?.name || "Dr. Khanna";
   const imageUrl = content?.imageUrl || doctorPortrait;
   const bio = content?.bio?.length ? content.bio : [
-    "Relaxol is founded by the esteemed Dr. Khanna, a leading specialist in Ketamine Therapy. Dr. Khanna and his compassionate team are dedicated to guiding you on your journey to optimal health.",
+    "Jersey Serenity Minds is founded by the esteemed Dr. Khanna, a leading specialist in Ketamine Therapy. Dr. Khanna and his compassionate team are dedicated to guiding you on your journey to optimal health.",
     "Dr. Khanna is not just a psychiatrist; he's a guide for those navigating the complex landscape of mental health. With years of experience and a deep commitment to patient care, Dr. Khanna brings expertise and empathy to every consultation."
   ];
 

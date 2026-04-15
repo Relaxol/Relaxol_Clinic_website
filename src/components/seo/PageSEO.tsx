@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 
 const SITE_URL = "https://relaxolclinic.com";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og-relaxol-clinic.jpg`;
-const SITE_NAME = "Relaxol Clinic";
+const SITE_NAME = "Jersey Serenity Minds";
 
 interface PageSEOProps {
   title: string;

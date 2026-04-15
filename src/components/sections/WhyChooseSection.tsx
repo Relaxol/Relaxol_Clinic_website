@@ -35,7 +35,7 @@ interface WhyChooseSectionProps {
 }
 
 export function WhyChooseSection({ content }: WhyChooseSectionProps) {
-  const title = content?.title || "Why Choose Relaxol Clinic";
+  const title = content?.title || "Why Choose Jersey Serenity Minds";
   const description = content?.description || "Compassionate care backed by expertise and evidence.";
   const cmsItems = content?.items;
   

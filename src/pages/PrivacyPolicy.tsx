@@ -22,7 +22,7 @@ const PrivacyPolicy = () => {
           <div className="prose prose-lg max-w-none space-y-8">
             
             <p className="text-foreground/80 leading-relaxed">
-              At Relaxol Clinic, we are committed to safeguarding your privacy and protecting your personal and health information. This Privacy Policy outlines how we collect, use, store, and disclose your information through our website and digital communication services.
+              At Jersey Serenity Minds, we are committed to safeguarding your privacy and protecting your personal and health information. This Privacy Policy outlines how we collect, use, store, and disclose your information through our website and digital communication services.
             </p>
             
             <p className="text-foreground/80 leading-relaxed">

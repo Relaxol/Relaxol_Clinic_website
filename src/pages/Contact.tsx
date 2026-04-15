@@ -84,7 +84,7 @@ export default function Contact() {
     <div className="min-h-screen bg-background">
       <PageSEO
         title="Contact Us"
-        description="Contact Relaxol Clinic in Englewood Cliffs, NJ. Schedule a free consultation for ketamine therapy, SPRAVATO®, or psychiatric evaluations."
+        description="Contact Jersey Serenity Minds in Englewood Cliffs, NJ. Schedule a free consultation for ketamine therapy, SPRAVATO®, or psychiatric evaluations."
         path="/contact"
       />
       <JsonLdSchema type="clinic" />
@@ -121,7 +121,7 @@ export default function Contact() {
             {/* Contact Information */}
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
-                Relaxol Clinic
+                Jersey Serenity Minds
               </h2>
               
               <div className="space-y-6 mb-10">
@@ -185,7 +185,7 @@ export default function Contact() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Relaxol Clinic Location"
+                  title="Jersey Serenity Minds Location"
                   className="grayscale hover:grayscale-0 transition-all duration-500"
                 />
               </div>
@@ -312,7 +312,7 @@ export default function Contact() {
                       className="w-5 h-5 rounded border-border text-primary mt-0.5"
                     />
                     <span className="text-sm text-muted-foreground">
-                      I consent to receive communications from Relaxol Clinic. Message frequency varies. Reply STOP to unsubscribe.
+                      I consent to receive communications from Jersey Serenity Minds. Message frequency varies. Reply STOP to unsubscribe.
                     </span>
                   </label>
                 </div>

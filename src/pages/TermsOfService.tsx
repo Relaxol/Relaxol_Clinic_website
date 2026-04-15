@@ -28,14 +28,14 @@ const TermsOfService = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-semibold text-foreground mb-4">Acceptance of Terms</h2>
               <p className="text-muted-foreground leading-relaxed">
-                By accessing and using the Relaxol Clinic website and services, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website or services.
+                By accessing and using the Jersey Serenity Minds website and services, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website or services.
               </p>
             </div>
 
             <div className="mb-12">
               <h2 className="text-2xl font-semibold text-foreground mb-4">Description of Services</h2>
               <p className="text-muted-foreground leading-relaxed">
-                Relaxol Clinic provides ketamine therapy, SPRAVATO® treatment, vitamin infusions, and related mental health services. Our website offers information about our services, appointment scheduling, and patient resources. All medical services are provided under the supervision of licensed healthcare professionals.
+                Jersey Serenity Minds provides ketamine therapy, SPRAVATO® treatment, vitamin infusions, and related mental health services. Our website offers information about our services, appointment scheduling, and patient resources. All medical services are provided under the supervision of licensed healthcare professionals.
               </p>
             </div>
 
@@ -52,7 +52,7 @@ const TermsOfService = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-semibold text-foreground mb-4">Appointment and Cancellation Policy</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                When you schedule an appointment with Relaxol Clinic, you agree to:
+                When you schedule an appointment with Jersey Serenity Minds, you agree to:
               </p>
               <ul className="list-disc pl-6 text-muted-foreground space-y-2">
                 <li>Arrive on time for your scheduled appointment</li>
@@ -65,7 +65,7 @@ const TermsOfService = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-semibold text-foreground mb-4">Patient Responsibilities</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                As a patient of Relaxol Clinic, you agree to:
+                As a patient of Jersey Serenity Minds, you agree to:
               </p>
               <ul className="list-disc pl-6 text-muted-foreground space-y-2">
                 <li>Provide accurate personal and health information</li>
@@ -83,28 +83,28 @@ const TermsOfService = () => {
                 Payment for services is due at the time of treatment unless other arrangements have been made. We accept various forms of payment and work with select insurance providers for covered services.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                It is your responsibility to verify your insurance coverage before treatment. Relaxol Clinic is not responsible for denied claims or out-of-pocket expenses resulting from insurance coverage limitations.
+                It is your responsibility to verify your insurance coverage before treatment. Jersey Serenity Minds is not responsible for denied claims or out-of-pocket expenses resulting from insurance coverage limitations.
               </p>
             </div>
 
             <div className="mb-12">
               <h2 className="text-2xl font-semibold text-foreground mb-4">Intellectual Property</h2>
               <p className="text-muted-foreground leading-relaxed">
-                All content on this website, including text, graphics, logos, images, and software, is the property of Relaxol Clinic and is protected by copyright and trademark laws. You may not reproduce, distribute, or create derivative works from any content without our express written permission.
+                All content on this website, including text, graphics, logos, images, and software, is the property of Jersey Serenity Minds and is protected by copyright and trademark laws. You may not reproduce, distribute, or create derivative works from any content without our express written permission.
               </p>
             </div>
 
             <div className="mb-12">
               <h2 className="text-2xl font-semibold text-foreground mb-4">Limitation of Liability</h2>
               <p className="text-muted-foreground leading-relaxed">
-                To the fullest extent permitted by law, Relaxol Clinic shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of our website or services. Our total liability shall not exceed the amount you paid for the specific service giving rise to the claim.
+                To the fullest extent permitted by law, Jersey Serenity Minds shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of our website or services. Our total liability shall not exceed the amount you paid for the specific service giving rise to the claim.
               </p>
             </div>
 
             <div className="mb-12">
               <h2 className="text-2xl font-semibold text-foreground mb-4">Indemnification</h2>
               <p className="text-muted-foreground leading-relaxed">
-                You agree to indemnify and hold harmless Relaxol Clinic, its officers, directors, employees, and agents from any claims, damages, losses, or expenses arising from your violation of these terms or your use of our services.
+                You agree to indemnify and hold harmless Jersey Serenity Minds, its officers, directors, employees, and agents from any claims, damages, losses, or expenses arising from your violation of these terms or your use of our services.
               </p>
             </div>
 
@@ -118,7 +118,7 @@ const TermsOfService = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-semibold text-foreground mb-4">Changes to Terms</h2>
               <p className="text-muted-foreground leading-relaxed">
-                Relaxol Clinic reserves the right to modify these Terms of Service at any time. Changes will be effective immediately upon posting to this website. Your continued use of our services after any changes constitutes acceptance of the modified terms.
+                Jersey Serenity Minds reserves the right to modify these Terms of Service at any time. Changes will be effective immediately upon posting to this website. Your continued use of our services after any changes constitutes acceptance of the modified terms.
               </p>
             </div>
 

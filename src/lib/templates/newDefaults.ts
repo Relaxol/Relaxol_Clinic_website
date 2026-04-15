@@ -24,7 +24,7 @@ export const defaultConditionContent: Record<string, ConditionV1Content> = {
       title: "Understanding Treatment-Resistant Depression",
       paragraphs: [
         "Treatment-resistant depression (TRD) affects millions of people who haven't found relief through traditional antidepressants. If you've tried multiple medications without success, you're not alone—and there is hope.",
-        "At Relaxol Clinic, we specialize in advanced treatments specifically designed for patients like you. Ketamine and SPRAVATO® work through different mechanisms than traditional antidepressants, targeting the brain's glutamate system to create rapid, meaningful improvement.",
+        "At Jersey Serenity Minds, we specialize in advanced treatments specifically designed for patients like you. Ketamine and SPRAVATO® work through different mechanisms than traditional antidepressants, targeting the brain's glutamate system to create rapid, meaningful improvement.",
       ],
       subsections: [
         {
@@ -57,7 +57,7 @@ export const defaultConditionContent: Record<string, ConditionV1Content> = {
       title: "Breaking Free from Chronic Anxiety",
       paragraphs: [
         "Generalized anxiety disorder, panic disorder, and social anxiety can significantly impact your quality of life. When traditional treatments like SSRIs and therapy haven't provided adequate relief, ketamine therapy offers a new approach.",
-        "At Relaxol Clinic, we understand the exhausting cycle of anxiety. Our treatments work on different neural pathways than conventional medications, offering hope for rapid and sustained relief.",
+        "At Jersey Serenity Minds, we understand the exhausting cycle of anxiety. Our treatments work on different neural pathways than conventional medications, offering hope for rapid and sustained relief.",
       ],
       subsections: [
         {
@@ -90,7 +90,7 @@ export const defaultConditionContent: Record<string, ConditionV1Content> = {
       title: "Healing from Trauma",
       paragraphs: [
         "Post-traumatic stress disorder affects veterans, first responders, survivors of abuse, accidents, and anyone who has experienced severe trauma. Traditional treatments don't work for everyone, and that's where ketamine therapy can make a difference.",
-        "At Relaxol Clinic, we create a safe, compassionate space for your healing journey. Our clinicians specialize in trauma-informed care, ensuring you feel supported throughout your treatment.",
+        "At Jersey Serenity Minds, we create a safe, compassionate space for your healing journey. Our clinicians specialize in trauma-informed care, ensuring you feel supported throughout your treatment.",
       ],
       subsections: [
         {
@@ -123,7 +123,7 @@ export const defaultConditionContent: Record<string, ConditionV1Content> = {
       title: "Finding Freedom from OCD",
       paragraphs: [
         'OCD goes far beyond being "neat" or organized. The relentless intrusive thoughts and compulsive rituals can consume hours of each day, affecting work, relationships, and quality of life. When SSRIs and exposure therapy aren\'t enough, ketamine offers new hope.',
-        "At Relaxol Clinic, we understand the unique challenges of OCD. Our treatments target different neural pathways than traditional medications, potentially offering relief for treatment-resistant cases.",
+        "At Jersey Serenity Minds, we understand the unique challenges of OCD. Our treatments target different neural pathways than traditional medications, potentially offering relief for treatment-resistant cases.",
       ],
       subsections: [
         {
@@ -155,7 +155,7 @@ export const defaultConditionContent: Record<string, ConditionV1Content> = {
     content: {
       title: "Advanced Pain Management Solutions",
       paragraphs: [
-        "Living with chronic pain affects every aspect of life—from work and relationships to sleep and mental health. At Relaxol Clinic, we offer innovative ketamine-based treatments that target pain through different mechanisms than traditional pain medications.",
+        "Living with chronic pain affects every aspect of life—from work and relationships to sleep and mental health. At Jersey Serenity Minds, we offer innovative ketamine-based treatments that target pain through different mechanisms than traditional pain medications.",
         "Ketamine infusion therapy has shown remarkable results for patients with various chronic pain conditions, including those who have not found relief through conventional treatments.",
       ],
       subsections: [
@@ -195,7 +195,7 @@ export const defaultVitaminInfusionsContent: VitaminInfusionsV1Content = {
   hero: {
     badge: "IV Vitamin Therapy",
     headline: "Vitamin Infusion Therapy",
-    body: "Experience the power of IV vitamin therapy at Relaxol Clinic in Englewood Cliffs, NJ. Our customized infusions deliver essential nutrients directly to your bloodstream for maximum absorption and immediate benefits.",
+    body: "Experience the power of IV vitamin therapy at Jersey Serenity Minds in Englewood Cliffs, NJ. Our customized infusions deliver essential nutrients directly to your bloodstream for maximum absorption and immediate benefits.",
     ctaLabel: "Schedule Consultation",
     ctaHref: "/contact",
   },
@@ -204,7 +204,7 @@ export const defaultVitaminInfusionsContent: VitaminInfusionsV1Content = {
     title: "What Is IV Vitamin Therapy?",
     paragraphs: [
       "IV Vitamin Therapy delivers vitamins, minerals, and other vital nutrients directly into your bloodstream, bypassing the digestive system for 100% absorption. This method allows your body to receive higher concentrations of nutrients than would be possible through oral supplements.",
-      "At Relaxol Clinic, our medical team customizes each infusion to address your specific health goals—whether you're seeking increased energy, immune support, enhanced mental clarity, or overall wellness optimization.",
+      "At Jersey Serenity Minds, our medical team customizes each infusion to address your specific health goals—whether you're seeking increased energy, immune support, enhanced mental clarity, or overall wellness optimization.",
     ],
     benefits: [
       "100% absorption directly into bloodstream",
@@ -390,7 +390,7 @@ export const defaultOurTeamContent: OurTeamV1Content = {
     name: "Dr. Khanna",
     imageAlt: "Dr. Khanna, Clinical Psychiatrist",
     bio: [
-      "Relaxol is founded by the esteemed Dr. Khanna, a leading specialist in Ketamine Therapy. Dr. Khanna and his compassionate team are dedicated to guiding you on your journey to optimal health.",
+      "Jersey Serenity Minds is founded by the esteemed Dr. Khanna, a leading specialist in Ketamine Therapy. Dr. Khanna and his compassionate team are dedicated to guiding you on your journey to optimal health.",
       "Dr. Khanna is not just a psychiatrist; he's a guide for those navigating the complex landscape of mental health. With years of experience and a deep commitment to patient care, Dr. Khanna brings expertise and empathy to every consultation.",
     ],
     credentials: [
@@ -432,7 +432,7 @@ export const defaultEvaluationsContent: EvaluationsV1Content = {
   },
   content: {
     paragraphs: [
-      "A comprehensive psychiatric evaluation is the first step in understanding your symptoms, history, and treatment goals. At Relaxol Clinic, we take an individualized, evidence-based approach to ensure each patient receives care that is appropriate for their needs.",
+      "A comprehensive psychiatric evaluation is the first step in understanding your symptoms, history, and treatment goals. At Jersey Serenity Minds, we take an individualized, evidence-based approach to ensure each patient receives care that is appropriate for their needs.",
       "During the evaluation, our providers assess your mental health history, current concerns, and prior treatments to develop a clear clinical picture. Based on this, we provide personalized recommendations, which may include interventional psychiatry options when clinically appropriate.",
     ],
     prioritiesTitle: "We prioritize:",

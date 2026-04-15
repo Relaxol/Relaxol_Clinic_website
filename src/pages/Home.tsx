@@ -27,7 +27,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-background">
       <PageSEO
-        title="Relaxol Clinic | Premier Ketamine & SPRAVATO® Treatment in New Jersey"
+        title="Jersey Serenity Minds | Premier Ketamine & SPRAVATO® Treatment in New Jersey"
         description="Leading provider of innovative mental health treatments including ketamine therapy, SPRAVATO®, and integrative medicine in Englewood Cliffs, NJ."
         path="/"
       />

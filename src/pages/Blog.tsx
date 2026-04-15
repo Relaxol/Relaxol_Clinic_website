@@ -68,7 +68,7 @@ const Blog = () => {
     <div className="min-h-screen bg-background">
       <PageSEO
         title="Blog"
-        description="Mental health insights, treatment breakthroughs, and wellness tips from the Relaxol Clinic team."
+        description="Mental health insights, treatment breakthroughs, and wellness tips from the Jersey Serenity Minds team."
         path="/blog"
       />
       <Header />
@@ -89,7 +89,7 @@ const Blog = () => {
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-[#D09B3C] font-medium mb-4 tracking-wider uppercase">Insights & Updates</p>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Relaxol Clinic Blog
+              Jersey Serenity Minds Blog
             </h1>
             <p className="text-lg text-white/80">
               Stay informed with the latest insights on mental health treatments, 
