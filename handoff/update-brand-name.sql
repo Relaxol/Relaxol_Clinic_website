@@ -31,6 +31,29 @@ UPDATE public.pages
 SET content_json = REPLACE(content_json::text, 'info@Jersey Serenity Minds', 'info@relaxolclinic')::jsonb
 WHERE content_json::text LIKE '%info@Jersey Serenity Minds%';
 
+-- Also update the blog_posts table if blog posts reference the brand
+UPDATE public.blog_posts
+SET content = REPLACE(content, 'Relaxol Clinic', 'Jersey Serenity Minds')
+WHERE content LIKE '%Relaxol Clinic%';
+
+UPDATE public.blog_posts
+SET content = REPLACE(
+  REPLACE(content, 'Relaxol', 'Jersey Serenity Minds'),
+  'Jersey Serenity Mindsclinic.com', 'relaxolclinic.com'
+)
+WHERE content LIKE '%Relaxol%';
+
+UPDATE public.blog_posts
+SET excerpt = REPLACE(excerpt, 'Relaxol Clinic', 'Jersey Serenity Minds')
+WHERE excerpt LIKE '%Relaxol Clinic%';
+
+UPDATE public.blog_posts
+SET excerpt = REPLACE(
+  REPLACE(excerpt, 'Relaxol', 'Jersey Serenity Minds'),
+  'Jersey Serenity Mindsclinic.com', 'relaxolclinic.com'
+)
+WHERE excerpt LIKE '%Relaxol%';
+
 -- Verify: Check for any remaining "Relaxol" references (excluding URLs)
 -- SELECT id, slug, substring(content_json::text from 'Relaxol') 
 -- FROM public.pages 
