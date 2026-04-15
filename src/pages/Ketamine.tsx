@@ -6,7 +6,12 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { usePageContent } from "@/hooks/usePageContent";
 import { KetamineV1Content } from "@/lib/templates/schemas";
 import { Loader2 } from "lucide-react";
@@ -25,15 +30,13 @@ import conditionAnxiety from "@/assets/condition-anxiety-new.jpg";
 import conditionPtsd from "@/assets/condition-ptsd-new.jpg";
 import conditionOcd from "@/assets/condition-ocd-new.jpg";
 import conditionPain from "@/assets/condition-pain-new.jpg";
-import { 
-  ArrowRight,
-  Check,
-  Quote
-} from "lucide-react";
+import { ArrowRight, Check, Quote } from "lucide-react";
 
 // Scroll helper
 const scrollToId = (id: string) =>
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  document
+    .getElementById(id)
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
 
 // Stats for hero
 const statsItems = [
@@ -48,22 +51,26 @@ const processSteps = [
   {
     step: 1,
     title: "Book Consultation",
-    description: "Schedule a confidential evaluation with our care team to discuss your treatment history."
+    description:
+      "Schedule a confidential evaluation with our care team to discuss your treatment history.",
   },
   {
     step: 2,
     title: "Clinical Evaluation",
-    description: "A thorough review of symptoms, medical history, and treatment background."
+    description:
+      "A thorough review of symptoms, medical history, and treatment background.",
   },
   {
     step: 3,
     title: "Personalized Treatment",
-    description: "Ketamine is administered in a controlled medical setting tailored to your needs."
+    description:
+      "Ketamine is administered in a controlled medical setting tailored to your needs.",
   },
   {
     step: 4,
     title: "Ongoing Support",
-    description: "Continuous monitoring and follow-up care to optimize your treatment outcomes."
+    description:
+      "Continuous monitoring and follow-up care to optimize your treatment outcomes.",
   },
 ];
 
@@ -72,32 +79,38 @@ const servicesItems = [
   {
     image: serviceKetamineInfusion,
     title: "Ketamine Infusions",
-    description: "IV ketamine therapy administered in a comfortable, medically supervised setting."
+    description:
+      "IV ketamine therapy administered in a comfortable, medically supervised setting.",
   },
   {
     image: serviceDepression,
     title: "Treatment-Resistant Depression",
-    description: "Specialized protocols for patients who haven't responded to traditional antidepressants."
+    description:
+      "Specialized protocols for patients who haven't responded to traditional antidepressants.",
   },
   {
     image: serviceAnxiety,
     title: "Anxiety Treatment",
-    description: "Evidence-based ketamine protocols for Anxiety and related conditions."
+    description:
+      "Evidence-based ketamine protocols for Anxiety and related conditions.",
   },
   {
     image: servicePtsd,
     title: "PTSD Therapy",
-    description: "Trauma-focused treatment combining ketamine with supportive care."
+    description:
+      "Trauma-focused treatment combining ketamine with supportive care.",
   },
   {
     image: servicePain,
     title: "Chronic Pain Management",
-    description: "Ketamine infusions for neuropathic pain and chronic pain conditions."
+    description:
+      "Ketamine infusions for neuropathic pain and chronic pain conditions.",
   },
   {
     image: serviceMaintenance,
     title: "Maintenance Programs",
-    description: "Ongoing treatment plans to sustain improvement and prevent relapse."
+    description:
+      "Ongoing treatment plans to sustain improvement and prevent relapse.",
   },
 ];
 
@@ -106,17 +119,20 @@ const safetyAccordionItems = [
   {
     id: "side-effects",
     title: "Common Side Effects",
-    content: "Temporary effects may include dissociation, dizziness, nausea, drowsiness, and changes in perception. These typically resolve within 1-2 hours after treatment ends."
+    content:
+      "Temporary effects may include dissociation, dizziness, nausea, drowsiness, and changes in perception. These typically resolve within 1-2 hours after treatment ends.",
   },
   {
     id: "monitoring",
     title: "Monitoring Procedures",
-    content: "Vital signs are checked before, during, and after each infusion. You'll remain in our clinic until effects have subsided."
+    content:
+      "Vital signs are checked before, during, and after each infusion. You'll remain in our clinic until effects have subsided.",
   },
   {
     id: "safety",
     title: "Safety Considerations",
-    content: "Ketamine therapy is not suitable for everyone. A thorough evaluation ensures treatment is safe and appropriate for you."
+    content:
+      "Ketamine therapy is not suitable for everyone. A thorough evaluation ensures treatment is safe and appropriate for you.",
   },
 ];
 
@@ -126,187 +142,227 @@ const conditionsData = [
     id: "depression",
     title: "Ketamine and Depression",
     image: conditionDepression,
-    intro: "Ketamine has emerged as a powerful treatment for depression, particularly for those who have not found relief through conventional treatments. Its unique mechanism of action offers hope and rapid improvements for many patients.",
-    quote: "What you're going through may feel overwhelming now, but it's just one chapter of your story, not the whole book.",
+    intro:
+      "Ketamine has emerged as a powerful treatment for depression, particularly for those who have not found relief through conventional treatments. Its unique mechanism of action offers hope and rapid improvements for many patients.",
+    quote:
+      "What you're going through may feel overwhelming now, but it's just one chapter of your story, not the whole book.",
     accordionItems: [
       {
         id: "depression-mechanism",
         title: "Unique Mechanism of Action",
-        content: "Unlike conventional antidepressants that primarily target the serotonin and norepinephrine systems, ketamine works on the glutamate system, the most prevalent neurotransmitter in the brain. By antagonizing the N-methyl-D-aspartate (NMDA) receptor, ketamine helps to restore normal communication between brain cells that has been disrupted by chronic stress and depression. This unique action allows for a different approach in treating depression, especially in cases where traditional antidepressants have not been effective."
+        content:
+          "Unlike conventional antidepressants that primarily target the serotonin and norepinephrine systems, ketamine works on the glutamate system, the most prevalent neurotransmitter in the brain. By antagonizing the N-methyl-D-aspartate (NMDA) receptor, ketamine helps to restore normal communication between brain cells that has been disrupted by chronic stress and depression. This unique action allows for a different approach in treating depression, especially in cases where traditional antidepressants have not been effective.",
       },
       {
         id: "depression-rapid",
         title: "Rapid Action",
-        content: "One of the most notable features of ketamine treatment for depression is its rapid onset of action. While traditional antidepressants can take weeks to months to show effects, ketamine can produce noticeable improvements in mood and outlook within hours to days. This rapid response is particularly crucial for patients with treatment-resistant depression who are in urgent need of relief."
+        content:
+          "One of the most notable features of ketamine treatment for depression is its rapid onset of action. While traditional antidepressants can take weeks to months to show effects, ketamine can produce noticeable improvements in mood and outlook within hours to days. This rapid response is particularly crucial for patients with treatment-resistant depression who are in urgent need of relief.",
       },
       {
         id: "depression-neural",
         title: "Neural Regeneration",
-        content: "Ketamine promotes the growth of new neural connections through a process known as synaptogenesis. In patients with chronic depression, there is often a decrease in synaptic connections in key areas of the brain associated with mood regulation. Ketamine's ability to stimulate the growth of these connections is thought to contribute significantly to its antidepressant effects, offering a form of neural repair that goes beyond the temporary relief provided by other treatments."
+        content:
+          "Ketamine promotes the growth of new neural connections through a process known as synaptogenesis. In patients with chronic depression, there is often a decrease in synaptic connections in key areas of the brain associated with mood regulation. Ketamine's ability to stimulate the growth of these connections is thought to contribute significantly to its antidepressant effects, offering a form of neural repair that goes beyond the temporary relief provided by other treatments.",
       },
       {
         id: "depression-mood",
         title: "Mood Enhancement",
-        content: "By modulating the activity of glutamate and other neurotransmitters, ketamine can lead to improvements in mood, anxiety, and overall well-being. Patients often report a sense of emotional release or breakthrough during treatment, which can be a pivotal experience in their recovery journey."
+        content:
+          "By modulating the activity of glutamate and other neurotransmitters, ketamine can lead to improvements in mood, anxiety, and overall well-being. Patients often report a sense of emotional release or breakthrough during treatment, which can be a pivotal experience in their recovery journey.",
       },
       {
         id: "depression-suicidal",
         title: "Reduction of Suicidal Ideation",
-        content: "Ketamine has been shown to rapidly reduce suicidal thoughts, even in patients with treatment-resistant depression. This effect is particularly vital as it can provide critical time for other treatments to take effect and for patients to engage more fully in comprehensive care programs."
-      }
-    ]
+        content:
+          "Ketamine has been shown to rapidly reduce suicidal thoughts, even in patients with treatment-resistant depression. This effect is particularly vital as it can provide critical time for other treatments to take effect and for patients to engage more fully in comprehensive care programs.",
+      },
+    ],
   },
   {
     id: "anxiety",
     title: "Ketamine and Anxiety",
     image: conditionAnxiety,
-    intro: "Ketamine therapy offers a new avenue of hope for individuals struggling with anxiety disorders, especially those who have found limited relief from traditional treatments. Its unique pharmacological properties can rapidly alleviate symptoms and offer a fresh perspective on managing anxiety.",
-    quote: "You don't have to let anxiety dictate your life. Each step you take towards understanding and managing it is a victory.",
+    intro:
+      "Ketamine therapy offers a new avenue of hope for individuals struggling with anxiety disorders, especially those who have found limited relief from traditional treatments. Its unique pharmacological properties can rapidly alleviate symptoms and offer a fresh perspective on managing anxiety.",
+    quote:
+      "You don't have to let anxiety dictate your life. Each step you take towards understanding and managing it is a victory.",
     accordionItems: [
       {
         id: "anxiety-modulation",
         title: "Modulation of the Glutamate System",
-        content: "Ketamine's primary action is on the glutamate neurotransmitter system, the most abundant excitatory neurotransmitter in the brain. By blocking the NMDA receptors, ketamine influences glutamate activity, which plays a crucial role in mood regulation and anxiety responses. This modulation leads to rapid changes in brain chemistry that can significantly reduce anxiety symptoms."
+        content:
+          "Ketamine's primary action is on the glutamate neurotransmitter system, the most abundant excitatory neurotransmitter in the brain. By blocking the NMDA receptors, ketamine influences glutamate activity, which plays a crucial role in mood regulation and anxiety responses. This modulation leads to rapid changes in brain chemistry that can significantly reduce anxiety symptoms.",
       },
       {
         id: "anxiety-rapid",
         title: "Rapid Onset of Action",
-        content: "Unlike many traditional anxiety medications that may take weeks to become effective, ketamine can produce quick relief from anxiety symptoms, sometimes within hours. This rapid action is particularly beneficial for individuals with severe anxiety who are in immediate need of intervention."
+        content:
+          "Unlike many traditional anxiety medications that may take weeks to become effective, ketamine can produce quick relief from anxiety symptoms, sometimes within hours. This rapid action is particularly beneficial for individuals with severe anxiety who are in immediate need of intervention.",
       },
       {
         id: "anxiety-neural",
         title: "Promotion of Neural Plasticity",
-        content: "Ketamine stimulates neuroplasticity – the brain's ability to form new neural connections. This can help 'rewire' the brain's response to anxiety-inducing stimuli, offering a more lasting impact compared to traditional anxiolytics that only temporarily alleviate symptoms."
+        content:
+          "Ketamine stimulates neuroplasticity – the brain's ability to form new neural connections. This can help 'rewire' the brain's response to anxiety-inducing stimuli, offering a more lasting impact compared to traditional anxiolytics that only temporarily alleviate symptoms.",
       },
       {
         id: "anxiety-dissociative",
         title: "Dissociative Effects",
-        content: "At controlled doses, ketamine's mild dissociative effects can provide a unique psychological space that allows individuals to distance themselves from their anxiety, gain perspective, and potentially explore the roots of their anxiety with greater objectivity. This effect is carefully managed to ensure safety and therapeutic benefit."
+        content:
+          "At controlled doses, ketamine's mild dissociative effects can provide a unique psychological space that allows individuals to distance themselves from their anxiety, gain perspective, and potentially explore the roots of their anxiety with greater objectivity. This effect is carefully managed to ensure safety and therapeutic benefit.",
       },
       {
         id: "anxiety-enhancement",
         title: "Enhancement of Mindfulness and Psychotherapy",
-        content: "Ketamine therapy can enhance the effectiveness of psychotherapy and mindfulness practices. The altered state of consciousness it induces can facilitate deeper self-reflection and make individuals more receptive to therapeutic interventions, leading to more profound and lasting changes in anxiety management."
-      }
-    ]
+        content:
+          "Ketamine therapy can enhance the effectiveness of psychotherapy and mindfulness practices. The altered state of consciousness it induces can facilitate deeper self-reflection and make individuals more receptive to therapeutic interventions, leading to more profound and lasting changes in anxiety management.",
+      },
+    ],
   },
   {
     id: "ptsd",
     title: "Ketamine and PTSD",
     image: conditionPtsd,
-    intro: "Ketamine therapy presents a transformative approach for those suffering from PTSD, particularly when traditional treatments have not been sufficient. Its unique pharmacological action offers rapid relief from PTSD symptoms and aids in the deeper processing of traumatic experiences.",
-    quote: "Your past doesn't define you. What you choose to do now and what you overcome define your character. Healing is possible, and it starts with a single step.",
+    intro:
+      "Ketamine therapy presents a transformative approach for those suffering from PTSD, particularly when traditional treatments have not been sufficient. Its unique pharmacological action offers rapid relief from PTSD symptoms and aids in the deeper processing of traumatic experiences.",
+    quote:
+      "Your past doesn't define you. What you choose to do now and what you overcome define your character. Healing is possible, and it starts with a single step.",
     accordionItems: [
       {
         id: "ptsd-rapid",
         title: "Rapid Symptom Relief",
-        content: "Ketamine can provide quick relief from the intense and often debilitating symptoms of PTSD, such as flashbacks, severe anxiety, and emotional numbing. This rapid action can be a significant relief for patients who have struggled with these symptoms for extended periods."
+        content:
+          "Ketamine can provide quick relief from the intense and often debilitating symptoms of PTSD, such as flashbacks, severe anxiety, and emotional numbing. This rapid action can be a significant relief for patients who have struggled with these symptoms for extended periods.",
       },
       {
         id: "ptsd-glutamate",
         title: "Modulation of Glutamate",
-        content: "By acting on the NMDA receptors, ketamine influences the glutamate system, which is involved in learning, memory, and emotional responses. This can help recalibrate the brain's response to trauma-related memories, reducing the intensity of the patient's reactions to triggers."
+        content:
+          "By acting on the NMDA receptors, ketamine influences the glutamate system, which is involved in learning, memory, and emotional responses. This can help recalibrate the brain's response to trauma-related memories, reducing the intensity of the patient's reactions to triggers.",
       },
       {
         id: "ptsd-neural",
         title: "Facilitation of Neural Plasticity",
-        content: "Ketamine promotes the growth of new synaptic connections. For PTSD patients, this can mean a restructuring of the neural pathways associated with traumatic memories, potentially leading to a reduction in the hold these memories have over the individual."
+        content:
+          "Ketamine promotes the growth of new synaptic connections. For PTSD patients, this can mean a restructuring of the neural pathways associated with traumatic memories, potentially leading to a reduction in the hold these memories have over the individual.",
       },
       {
         id: "ptsd-dissociative",
         title: "Dissociative Properties",
-        content: "In a controlled therapeutic setting, ketamine's dissociative effects can enable patients to revisit traumatic memories with a sense of detachment. This can facilitate a more objective processing of traumatic experiences, which is a crucial part of trauma-focused therapies."
+        content:
+          "In a controlled therapeutic setting, ketamine's dissociative effects can enable patients to revisit traumatic memories with a sense of detachment. This can facilitate a more objective processing of traumatic experiences, which is a crucial part of trauma-focused therapies.",
       },
       {
         id: "ptsd-enhancement",
         title: "Enhancement of Therapeutic Processes",
-        content: "The altered state of consciousness induced by ketamine can enhance the effectiveness of concurrent psychotherapy. It can make patients more open to exploring their trauma and more receptive to therapeutic strategies, potentially accelerating the healing process."
-      }
-    ]
+        content:
+          "The altered state of consciousness induced by ketamine can enhance the effectiveness of concurrent psychotherapy. It can make patients more open to exploring their trauma and more receptive to therapeutic strategies, potentially accelerating the healing process.",
+      },
+    ],
   },
   {
     id: "ocd",
     title: "Ketamine and OCD",
     image: conditionOcd,
-    intro: "Ketamine therapy is showing promise for individuals with Obsessive-Compulsive Disorder (OCD), particularly for those who have not responded adequately to traditional treatments. Its unique action on the brain's neurotransmitter systems can offer a new path to relief.",
-    quote: "You are not defined by OCD. Your courage to confront and overcome these challenges reflects your true strength.",
+    intro:
+      "Ketamine therapy is showing promise for individuals with Obsessive-Compulsive Disorder (OCD), particularly for those who have not responded adequately to traditional treatments. Its unique action on the brain's neurotransmitter systems can offer a new path to relief.",
+    quote:
+      "You are not defined by OCD. Your courage to confront and overcome these challenges reflects your true strength.",
     accordionItems: [
       {
         id: "ocd-glutamate",
         title: "Impact on Glutamate System",
-        content: "Ketamine's primary action on the glutamate system, specifically its antagonism of NMDA receptors, plays a key role in its potential effectiveness for OCD. Glutamate dysregulation has been implicated in OCD, and by modulating this system, ketamine can help normalize neural activity in areas of the brain involved in obsessive and compulsive behaviors."
+        content:
+          "Ketamine's primary action on the glutamate system, specifically its antagonism of NMDA receptors, plays a key role in its potential effectiveness for OCD. Glutamate dysregulation has been implicated in OCD, and by modulating this system, ketamine can help normalize neural activity in areas of the brain involved in obsessive and compulsive behaviors.",
       },
       {
         id: "ocd-rapid",
         title: "Rapid Reduction in Symptoms",
-        content: "One of the most significant advantages of ketamine therapy for OCD is its rapid onset of action. Unlike SSRIs or other treatments that may take weeks to become effective, ketamine can offer quicker relief from the intrusive thoughts and compulsive behaviors characteristic of OCD."
+        content:
+          "One of the most significant advantages of ketamine therapy for OCD is its rapid onset of action. Unlike SSRIs or other treatments that may take weeks to become effective, ketamine can offer quicker relief from the intrusive thoughts and compulsive behaviors characteristic of OCD.",
       },
       {
         id: "ocd-neural",
         title: "Neuroplasticity Enhancement",
-        content: "Ketamine has been shown to promote neuroplasticity, the brain's ability to form and reorganize synaptic connections. This could be particularly beneficial for OCD patients, as it may help 'rewire' the brain's pathways that are involved in the cycle of obsessive thoughts and compulsive actions."
+        content:
+          "Ketamine has been shown to promote neuroplasticity, the brain's ability to form and reorganize synaptic connections. This could be particularly beneficial for OCD patients, as it may help 'rewire' the brain's pathways that are involved in the cycle of obsessive thoughts and compulsive actions.",
       },
       {
         id: "ocd-mood",
         title: "Mood and Anxiety Relief",
-        content: "OCD often coexists with anxiety and mood disorders. Ketamine's ability to rapidly alleviate anxiety and improve mood can provide additional relief for OCD patients, addressing the broader mental health picture and improving overall quality of life."
+        content:
+          "OCD often coexists with anxiety and mood disorders. Ketamine's ability to rapidly alleviate anxiety and improve mood can provide additional relief for OCD patients, addressing the broader mental health picture and improving overall quality of life.",
       },
       {
         id: "ocd-therapy",
         title: "Enhancing Therapy Outcomes",
-        content: "For some patients, ketamine therapy may enhance the effectiveness of cognitive-behavioral therapy (CBT) and other therapeutic approaches for OCD. The altered state of consciousness induced by ketamine can increase openness to new perspectives and therapeutic insights."
-      }
-    ]
+        content:
+          "For some patients, ketamine therapy may enhance the effectiveness of cognitive-behavioral therapy (CBT) and other therapeutic approaches for OCD. The altered state of consciousness induced by ketamine can increase openness to new perspectives and therapeutic insights.",
+      },
+    ],
   },
   {
     id: "chronic-pain",
     title: "Ketamine and Chronic Pain",
     image: conditionPain,
-    intro: "Ketamine has emerged as a promising option for people living with chronic pain, especially for those who have tried multiple treatments without finding lasting relief. By working differently than many traditional pain therapies, ketamine may help ease pain, support daily functioning, and improve overall quality of life.",
-    quote: "Chronic pain may be a chapter in your life, but it is not the whole story—there are still pages of hope yet to be written.",
+    intro:
+      "Ketamine has emerged as a promising option for people living with chronic pain, especially for those who have tried multiple treatments without finding lasting relief. By working differently than many traditional pain therapies, ketamine may help ease pain, support daily functioning, and improve overall quality of life.",
+    quote:
+      "Chronic pain may be a chapter in your life, but it is not the whole story—there are still pages of hope yet to be written.",
     accordionItems: [
       {
         id: "pain-mechanism",
         title: "Unique Mechanism of Action",
-        content: "Unlike traditional pain medications that primarily address symptoms, ketamine works by modulating the NMDA receptor system and reducing nerve hypersensitivity, helping the nervous system reset its pain signaling."
+        content:
+          "Unlike traditional pain medications that primarily address symptoms, ketamine works by modulating the NMDA receptor system and reducing nerve hypersensitivity, helping the nervous system reset its pain signaling.",
       },
       {
         id: "pain-rapid",
         title: "Rapid Relief",
-        content: "Many patients experience noticeable reductions in pain and improved comfort within hours, rather than the weeks or months typical of standard pain treatments."
+        content:
+          "Many patients experience noticeable reductions in pain and improved comfort within hours, rather than the weeks or months typical of standard pain treatments.",
       },
       {
         id: "pain-rewiring",
         title: "Re-Wiring the Nervous System",
-        content: "Ketamine encourages neuroplasticity—meaning the brain and spinal cord can form new connections and pathways, helping disrupt long-standing pain circuits and restore more normal sensation and movement."
+        content:
+          "Ketamine encourages neuroplasticity—meaning the brain and spinal cord can form new connections and pathways, helping disrupt long-standing pain circuits and restore more normal sensation and movement.",
       },
       {
         id: "pain-sensitivity",
         title: "Reduced Sensitivity & Improved Function",
-        content: "By reducing over-active pain signaling and nerve sensitization, ketamine not only eases discomfort but can also improve mobility, sleep, and quality of life for individuals living with chronic pain."
+        content:
+          "By reducing over-active pain signaling and nerve sensitization, ketamine not only eases discomfort but can also improve mobility, sleep, and quality of life for individuals living with chronic pain.",
       },
       {
         id: "pain-conditions",
         title: "Conditions We Treat",
-        content: "Complex Regional Pain Syndrome (CRPS), Fibromyalgia, Neuropathic pain, Chronic migraines and headaches, Failed back surgery syndrome, and Phantom limb pain."
+        content:
+          "Complex Regional Pain Syndrome (CRPS), Fibromyalgia, Neuropathic pain, Chronic migraines and headaches, Failed back surgery syndrome, and Phantom limb pain.",
       },
       {
         id: "pain-candidate",
         title: "Who Is a Candidate?",
-        content: "Adults with chronic pain lasting more than 3 months, those who haven't responded adequately to conventional pain treatments, patients looking to reduce dependence on opioid medications, and individuals with pain conditions that have a neuropathic component."
-      }
-    ]
-  }
+        content:
+          "Adults with chronic pain lasting more than 3 months, those who haven't responded adequately to conventional pain treatments, patients looking to reduce dependence on opioid medications, and individuals with pain conditions that have a neuropathic component.",
+      },
+    ],
+  },
 ];
 
 // Eligibility form component
-function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark" }) {
+function EligibilityForm({
+  variant = "default",
+}: {
+  variant?: "default" | "dark";
+}) {
   const [formData, setFormData] = useState({
     triedAntidepressants: "",
     diagnosedDepression: "",
     zipCode: "",
     email: "",
-    phone: ""
+    phone: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -315,32 +371,49 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
   };
 
   const isDark = variant === "dark";
-  const labelClass = isDark ? "text-primary-foreground/70 text-sm font-normal" : "text-muted-foreground text-sm font-normal";
-  const inputClass = isDark 
-    ? "bg-primary-foreground/5 border-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/40 focus:border-primary-foreground/30 h-12 rounded-lg" 
+  const labelClass = isDark
+    ? "text-primary-foreground/70 text-sm font-normal"
+    : "text-muted-foreground text-sm font-normal";
+  const inputClass = isDark
+    ? "bg-primary-foreground/5 border-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/40 focus:border-primary-foreground/30 h-12 rounded-lg"
     : "bg-background border-border/30 h-12 rounded-lg focus:border-primary/30";
-  const radioContainerClass = isDark 
-    ? "bg-primary-foreground/5 border-primary-foreground/10 hover:bg-primary-foreground/10" 
+  const radioContainerClass = isDark
+    ? "bg-primary-foreground/5 border-primary-foreground/10 hover:bg-primary-foreground/10"
     : "bg-background border-border/30 hover:border-border/50";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Question 1 */}
       <div className="space-y-3">
-        <Label className={labelClass}>Have you tried 2+ antidepressants without lasting relief?</Label>
+        <Label className={labelClass}>
+          Have you tried 2+ antidepressants without lasting relief?
+        </Label>
         <div className="flex gap-3">
           {["Yes", "No"].map((option) => (
             <button
               key={option}
               type="button"
-              onClick={() => setFormData(prev => ({ ...prev, triedAntidepressants: option }))}
+              onClick={() =>
+                setFormData((prev) => ({
+                  ...prev,
+                  triedAntidepressants: option,
+                }))
+              }
               className={`flex-1 py-3 px-5 rounded-lg border transition-all ${radioContainerClass} ${
-                formData.triedAntidepressants === option 
-                  ? "ring-1 ring-primary/30 border-primary/20" 
+                formData.triedAntidepressants === option
+                  ? "ring-1 ring-primary/30 border-primary/20"
                   : ""
               }`}
             >
-              <span className={isDark ? "text-primary-foreground/90 text-sm" : "text-foreground text-sm"}>{option}</span>
+              <span
+                className={
+                  isDark
+                    ? "text-primary-foreground/90 text-sm"
+                    : "text-foreground text-sm"
+                }
+              >
+                {option}
+              </span>
             </button>
           ))}
         </div>
@@ -348,20 +421,35 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
 
       {/* Question 2 */}
       <div className="space-y-3">
-        <Label className={labelClass}>Are you currently diagnosed with Depression, Anxiety, or PTSD?</Label>
+        <Label className={labelClass}>
+          Are you currently diagnosed with Depression, Anxiety, or PTSD?
+        </Label>
         <div className="flex gap-3">
           {["Yes", "No"].map((option) => (
             <button
               key={option}
               type="button"
-              onClick={() => setFormData(prev => ({ ...prev, diagnosedDepression: option }))}
+              onClick={() =>
+                setFormData((prev) => ({
+                  ...prev,
+                  diagnosedDepression: option,
+                }))
+              }
               className={`flex-1 py-3 px-5 rounded-lg border transition-all ${radioContainerClass} ${
-                formData.diagnosedDepression === option 
-                  ? "ring-1 ring-primary/30 border-primary/20" 
+                formData.diagnosedDepression === option
+                  ? "ring-1 ring-primary/30 border-primary/20"
                   : ""
               }`}
             >
-              <span className={isDark ? "text-primary-foreground/90 text-sm" : "text-foreground text-sm"}>{option}</span>
+              <span
+                className={
+                  isDark
+                    ? "text-primary-foreground/90 text-sm"
+                    : "text-foreground text-sm"
+                }
+              >
+                {option}
+              </span>
             </button>
           ))}
         </div>
@@ -369,13 +457,17 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
 
       {/* ZIP Code */}
       <div className="space-y-3">
-        <Label htmlFor="zipCode" className={labelClass}>ZIP Code <span className="text-destructive">*</span></Label>
-        <Input 
+        <Label htmlFor="zipCode" className={labelClass}>
+          ZIP Code <span className="text-destructive">*</span>
+        </Label>
+        <Input
           id="zipCode"
           type="text"
           placeholder="Enter your ZIP code"
           value={formData.zipCode}
-          onChange={(e) => setFormData(prev => ({ ...prev, zipCode: e.target.value }))}
+          onChange={(e) =>
+            setFormData((prev) => ({ ...prev, zipCode: e.target.value }))
+          }
           className={inputClass}
         />
       </div>
@@ -383,30 +475,42 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
       {/* Contact fields */}
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="space-y-3">
-          <Label htmlFor="email" className={labelClass}>Email <span className="text-destructive">*</span></Label>
-          <Input 
+          <Label htmlFor="email" className={labelClass}>
+            Email <span className="text-destructive">*</span>
+          </Label>
+          <Input
             id="email"
             type="email"
             placeholder="your@email.com"
             value={formData.email}
-            onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, email: e.target.value }))
+            }
             className={inputClass}
           />
         </div>
         <div className="space-y-3">
-          <Label htmlFor="phone" className={labelClass}>Phone <span className="text-destructive">*</span></Label>
-          <Input 
+          <Label htmlFor="phone" className={labelClass}>
+            Phone <span className="text-destructive">*</span>
+          </Label>
+          <Input
             id="phone"
             type="tel"
             placeholder="(555) 123-4567"
             value={formData.phone}
-            onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, phone: e.target.value }))
+            }
             className={inputClass}
           />
         </div>
       </div>
 
-      <Button type="submit" size="lg" className={`w-full h-12 ${isDark ? 'bg-primary-foreground text-primary hover:bg-primary-foreground/90' : ''}`}>
+      <Button
+        type="submit"
+        size="lg"
+        className={`w-full h-12 ${isDark ? "bg-primary-foreground text-primary hover:bg-primary-foreground/90" : ""}`}
+      >
         See If I Qualify
         <ArrowRight className="w-4 h-4 ml-2" />
       </Button>
@@ -415,12 +519,17 @@ function EligibilityForm({ variant = "default" }: { variant?: "default" | "dark"
 }
 
 const Ketamine = () => {
-  const { content, loading } = usePageContent('ketamine');
-  
+  const { content, loading } = usePageContent("ketamine");
+
   // Cast CMS content or use null
-  const cms = (content && typeof content === 'object' && 'hero' in content && 'stats' in content && 'services' in content) 
-    ? content as KetamineV1Content 
-    : null;
+  const cms =
+    content &&
+    typeof content === "object" &&
+    "hero" in content &&
+    "stats" in content &&
+    "services" in content
+      ? (content as KetamineV1Content)
+      : null;
 
   if (loading) {
     return (
@@ -432,28 +541,45 @@ const Ketamine = () => {
 
   // CMS-driven text with hardcoded fallbacks
   const heroHeadline = cms?.hero?.headline || "Ketamine Therapy:";
-  const heroBody = cms?.hero?.body || "Personalized, innovative care for individuals who haven't found relief with traditional treatments. Ketamine therapy is part of interventional psychiatry and may be considered for individuals who have not found relief with traditional treatments. Administered under medical supervision, it works differently from standard antidepressants and is recommended based on a clinical evaluation.";
+  const heroBody =
+    cms?.hero?.body ||
+    "Personalized, innovative care for individuals who haven't found relief with traditional treatments. Ketamine therapy is part of interventional psychiatry and may be considered for individuals who have not found relief with traditional treatments. Administered under medical supervision, it works differently from standard antidepressants and is recommended based on a clinical evaluation.";
   const heroCtaLabel = cms?.hero?.ctaLabel || "Book Consultation";
-  const heroSubtitle = cms?.hero?.subtitle || "A New Approach for a Range of Mood and Chronic Conditions";
+  const heroSubtitle =
+    cms?.hero?.subtitle ||
+    "A New Approach for a Range of Mood and Chronic Conditions";
 
   const cmsStats = cms?.stats?.items?.length ? cms.stats.items : null;
 
-  const parallaxTitle = cms?.parallax?.title || "When Traditional Treatments Haven't Provided Enough Relief";
-  const parallaxBody = cms?.parallax?.body || "Ketamine therapy may be an option for individuals who have not responded to traditional medications.";
+  const parallaxTitle =
+    cms?.parallax?.title ||
+    "When Traditional Treatments Haven't Provided Enough Relief";
+  const parallaxBody =
+    cms?.parallax?.body ||
+    "Ketamine therapy may be an option for individuals who have not responded to traditional medications.";
 
-  const eligibilitySubtitle = cms?.eligibility?.subtitle || "Start Your Journey";
-  const eligibilityTitle = cms?.eligibility?.title || "Take the Next Step Toward Relief";
-  const eligibilityBody = cms?.eligibility?.body || "If traditional treatments haven't worked, our care team can help you understand whether ketamine therapy may be appropriate for you.";
-  const eligibilityBullets = cms?.eligibility?.trustBullets?.length ? cms.eligibility.trustBullets : [
-    "No obligation assessment",
-    "Response within 48 hours",
-    "Confidential submission",
-    "Insurance verification available",
-  ];
+  const eligibilitySubtitle =
+    cms?.eligibility?.subtitle || "Start Your Journey";
+  const eligibilityTitle =
+    cms?.eligibility?.title || "Take the Next Step Toward Relief";
+  const eligibilityBody =
+    cms?.eligibility?.body ||
+    "If traditional treatments haven't worked, our care team can help you understand whether ketamine therapy may be appropriate for you.";
+  const eligibilityBullets = cms?.eligibility?.trustBullets?.length
+    ? cms.eligibility.trustBullets
+    : [
+        "No obligation assessment",
+        "Response within 48 hours",
+        "Confidential submission",
+        "Insurance verification available",
+      ];
   const eligibilityPhone = cms?.eligibility?.phone || "201-781-2101";
 
-  const crossSellTitle = cms?.crossSell?.title || "Also Offering SPRAVATO® Treatment";
-  const crossSellBody = cms?.crossSell?.body || "SPRAVATO® (esketamine) is an FDA-approved nasal spray for treatment-resistant depression. It's administered in our clinic under medical supervision and may be covered by insurance.";
+  const crossSellTitle =
+    cms?.crossSell?.title || "Also Offering SPRAVATO® Treatment";
+  const crossSellBody =
+    cms?.crossSell?.body ||
+    "SPRAVATO® (esketamine) is an FDA-approved nasal spray for treatment-resistant depression. It's administered in our clinic under medical supervision and may be covered by insurance.";
   const crossSellCtaLabel = cms?.crossSell?.ctaLabel || "Learn About SPRAVATO®";
   const crossSellCtaHref = cms?.crossSell?.ctaHref || "/spravato-Englewood";
 
@@ -475,18 +601,26 @@ const Ketamine = () => {
             {/* Left column */}
             <div className="space-y-6">
               <h1 className="tracking-tight text-foreground">
-                <span className="block text-3xl sm:text-4xl lg:text-5xl font-bold">{heroHeadline}</span>
-                <span className="block text-xl sm:text-2xl lg:text-3xl font-medium text-muted-foreground mt-2">{heroSubtitle}</span>
+                <span className="block text-3xl sm:text-4xl lg:text-5xl font-bold">
+                  {heroHeadline}
+                </span>
+                <span className="block text-xl sm:text-2xl lg:text-3xl font-medium text-muted-foreground mt-2">
+                  {heroSubtitle}
+                </span>
               </h1>
               <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
                 {heroBody}
               </p>
-              
+
               <div className="flex flex-wrap gap-4 pt-4">
-                <Button size="lg" onClick={() => scrollToId("eligibility")} className="px-10">
+                <Button
+                  size="lg"
+                  onClick={() => scrollToId("eligibility")}
+                  className="px-10"
+                >
                   {heroCtaLabel}
                 </Button>
-                <button 
+                <button
                   onClick={() => scrollToId("how-it-works")}
                   className="text-sm font-medium text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
                 >
@@ -494,24 +628,31 @@ const Ketamine = () => {
                 </button>
               </div>
             </div>
-            
+
             {/* Right column - Hero image */}
             <div className="rounded-3xl overflow-hidden bg-muted aspect-[4/3]">
-              <img 
-                src={cms?.hero?.heroImageUrl || treatmentRoom} 
-                alt={cms?.hero?.heroImageAlt || "Comfortable ketamine treatment room"}
+              <img
+                src={cms?.hero?.heroImageUrl || treatmentRoom}
+                alt={
+                  cms?.hero?.heroImageAlt ||
+                  "Comfortable ketamine treatment room"
+                }
                 className="w-full h-full object-cover"
               />
             </div>
           </div>
-          
+
           {/* Stats row */}
           <div className="mx-auto max-w-6xl px-6 mt-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {(cmsStats || statsItems).map((stat, index) => (
                 <div key={index} className="rounded-2xl bg-muted/40 p-5">
-                  <div className="text-2xl font-semibold text-foreground">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  <div className="text-2xl font-semibold text-foreground">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
@@ -533,26 +674,34 @@ const Ketamine = () => {
 
             {/* Content Grid */}
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-              {(cms?.understanding?.cards?.length ? cms.understanding.cards : [
-                {
-                  title: "What Is Ketamine?",
-                  paragraphs: [
-                    "Ketamine is a well-researched medication that has been FDA-approved since 1970. For decades, it has been safely used as an anesthetic in hospitals, emergency rooms, ambulances, and surgical settings for both adults and children. It is also widely used in veterinary medicine and is listed by the World Health Organization (WHO) as an essential medication due to its effectiveness and strong safety profile when properly administered.",
-                    "Over the past decade, leading institutions such as Yale University and the National Institutes of Health (NIH) have identified additional benefits of ketamine in the treatment of mood disorders, including depression. These findings have drawn significant attention in the mental health field and have expanded how clinicians think about treating treatment-resistant depression."
+              {(cms?.understanding?.cards?.length
+                ? cms.understanding.cards
+                : [
+                    {
+                      title: "What Is Ketamine?",
+                      paragraphs: [
+                        "Ketamine is a well-researched medication that has been FDA-approved since 1970. For decades, it has been safely used as an anesthetic in hospitals, emergency rooms, ambulances, and surgical settings for both adults and children. It is also widely used in veterinary medicine and is listed by the World Health Organization (WHO) as an essential medication due to its effectiveness and strong safety profile when properly administered.",
+                        "Over the past decade, leading institutions such as Yale University and the National Institutes of Health (NIH) have identified additional benefits of ketamine in the treatment of mood disorders, including depression. These findings have drawn significant attention in the mental health field and have expanded how clinicians think about treating treatment-resistant depression.",
+                      ],
+                    },
+                    {
+                      title: "How Ketamine Therapy Works",
+                      paragraphs: [
+                        "Ketamine therapy is being studied for its potential to help individuals with depression and other mental health conditions who have not found relief with traditional treatments. Unlike conventional antidepressants, which often take weeks to build up in the system, ketamine may work more quickly by targeting different pathways in the brain involved in mood regulation.",
+                        "Treatment is provided in a clinical setting and may be administered through intravenous (IV) infusion or nasal spray. During each session, patients are closely monitored by trained medical professionals to ensure safety and comfort.",
+                        'The goal of ketamine therapy is to help "reset" certain brain circuits involved in mood and emotional regulation, which may lead to faster symptom relief and improved overall well-being for some individuals.',
+                      ],
+                    },
                   ]
-                },
-                {
-                  title: "How Ketamine Therapy Works",
-                  paragraphs: [
-                    "Ketamine therapy is being studied for its potential to help individuals with depression and other mental health conditions who have not found relief with traditional treatments. Unlike conventional antidepressants, which often take weeks to build up in the system, ketamine may work more quickly by targeting different pathways in the brain involved in mood regulation.",
-                    "Treatment is provided in a clinical setting and may be administered through intravenous (IV) infusion or nasal spray. During each session, patients are closely monitored by trained medical professionals to ensure safety and comfort.",
-                    "The goal of ketamine therapy is to help \"reset\" certain brain circuits involved in mood and emotional regulation, which may lead to faster symptom relief and improved overall well-being for some individuals."
-                  ]
-                }
-              ]).map((card, cardIndex) => (
-                <div key={cardIndex} className="bg-card rounded-3xl p-8 md:p-10 shadow-card">
+              ).map((card, cardIndex) => (
+                <div
+                  key={cardIndex}
+                  className="bg-card rounded-3xl p-8 md:p-10 shadow-card"
+                >
                   <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-3">
-                    <span className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">{cardIndex + 1}</span>
+                    <span className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">
+                      {cardIndex + 1}
+                    </span>
                     {card.title}
                   </h3>
                   <div className="space-y-4 text-muted-foreground leading-relaxed">
@@ -569,13 +718,15 @@ const Ketamine = () => {
         {/* SECTION 2 — "Rapid Solutions" parallax banner */}
         <section className="relative py-28 md:py-40 overflow-hidden">
           {/* Parallax background image - replace src later */}
-          <div 
+          <div
             className="absolute inset-0 bg-cover bg-center bg-fixed"
-            style={{ backgroundImage: `url(${cms?.parallax?.imageUrl || treatmentKetamine})` }}
+            style={{
+              backgroundImage: `url(${cms?.parallax?.imageUrl || treatmentKetamine})`,
+            }}
           />
           {/* Dark overlay for text readability */}
           <div className="absolute inset-0 bg-black/60" />
-          
+
           <div className="relative z-10 mx-auto max-w-4xl px-6 text-center space-y-6">
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white">
               {parallaxTitle}
@@ -586,38 +737,46 @@ const Ketamine = () => {
           </div>
         </section>
 
-
         {/* SECTION — CONDITIONS WE TREAT */}
         <section className="py-20 md:py-28">
           <div className="mx-auto max-w-6xl px-6">
             <div className="text-center mb-16">
-              <p className="text-sm font-medium uppercase tracking-widest text-primary mb-4">{cms?.conditions?.subtitle || "Conditions We Treat"}</p>
+              <p className="text-sm font-medium uppercase tracking-widest text-primary mb-4">
+                {cms?.conditions?.subtitle || "Conditions We Treat"}
+              </p>
               <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
                 {cms?.conditions?.title || "Ketamine Therapy"}
               </h2>
               <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-                {cms?.conditions?.description || "Discover how ketamine therapy can help with treatment-resistant conditions through its unique mechanism of action."}
+                {cms?.conditions?.description ||
+                  "Discover how ketamine therapy can help with treatment-resistant conditions through its unique mechanism of action."}
               </p>
             </div>
-            
+
             <div className="space-y-16">
-              {(cms?.conditions?.items?.length ? cms.conditions.items : conditionsData).map((condition, index) => (
-                <div 
+              {(cms?.conditions?.items?.length
+                ? cms.conditions.items
+                : conditionsData
+              ).map((condition, index) => (
+                <div
                   key={condition.id}
                   id={condition.id}
                   className={`scroll-mt-32 grid md:grid-cols-2 gap-8 md:gap-12 items-start ${
-                    index % 2 === 1 ? 'md:[&>*:first-child]:order-2' : ''
+                    index % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
                   }`}
                 >
                   {/* Image side */}
                   <div className="rounded-2xl overflow-hidden bg-muted aspect-[4/3]">
-                    <img 
-                      src={condition.imageUrl || ('image' in condition ? (condition as any).image : '')} 
+                    <img
+                      src={
+                        condition.imageUrl ||
+                        ("image" in condition ? (condition as any).image : "")
+                      }
                       alt={condition.title}
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  
+
                   {/* Content side */}
                   <div className="space-y-6">
                     <h3 className="text-2xl md:text-3xl font-semibold text-foreground">
@@ -626,7 +785,7 @@ const Ketamine = () => {
                     <p className="text-muted-foreground leading-relaxed">
                       {condition.intro}
                     </p>
-                    
+
                     {/* Quote */}
                     <div className="relative bg-muted/50 rounded-xl p-5 border-l-4 border-primary/30">
                       <Quote className="absolute top-4 right-4 w-6 h-6 text-primary/20" />
@@ -634,12 +793,12 @@ const Ketamine = () => {
                         "{condition.quote}"
                       </p>
                     </div>
-                    
+
                     {/* Accordion */}
                     <Accordion type="single" collapsible className="space-y-2">
                       {condition.accordionItems.map((item) => (
-                        <AccordionItem 
-                          key={item.id} 
+                        <AccordionItem
+                          key={item.id}
                           value={item.id}
                           className="bg-background rounded-xl border border-border/30 px-5"
                         >
@@ -652,7 +811,7 @@ const Ketamine = () => {
                         </AccordionItem>
                       ))}
                     </Accordion>
-                    
+
                     {/* Schedule Consultation Button */}
                     <Link to="/contact">
                       <Button className="mt-4 bg-primary hover:bg-accent text-primary-foreground font-semibold px-6 py-3 rounded-full">
@@ -667,13 +826,18 @@ const Ketamine = () => {
         </section>
 
         {/* SECTION — CTA + ELIGIBILITY FORM */}
-        <section id="eligibility" className="py-24 md:py-32 bg-[hsl(0,0%,92%)] scroll-mt-20">
+        <section
+          id="eligibility"
+          className="py-24 md:py-32 bg-[hsl(0,0%,92%)] scroll-mt-20"
+        >
           <div className="mx-auto max-w-6xl px-6">
             <div className="grid md:grid-cols-2 gap-16 items-start">
               {/* Left: CTA copy + trust bullets */}
               <div className="space-y-8">
                 <div className="space-y-4">
-                  <p className="text-sm font-medium uppercase tracking-widest text-primary">{eligibilitySubtitle}</p>
+                  <p className="text-sm font-medium uppercase tracking-widest text-primary">
+                    {eligibilitySubtitle}
+                  </p>
                   <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground leading-tight">
                     {eligibilityTitle}
                   </h2>
@@ -681,7 +845,7 @@ const Ketamine = () => {
                 <p className="text-muted-foreground text-lg leading-relaxed">
                   {eligibilityBody}
                 </p>
-                
+
                 <ul className="space-y-5 pt-4">
                   {eligibilityBullets.map((bullet, index) => (
                     <li key={index} className="flex items-start gap-4">
@@ -692,15 +856,20 @@ const Ketamine = () => {
                     </li>
                   ))}
                 </ul>
-                
+
                 <div className="pt-6 border-t border-border/30">
                   <p className="text-muted-foreground text-sm">
                     Prefer to speak with someone? Call us directly at{" "}
-                    <a href={`tel:${eligibilityPhone}`} className="font-medium text-foreground hover:text-primary transition-colors">{eligibilityPhone}</a>
+                    <a
+                      href={`tel:${eligibilityPhone}`}
+                      className="font-medium text-foreground hover:text-primary transition-colors"
+                    >
+                      {eligibilityPhone}
+                    </a>
                   </p>
                 </div>
               </div>
-              
+
               {/* Right: Form */}
               <div className="rounded-3xl bg-background shadow-xl p-8 md:p-10">
                 <EligibilityForm variant="default" />
@@ -730,11 +899,11 @@ const Ketamine = () => {
                   </Button>
                 </div>
               </div>
-              
+
               {/* Right: Image */}
               <div className="rounded-2xl overflow-hidden bg-muted aspect-[4/3]">
-                <img 
-                  src={cms?.crossSell?.imageUrl || spravato} 
+                <img
+                  src={cms?.crossSell?.imageUrl || spravato}
                   alt="SPRAVATO treatment"
                   className="w-full h-full object-cover"
                 />

@@ -487,7 +487,7 @@ export function createDefaultHomeContent(): HomeV1Content {
       ],
     },
     conditions: {
-      subtitle: "CONDITIONS WE TREAT",
+      subtitle: "Conditions we support",
       title: "Specialized Care for Complex Conditions",
       description:
         "Our treatments are designed for patients who haven't found relief through traditional approaches.",

@@ -12,7 +12,7 @@ import {
 export const defaultConditionContent: Record<string, ConditionV1Content> = {
   depression: {
     hero: {
-      subtitle: "CONDITIONS WE TREAT",
+      subtitle: "Conditions we support",
       headline: "Depression Treatment",
       body: "When traditional antidepressants fall short, ketamine and SPRAVATO® offer a new path forward. These breakthrough treatments work differently—often producing relief within hours or days rather than weeks.",
       ctaLabel: "Schedule a Consultation",
@@ -45,7 +45,7 @@ export const defaultConditionContent: Record<string, ConditionV1Content> = {
   },
   anxiety: {
     hero: {
-      subtitle: "CONDITIONS WE TREAT",
+      subtitle: "Conditions we support",
       headline: "Anxiety Treatment",
       body: "Persistent anxiety can feel all-consuming, affecting your ability to work, sleep, and enjoy life. Our clinic offers treatments that target the brain's glutamate system, potentially offering rapid relief for those who haven't responded to conventional therapies.",
       ctaLabel: "Schedule a Consultation",
@@ -78,7 +78,7 @@ export const defaultConditionContent: Record<string, ConditionV1Content> = {
   },
   ptsd: {
     hero: {
-      subtitle: "CONDITIONS WE TREAT",
+      subtitle: "Conditions we support",
       headline: "PTSD Treatment",
       body: "Trauma can leave lasting imprints on the mind and body. Ketamine therapy has shown remarkable promise in helping patients process traumatic memories and reduce the intensity of PTSD symptoms in a safe, supportive environment.",
       ctaLabel: "Schedule a Consultation",
@@ -111,7 +111,7 @@ export const defaultConditionContent: Record<string, ConditionV1Content> = {
   },
   ocd: {
     hero: {
-      subtitle: "CONDITIONS WE TREAT",
+      subtitle: "Conditions we support",
       headline: "OCD Treatment",
       body: "Obsessive-compulsive disorder can be exhausting and isolating. For patients who haven't found relief through traditional treatments, ketamine-based therapies may help interrupt the cycle of intrusive thoughts and compulsive behaviors.",
       ctaLabel: "Schedule a Consultation",
@@ -144,7 +144,7 @@ export const defaultConditionContent: Record<string, ConditionV1Content> = {
   },
   "pain-management": {
     hero: {
-      subtitle: "CONDITIONS WE TREAT",
+      subtitle: "Conditions we support",
       headline: "Pain Management",
       body: "Chronic pain can be debilitating and significantly impact your quality of life. When traditional pain treatments haven't provided lasting relief, ketamine infusion therapy offers a promising alternative for managing various chronic pain conditions.",
       ctaLabel: "Schedule a Consultation",

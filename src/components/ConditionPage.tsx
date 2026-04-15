@@ -50,7 +50,7 @@ const ConditionPage = ({ slug, fallbackImage, fallback }: ConditionPageProps) =>
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
                 <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
-                  {c.hero.subtitle || 'CONDITIONS WE TREAT'}
+                  {c.hero.subtitle || 'Conditions we support'}
                 </p>
                 <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
                   {c.hero.headline}
