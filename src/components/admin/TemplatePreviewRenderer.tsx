@@ -299,17 +299,26 @@ function ContactPreview({ content }: { content: ContactV1Content }) {
 }
 
 function FAQPreview({ content }: { content: FAQV1Content }) {
+  const sections = content.sections ?? [];
+  const flatItems = content.flatItems ?? [];
+  const hasFlat = flatItems.length > 0;
+  const hasSections = sections.length > 0;
   return (
     <>
       <PreviewHero hero={content.hero} />
-      {content.sections.map((section, i) => (
+      {hasFlat && (
+        <PreviewSection title="FAQ Items">
+          <PreviewFAQ items={flatItems} />
+        </PreviewSection>
+      )}
+      {hasSections && sections.map((section, i) => (
         <PreviewSection key={i} title={section.title} bg={i % 2 === 1 ? 'bg-muted/30' : ''}>
           <PreviewFAQ items={section.items} />
         </PreviewSection>
       ))}
-      {content.sections.length === 0 && (
-        <PreviewSection title="FAQ Sections">
-          <p className="text-xs text-muted-foreground text-center">No FAQ sections configured</p>
+      {!hasFlat && !hasSections && (
+        <PreviewSection title="FAQ Items">
+          <p className="text-xs text-muted-foreground text-center">No FAQ items configured</p>
         </PreviewSection>
       )}
       <PreviewCTA title={content.cta.title} body={content.cta.body} ctaLabel={content.cta.ctaLabel} />
