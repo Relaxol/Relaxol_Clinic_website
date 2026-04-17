@@ -16,9 +16,22 @@ interface AboutSectionProps {
 
 export function AboutSection({ content }: AboutSectionProps) {
   const subtitle = content?.subtitle || "WHY JERSEY SERENITY MINDS";
-  const title = content?.title || "A New Standard in Mental Health Care";
+  const title = content?.title || "New Way of Care in Interventional Psychiatry";
   const imageUrl = content?.imageUrl || aboutClinic;
   const imageAlt = content?.imageAlt || "Modern treatment facility interior";
+
+  // Highlight the last two words of the title in the accent color
+  const renderTitle = () => {
+    const words = title.trim().split(/\s+/);
+    if (words.length < 3) return title;
+    const head = words.slice(0, -2).join(" ");
+    const tail = words.slice(-2).join(" ");
+    return (
+      <>
+        {head} <span className="text-primary">{tail}</span>
+      </>
+    );
+  };
 
   // Default body paragraphs - refined for premium medical aesthetic
   const defaultBody = `<p>At Jersey Serenity Minds, we specialize in advanced psychiatric care with a focus on interventional psychiatry, pain management and FDA-approved treatments for treatment-resistant depression, including SPRAVATO® and medically supervised ketamine therapy. Care begins with a comprehensive evaluation, followed by personalized treatment when appropriate.</p><p>Our approach is evidence-based and tailored to each patient. We support individuals experiencing depression, anxiety, PTSD, and OCD with compassionate, clinician-led care in a safe, comfortable setting with flexible scheduling and insurance support.</p>`;
@@ -33,7 +46,7 @@ export function AboutSection({ content }: AboutSectionProps) {
             {subtitle}
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold">
-            {title}
+            {renderTitle()}
           </h2>
         </div>
 
