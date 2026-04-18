@@ -7,6 +7,7 @@ import { AccessibilityWidget } from "@/components/AccessibilityWidget";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { ScrollToTopOnNavigate } from "@/components/ScrollToTopOnNavigate";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { Analytics } from "@vercel/analytics/react";
 import Home from "./pages/Home";
 import Spravato from "./pages/Spravato";
 import Ketamine from "./pages/Ketamine";
@@ -61,6 +62,7 @@ const App = () => (
           <ScrollToTopOnNavigate />
           <AccessibilityWidget />
           <ScrollToTop />
+          <Analytics />
           <Routes>
             {/* Public routes - Hardcoded pages with custom designs */}
             <Route path="/" element={<Home />} />
