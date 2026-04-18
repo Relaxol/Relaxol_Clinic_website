@@ -36,6 +36,24 @@ export const TEMPLATE_LABELS: Record<TemplateType, string> = {
   evaluations_v1: "Evaluations Page",
 };
 
+export function normalizeTemplateType(template: unknown): TemplateType | null {
+  if (typeof template !== "string") return null;
+
+  const legacyTemplateMap: Record<string, TemplateType> = {
+    "home-v1": "home_v1",
+    "ketamine-v1": "ketamine_v1",
+    "spravato-v1": "spravato_v1",
+    "contact-v1": "contact_v1",
+    "faq-v1": "faq_v1",
+    "condition-v1": "condition_v1",
+    "vitamin-infusions-v1": "vitamin_infusions_v1",
+    "our-team-v1": "our_team_v1",
+    "evaluations-v1": "evaluations_v1",
+  };
+
+  return legacyTemplateMap[template] || (TEMPLATE_TYPES.includes(template as TemplateType) ? (template as TemplateType) : null);
+}
+
 // Common interfaces
 interface HeroContent {
   subtitle?: string;
