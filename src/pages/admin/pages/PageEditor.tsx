@@ -42,6 +42,7 @@ import {
   TemplateContent, 
   TEMPLATE_TYPES, 
   TEMPLATE_LABELS,
+  normalizeTemplateType,
   createDefaultContent 
 } from '@/lib/templates/schemas';
 
@@ -228,7 +229,7 @@ const PageEditor = () => {
       });
 
       const rawContentJson = rawData.content_json as unknown;
-      const template = (rawData.template as TemplateType) || null;
+      const template = normalizeTemplateType(rawData.template);
       
       // Auto-initialize content_json with defaults if template is set but content is empty
       let normalizedContentJson: TemplateContent | null;
@@ -246,7 +247,7 @@ const PageEditor = () => {
         title: (rawData.title as string) || '',
         slug: (rawData.slug as string) || '',
         type: (rawData.type as string) || 'page',
-        template: template,
+         template: template,
         content_json: normalizedContentJson,
         hero_headline: (rawData.hero_headline as string) || '',
         hero_subheadline: (rawData.hero_subheadline as string) || '',
