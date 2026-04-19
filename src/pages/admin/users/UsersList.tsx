@@ -54,6 +54,7 @@ const UsersList = () => {
   const { membership, session } = useAuth();
   const { toast } = useToast();
   const [members, setMembers] = useState<TenantMember[]>([]);
+  const [emails, setEmails] = useState<Record<string, string>>({});
   const [invites, setInvites] = useState<Invite[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -91,6 +92,16 @@ const UsersList = () => {
 
       if (membersError) throw membersError;
       setMembers(membersData || []);
+
+      // Fetch emails for members via edge function
+      try {
+        const { data: emailData } = await supabase.functions.invoke('list-member-emails', {
+          body: { tenant_id: membership.tenantId }
+        });
+        if (emailData?.emails) setEmails(emailData.emails);
+      } catch (e) {
+        console.error('Failed to load member emails:', e);
+      }
 
       if (isAdmin) {
         const { data: invitesData, error: invitesError } = await supabase
@@ -454,7 +465,7 @@ const UsersList = () => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>User ID</TableHead>
+                  <TableHead>Email</TableHead>
                   <TableHead>Role</TableHead>
                   <TableHead className="hidden md:table-cell">Joined</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
@@ -470,8 +481,10 @@ const UsersList = () => {
                 ) : (
                   members.map((member) => (
                     <TableRow key={member.id}>
-                      <TableCell className="font-mono text-sm">
-                        {member.user_id.slice(0, 8)}...
+                      <TableCell className="text-sm">
+                        {emails[member.user_id] || (
+                          <span className="font-mono text-muted-foreground">{member.user_id.slice(0, 8)}…</span>
+                        )}
                       </TableCell>
                       <TableCell>
                         <Select 
