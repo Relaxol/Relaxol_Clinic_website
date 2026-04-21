@@ -13,7 +13,7 @@ serve(async (req) => {
 
   try {
     const authHeader = req.headers.get('Authorization');
-    if (!authHeader) {
+    if (!authHeader?.startsWith('Bearer ')) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
         status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
@@ -26,8 +26,11 @@ serve(async (req) => {
     const supabase = createClient(supabaseUrl, supabaseKey, {
       global: { headers: { Authorization: authHeader } }
     });
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
+    const token = authHeader.replace('Bearer ', '');
+    const { data: claimsData, error: authError } = await supabase.auth.getClaims(token);
+    const userId = claimsData?.claims?.sub;
+
+    if (authError || !userId) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
         status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
@@ -46,7 +49,7 @@ serve(async (req) => {
     const { data: callerMember } = await serviceSupabase
       .from('tenant_members')
       .select('role')
-      .eq('user_id', user.id)
+      .eq('user_id', userId)
       .eq('tenant_id', tenant_id)
       .maybeSingle();
 
@@ -62,21 +65,16 @@ serve(async (req) => {
       .select('user_id')
       .eq('tenant_id', tenant_id);
 
-    const ids = new Set((members || []).map((m: any) => m.user_id));
-
-    // List auth users and map id -> email
     const emailMap: Record<string, string> = {};
-    let page = 1;
-    const perPage = 1000;
-    while (true) {
-      const { data, error } = await serviceSupabase.auth.admin.listUsers({ page, perPage });
-      if (error) break;
-      for (const u of data.users) {
-        if (ids.has(u.id)) emailMap[u.id] = u.email || '';
-      }
-      if (data.users.length < perPage) break;
-      page++;
-    }
+
+    await Promise.all(
+      (members || []).map(async (member: { user_id: string }) => {
+        const { data, error } = await serviceSupabase.auth.admin.getUserById(member.user_id);
+        if (!error && data.user?.email) {
+          emailMap[member.user_id] = data.user.email;
+        }
+      })
+    );
 
     return new Response(JSON.stringify({ emails: emailMap }), {
       status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
