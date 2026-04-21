@@ -44,16 +44,33 @@ const ENTITY_ICONS: Record<string, React.ReactNode> = {
 };
 
 const ActivityLog = () => {
-  const { membership } = useAuth();
+  const { membership, session } = useAuth();
   const [entries, setEntries] = useState<ActivityEntry[]>([]);
+  const [emails, setEmails] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [entityFilter, setEntityFilter] = useState<string>('all');
   const [actionFilter, setActionFilter] = useState<string>('all');
 
   useEffect(() => {
-    if (membership?.tenantId) fetchEntries();
-  }, [membership?.tenantId]);
+    if (membership?.tenantId && session?.access_token) {
+      fetchEntries();
+      fetchEmails();
+    }
+  }, [membership?.tenantId, session?.access_token]);
+
+  const fetchEmails = async () => {
+    if (!membership?.tenantId || !session?.access_token) return;
+    try {
+      const { data, error } = await supabase.functions.invoke('list-member-emails', {
+        body: { tenant_id: membership.tenantId },
+        headers: { Authorization: `Bearer ${session.access_token}` },
+      });
+      if (!error && data?.emails) setEmails(data.emails);
+    } catch (e) {
+      console.error('Failed to fetch emails:', e);
+    }
+  };
 
   const fetchEntries = async () => {
     setLoading(true);
@@ -181,7 +198,7 @@ const ActivityLog = () => {
                     </span>
                   </div>
                   <p className="text-xs text-muted-foreground mt-0.5">
-                    {entry.user_email || 'System'} · {formatDistanceToNow(new Date(entry.created_at), { addSuffix: true })}
+                    {entry.user_email || (entry.user_id && emails[entry.user_id]) || (entry.user_id ? entry.user_id.slice(0, 8) : 'System')} · {formatDistanceToNow(new Date(entry.created_at), { addSuffix: true })}
                   </p>
                 </div>
               </CardContent>
