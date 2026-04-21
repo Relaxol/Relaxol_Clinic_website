@@ -77,57 +77,59 @@ const UsersList = () => {
   const limitReached = maxUsers !== null && members.length >= maxUsers;
 
   useEffect(() => {
-    fetchData();
+    if (membership?.tenantId) {
+      fetchData();
+    }
   }, [membership?.tenantId, session?.access_token]);
+
+  const fetchEmails = async (tenantId: string, accessToken?: string) => {
+    if (!accessToken) {
+      setEmails({});
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase.functions.invoke('list-member-emails', {
+        body: { tenant_id: tenantId },
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      if (error) throw error;
+      setEmails(data?.emails ?? {});
+    } catch (error) {
+      console.error('Failed to load member emails:', error);
+      setEmails({});
+    }
+  };
 
   const fetchData = async () => {
     if (!membership?.tenantId) return;
 
+    setLoading(true);
     try {
-      const { data: membersData, error: membersError } = await supabase
-        .from('tenant_members')
-        .select('*')
-        .eq('tenant_id', membership.tenantId)
-        .order('created_at');
+      const tenantId = membership.tenantId;
+      const [{ data: membersData, error: membersError }, invitesResult] = await Promise.all([
+        supabase
+          .from('tenant_members')
+          .select('*')
+          .eq('tenant_id', tenantId)
+          .order('created_at'),
+        isAdmin
+          ? supabase
+              .from('invites')
+              .select('*')
+              .eq('tenant_id', tenantId)
+              .is('accepted_at', null)
+              .order('created_at', { ascending: false })
+          : Promise.resolve({ data: [], error: null }),
+      ]);
 
       if (membersError) throw membersError;
+
       setMembers(membersData || []);
+      setInvites(invitesResult.error ? [] : invitesResult.data || []);
 
-      // Fetch emails for members via edge function
-      if (session?.access_token) {
-        try {
-          const { data: emailData, error: emailError } = await supabase.functions.invoke('list-member-emails', {
-            body: { tenant_id: membership.tenantId },
-            headers: {
-              Authorization: `Bearer ${session.access_token}`,
-            },
-          });
-
-          if (emailError) {
-            throw emailError;
-          }
-
-          setEmails(emailData?.emails ?? {});
-        } catch (e) {
-          console.error('Failed to load member emails:', e);
-          setEmails({});
-        }
-      } else {
-        setEmails({});
-      }
-
-      if (isAdmin) {
-        const { data: invitesData, error: invitesError } = await supabase
-          .from('invites')
-          .select('*')
-          .eq('tenant_id', membership.tenantId)
-          .is('accepted_at', null)
-          .order('created_at', { ascending: false });
-
-        if (!invitesError) {
-          setInvites(invitesData || []);
-        }
-      }
+      await fetchEmails(tenantId, session?.access_token);
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -495,7 +497,7 @@ const UsersList = () => {
                   members.map((member) => (
                     <TableRow key={member.id}>
                       <TableCell className="text-sm">
-                        {emails[member.user_id] || (
+                        {emails[member.user_id]?.trim() || (
                           <span className="font-mono text-muted-foreground">{member.user_id.slice(0, 8)}…</span>
                         )}
                       </TableCell>
