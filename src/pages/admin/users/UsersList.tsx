@@ -78,7 +78,7 @@ const UsersList = () => {
 
   useEffect(() => {
     fetchData();
-  }, [membership?.tenantId]);
+  }, [membership?.tenantId, session?.access_token]);
 
   const fetchData = async () => {
     if (!membership?.tenantId) return;
@@ -94,13 +94,26 @@ const UsersList = () => {
       setMembers(membersData || []);
 
       // Fetch emails for members via edge function
-      try {
-        const { data: emailData } = await supabase.functions.invoke('list-member-emails', {
-          body: { tenant_id: membership.tenantId }
-        });
-        if (emailData?.emails) setEmails(emailData.emails);
-      } catch (e) {
-        console.error('Failed to load member emails:', e);
+      if (session?.access_token) {
+        try {
+          const { data: emailData, error: emailError } = await supabase.functions.invoke('list-member-emails', {
+            body: { tenant_id: membership.tenantId },
+            headers: {
+              Authorization: `Bearer ${session.access_token}`,
+            },
+          });
+
+          if (emailError) {
+            throw emailError;
+          }
+
+          setEmails(emailData?.emails ?? {});
+        } catch (e) {
+          console.error('Failed to load member emails:', e);
+          setEmails({});
+        }
+      } else {
+        setEmails({});
       }
 
       if (isAdmin) {
