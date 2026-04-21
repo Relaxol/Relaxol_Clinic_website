@@ -18,6 +18,7 @@ import { formatDistanceToNow } from 'date-fns';
 interface ActivityEntry {
   id: string;
   user_email: string | null;
+  user_id: string | null;
   action: string;
   entity_type: string;
   entity_id: string | null;
